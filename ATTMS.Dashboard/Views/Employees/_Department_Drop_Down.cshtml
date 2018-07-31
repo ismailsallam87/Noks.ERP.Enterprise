@@ -1,0 +1,18 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model  List< SP_Select_Departments_Result>  
+<div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">@Resource.Department</label>
+            <div class="col-sm-10">
+                <select class="form-control m-b" id="title" onchange="Fill_Job_Title()" name="title">
+                    <option value="">@Resource.Please_Choose_Department</option>
+                    @foreach (var item in Model)
+                    {
+                            <option value="@item.Id">@item.title</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+ 

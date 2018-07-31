@@ -1,0 +1,66 @@
+﻿@using ATTMS.Dashboard.Resources 
+@using Models
+@model List<SP_Employee_Select_Result>
+<div class="row">
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="employees_tbl" class="display table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>@Resource.Name</th>
+                                    <th>@Resource.Details</th>
+                                    <th>@Resource.code</th>
+                                    <th>@Resource.User_Name</th>
+                                    <th>@Resource.SSN</th>
+                                    <th>@Resource.Social_Insurance_Code</th>
+                                    <th>@Resource.Mobile</th>
+                                    <th width="15%">@Resource.Absence_Days</th>
+                                    <th width="15%">@Resource.Deduction_Hours</th>
+                                    <th width="15%">@Resource.Worked_Hours</th>
+                                    <th width="15%">@Resource.Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var employee in Model)
+                                {
+                                    <tr>
+                                        <td>@employee.name</td>
+                                        <td>@employee.job_title,@employee.department_title</td>
+                                        <th>@employee.code</th>
+                                        <th>@employee.user_name</th>
+                                        <th>@employee.ssn</th>
+                                        <th>@employee.social_insurance_code</th>
+                                        <th>@employee.mobile</th>
+                                        <th width="15%">@employee.absence_total</th>
+                                        <th width="15%">@employee.total_deductions</th>
+                                        <th width="15%">@employee.worked_hours</th>
+                                        <td width="15%">
+                                            <a href="@Url.Action("Details", new {Id=employee.Id})" c class="btn btn-xs btn-default"> @Resource.View</a>
+                                            <a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#EditEmployeeModal" onclick="Get_Data_Edit_Pop_UP(@employee.Id)"> >@Resource.Edit</a>
+                                          @if (employee.Is_Related.Value)
+                                          {
+                                            @*<a class="btn btn-xs btn-default"> Delete</a>*@
+                                            <a href="#deleteDepartmentModal" onclick="delete_Department(@employee.Id)" data-toggle="modal" class="btn btn-xs btn-default">>@Resource.Delete</a>
+
+                                          }
+                                            
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p> >@Resource.No_Employees_found</p>
+    }
+
+</div>

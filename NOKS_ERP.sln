@@ -1,0 +1,282 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTMS.Dashboard", "ATTMS.Dashboard\ATTMS.Dashboard.csproj", "{A5BB4CBB-D443-4681-8286-08CB02192A95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTMS.Dashboard.Tests", "ATTMS.Dashboard.Tests\ATTMS.Dashboard.Tests.csproj", "{4BDFC56D-42C0-4515-982B-08D4AF274F65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "clients", "clients", "{92A9F7BC-2FC0-4799-A570-36ECFB3E7110}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{C6D06A3E-D9ED-40FA-A69F-71963AD45E8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F1C5B24E-9C31-4E9C-AB94-AF7E5EB7EC05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "contracts", "contracts", "{82FCF54A-FCFD-4C17-99FE-3AEB929DC99A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTMS.DAL", "Models\ATTMS.DAL.csproj", "{2D0999DE-1185-4429-9772-F2B8E8E25258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingRoom.Cpanel", "MeetingRoom.Cpanel\MeetingRoom.Cpanel.csproj", "{D9482469-CDA8-48C5-BA2D-E294E7EB093A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingRoom.Cpanel.Tests", "MeetingRoom.Cpanel.Tests\MeetingRoom.Cpanel.Tests.csproj", "{948DE0C4-AAFC-4BD2-A74A-2E5B973EE02E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{CED20355-A3C1-4736-B931-5A4FF93876AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mobile", "mobile", "{75FC62F7-C0ED-4007-98F3-15FFCA6AAB3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{752128E0-3741-42AD-BC93-FFF6039064A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noks_Meetingroom_Addons_2013_2016", "Noks_Meetingroom_Addons_2013_2016\Noks_Meetingroom_Addons_2013_2016.csproj", "{83D5AB17-186C-4E71-B66A-29FD687E43D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingRooms_DAL", "MeetingRooms_DAL\MeetingRooms_DAL.csproj", "{6B6FBEC4-6FAC-4805-94BC-C49984CF8882}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{7AA748DC-0E11-427E-8FAC-707F8F71E516}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingRoom.API", "MeetingRoom.API\MeetingRoom.API.csproj", "{F601AAFD-7894-41FD-B046-63AF91171F70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingRoom.API.Tests", "MeetingRoom.API.Tests\MeetingRoom.API.Tests.csproj", "{A7CE6E9C-8549-4AD6-9E24-1CA2D97BF99A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Device.Enrollment.Migration", "Device.Enrollment.Migration\Device.Enrollment.Migration.csproj", "{00FDA4AC-7BC0-489B-A469-AC4FC2358B96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nox.OTS", "Nox_OTS\Nox.OTS.csproj", "{2F57D407-C2D1-4CEA-AD8D-B283F1709AFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKYWAY.Device.Encoder", "Device.Encoder\SKYWAY.Device.Encoder.csproj", "{4F965665-5977-45F2-BBD2-29336907CC13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Device.Sync", "Device.Sync\Device.Sync.csproj", "{E6CCE862-E640-470D-A980-EF7BDCBCFE82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZKT.Device.Encoder", "ZKT.Device.Encoder\ZKT.Device.Encoder.csproj", "{E2F1C848-031E-40AE-B267-F2D947C59CEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioStar.Device.Encoder", "BioStar.Device.Encoder\BioStar.Device.Encoder.csproj", "{0534229C-EC9C-41B1-9E76-0DEC8F4E3005}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTS.DAL", "OTS.DAL\OTS.DAL.csproj", "{DFE12A38-C062-4F25-BB38-BB17155238EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nok.Tech.Identity", "Nok.Tech.Identity\Nok.Tech.Identity.csproj", "{FAA7F1A1-F2C1-431D-A494-D40788C70814}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nok.Tech.Helper", "Nok.Tech.Helper\Nok.Tech.Helper.csproj", "{D528BD02-0A48-4C2A-AAD7-3A0F1A021AD8}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ATTMS.SQL.Project", "ATTMS.SQL.Project\ATTMS.SQL.Project.sqlproj", "{7DE8194C-DAD4-48B7-A83F-115C2EB2F978}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{9C0F9F47-BB3B-4710-B765-173BDD12FD04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Desktop", "POS.Desktop\POS.Desktop.csproj", "{DBA8314F-929C-4660-91DC-D1C9A004FA72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.DAL", "POS.DAL\POS.DAL.csproj", "{B5680E15-B4D4-4660-B094-E033CE75F074}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5BB4CBB-D443-4681-8286-08CB02192A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5BB4CBB-D443-4681-8286-08CB02192A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5BB4CBB-D443-4681-8286-08CB02192A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5BB4CBB-D443-4681-8286-08CB02192A95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BDFC56D-42C0-4515-982B-08D4AF274F65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BDFC56D-42C0-4515-982B-08D4AF274F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BDFC56D-42C0-4515-982B-08D4AF274F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BDFC56D-42C0-4515-982B-08D4AF274F65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D0999DE-1185-4429-9772-F2B8E8E25258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D0999DE-1185-4429-9772-F2B8E8E25258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D0999DE-1185-4429-9772-F2B8E8E25258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D0999DE-1185-4429-9772-F2B8E8E25258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9482469-CDA8-48C5-BA2D-E294E7EB093A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9482469-CDA8-48C5-BA2D-E294E7EB093A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9482469-CDA8-48C5-BA2D-E294E7EB093A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9482469-CDA8-48C5-BA2D-E294E7EB093A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{948DE0C4-AAFC-4BD2-A74A-2E5B973EE02E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{948DE0C4-AAFC-4BD2-A74A-2E5B973EE02E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{948DE0C4-AAFC-4BD2-A74A-2E5B973EE02E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{948DE0C4-AAFC-4BD2-A74A-2E5B973EE02E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83D5AB17-186C-4E71-B66A-29FD687E43D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83D5AB17-186C-4E71-B66A-29FD687E43D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83D5AB17-186C-4E71-B66A-29FD687E43D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83D5AB17-186C-4E71-B66A-29FD687E43D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B6FBEC4-6FAC-4805-94BC-C49984CF8882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B6FBEC4-6FAC-4805-94BC-C49984CF8882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B6FBEC4-6FAC-4805-94BC-C49984CF8882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B6FBEC4-6FAC-4805-94BC-C49984CF8882}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F601AAFD-7894-41FD-B046-63AF91171F70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F601AAFD-7894-41FD-B046-63AF91171F70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F601AAFD-7894-41FD-B046-63AF91171F70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F601AAFD-7894-41FD-B046-63AF91171F70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7CE6E9C-8549-4AD6-9E24-1CA2D97BF99A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7CE6E9C-8549-4AD6-9E24-1CA2D97BF99A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7CE6E9C-8549-4AD6-9E24-1CA2D97BF99A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7CE6E9C-8549-4AD6-9E24-1CA2D97BF99A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00FDA4AC-7BC0-489B-A469-AC4FC2358B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00FDA4AC-7BC0-489B-A469-AC4FC2358B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00FDA4AC-7BC0-489B-A469-AC4FC2358B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00FDA4AC-7BC0-489B-A469-AC4FC2358B96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F57D407-C2D1-4CEA-AD8D-B283F1709AFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F57D407-C2D1-4CEA-AD8D-B283F1709AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F57D407-C2D1-4CEA-AD8D-B283F1709AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F57D407-C2D1-4CEA-AD8D-B283F1709AFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F965665-5977-45F2-BBD2-29336907CC13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F965665-5977-45F2-BBD2-29336907CC13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F965665-5977-45F2-BBD2-29336907CC13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F965665-5977-45F2-BBD2-29336907CC13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6CCE862-E640-470D-A980-EF7BDCBCFE82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6CCE862-E640-470D-A980-EF7BDCBCFE82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6CCE862-E640-470D-A980-EF7BDCBCFE82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6CCE862-E640-470D-A980-EF7BDCBCFE82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2F1C848-031E-40AE-B267-F2D947C59CEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2F1C848-031E-40AE-B267-F2D947C59CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2F1C848-031E-40AE-B267-F2D947C59CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2F1C848-031E-40AE-B267-F2D947C59CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0534229C-EC9C-41B1-9E76-0DEC8F4E3005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0534229C-EC9C-41B1-9E76-0DEC8F4E3005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0534229C-EC9C-41B1-9E76-0DEC8F4E3005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0534229C-EC9C-41B1-9E76-0DEC8F4E3005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFE12A38-C062-4F25-BB38-BB17155238EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFE12A38-C062-4F25-BB38-BB17155238EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFE12A38-C062-4F25-BB38-BB17155238EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFE12A38-C062-4F25-BB38-BB17155238EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAA7F1A1-F2C1-431D-A494-D40788C70814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAA7F1A1-F2C1-431D-A494-D40788C70814}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAA7F1A1-F2C1-431D-A494-D40788C70814}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAA7F1A1-F2C1-431D-A494-D40788C70814}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D528BD02-0A48-4C2A-AAD7-3A0F1A021AD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D528BD02-0A48-4C2A-AAD7-3A0F1A021AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D528BD02-0A48-4C2A-AAD7-3A0F1A021AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D528BD02-0A48-4C2A-AAD7-3A0F1A021AD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DE8194C-DAD4-48B7-A83F-115C2EB2F978}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DE8194C-DAD4-48B7-A83F-115C2EB2F978}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DE8194C-DAD4-48B7-A83F-115C2EB2F978}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7DE8194C-DAD4-48B7-A83F-115C2EB2F978}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DE8194C-DAD4-48B7-A83F-115C2EB2F978}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DE8194C-DAD4-48B7-A83F-115C2EB2F978}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DBA8314F-929C-4660-91DC-D1C9A004FA72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA8314F-929C-4660-91DC-D1C9A004FA72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA8314F-929C-4660-91DC-D1C9A004FA72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBA8314F-929C-4660-91DC-D1C9A004FA72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5680E15-B4D4-4660-B094-E033CE75F074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5680E15-B4D4-4660-B094-E033CE75F074}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5680E15-B4D4-4660-B094-E033CE75F074}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5680E15-B4D4-4660-B094-E033CE75F074}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A5BB4CBB-D443-4681-8286-08CB02192A95} = {CED20355-A3C1-4736-B931-5A4FF93876AF}
+		{4BDFC56D-42C0-4515-982B-08D4AF274F65} = {F1C5B24E-9C31-4E9C-AB94-AF7E5EB7EC05}
+		{2D0999DE-1185-4429-9772-F2B8E8E25258} = {C6D06A3E-D9ED-40FA-A69F-71963AD45E8C}
+		{D9482469-CDA8-48C5-BA2D-E294E7EB093A} = {CED20355-A3C1-4736-B931-5A4FF93876AF}
+		{948DE0C4-AAFC-4BD2-A74A-2E5B973EE02E} = {F1C5B24E-9C31-4E9C-AB94-AF7E5EB7EC05}
+		{CED20355-A3C1-4736-B931-5A4FF93876AF} = {92A9F7BC-2FC0-4799-A570-36ECFB3E7110}
+		{75FC62F7-C0ED-4007-98F3-15FFCA6AAB3E} = {92A9F7BC-2FC0-4799-A570-36ECFB3E7110}
+		{752128E0-3741-42AD-BC93-FFF6039064A6} = {92A9F7BC-2FC0-4799-A570-36ECFB3E7110}
+		{83D5AB17-186C-4E71-B66A-29FD687E43D1} = {752128E0-3741-42AD-BC93-FFF6039064A6}
+		{6B6FBEC4-6FAC-4805-94BC-C49984CF8882} = {C6D06A3E-D9ED-40FA-A69F-71963AD45E8C}
+		{F601AAFD-7894-41FD-B046-63AF91171F70} = {82FCF54A-FCFD-4C17-99FE-3AEB929DC99A}
+		{A7CE6E9C-8549-4AD6-9E24-1CA2D97BF99A} = {F1C5B24E-9C31-4E9C-AB94-AF7E5EB7EC05}
+		{00FDA4AC-7BC0-489B-A469-AC4FC2358B96} = {7AA748DC-0E11-427E-8FAC-707F8F71E516}
+		{2F57D407-C2D1-4CEA-AD8D-B283F1709AFF} = {CED20355-A3C1-4736-B931-5A4FF93876AF}
+		{4F965665-5977-45F2-BBD2-29336907CC13} = {7AA748DC-0E11-427E-8FAC-707F8F71E516}
+		{E6CCE862-E640-470D-A980-EF7BDCBCFE82} = {7AA748DC-0E11-427E-8FAC-707F8F71E516}
+		{E2F1C848-031E-40AE-B267-F2D947C59CEF} = {7AA748DC-0E11-427E-8FAC-707F8F71E516}
+		{0534229C-EC9C-41B1-9E76-0DEC8F4E3005} = {7AA748DC-0E11-427E-8FAC-707F8F71E516}
+		{DFE12A38-C062-4F25-BB38-BB17155238EF} = {C6D06A3E-D9ED-40FA-A69F-71963AD45E8C}
+		{FAA7F1A1-F2C1-431D-A494-D40788C70814} = {7AA748DC-0E11-427E-8FAC-707F8F71E516}
+		{D528BD02-0A48-4C2A-AAD7-3A0F1A021AD8} = {7AA748DC-0E11-427E-8FAC-707F8F71E516}
+		{7DE8194C-DAD4-48B7-A83F-115C2EB2F978} = {C6D06A3E-D9ED-40FA-A69F-71963AD45E8C}
+		{9C0F9F47-BB3B-4710-B765-173BDD12FD04} = {92A9F7BC-2FC0-4799-A570-36ECFB3E7110}
+		{DBA8314F-929C-4660-91DC-D1C9A004FA72} = {9C0F9F47-BB3B-4710-B765-173BDD12FD04}
+		{B5680E15-B4D4-4660-B094-E033CE75F074} = {C6D06A3E-D9ED-40FA-A69F-71963AD45E8C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9682D66F-B9BA-41AF-84B6-982326391260}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 22
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://nok-technology.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ATTMS.Dashboard.Tests\\ATTMS.Dashboard.Tests.csproj
+		SccProjectTopLevelParentUniqueName1 = NOKS_ERP.sln
+		SccProjectName1 = ATTMS.Dashboard.Tests
+		SccLocalPath1 = ATTMS.Dashboard.Tests
+		SccProjectUniqueName2 = ATTMS.Dashboard\\ATTMS.Dashboard.csproj
+		SccProjectTopLevelParentUniqueName2 = NOKS_ERP.sln
+		SccProjectName2 = ATTMS.Dashboard
+		SccLocalPath2 = ATTMS.Dashboard
+		SccProjectUniqueName3 = ATTMS.SQL.Project\\ATTMS.SQL.Project.sqlproj
+		SccProjectTopLevelParentUniqueName3 = NOKS_ERP.sln
+		SccProjectName3 = ATTMS.SQL.Project
+		SccLocalPath3 = ATTMS.SQL.Project
+		SccProjectUniqueName4 = BioStar.Device.Encoder\\BioStar.Device.Encoder.csproj
+		SccProjectTopLevelParentUniqueName4 = NOKS_ERP.sln
+		SccProjectName4 = BioStar.Device.Encoder
+		SccLocalPath4 = BioStar.Device.Encoder
+		SccProjectUniqueName5 = Device.Encoder\\SKYWAY.Device.Encoder.csproj
+		SccProjectTopLevelParentUniqueName5 = NOKS_ERP.sln
+		SccProjectName5 = Device.Encoder
+		SccLocalPath5 = Device.Encoder
+		SccProjectUniqueName6 = Device.Enrollment.Migration\\Device.Enrollment.Migration.csproj
+		SccProjectTopLevelParentUniqueName6 = NOKS_ERP.sln
+		SccProjectName6 = Device.Enrollment.Migration
+		SccLocalPath6 = Device.Enrollment.Migration
+		SccProjectUniqueName7 = Device.Sync\\Device.Sync.csproj
+		SccProjectTopLevelParentUniqueName7 = NOKS_ERP.sln
+		SccProjectName7 = Device.Sync
+		SccLocalPath7 = Device.Sync
+		SccProjectUniqueName8 = MeetingRoom.API.Tests\\MeetingRoom.API.Tests.csproj
+		SccProjectTopLevelParentUniqueName8 = NOKS_ERP.sln
+		SccProjectName8 = MeetingRoom.API.Tests
+		SccLocalPath8 = MeetingRoom.API.Tests
+		SccProjectUniqueName9 = MeetingRoom.API\\MeetingRoom.API.csproj
+		SccProjectTopLevelParentUniqueName9 = NOKS_ERP.sln
+		SccProjectName9 = MeetingRoom.API
+		SccLocalPath9 = MeetingRoom.API
+		SccProjectUniqueName10 = MeetingRoom.Cpanel.Tests\\MeetingRoom.Cpanel.Tests.csproj
+		SccProjectTopLevelParentUniqueName10 = NOKS_ERP.sln
+		SccProjectName10 = MeetingRoom.Cpanel.Tests
+		SccLocalPath10 = MeetingRoom.Cpanel.Tests
+		SccProjectUniqueName11 = MeetingRoom.Cpanel\\MeetingRoom.Cpanel.csproj
+		SccProjectTopLevelParentUniqueName11 = NOKS_ERP.sln
+		SccProjectName11 = MeetingRoom.Cpanel
+		SccLocalPath11 = MeetingRoom.Cpanel
+		SccProjectUniqueName12 = MeetingRooms_DAL\\MeetingRooms_DAL.csproj
+		SccProjectTopLevelParentUniqueName12 = NOKS_ERP.sln
+		SccProjectName12 = MeetingRooms_DAL
+		SccLocalPath12 = MeetingRooms_DAL
+		SccProjectUniqueName13 = Models\\ATTMS.DAL.csproj
+		SccProjectTopLevelParentUniqueName13 = NOKS_ERP.sln
+		SccProjectName13 = Models
+		SccLocalPath13 = Models
+		SccProjectUniqueName14 = Nok.Tech.Helper\\Nok.Tech.Helper.csproj
+		SccProjectTopLevelParentUniqueName14 = NOKS_ERP.sln
+		SccProjectName14 = Nok.Tech.Helper
+		SccLocalPath14 = Nok.Tech.Helper
+		SccProjectUniqueName15 = Nok.Tech.Identity\\Nok.Tech.Identity.csproj
+		SccProjectTopLevelParentUniqueName15 = NOKS_ERP.sln
+		SccProjectName15 = Nok.Tech.Identity
+		SccLocalPath15 = Nok.Tech.Identity
+		SccProjectUniqueName16 = Noks_Meetingroom_Addons_2013_2016\\Noks_Meetingroom_Addons_2013_2016.csproj
+		SccProjectTopLevelParentUniqueName16 = NOKS_ERP.sln
+		SccProjectName16 = Noks_Meetingroom_Addons_2013_2016
+		SccLocalPath16 = Noks_Meetingroom_Addons_2013_2016
+		SccProjectUniqueName17 = Nox_OTS\\Nox.OTS.csproj
+		SccProjectTopLevelParentUniqueName17 = NOKS_ERP.sln
+		SccProjectName17 = Nox_OTS
+		SccLocalPath17 = Nox_OTS
+		SccProjectUniqueName18 = OTS.DAL\\OTS.DAL.csproj
+		SccProjectTopLevelParentUniqueName18 = NOKS_ERP.sln
+		SccProjectName18 = OTS.DAL
+		SccLocalPath18 = OTS.DAL
+		SccProjectUniqueName19 = POS.DAL\\POS.DAL.csproj
+		SccProjectTopLevelParentUniqueName19 = NOKS_ERP.sln
+		SccProjectName19 = POS.DAL
+		SccLocalPath19 = POS.DAL
+		SccProjectUniqueName20 = POS.Desktop\\POS.Desktop.csproj
+		SccProjectTopLevelParentUniqueName20 = NOKS_ERP.sln
+		SccProjectName20 = POS.Desktop
+		SccLocalPath20 = POS.Desktop
+		SccProjectUniqueName21 = ZKT.Device.Encoder\\ZKT.Device.Encoder.csproj
+		SccProjectTopLevelParentUniqueName21 = NOKS_ERP.sln
+		SccProjectName21 = ZKT.Device.Encoder
+		SccLocalPath21 = ZKT.Device.Encoder
+	EndGlobalSection
+EndGlobal

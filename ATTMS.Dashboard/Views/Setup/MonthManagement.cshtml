@@ -1,0 +1,233 @@
+﻿@using ATTMS.Dashboard.Resources
+@{
+    ViewBag.Title = @Resource.Month_Management;
+}
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">@Resource.Dashboard</a></li>
+                    <li class="active">
+                        <span>@Resource.Month</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>List of @ViewBag.Title.</small>
+            
+        </div>
+
+    </div>
+</div>
+
+<div id="page-conainer" class="content">
+
+</div>
+<div class="modal fade" id="openMonthModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Open_New_Month</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal" id="create_frm">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">@Resource.Month_Code</label>
+                            <div class="col-sm-9">
+                                <input id="code" type="text" class="form-control" name="code">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">@Resource.Start_From</label>
+                            <div class="col-sm-9 input-group date" value="@DateTime.Now.Date">
+                                <input type="text" class="form-control" id="from" name="from">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-th"></i>
+                                </span>
+                            </div>       
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">@Resource.End_At</label>
+                            <div class="col-sm-9 input-group date" value="@DateTime.Now.Date">
+                                <input type="text" class="form-control" id="to" name="to">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i>
+                                </span>
+                            </div>                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_month_open()" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+                <button type="button" onclick="open_month()" data-dismiss="modal" disabled id="create_btn" class="btn btn-primary">@Resource.Save_changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="closemonthModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Close_Month</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+                                <p>@Resource.Close_Month_Ensure_Message </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" id="close_month_container">
+
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/datepicker/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    @Scripts.Render("~/bundles/datepicker/js")
+    <script src="~/Vendor/flot/examples/shared/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            load_opened_month();
+            $('.input-group.date').datepicker({});
+
+            $("#create_frm").validate({
+                rules: {
+                    code: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50
+                    },
+                    
+                    to: {
+                        required: true
+                    },
+                    from: {
+                        required: true
+                    }
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                },
+                errorClass: "error",
+                validClass: "valid"
+            });
+            $('#create_frm').on('blur keyup change', 'input', function (e) {
+                var form = $("#create_frm");
+                var from = new Date($('#from').val());
+                var to = new Date($('#to').val());
+                if (form.valid() && from <= to) {
+                    $('#create_btn').prop('disabled', false);
+                }
+                else {
+                    $('#create_btn').prop('disabled', 'disabled');
+                    return;
+                }
+            });                      
+        });
+        function cancel_month_open() {
+            resetForm('#create_frm');
+            toaster('warning', '@Resource.Open_Month_Cancelled');
+        }
+        function open_month()
+        {
+            var data = {};
+            var ajaxoptions = {};
+            data.from = $('#from').val();
+            data.to = $('#to').val();
+            data.code = $('#code').val();
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Confirm_Open_Month")';
+            ajaxoptions.success = function (result) {
+                resetForm('#create_frm');
+                toaster('info', result);
+                load_opened_month();
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.Fatal_error_Open_Month');
+            };
+            $.ajax(ajaxoptions);
+        }
+        function cancel_month_close()
+        {
+            toaster('warning', 'Month Close Cancelled!.');
+        }
+        function close_month(Id)
+        {
+            var container = $('#close_month_container');
+            var data = {};
+            var ajaxoptions = {};
+            data.Id = Id;
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Close_Month")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);             
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.Fatal_Error_Occured_Update_Request');
+            };
+            $.ajax(ajaxoptions);
+        }
+        function load_opened_month()
+        {
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var container = $('#page-conainer');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Select_opened_Month")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+            };
+            $.ajax(ajaxoptions);
+        }
+        
+        function confirm_close_month(Id) {
+            var data = {};
+            var ajaxoptions = {};
+            data.Id = Id;
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Confirm_Close_Month")';
+            ajaxoptions.success = function (result) {
+                toaster('info', result);
+                load_opened_month();
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.Error_Update_Request');
+            };
+            $.ajax(ajaxoptions);
+        }
+    </script>
+}  

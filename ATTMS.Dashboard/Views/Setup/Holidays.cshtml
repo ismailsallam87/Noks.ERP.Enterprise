@@ -1,0 +1,283 @@
+﻿@using ATTMS.Dashboard.Resources
+@{
+    ViewBag.Title = "Holidays";
+}
+ 
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Holidays", "SetUp")">@Resource.Dashboard</a></li>
+                    <li class="active">
+                        <span>Holidays</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>List of @ViewBag.Title.</small>
+            <div>
+                <p>
+                    <a href="#" data-toggle="modal" data-target="#createHolidayModal" class="btn btn-default header-btn">@Resource.Create</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Create Holiday PopUp*@
+<div class="modal fade" id="createHolidayModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Create_New_Holiday</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal" name="Create_Holioday_frm" id="Create_Holioday_frm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Holiday_Name</label>
+                            <div class="col-sm-10">
+                                <input id="txt_Holiday_Name" name="txt_Holiday_Name" type="text" class="form-control">
+                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Holiday_Start_Date</label>
+                            <div class="col-sm-10">
+                                <input id="dtp_Holiday_Start_Date"  name="dtp_Holiday_Start_Date" type="text" value="02-16-2012" class="form-control">
+                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Holiday_End_Date</label>
+                            <div class="col-sm-10">
+                                <input id="dtp_Holiday_End_Date" name="dtp_Holiday_End_Date" type="text" value="02-16-2012" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button  onclick="cancel_Holiday_creation()" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+                <button   disabled id="Holiday_save_btn" onclick="Create_Holiday()" data-dismiss="modal" class="btn btn-primary">@Resource.Save_changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*Edit Popup*@
+ 
+@section Styles {
+    @Styles.Render("~/bundles/xeditable/css")
+    @Styles.Render("~/bundles/select2/css")
+    @Styles.Render("~/bundles/touchspin/css")
+    @Styles.Render("~/bundles/datepicker/css")
+    @Styles.Render("~/bundles/bootstrapCheckbox/css")
+    @Styles.Render("~/bundles/datetimepicker/css")
+    @Styles.Render("~/bundles/clockpicker/css")
+}
+@section Scripts {
+
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/xeditable/js")
+    @Scripts.Render("~/bundles/select2/js")
+    @Scripts.Render("~/bundles/touchspin/js")
+    @Scripts.Render("~/bundles/datepicker/js")
+    @Scripts.Render("~/bundles/datetimepicker/js")
+    @Scripts.Render("~/bundles/clockpicker/js")
+    <script src="~/Vendor/flot/examples/shared/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+ <script type="text/javascript">
+       //create_Holiday
+       debugger;
+       function Create_Holiday() {
+           var data = {};
+           //debugger;
+           data.Holiday_Name = $('#txt_Holiday_Name').val();
+           data.Holiday_Start_Date = $('#dtp_Holiday_Start_Date').val();;
+           data.Holiday_End_Date = $('#dtp_Holiday_End_Date').val();
+           var ajaxoptions = {};
+           ajaxoptions.data = data;
+           ajaxoptions.url = "@Url.Action("Create_Holiday", "Setup")";
+           ajaxoptions.success = function (result) { 
+
+               toaster('info', result);  
+           };
+
+           ajaxoptions.error = function () {
+               toaster('error', 'a fatal error occurred while trying to submit Leave Details Creation !.');
+           };
+
+           $.ajax(ajaxoptions); 
+       } 
+     //End Create Holiday 
+
+
+       $(function () {
+   
+           $('#dtp_Holiday_Name').datepicker();
+           $('#dtp_Holiday_Start_Date').datepicker();
+           $('#dtp_Holiday_End_Date').datepicker(); 
+            $("#datepicker").on("changeDate", function (event) {
+                $("#my_hidden_input").val(
+                        $("#datepicker").datepicker('getFormattedDate')
+                )
+            }); 
+            $('.input-group.date').datepicker({});
+            $('.input-daterange').datepicker({});
+
+            $("#demo1").TouchSpin({
+                min: 0,
+                max: 100,
+                step: 0.1,
+                decimals: 2,
+                boostat: 5,
+                maxboostedstep: 10,
+            });
+
+            $("#demo2").TouchSpin({
+                verticalbuttons: true
+            });
+
+            $("#demo3").TouchSpin({
+                postfix: '%'
+            });
+
+            $("#demo4").TouchSpin({
+                postfix: "a button",
+                postfix_extraclass: "btn btn-default"
+            });
+
+            $(".js-source-states").select2();
+            $(".js-source-states-2").select2();
+
+            //turn to inline mode
+            $.fn.editable.defaults.mode = 'inline';
+
+            //defaults
+            $.fn.editable.defaults.url = '#';
+
+            //editables
+            $('#username').editable({
+                url: '#',
+                type: 'text',
+                pk: 1,
+                name: 'username',
+                title: 'Enter username'
+            });
+
+            $('#firstname').editable({
+                validate: function (value) {
+                    if ($.trim(value) == '') return 'This field is required';
+                }
+            });
+
+            $('#sex').editable({
+                prepend: "not selected",
+                source: [
+                    { value: 1, text: 'Male' },
+                    { value: 2, text: 'Female' }
+                ],
+                display: function (value, sourceData) {
+                    var colors = { "": "gray", 1: "green", 2: "blue" },
+                            elem = $.grep(sourceData, function (o) { return o.value == value; });
+
+                    if (elem.length) {
+                        $(this).text(elem[0].text).css("color", colors[value]);
+                    } else {
+                        $(this).empty();
+                    }
+                }
+            });
+
+            $('#dob').editable();
+
+            $('#event').editable({
+                placement: 'right',
+                combodate: {
+                    firstItem: 'name'
+                }
+            });
+
+            $('#comments').editable({
+                showbuttons: 'bottom'
+            });
+
+            $('#fruits').editable({
+                pk: 1,
+                limit: 3,
+                source: [
+                    { value: 1, text: 'banana' },
+                    { value: 2, text: 'peach' },
+                    { value: 3, text: 'apple' },
+                    { value: 4, text: 'watermelon' },
+                    { value: 5, text: 'orange' }
+                ]
+            });
+
+            $('#user .editable').on('hidden', function (e, reason) {
+                if (reason === 'save' || reason === 'nochange') {
+                    var $next = $(this).closest('tr').next().find('.editable');
+                    if ($('#autoopen').is(':checked')) {
+                        setTimeout(function () {
+                            $next.editable('show');
+                        }, 300);
+                    } else {
+                        $next.focus();
+                    }
+                }
+            });
+
+            // ClockPicker
+            $('.clockpicker').clockpicker({ autoclose: true });
+
+            // DateTimePicker
+            $('#datetimepicker1').datetimepicker();
+
+       });
+     //Holiday Creation Validation
+       //leave validation
+       debugger;
+       $("#Create_Holioday_frm").validate({
+           rules: {
+               txt_Holiday_Name: { required: true }
+           },
+           messages: {
+               //txt_Notes: { required: 'akjshogtiwedfspjls;kfcmndssfhyooprj' },
+           },
+           errorClass: "error",
+           validClass: "valid"
+       });
+
+       $('#Create_Holioday_frm').on('blur keyup change', 'input', function (e) {
+           var form = $("#Create_Holioday_frm");
+
+           if (form.valid()) {
+               $('#Holiday_save_btn').prop('disabled', false);
+           }
+           else {
+               $('#Holiday_save_btn').prop('disabled', 'disabled');
+               return;
+           }
+       });
+       $('#Create_Holioday_frm').on('blur keyup change', 'select', function (e) {
+           var form = $("#Create_Holioday_frm");
+
+           if (form.valid()) {
+               $('#Holiday_save_btn').prop('disabled', false);
+           }
+           else {
+               $('#Holiday_save_btn').prop('disabled', 'disabled');
+               return;
+           }
+       }); 
+     //Holiday Creation Validation End 
+   
+</script> 
+       } 

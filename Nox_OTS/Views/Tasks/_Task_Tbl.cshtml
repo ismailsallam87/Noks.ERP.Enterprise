@@ -1,0 +1,91 @@
+﻿@using OTS.DAL
+@model List<Task_Select_Result>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
+        <thead>
+            <tr role="row" class="heading">
+                <th width="5%">
+                    Project
+                </th>
+                <th width="15%">
+                    Title
+                </th>
+                <th width="15%">
+                    External Ref#
+                </th>
+                <th width="10%">
+                    Internal Ref#
+                </th>
+                <th width="10%">
+                    Account Name
+                </th>
+                <th width="10%">
+                    Authorized Person
+                </th>
+                <th width="10%">
+                    Email
+                </th>
+                <th width="10%">
+                    Mobile
+                </th>
+                <th width="10%">
+                    Shipping Address
+                </th>
+                <th width="10%">
+                    Current Runner
+                </th>
+                <th width="10%">
+                    Current Status
+                </th>
+                <th width="10%">
+                    Expected End Time
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody id="Task_Tbl_body">
+            @foreach (var task in Model)
+            {
+                <tr>
+                    <td>@task.Project_Name</td>
+                    <td>@task.Task_Title</td>
+                    <td>@task.Due_Date</td>
+                    <td>@task.Task_External_Ref</td>
+                    <td>@task.Task_Internal_Ref</td>
+                    <td>@task.Task_Account_Name</td>
+                    <td>@task.Task_Authorized_Person</td>
+                    <td>@task.Task_Authorized_Email</td>
+                    <td>@task.Task_Authorized_Phone</td>
+                    <td>@task.Task_Shipping_Address</td>
+                    <td>@task.Current_Runner</td>
+                    <td>@task.Current_Status</td>
+                    <td>@task.Expected_End_Time</td>
+                    <td>
+                        <a href="#">
+                            <span class="fa fa-pencil-square-o">Update</span>
+                        </a>
+                        |
+                        <a href="#">
+                            <span class="fa fa-times">Delete</span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+}
+else
+{
+    <p colspan="13" class="cell-nodata">
+        No Data found
+    </p>
+}
+
+
+

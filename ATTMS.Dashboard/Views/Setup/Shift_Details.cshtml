@@ -1,0 +1,291 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model SP_Shifts_Select_Result
+@{
+    ViewBag.Title = Model.title + @Resource.Details;
+}
+
+<div class="normalheader transition">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="index.html">@Resource.Dashboard</a></li>
+                    <li><a href="@Url.Action("Shifts")">@Resource.Shift_Management</a></li>
+                    <li class="active"><span>@Model.title @Resource.Details</span></li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @Model.title @Resource.Details
+            </h2>
+            <small>@Resource.Manager_or_check @Model.title @Resource.Details</small>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="font-bold m-b-sm">
+                @Model.title @Resource.Details
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    <h2 class="m-t-none">@Resource.Common_Working_Hours_Graph</h2>
+                    <small>
+                        @Resource.This_show_thepast4month  @Model.title (@Resource.Shift)
+                    </small>
+                    <div class="small m-t-xs">
+                        <strong>@Resource.Target_Monthly:</strong> @Model.work_hours @Resource.Hours<br />
+                        <strong>@Resource.Employees:</strong> @Model.employees_count
+                    </div>
+                    <div class="m-t-md">
+                        <canvas id="lineOptions" height="60"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="pull-right">
+                        <a href="#" data-target="#shiftRule_CreateModal" data-toggle="modal" class="btn btn-success btn-xs">@Resource.Add_Rule</a>
+                    </div>
+                    <p>
+                        <strong>@Resource.Shift_Rules</strong> @Resource.You_can_edit_add_rules (@Model.title)
+                    </p>
+
+                    <div id="shift_details_rules_cont" class="table-responsive">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="font-bold m-b-sm">
+                 @Resource.Shift_statistics
+            </div>
+            <div id="shift-stats" class="hpanel stats">
+                @{ Html.RenderAction("Shift_Stat_Details", new { Id = Model.Id, check_in = Model.check_in, check_out = Model.check_out });}
+            </div>
+
+            <div class="font-bold m-b-sm">
+                @Resource.Shift_participants
+            </div>
+            <div class="row">
+                @{Html.RenderAction("Shift_employee_list", new { Id = Model.Id }); }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="shiftRule_CreateModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Create_New_Rule</h4>
+                <small class="font-bold">@Resource.Create_New_Rule_Description</small>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal" id="create_frm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Rule_Name</label>
+                            <div class="col-sm-10">
+                                <input id="title" type="text" class="form-control">
+                                <span class="help-block m-b-none">@Resource.New_department_Hint</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Rate</label>
+                            <div class="col-sm-10">
+                                <input id="rate" type="text" name="demo3" value="50">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Rule_Type:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="type_Id">
+                                    <option value="-1">@Resource.Please_Select_Type</option>
+                                    @{
+                                        List<SP_Shift_Rule_Type_List_Result> typeList = (List<SP_Shift_Rule_Type_List_Result>)ViewBag.RuleTypeList;
+                                        foreach (var type in typeList)
+                                        {
+                                            <option value="@type.Id">@type.title</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.From</label>
+                            <div class="input-group col-sm-10 clockpicker" data-autoclose="true">
+                                <input type="text" class="form-control" id="range_from" value="09:30">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-clock-o"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.To</label>
+                            <div class="input-group col-sm-10 clockpicker" data-autoclose="true">
+                                <input type="text" class="form-control" id="range_to" value="17:30">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-clock-o"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Color</label>
+                            <div class="col-md-10">
+                                <div class="input-group color colorpicker-default" data-color="#3865a8" data-color-format="rgba">
+                                    <input type="text" id="color" class="form-control" value="#3865a8" readonly>
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i style="background-color: #3865a8;"></i>&nbsp;</button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_rule_creation()" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+                <button type="button" onclick="create_shift_rule('@Model.Id')" class="btn btn-primary">@Resource.Save_changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/bundles/xeditable/css")
+    @Styles.Render("~/bundles/select2/css")
+    @Styles.Render("~/bundles/touchspin/css")
+    @Styles.Render("~/bundles/datepicker/css")
+    @Styles.Render("~/bundles/bootstrapCheckbox/css")
+    @Styles.Render("~/bundles/datetimepicker/css")
+    @Styles.Render("~/bundles/clockpicker/css")
+    @Styles.Render("~/bundles/colorpicker/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/chartjs/js")
+    @Scripts.Render("~/bundles/touchspin/js")
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/select2/js")
+    @Scripts.Render("~/bundles/datepicker/js")
+    @Scripts.Render("~/bundles/datetimepicker/js")
+    @Scripts.Render("~/bundles/clockpicker/js")
+    @Scripts.Render("~/bundles/colorpicker/js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            load_shift_rules('@Model.Id');
+            $("#rate").TouchSpin({
+                postfix: '%'
+            });
+            // ClockPicker
+            $('.clockpicker').clockpicker({ autoclose: true });
+            var handleColorPicker = function () {
+                if (!jQuery().colorpicker) {
+                    return;
+                }
+                $('.colorpicker-default').colorpicker({
+                    format: 'hex'
+                });
+                $('.colorpicker-rgba').colorpicker();
+            }
+            handleColorPicker();
+            Load_workinghours_Graph('@Model.Id');
+        });
+        function load_shift_rules(Id) {
+            var container = $('#shift_details_rules_cont');
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var error_info = '@Resource.Error_Load_Department';
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            ajaxoptions.data = { Id: Id };
+            ajaxoptions.url = '@Url.Action("Shift_Details_Rules")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function Load_workinghours_Graph(ShiftId) {
+            var ajaxoptions = {};
+            ajaxoptions.url = "@Url.Action("WorkingHours_Shift_Graph")";
+            ajaxoptions.data = { ShiftId: ShiftId };
+            ajaxoptions.success = function (result) {
+
+                var labels = result.month;
+                var data = result.data;
+                var lineData = {
+                    labels: ["January", "February", "March", "April"],
+                    datasets: [
+                        {
+                            label: "Working Hours",
+                            backgroundColor: "rgba(98,203,49,0.5)",
+                            borderColor: "rgba(98,203,49,0.7)",
+                            pointBackgroundColor: "rgba(98,203,49,1)",
+                            pointBorderColor: "#fff",
+                            pointHoverBackgroundColor: "#fff",
+                            pointHoverBorderColor: "rgba(26,179,148,1)",
+                            data: [17, 21, 19, 24]
+                        }
+                    ]
+                };
+
+                var lineOptions = {
+                    responsive: true,
+                    legend: {
+                        display: false
+                    }
+                };
+
+                var ctx = document.getElementById("lineOptions").getContext("2d");
+                new Chart(ctx, { type: 'line', data: lineData, options: lineOptions });
+            };
+            ajaxoptions.error = function () {
+
+            };
+            $.ajax(ajaxoptions);
+        }
+        function create_shift_rule(shift_Id) {
+            var data = {};
+            data.title = $('#title').val();
+            data.range_from = $('#range_from').val();
+            data.range_to = $('#range_to').val();
+            data.rate = $('#rate').val();
+            data.color = $('#color').val();
+            data.type_Id = $('#type_Id').val();
+            data.shift_Id = shift_Id;
+            var ajaxoptions = {};
+            ajaxoptions.url = "@Url.Action("Submit_Shift_Rule")";
+            ajaxoptions.data = data;
+            ajaxoptions.success = function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    toaster('info', result[i].user_message);
+                }
+                load_shift_rules(shift_Id);
+                resetForm("#create_frm");
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.fatal_error_New_Rule_shift');
+            };
+            $.ajax(ajaxoptions);
+        }
+    </script>
+}
+

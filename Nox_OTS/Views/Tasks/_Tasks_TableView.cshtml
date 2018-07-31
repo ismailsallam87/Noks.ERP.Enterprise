@@ -1,0 +1,134 @@
+﻿@using OTS.DAL
+
+@model List<Task_Select_Result>
+@{ 
+    OTSEntities db = new OTSEntities();
+}
+<!-- BEGIN SAMPLE TABLE PORTLET-->
+<div class="portlet box green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Tasks
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse">
+            </a>
+            <a href="#portlet-search" data-toggle="modal" class="config">
+            </a>
+            <a href="javascript:;" class="reload" onclick="Load_Tasks_View('Table')">
+            </a>
+        </div>
+    </div>
+    @if (Model == null || Model.Count == 0)
+    {
+        @Html.Partial("_NoDataFound");
+    }
+    else
+    {
+        <div class="portlet-body flip-scroll">
+            <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content">
+                    <tr>
+                        <th width="5%">
+                            Project
+                        </th>
+                        <th width="15%">
+                            Title
+                        </th>
+                        <th width="15%">
+                            Due Date
+                        </th>
+                        <th width="15%">
+                            External Ref#
+                        </th>
+                        <th width="10%">
+                            Internal Ref#
+                        </th>
+                        <th width="10%">
+                            Account Name
+                        </th>
+                        <th width="10%">
+                            Authorized Person
+                        </th>
+                        <th width="10%">
+                            Email
+                        </th>
+                        <th width="10%">
+                            Mobile
+                        </th>
+                        <th width="10%">
+                            Shipping Address
+                        </th>
+                        <th width="10%">
+                            Current Runner
+                        </th>
+                        <th width="10%">
+                            Current Status
+                        </th>
+                        <th width="10%">
+                            Expected End Time
+                        </th>
+                        <th>
+                            Items
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model)
+                    {
+                        <tr>
+                            <td>@task.Project_Name</td>
+                            <td>@task.Task_Title</td>
+                            <td>@task.Due_Date.ToString("dd-MMM-yyyy")</td>
+                            <td>@task.Task_External_Ref</td>
+                            <td>@task.Task_Internal_Ref</td>
+                            <td>@task.Task_Account_Name</td>
+                            <td>@task.Task_Authorized_Person</td>
+                            <td>@task.Task_Authorized_Email</td>
+                            <td>@task.Task_Authorized_Phone</td>
+                            <td>@task.Task_Shipping_Address</td>
+                            <td>@task.Current_Runner</td>
+                            <td>                                 
+                                <a onclick="Load_Task_Status_View('@task.ID','@task.Task_Is_Closed.ToString()')" href="#task_status_view_modal" data-toggle="modal">
+                                    @task.Current_Status                                  
+                                </a>
+                            </td>
+                            <td>@(task.Expected_End_Time == null ? "No Expected Date":task.Expected_End_Time.Value.ToString("dd-MMM-yyyy"))</td>
+                            <td>
+                                @if (db.Task_Items.Where(i => i.Task_ID == task.ID && i.Deleted == false).FirstOrDefault() == null)
+                                {
+                                    <a href="@Url.Action("TaskItems","Tasks",new { taskId = task.ID})" target="_blank">
+                                        <span>No Items</span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("TaskItems","Tasks",new { taskId = task.ID})" target="_blank">
+                                        <span>Items</span>
+                                    </a>
+                                }
+                            </td>
+                            <td>
+                                <a onclick="update_task('@task.ID')" href="#edit_zone_view_modal" data-toggle="modal" title="Edit">
+                                    <span class="fa fa-pencil"></span>
+                                </a> |
+                                <a onclick="OpenPackingSlip(@task.ID)" href="#" data-toggle="modal" title="View">
+                                    <span class="fa fa-book"></span>
+                                </a> |
+                                <a onclick="Delete('@task.ID')" href="#delete_task_modal" data-toggle="modal" title="Delete">
+                                    <span class="fa fa-archive"></span>
+                                </a>
+                           
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+</div>
+<!-- END SAMPLE TABLE PORTLET-->

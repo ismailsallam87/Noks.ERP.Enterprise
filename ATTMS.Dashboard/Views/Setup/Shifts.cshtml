@@ -1,0 +1,495 @@
+﻿@using ATTMS.Dashboard.Resources
+@{
+    ViewBag.Title = @Resource.Shifts_Management;
+}
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">@Resource.Dashboard</a></li>
+                    <li class="active">
+                        <span>@Resource.Shifts</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>@Resource.List_of @ViewBag.Title.</small>
+            <div>
+                <p>
+                    <a href="#" data-toggle="modal" data-target="#createShiftModal" class="btn btn-default header-btn">@Resource.Create</a>
+                    <a href="#" data-toggle="modal" data-target="#searchShiftModal" class="btn btn-default header-btn">@Resource.Search</a>
+                    <a href="#" id="shifts_grid_btn" onclick="load_shifts('grid')" class="btn btn-default right-header-btn btn-active"><i class="fa fa-th"></i></a>
+                    <a href="#" id="shifts_table_btn" onclick="load_shifts('table')" class="btn btn-default right-header-btn"><i class="fa fa-table"></i></a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="page-conainer" class="content">
+
+</div>
+<input id="viewType" type="hidden" value="grid" />
+<div class="modal fade" id="createShiftModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Create_Shift</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal" id="create_frm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Department_Name</label>
+                            <div class="col-sm-10">
+                                <input id="shift_title_txt" type="text" class="form-control">
+                                <span class="help-block m-b-none">@Resource.you_can_add_new_department</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Check_In</label>
+                            <div class="input-group clockpicker col-sm-10" data-autoclose="true">
+                                <input id="check_in" type="text" class="form-control" value="09:30">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-clock-o"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Check_Out</label>
+                            <div class="input-group clockpicker col-sm-10" data-autoclose="true">
+                                <input id="check_out" type="text" class="form-control" value="17:30">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-clock-o"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_shift_creation()" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+                <button type="button" onclick="create_shift()" data-dismiss="modal" class="btn btn-primary">@Resource.Save_changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="searchShiftModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Modal title</h4>
+                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="create_department()" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="employeeShiftModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="shiftEmployees_modal" class="modal-content">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ShiftDaysModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="shiftDays_modal" class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteDepartmentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Delete_Department</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+                                <p>@Resource.Delete_Ensure_Message </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" id="delete_Shift_container">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editJobTitleModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" id="update_Department_container">
+
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/clockpicker/css")
+    @Styles.Render("~/bundles/xeditable/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    @Scripts.Render("~/bundles/clockpicker/js")
+    @Scripts.Render("~/bundles/xeditable/js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            load_shifts($('#viewType').val());
+            $('.clockpicker').clockpicker({ autoclose: true });
+        });
+        function Change_Status(status, Id) {
+            data.status = status;
+            data.Id = Id;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Change_Status", "Setup")';
+            ajaxoptions.success = function (result) {
+                toaster('success', '@Resource.Status_cahnged_successfully ');
+            }
+        }
+        function delete_Shift(Id) {
+            var data = {};
+            data.Id = Id;
+            var container = $('#delete_Shift_container');
+            //empty the container and add loading img
+            container.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Delete_Shift", "Setup")';
+            ajaxoptions.success = function (result) {
+                //container.empty();
+                container.appenda(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function confirm_delete_Shift(Id) {
+            var data = {};
+            data.Id = Id;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Confirm_Delete_Shift", "Setup")';
+            ajaxoptions.success = function (result) {
+                toaster('success', result);
+                load_departments($('#viewType').val(view));
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.fatal_error_Delete_Department');
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function Update_Shift(id) {
+            var data = {};
+            data.Id = id;
+            var container = $('#update_Department_container');
+            //empty the container and add loading img
+            container.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Update_Shift", "Setup")'
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+                $('.clockpicker').clockpicker({ autoclose: true });
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function confirm_update_Update_Shift(Id) {
+            var data = {};
+            data.Id = Id;
+            data.Title = $('#edit_Shift_Title').val();
+            data.check_In = $('#edit_Check_In').val();
+            data.check_Out = $('#edit_Check_Out').val();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Confirm_Shift_Update")";
+            ajaxoptions.success = function (result) {
+                load_shifts($('#viewType').val());
+                toaster('Success', result);
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.fatal_error_Update_Job_Title');
+            };
+
+            if (data.title != '') {
+                $.ajax(ajaxoptions);
+            }
+            else {
+                toaster('warning', '@Resource.Provide_Name_First');
+            }
+        }
+        function load_shifts(view) {
+            $('#viewType').val(view);
+            if (view == 'table') {
+                $('#shifts_grid_btn').removeClass('btn-active');
+                $('#shifts_table_btn').addClass('btn-active');
+            }
+            else {
+                $('#shifts_grid_btn').addClass('btn-active');
+                $('#shifts_table_btn').removeClass('btn-active');
+            }
+
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var error_info = '@Resource.error_load_departments';
+            var container = $('#page-conainer');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            ajaxoptions.data = { view: view };
+            ajaxoptions.url = '@Url.Action("Shifts_Select")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+                if (view == 'table') {
+                    Initialize_Shifts_Tbl();
+                }
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Initialize_Shifts_Tbl() {
+            $('#shifts_tbl').dataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    { extend: 'copy', className: 'btn-sm' },
+                    { extend: 'csv', title: '@ViewBag.Title', className: 'btn-sm' },
+                    { extend: 'pdf', title: '@ViewBag.Title', className: 'btn-sm' },
+                    { extend: 'print', className: 'btn-sm' }
+                ]
+            });
+        }
+        function cancel_shift_creation() {
+            toaster('warning', '@Resource.you_canceled_shift_creation');
+            resetForm("#create_frm");
+        }
+        function create_shift() {
+            var data = {};
+            data.title = $('#shift_title_txt').val();
+            data.check_in = $('#check_in').val();
+            data.check_out = $('#check_out').val();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Shift_Create")';
+            ajaxoptions.success = function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    toaster('info', result[i].user_message);
+                }
+                load_shifts($('#viewType').val());
+                resetForm("#create_frm");
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.fatal_error_to_submit_new_shift');
+            };
+            if (data.title != '') {
+                $.ajax(ajaxoptions);
+            }
+            else {
+                toaster('warning', '@Resource.please_provide_shift_title');
+            }
+        }
+        function load_shift_Days_modal(Id)
+        {
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            //var error_info = 'an error occurred while trying to load the shift employees.';
+            var container = $('#shiftDays_modal');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Shift_Days")';
+            ajaxoptions.data = { Id: Id };
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+            };
+            $.ajax(ajaxoptions);
+        }
+        function confirm_Insert_Shift_Days(shiftId)
+        {
+            var data = {};
+            var ajaxoptions = {};
+            var ary = "";
+            var txt = "";
+            $('.days_def').each(function (index, element) {
+                var value = $(this).prop('checked').toString();
+                ary += value + ",";
+            });
+            $('.days_txt').each(function (index, element) {
+                var name = $(this).text();
+                txt += name + ",";
+            });
+            data.days = txt;
+            data.ifChecked = ary;
+            data.shiftId = shiftId;
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Confirm_Insert_Shift_Days", "Setup")'
+            ajaxoptions.success = function (result) {
+                toaster('info',result);
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.Fatal_Error_Update_Shift_Days');
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function load_shift_employees_modal(Id) {
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var error_info = '@Resource.Error_Load_Shift_Employee';
+            var container = $('#shiftEmployees_modal');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Shift_Employees")';
+            ajaxoptions.data = { Id: Id };
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+                load_inline_mode();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+        function load_inline_mode() {
+            //turn to inline mode
+            $.fn.editable.defaults.mode = 'inline';
+
+            //defaults
+            $.fn.editable.defaults.url = '#';
+
+            $('.dob').editable();
+
+            $('#event').editable({
+                placement: 'right',
+                combodate: {
+                    firstItem: 'name'
+                }
+            });
+
+            $('.dob').each(function () {
+                var $this = $(this);
+                $this.on("click", function () {
+
+                    var res = $(this).data('pk').split(";");
+                    var employee_id = res[0];
+                    var shift_id = res[1];
+                    var btns = $('#employee_cell_' + employee_id).find(".editable-submit");
+                    btns.click(function () {
+                        var day = $('#employee_cell_' + employee_id).find('.day').val();
+                        var month = $('#employee_cell_' + employee_id).find('.month').val();
+                        var year = $('#employee_cell_' + employee_id).find('.year').val();
+                        submit_join_change(employee_id, shift_id, day, month, year);
+                    });
+                });
+            });
+
+        }
+        function submit_join_change(emp_id, shift_id, day, month, year) {
+            var ajaxoptions = {};
+            ajaxoptions.url = "@Url.Action("Join_Shift")";
+            ajaxoptions.data = { emp_id: emp_id, shift_id: shift_id, day: day, month: month, year: year };
+            ajaxoptions.success = function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    toaster('info', result[i].user_message);
+                }
+                load_shift_employees_modal(shift_id);
+                load_shifts($('#viewType').val());
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.Error_submit_employee_shift');
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function checkAll(e) {
+            var checkboxes = $('.days_');
+
+            if (e.checked) {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = true;
+                }
+            } else {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = false;
+                }
+            }
+        }
+        function checkAlldef(e) {
+            var checkboxes = $('.days_def');
+
+            if (e.checked) {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = true;
+                }
+            } else {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = false;
+                }
+            }
+        }
+        function confirm_Update_Shift_Days(Id) {
+            var data = {};
+            var ajaxoptions = {};
+            data.Id = Id;
+            data.chkids = $('.days_:checkbox:checked').map(function () { return this.value; }).get().join(',');
+            data.ids = $('.days_:checkbox:not(:checked)').map(function () { return this.value; }).get().join(',');
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("confirm_Update_Shift_Days")';
+            ajaxoptions.success = function (result) {
+                toaster('info', result);
+                load_days();
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.Fatal_Error_Occured_Update_Request');
+            };
+            $.ajax(ajaxoptions);
+        }
+    </script>
+}  

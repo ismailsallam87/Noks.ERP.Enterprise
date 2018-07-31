@@ -1,0 +1,17 @@
+﻿@using ATTMS.Dashboard.Resources
+@model List<Models.SP_select_Employee_Result>
+
+<form method="get" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@Resource.Coach</label>
+        <div class="col-sm-10">
+            <select class="form-control m-b" id="Coach_id_ddl" name="account">
+                <option value="-1">@Resource.Please_Selct_Coach</option>
+                @foreach (var item in Model)
+                {
+                    <option value="@item.Id"> @item.name </option>
+                }
+            </select>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,194 @@
+/* here you can put your own css to customize and override the theme */
+
+
+
+.portlet.box > .portlet-title > .tools > a.config, .portlet.solid > .portlet-title > .tools > a.config {
+    background-image: url(../img/search-icon-light.png);
+}
+
+
+.modal > .modal-dialog > .modal-content > .portlet-body > .form-horizontal > .form-body {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.inline_dropdown {
+    float: left;
+}
+
+.check_inline {
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.input-group-addon {
+    float: left;
+    height: 34px;
+}
+
+.dataTables_info {
+    padding-top: 20px;
+}
+
+.dataTables_paginate {
+    padding-top: 7px;
+    margin-left: 35%;
+}
+
+
+
+.ColVis_MasterButton {
+    float: right;
+}
+
+.ColVis_collection li {
+    position: relative;
+    height: auto;
+    left: 0;
+    right: 0;
+    padding: .5em;
+    display: block;
+    float: none;
+    margin-bottom: 4px;
+    -webkit-box-shadow: 1px 1px 3px #999;
+    -moz-box-shadow: 1px 1px 3px #999;
+    -ms-box-shadow: 1px 1px 3px #999;
+    -o-box-shadow: 1px 1px 3px #999;
+    box-shadow: 1px 1px 3px #999;
+    text-align: left;
+}
+
+.ColVis_collection {
+    width: 127px;
+    background-color: #f9f9f9 !important;
+    opacity: 1;
+}
+
+.ColVis_collection {
+    padding: 8px 8px 4px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.4);
+    background-color: #f3f3f3;
+    background-color: rgba(255,255,255,.3);
+    overflow: hidden;
+    z-index: 2002;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 3px 3px 5px rgba(0,0,0,.3);
+    -moz-box-shadow: 3px 3px 5px rgba(0,0,0,.3);
+    -ms-box-shadow: 3px 3px 5px rgba(0,0,0,.3);
+    -o-box-shadow: 3px 3px 5px rgba(0,0,0,.3);
+    box-shadow: 3px 3px 5px rgba(0,0,0,.3);
+}
+
+.dataTables_wrapper {
+    overflow-x: scroll;
+}
+
+.dataTables_filter {
+    margin-left: -15px !important;
+}
+
+.ColVis_MasterButton {
+    background-color: #4d90fe !important;
+    color: white;
+    text-shadow: none;
+    background-color: #4d90fe;
+    position: relative;
+    border-width: 0;
+    padding: 7px 14px;
+    font-size: 14px;
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+    text-shadow: none;
+}
+
+
+.btn-group, .btn-group-vertical {
+    float: right;
+}
+
+.thumbnail img{
+    height:180px !important;
+    width:80% !important;
+}
+.thumbnail {
+    cursor: pointer;
+    min-height:100px !important;
+}
+
+td > .btn {
+    margin: 5px;
+}
+
+.cell_label {
+    text-align: center;
+    padding-top: 15px !important;
+}
+
+.modal_submit{
+    float:right;
+}
+
+.modal_cancel{
+    float:right;
+    margin-right:5px !important;
+}
+
+.username_grid{
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: visible;
+}
+
+.thumbnail .label-warning{
+    padding-top:unset !important;
+}
+
+.thumbnail .caption {
+    padding: 1px !important;
+}
+.navbar-brand img{
+    height:30px !important;
+    padding-left:25px !important;
+}
+.page-content-wrapper{
+    width:99%;
+}
+.thumbnail h1{
+    font-weight: 1000 !important;
+    color: #4d90fe;
+    text-align: center
+}
+.form-horizontal .control-label{
+    float:left !important;
+    text-align:left !important;
+}
+.form-row-seperated .form-group{
+    margin: 0;
+    border-bottom: unset;
+    padding: 10px 0px 0px 0px;
+}
+
+.flip-scroll{
+    overflow-x:auto;
+}
+
+/*.page-content{
+    margin-left:unset !important;
+}*/
+
+.page-content-wrapper
+{
+    width:100% !important;
+}

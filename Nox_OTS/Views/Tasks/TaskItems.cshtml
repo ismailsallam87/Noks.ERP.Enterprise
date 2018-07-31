@@ -1,0 +1,267 @@
+﻿@using Nox_OTS.Models
+@model TaskItems
+@{
+    ViewBag.Title = "TaskItems";
+}
+
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-datepicker/css/datepicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-select/bootstrap-select.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2-metronic.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/jquery-multi-select/css/multi-select.css" />
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row" id="maindiv">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Items Management <small></small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li class="btn-group">
+                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                    <span>
+                        Actions
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="#create_view_modal" data-toggle="modal">
+                            Create New
+                        </a>
+                    </li>                  
+                </ul>
+            </li>
+            @{Html.RenderAction("Breedcrumb", "Common", new { view = "TasksManagement" });}
+        </ul>
+        <div class="actions">
+            <a href="#" onclick="Load_Items_View('Table',@Model.TaskId)" class="btn blue pull-right">
+                <i class="fa fa-table"></i> Table
+            </a>
+            <a href="#" onclick="Load_Items_View('Grid',@Model.TaskId)" class="btn green pull-right">
+                <i class="fa fa-group"></i> Grid
+            </a>
+        </div>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+
+<div class="row">
+    <div class="col-md-12" id="items_tbl_cont">
+
+    </div>
+</div>
+<!-- END PAGE CONTENT-->
+<div id="create_view_modal" class="modal fade bs-modal-lg" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Create New Item</h4>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @Html.Partial("_Item_Create")
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="delete_task_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Delete Item</h4>
+            </div>
+            <div id="delete_dv" class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="edit_zone_view_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Edit Item</h4>
+            </div>
+            <div id="Edit_Item_Cont" class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="view_type" value="Table" />
+<!-- END PAGE Modals-->
+
+@section Scripts {
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="../../assets/plugins/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery.pulsate.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery-bootpag/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/holder.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="../../assets/plugins/select2/select2.min.js"></script>
+    <script src="../../assets/scripts/core/app.js"></script>
+    <script src="../../assets/scripts/custom/ui-general.js"></script>
+    <script type="text/javascript" src="../../assets/scripts/custom/form-samples.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/clockface/js/clockface.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="../../assets/scripts/custom/components-pickers.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datepicker();
+            UIGeneral.init();
+            Load_Items_View('Table',@Model.TaskId);
+            ComponentsPickers.init();
+        })
+
+        function Load_Items_View(view, taskId) {
+            $('#view_type').val(view);
+            var data = {};
+            data.view = view;
+            data.taskId = taskId;
+            var img_loading = '<p style="text-align:center"><img src="../../assets/img/loading.gif" /></p>';
+            var container = $('#items_tbl_cont');
+            //empty the container and add loading img
+            container.empty();
+            container.append(img_loading);
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Task_Items_View", "Tasks")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function update_item(Id) {
+            var data = {};
+            data.Id = Id;
+            var container = $('#Edit_Item_Cont');
+            container.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Update_Item", "Tasks")'
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function confirm_update_Task(Id)
+        {
+            var data = {};
+            data.Id = Id;
+            data.desc = $('#desc_').val();
+            data.itemSn = $('#itemSn_').val();
+            data.title = $('#title_').val();
+            data.weight = $('#weight_').val();
+            data.notes = $('#notes_').val();
+            data.statusId = $('#statusId_').val();
+
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Confirm_Update_Item", "Tasks")';
+            ajaxoptions.success = function (result) {
+                push_notification('Update Task', result, false);
+                Load_Items_View($('#view_type').val(),@Model.TaskId);
+            };
+            ajaxoptions.error = function () {
+                //container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function create_newItem() {
+            var data = {};
+            data.taskId =@Model.TaskId;
+            data.desc = $('#desc').val();
+            data.itemSn = $('#itemSn').val();
+            data.title = $('#title').val();
+            data.weight = $('#weight').val();
+            data.notes = $('#notes').val();
+            data.statusId = $('#statusId').val();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Create_Item", "Tasks")';
+            ajaxoptions.success = function (result) {
+                push_notification('Create New Item', result, false);
+                Load_Items_View($('#view_type').val(),@Model.TaskId);
+                Clear_Items_Create_Frm();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Clear_Items_Create_Frm() {        
+             $('#desc').val('');
+             $('#itemSn').val('');
+             $('#title').val('');
+             $('#weight').val('');
+             $('#notes').val('');
+             $('#statusId').val(-1);
+        }
+
+        function Delete(Id) {
+            var data = {};
+            data.Id = Id;
+            var container = $('#delete_dv');
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Delete_Item", "Tasks")'
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function confirm_delete_item(Id) {
+            var data = {};
+            data.Id = Id;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Confirm_Delete_Item", "Tasks")';
+            ajaxoptions.success = function (result) {
+                push_notification('Delete Item', result, false);
+                Load_Items_View($('#view_type').val(),@Model.TaskId);
+            };
+            ajaxoptions.error = function () {
+                push_notification('Delete Item', 'a fatal error occurred while trying to Delete an item !.', false);
+            };
+            $.ajax(ajaxoptions);
+        }
+    </script>
+}

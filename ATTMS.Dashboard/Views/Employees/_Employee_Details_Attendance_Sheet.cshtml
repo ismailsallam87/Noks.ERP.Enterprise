@@ -1,0 +1,95 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Employee_Attendance_Sheet_Result>
+
+@{
+    bool is_list = ViewBag.ListOfEmployees;
+}
+<p>
+    @Resource._Employee_Details_Attendance_Sheet_Message
+  </p>
+<div class="table-responsive">
+    @if (Model != null && Model.Count > 0)
+    {
+        <table id="attendance-sheet-tbl" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Resource.Day</th>
+                    @if (is_list)
+                    {
+                        <th>@Resource.Employee</th>
+                    }
+                    <th>@Resource.Check_In </th>
+                    <th>@Resource.Rule</th>
+                    <th>@Resource.Check_Out</th>
+                    <th>@Resource.Rule</th>
+                    <th>@Resource.Worked_Hours</th>
+                    <th>@Resource.Target_Hours</th>
+                    <th>@Resource.Deductions</th>
+                    <th>@Resource.Overtime</th>
+                    <th>@Resource.Shift</th>
+                    <th>@Resource.Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var log in Model)
+                {
+
+                    string css = "day-off";
+                    if (!log.day_off.Value)
+                    {
+                        css = "";
+                    }
+                    if (log.is_absent)
+                    {
+                        css = "day-absent";
+                    }
+
+
+                    <tr class="@css">
+                        <td>@log.log_day.ToString(HMTLHelperExtensions.Attendance_date_format)</td>
+                        @if (is_list)
+                        {
+                            <td>@log.employee_name</td>
+                        }
+                        <td style="color:@log.checkIn_rule_color">@log.log_In</td>
+                        <td style="color:@log.checkIn_rule_color">@log.checkIn_rule_title</td>
+                        <td style="color:@log.checkout_rule_color">@log.log_out</td>
+                        <td style="color:@log.checkout_rule_color">@log.checkOut_rule_title</td>
+                        <td>@log.worked_hours</td>
+                        <td>@log.target_working_hours</td>
+                        <td>@log.rated_deduction_hours</td>
+                        <td>@log.rated_overtime</td>
+                        <td>@log.shift_title</td>
+                        <td>
+                            @if (log.is_absent)
+                            {
+                                <a href="#">
+                                    @Resource.Absent
+                                    <i class="fa fa-cross text-success"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                if (log.day_off.Value)
+                                {
+                                    <i>@Resource.Day_Off</i>
+                                }
+                                else
+                                {
+                                    <i>@Resource.Present</i>
+                                }
+
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p style="color:red">@Resource.No_Attendance_Found_Message </p>
+    }
+</div>

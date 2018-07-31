@@ -1,0 +1,35 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model SP_Shift_Stat_Details_Result
+
+<div class="panel-body">
+    <div>
+        <i class="pe-7s-graph fa-4x"></i>
+        <h1 class="m-xs text-success">@Model.Total_Worked_Hours @Resource.Hours</h1>
+    </div>
+
+    <p>
+        <strong>@Resource.Check_In </strong> @ViewBag.CheckIn <br />
+        <strong>@Resource.Check_Out </strong> @ViewBag.CheckOut
+    </p>
+    <div class="row">
+        <div class="col-xs-6">
+            <small class="stat-label">@Resource.Yesterday_Absence</small>
+            <h4>@Model.ys_Absence</h4>
+        </div>
+        <div class="col-xs-6">
+            <small class="stat-label">@Resource.Yesteday_Worked_Hours</small>
+            <h4>@Model.ys_workedhours</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <small class="stat-label">@Resource.Yesterday_Deductions</small>
+            <h4>@Model.ys_Deductions</h4>
+        </div>
+        <div class="col-xs-6">
+            <small class="stat-label">@Resource.Yesteday_Overtime</small>
+            <h4>@Model.ys_Overtime</h4>
+        </div>
+    </div>
+</div>

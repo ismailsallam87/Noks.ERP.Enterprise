@@ -1,0 +1,93 @@
+﻿@using MeetingRoom.Cpanel.Models
+@using MeetingRooms_DAL
+@model List<SP_Search_Meeting_Rooms_Result>
+@{
+    CreateNew_ViewModel newModel = new CreateNew_ViewModel();
+    newModel.ButtonName = "New Room";
+    newModel.EntityTitle = "Meeting Rooms";
+    newModel.Message = "Can't Find any Meeting Rooms on the System, Let's Add First Meeting room.";
+    newModel.Target = "#createmeetingroomModal";
+    newModel.Title = "Add your First Meeting Room";
+}
+<div class="row">
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="meetingrooms_tbl" class="display table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Details</th>
+                                    <th>Capacity</th>
+                                    <th width="20%">Availbility</th>
+                                    <th>Projectors</th>
+                                    <th>Screens</th>
+                                    <th>White Board</th>
+                                    <th>Computers</th>
+                                    <th>Sound System</th>
+                                    <th width="15%">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var room in Model)
+                                {
+                                    <tr>
+                                        <td>@room.Name</td>
+                                        <td>@room.Description</td>
+                                        <td>@room.Capacity Person</td>
+                                        <td width="20%">
+                                            @{
+                                                List<string> av_strings = room.availbility.Split(',').ToList();
+                                                foreach (string row in av_strings)
+                                                {
+                                                    <span> @Html.Raw(row + "<br />")</span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            <b>Overhead: </b>@room.Overhead_projector <br />
+                                            <b>Slider: </b>@room.Slide_projector <br />
+                                            <b>Film: </b>@room.Film_projector
+                                        </td>
+                                        <td>
+                                            <b>IFP: </b>@room.IFP <br />
+                                            <b>Video Screen: </b>@room.Video_Screen
+                                        </td>
+                                        <td>
+                                            @room.WhiteBoard
+                                        </td>
+                                        <td>
+                                            @room.Computer
+                                        </td>
+                                        <td>
+                                            <b>Mic: </b> @room.Microphones <br />
+                                            <b>Louad Speakers: </b> @room.LoudSpeakers
+                                        </td>
+                                        <td width="15%">
+                                            <a href="@Url.Action("Details", new { Id = room.Id })" class="btn btn-xs btn-default"> View</a>
+                                            <a href="#editmeetingroomModal" onclick="update_meetingroom(@room.Id)" data-toggle="modal" class="btn btn-xs btn-default">Edit</a>
+                                            @if (room.is_deletable == false)
+                                            {
+                                                <a href="#deletemeetingroomModal" onclick="delete_meetingroom(@room.Id)" data-toggle="modal" class="btn btn-xs btn-default">Delete</a>
+                                            }
+                                            <a class="btn btn-xs btn-default" target="_blank" href="@Url.Action("DigitalSignage","MeetingRooms",new {Id=room.Id })">
+                                                <span class="pe-7s-look"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                                }
+                                                else
+                                                {
+                                                    @Html.Partial("_NoDataFound", newModel)
+                                                }
+</div>

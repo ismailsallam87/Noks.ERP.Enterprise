@@ -1,0 +1,12 @@
+﻿@using MeetingRooms_DAL
+@model List<SP_DigitalSignage_Calendar_Result>
+
+
+@if (Model != null)
+{
+    foreach (var r in Model)
+    {
+        <button class="w3-btn @(DateTime.Now >= r.Start_From && DateTime.Now <= r.End_At?"w3-deep-orange":"w3-green")">@r.Start_From.ToLongTimeString() -- @r.End_At.ToLongTimeString()</button>
+
+    }
+}

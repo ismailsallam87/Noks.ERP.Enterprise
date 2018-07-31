@@ -1,0 +1,69 @@
+﻿@using Microsoft.AspNet.Identity
+@using OTS.DAL
+@model List<SP_Menu_Parents_Select_Result>
+
+<div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+            <li class="sidebar-toggler-wrapper">
+                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                <div class="sidebar-toggler hidden-phone">
+                </div>
+                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+            </li>
+            <li class="sidebar-search-wrapper">
+                <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                @Html.Partial("_MenuSearch_Frm")
+                <!-- END RESPONSIVE QUICK SEARCH FORM -->
+            </li>
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                if (i == 0)
+                {
+                    <li class="start ">
+                        <a href="@(Model[i].Element_Action == null ? "javascript:;" : Url.Action(Model[i].Element_Action, Model[i].Element_Controller))">
+                            <i class="@Model[i].Icon"></i>
+                            <span class="title">
+                                @Model[i].Element_Name
+                            </span>
+                            <span class="arrow ">
+                            </span>
+                        </a>
+                        @{Html.RenderAction("Menu_SubElements", "Settings", new { parentId = Model[i].ID, UserId=User.Identity.GetUserId() });}
+                    </li>
+                }
+                else if (i == Model.Count - 1)
+                {
+                    <li class="last">
+                        <a href="@(Model[i].Element_Action == null ? "javascript:;":Url.Action(Model[i].Element_Action,Model[i].Element_Controller))">
+                            <i class="@Model[i].Icon"></i>
+                            <span class="title">
+                                @Model[i].Element_Name
+                            </span>
+                            <span class="arrow ">
+                            </span>
+                        </a>
+                        @{Html.RenderAction("Menu_SubElements", "Settings", new { parentId = Model[i].ID, UserId = User.Identity.GetUserId() });}
+                    </li>
+                }
+                else
+                {
+                    <li class="">
+                        <a href="@(Model[i].Element_Action == null ? "javascript:;":Url.Action(Model[i].Element_Action,Model[i].Element_Controller))">
+                            <i class="@Model[i].Icon"></i>
+                            <span class="title">
+                                @Model[i].Element_Name
+                            </span>
+                            <span class="arrow ">
+                            </span>
+                        </a>
+                        @{Html.RenderAction("Menu_SubElements", "Settings", new { parentId = Model[i].ID, UserId = User.Identity.GetUserId() });}
+                    </li>
+                }
+            }
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+</div>

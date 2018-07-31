@@ -1,0 +1,8 @@
+﻿@model List<string>
+<select class="form-control department-select">
+    <option>Select Departmenet</option>
+    @foreach (var dep in Model)
+    {
+        <option value="@dep">@dep</option>
+    }
+</select>

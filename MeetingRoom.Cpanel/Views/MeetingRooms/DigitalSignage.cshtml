@@ -1,0 +1,117 @@
+﻿@using MeetingRooms_DAL
+@model SP_MeetingRoom_DigitalSignage_Result
+@{
+    Layout = null;
+    bool isVideo = Model.background.Contains("mp4");
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@Model.name</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/content/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="/content/digital-signage.css">
+    <link rel="icon" href="/images/home-icon.png">
+    @if (!isVideo)
+    {
+        <style>
+            .bgimg {
+            background-image:url(@Model.background.Replace("~", ""));
+            min-height: 100%;
+            background-position:center;
+            background-size:cover;
+        }
+            .lala {
+                background-color: #707073;
+                position: relative;
+                top: 230px;
+                opacity: 0.4;
+                height: 780px;
+                margin-top: 30px;
+                width: 80%;
+                margin-top: 0px !important;
+            }
+            .w3-display-topmiddle{
+            padding-top:5% !important;
+            }
+        </style>
+    }
+
+</head>
+<body onload="startTime()">
+    @if (isVideo)
+    {
+        <video playsinline autoplay loop id="video-background" muted plays-inline>
+            <source src="@Model.background.Replace("~", "").Replace(".mp4", ".webm")" type="video/webm" />
+            <source src="@Model.background.Replace("~", "")" type="video/mp4" />
+        </video>
+
+    }
+    <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+        <div class="w3-display-topleft  w3-xlarge w3-padding w3-margin-left">
+            <img alt="" src="~/images/Emaar_logo.png">
+        </div>
+
+        <div class="lala  w3-display-middle ">
+
+        </div>
+        <div class="w3-display-topmiddle w3-xlarge  w3-text-black ">
+            <p id="txt" class="tet"></p>
+            <p id="demo" class="tet"></p>
+        </div>
+        <br>
+
+        <div class="w3-display-middle w3-text-black w3-center test3">
+
+            <h1 class="w3-xxxlarge w3-animate-top  w3-text-black  ">@Model.name</h1>
+            <p class="w3-large w3-center ">
+                @if (Model.current_meeting_code == null)
+                {
+                    <span>Available</span>
+                }
+                else
+                {
+                    <span>In Progress Till @Model.current_meeting_end</span>
+                }
+            </p>
+            @if (Model.current_meeting_code != null)
+            {
+                <hr class="w3-border-grey" style="margin:auto;width:40%">
+                <h4> @Model.current_meeting_subject @Model.current_meeting_start - @Model.current_meeting_end</h4>
+                <h2> Host: @Model.current_meeting_host</h2>
+            }
+
+
+            @{Html.RenderAction("DigitalSignage_Calendar", new { Id = ViewBag.Id }); }
+            <br>
+            <img class="qr_code" alt="" src="~/images/QR_Code.png">
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        var d = new Date();
+        document.getElementById("demo").innerHTML = d.toDateString();
+
+    </script>
+    <script type="text/javascript">
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('txt').innerHTML =
+            h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+    </script>
+</body>
+</html>

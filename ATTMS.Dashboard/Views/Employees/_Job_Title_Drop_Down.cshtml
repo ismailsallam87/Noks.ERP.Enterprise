@@ -1,0 +1,44 @@
+﻿@using Models
+@using ATTMS.Dashboard.Models;
+@using ATTMS.Dashboard.Resources
+@model  Coach_And_JonTitle_ViewModel
+
+<label class="col-sm-2 control-label">@Resource.Job_Title</label>
+<div class="col-sm-10" id="">
+    @*<select class="form-control m-b" name="Job_Title_id" ></select>*@
+
+    <select class="form-control m-b" id="ddl_Job_Title_id" name="Job_Title_id">
+        <option value="">Please Choose Job title</option>
+
+          @foreach (var item in Model.Job_Title)
+        {
+            <option value="@item.Id">@item.Job_Title</option>
+        }
+    </select>
+    @*<label class="col-sm-2 control-label">@Resource.Coach</label>
+
+        <select class="form-control m-b col-sm-10" name="Coach_Title_id">
+            @foreach (var item in Model.Coach)
+            {
+                <option value="@item.Id">@item.name</option>
+            }
+        </select>*@
+</div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">@Resource.Coach</label>
+            @*<div class="col-sm-10" id="Job_Title_id">*@
+                @*<select class="form-control m-b" name="Job_Title_id" ></select>*@
+            @*</div>*@
+            <div class="col-sm-10" id="">
+                <select class="form-control m-b" id="Coach_Title_id" name="Coach_Title_id">
+                    <option value="">Please Choose Coach</option>
+
+                      @foreach (var item in Model.Coach)
+                    {
+                        <option value="@item.Id">@item.name</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>

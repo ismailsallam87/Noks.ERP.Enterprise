@@ -1,0 +1,568 @@
+﻿@using ATTMS.Dashboard.Resources 
+
+@{
+   
+    ViewBag.Title = @Resource.Employees_Management;
+}
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">@Resource.Dashboard</a></li>
+                    <li class="active">
+                        <span>@Resource.Employees</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title 
+            </h2>
+            <small>@Resource.List_of @ViewBag.Title</small>
+            <div>
+                <p>
+                    <a href="#" data-toggle="modal" data-target="#createEmployeeModal" class="btn btn-default header-btn">@Resource.Create</a>
+                    <a href="#" data-toggle="modal" data-target="#searchEmployeeModal" class="btn btn-default header-btn"> @Resource.Search</a>
+                    <a href="#" id="employees_grid_btn" onclick="Search_employee('grid')" class="btn btn-default right-header-btn btn-active"><i class="fa fa-th"></i></a>
+                    <a href="#" id="employees_table_btn" onclick="Search_employee('table')" class="btn btn-default right-header-btn"><i class="fa fa-table"></i></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="page-conainer" class="content">
+
+</div>
+
+<input id="viewType" type="hidden" value="grid" />
+<div class="modal fade" id="searchEmployeeModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title"> @Resource.Search_An_Employee</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal" id="search_frm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Employee_Name</label>
+                            <div class="col-sm-10">
+                                <input id="name_Search" type="text" class="form-control">
+                                <span class="help-block m-b-none">@Resource.Emp_Search_Description</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Employee_code</label>
+                            <div class="col-sm-10">
+                                <input id="code_Search" type="text" class="form-control">
+                                <span class="help-block m-b-none">@Resource.Emp_Search_Description</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.SSN</label>
+                            <div class="col-sm-10">
+                                <input id="ssn_Search" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Mobile</label>
+                            <div class="col-sm-10">
+                                <input id="mobile_Search" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Social_Insurance_Code</label>
+                            <div class="col-sm-10">
+                                <input id="social_insurance_code_Search" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.User</label>
+                            <div class="col-sm-10">
+                                @*@{Html.RenderAction("Employee_User_List", "Setup"); }*@
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                                <label class="col-sm-2 control-label">Photo:</label>
+                                <div class="col-sm-10">
+                                    <input id="photo_Search" type="text" class="form-control not-alone-left" disabled="disabled">
+                                    <a href="#" onclick="load_upload_file()" class="btn btn-default pull-left"><i class="fa fa-image"></i> </a>
+                                </div>
+                            </div>*@
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="Reset_employee()" class="btn btn-default" data-dismiss="modal">@Resource.Reset</button>
+                <button type="button" onclick="Search_employee()" data-dismiss="modal" class="btn btn-primary">@Resource.Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*Create Employee PopUp*@
+<div class="modal fade" id="createEmployeeModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Create_New_Employee </h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal" id="create_frm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Employee_Name</label>
+                            <div class="col-sm-10">
+                                <input id="name" name="Emp_Name" type="text" class="form-control">
+                                <span class="help-block m-b-none">@Resource.Emp_Create_Description</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Employee_code</label>
+                            <div class="col-sm-10">
+                                <input id="code" type="text" name="Emp_Code" class="form-control">
+                                <span class="help-block m-b-none">@Resource.Emp_Create_Code_Description</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.SSN</label>
+                            <div class="col-sm-10">
+                                <input id="ssn" type="text" name="Emp_ssn" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Mobile</label>
+                            <div class="col-sm-10">
+                                <input id="mobile" name="Emp_mobile" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Social_Insurance_Code:</label>
+                            <div class="col-sm-10">
+                                <input id="social_insurance_code" name="Emp_social_insurance_code" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.User</label>
+                            <div class="col-sm-10">
+                                @*@{Html.RenderAction("Employee_User_List", "Setup"); }*@
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Photo </label>
+                            <div class="col-sm-10">
+                                <input id="photo" type="text" class="form-control not-alone-left" disabled="disabled">
+                                <a href="#" onclick="load_upload_file()" class="btn btn-default pull-left"><i class="fa fa-image"></i> </a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_employee_creation()" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+                <button type="button" disabled id="save_btn"  onclick="create_employee()" data-dismiss="modal" class="btn btn-primary">@Resource.Save_changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*Edit Popup*@
+<div class="modal fade" id="EditEmployeeModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Edit_This_Employee</h4>
+            </div>
+            <div id="Edit_Popup_Content"></div>
+
+        </div>
+    </div>
+</div>
+@*Edit Popup End*@
+@*<div class="modal fade" id="searchEmployeeModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Modal title</h4>
+                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="create_department()" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="modal fade" id="deleteDepartmentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Delete_Department_Room</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+                                <p>@Resource.Delete_Department_Message </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" id="delete_Department_container">
+
+        </div>
+    </div>
+</div>
+<input type="file" class="hidden" id="upload_img_input" />
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+<script src="~/Vendor/flot/examples/shared/jquery-ui/jquery-ui.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script> 
+    <script type="text/javascript">
+        debugger;
+        $("#create_frm").validate({
+            rules: {
+                Emp_Name: { required: true },
+                Emp_Code: { required: true },
+                Emp_ssn: { required: true },
+                Emp_mobile: { required: true },
+                Emp_social_insurance_code: { required: true },
+                ddl_user_Id: { required: true, selectcheck: true },
+
+            },
+            messages: {
+                //txt_Notes: { required: 'akjshogtiwedfspjls;kfcmndssfhyooprj' },
+            },
+            errorClass: "error",
+            validClass: "valid"
+        });
+        debugger;
+        $('#create_frm').on('blur keyup change', 'select', function (e) {
+            var form = $("#create_frm");
+
+            if (form.valid()) {
+                $('#save_btn').prop('disabled', false);
+            }
+            else {
+                $('#save_btn').prop('disabled', 'disabled');
+                return;
+            }
+        });
+
+        $('#create_frm').on('blur keyup change', 'input', function (e) {
+            var form = $("#create_frm");
+
+            if (form.valid()) {
+                $('#save_btn').prop('disabled', false);
+            }
+            else {
+                $('#save_btn').prop('disabled', 'disabled');
+                return;
+            }
+        });
+
+        jQuery.validator.addMethod('selectcheck', function (value) {
+            return (value != '0');
+        }, 'Pleace Select Item');
+
+        debugger;
+        function Get_Data_Edit_Pop_UP(ID) {
+            var cont = $('#Edit_Popup_Content');
+            cont.empty();
+            var data = {};
+            data.ID = ID;
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Edit_Employee")';
+            ajaxoptions.data = data;
+            ajaxoptions.success = function (result) {
+                cont.empty();
+                cont.append(result);
+            };
+            $.ajax(ajaxoptions);
+        }
+        debugger
+        function delete_Department(Id) {
+            var data = {};
+            data.Id = Id;
+            var container = $('#delete_Department_container');
+            //empty the container and add loading img
+            container.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Delete", "Employees")';
+            ajaxoptions.success = function (result)
+            {
+                //container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () 
+            {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        debugger
+        function confirm_delete_Department(Id) {
+            var data = {};
+            data.Id = Id;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Confirm_Delete_Shift", "Employees")';
+            ajaxoptions.success = function (result) {
+                toaster('success', result);
+                load_employees($('#viewType').val());
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to Delete a Shift !.');
+            };
+            $.ajax(ajaxoptions);
+        }
+</script>
+    <script type="text/javascript">
+        //debugger;
+        //$("#create_frm").validate({
+        //    rules: {
+        //        Emp_Name: { required: true },
+        //        Emp_Code: { required: true },
+        //        Emp_ssn: { required: true },
+        //        Emp_mobile: { required: true },
+        //        Emp_social_insurance_code: { required: true },
+        //        ddl_user_Id: { required: true, selectcheck: true },
+
+        //    },
+        //    messages: {
+        //        //txt_Notes: { required: 'akjshogtiwedfspjls;kfcmndssfhyooprj' },
+        //    },
+        //    errorClass: "error",
+        //    validClass: "valid"
+        //});
+        //debugger;
+        //$('#create_frm').on('blur keyup change', 'select', function (e) {
+        //    var form = $("#create_frm");
+
+        //    if (form.valid()) {
+        //        $('#save_btn').prop('disabled', false);
+        //    }
+        //    else {
+        //        $('#save_btn').prop('disabled', 'disabled');
+        //        return;
+        //    }
+        //});
+
+        $(document).ready(function () {
+            load_employees($('#viewType').val());
+        });
+        jQuery.validator.addMethod('selectcheck', function (value) {
+            return (value != '0');
+        }, 'Pleace Select Item');
+
+        function load_employees(view, data) {
+            $('#viewType').val(view);
+            if (view == 'table') {
+                $('#employees_grid_btn').removeClass('btn-active');
+                $('#employees_table_btn').addClass('btn-active');
+            }
+            else {
+                $('#employees_grid_btn').addClass('btn-active');
+                $('#employees_table_btn').removeClass('btn-active');
+            }
+
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var error_info = 'an error occurred while trying to load the employees.';
+            var container = $('#page-conainer');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            //
+            if (data == undefined) {
+                ajaxoptions.data = { view: view };
+            }
+            else {
+                ajaxoptions.data = data;
+                data.view = view;
+            }
+
+
+            ajaxoptions.url = '@Url.Action("Employees_Select")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+                if (view == 'table') {
+                    Initialize_Employees_Tbl();
+                }
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Initialize_Employees_Tbl() {
+            $('#employees_tbl').dataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    { extend: 'copy', className: 'btn-sm' },
+                    { extend: 'csv', title: '@ViewBag.Title', className: 'btn-sm' },
+                    { extend: 'pdf', title: '@ViewBag.Title', className: 'btn-sm' },
+                    { extend: 'print', className: 'btn-sm' }
+                ]
+            });
+        }
+        function cancel_employee_creation() {
+            toaster('warning', 'you canceled employee creation!');
+            resetForm("#create_frm");
+        }
+        function cancel_employee_Editing() {
+            toaster('warning', 'you canceled employee Editing!');
+        }
+
+        //Edit Employee
+        function Edit_employee(id) {
+            var data = {};
+            data.name = $('#name_Edt').val();
+            data.photo = $('#photo_Edt').val();
+            data.code = $('#code_Edt').val();
+            //data.user_Id = $('#user_Id').val();
+            data.ssn = $('#ssn_Edt').val();
+            data.mobile = $('#mobile_Edt').val();
+            data.social_insurance_code = $('#social_insurance_code_Edt').val();
+            data.id = id;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Employee_Edit")";
+            ajaxoptions.success = function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    toaster('info', result[i].user_message);
+                }
+                load_employees($('#viewType').val());
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to submit Editing employee !.');
+            };
+            $.ajax(ajaxoptions);
+        }
+        //  End
+        function Search_employee(view) {
+            var data = {};
+            $('#viewType').val(view);
+            data.name = $('#name_Search').val();
+            data.photo = $('#photo_Search').val();
+            data.code = $('#code_Search').val();
+            //data.user_Id = $('#user_Id_Search').val();
+            data.ssn = $('#ssn_Search').val();
+            data.mobile = $('#mobile_Search').val();
+            data.social_insurance_code = $('#social_insurance_code_Search').val();
+            load_employees($('#viewType').val(), data);
+            resetForm("#search_frm");
+        }
+
+        function Reset_employee() {
+            var data = {};
+            //$('#viewType').val(view);
+            $('#name_Search').val('');
+            $('#photo_Search').val('');
+            $('#code_Search').val('');
+            $('#ssn_Search').val('');
+            $('#mobile_Search').val('');
+            $('#social_insurance_code_Search').val('');
+            data.name = '';
+            data.photo = '';
+            data.code = '';
+            //data.user_Id = $('#user_Id_Search').val();
+            data.ssn = '';
+            data.mobile = ''
+            data.social_insurance_code = '';
+            load_employees($('#viewType').val(), data);
+            resetForm("#search_frm");
+        }
+        function create_employee() {
+            var data = {};
+            data.name = $('#name').val();
+            data.photo = $('#photo').val();
+            data.code = $('#code').val();
+            data.user_Id = $('#user_Id').val();
+            data.ssn = $('#ssn').val();
+            data.mobile = $('#mobile').val();
+            data.social_insurance_code = $('#social_insurance_code').val();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Employee_Create")";
+            ajaxoptions.success = function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    toaster('info', result[i].user_message);
+                }
+                load_employees($('#viewType').val());
+                resetForm("#create_frm");
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to submit a new employee !.');
+            };
+            $.ajax(ajaxoptions);
+        }
+        function load_upload_file() {
+            $('#upload_img_input').trigger('click');
+        }
+
+        $('#upload_img_input').on('change', function (e) {
+            var files = e.target.files;
+            //var myID = 3; //uncomment this to make sure the ajax URL works
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("upload_img")',
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            $('#photo').val(result);
+                            $('#photo_Edt').val(result);
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
+    </script>
+}  

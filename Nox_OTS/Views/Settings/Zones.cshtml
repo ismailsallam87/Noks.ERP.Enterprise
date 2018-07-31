@@ -1,0 +1,351 @@
+﻿
+@{
+    ViewBag.Title = "Zones And Areas Management";
+}
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-select/bootstrap-select.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2-metronic.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/jquery-multi-select/css/multi-select.css" />
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Zones And Areas Management <small></small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li class="btn-group">
+                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                    <span>
+                        Actions
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="#create_view_modal" data-toggle="modal">
+                            Create New
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @{Html.RenderAction("Breedcrumb", "Common", new { view = "ZoneManagement" });}
+        </ul>
+        <div class="actions">
+            <a href="#" onclick="Load_Zones_View('Table')" class="btn blue pull-right">
+                <i class="fa fa-table"></i> Table
+            </a>
+            <a href="#" onclick="Load_Zones_View('Grid')" class="btn green pull-right">
+                <i class="fa fa-group"></i> Grid
+            </a>
+        </div>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+
+<div class="row">
+    <div class="col-md-12" id="zones_tbl_cont">
+
+    </div>
+</div>
+<!-- END PAGE CONTENT-->
+<div id="create_view_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Create New Zone</h4>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @Html.Partial("_Zone_Create")
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="edit_zone_view_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Edit Zone</h4>
+            </div>
+            <div id="Edit_Zone_Cont" class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="areas_zone_view_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Add Area</h4>
+            </div>
+            <div id="Areas_Zone_Cont" class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="view_type" value="Table" />
+<!-- END PAGE Modals-->
+@section Scripts {
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="../../assets/plugins/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery.pulsate.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery-bootpag/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/holder.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="../../assets/plugins/select2/select2.min.js"></script>
+    <script src="../../assets/scripts/core/app.js"></script>
+    <script src="../../assets/scripts/custom/ui-general.js"></script>
+    <script type="text/javascript" src="../../assets/scripts/custom/form-samples.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            UIGeneral.init();
+            Load_Zones_View('Table');
+        })
+        function edit_newZone() {
+            var data = {};
+            data.Name = $('#Edit_ZoneName_Txt').val();
+            data.ID = $('#Edit_zone_id').val();
+
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Zone_Edit", "Settings")';
+            ajaxoptions.success = function (result) {
+                push_notification('Update Zone', 'Code: [' + 0 + ']' + result, false);
+                Load_Zones_View($('#view_type').val());
+                Clear_Zone_Edit_Frm();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function create_newZone() {
+            var data = {};
+            data.Name = $('#Create_ZoneName_Txt').val();
+
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Zone_Create", "Settings")';
+            ajaxoptions.success = function (result) {
+                push_notification('Create New Zone', 'Code: [' + 0 + ']' + result, false);
+                Load_Zones_View($('#view_type').val());
+                Clear_Zone_Create_Frm();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function edit_Zone() {
+            var data = {};
+            data.Name = $('#Edit_ZoneName_Txt').val();
+            data.Id = $('#Edit_zone_id').val();
+
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Zone_Edit", "Settings")';
+            ajaxoptions.success = function (result) {
+                push_notification('Edit Zone', 'Code: [' + 0 + ']' + result, false);
+                Load_Zones_View($('#view_type').val());
+                Clear_Zone_Edit_Frm();
+            };
+            ajaxoptions.error = function () {
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function Clear_Zone_Create_Frm() {
+            $('#Create_ZoneName_Txt').val('');
+            push_notification('New Zone Created', 'Cleared Successfully', false);
+        }
+        function Clear_Zone_Edit_Frm() {
+            $('#Edit_ZoneName_Txt').val('');
+            $('#Edit_zone_id').val('');
+            push_notification('Update Zone', 'Cleared Successfully', false);
+        }
+        function Load_Zones_View(view) {
+            $('#view_type').val(view);
+            var data = {};
+            data.View = view;
+            var img_loading = '<p style="text-align:center"><img src="../../assets/img/loading.gif" /></p>';
+            var container = $('#zones_tbl_cont');
+            //empty the container and add loading img
+            container.empty();
+            container.append(img_loading);
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Zones_Select", "Settings")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function Load_Zone_Edit_View(id) {
+            var data = {};
+            data.id = id;
+            var img_loading = '<p style="text-align:center"><img src="../../assets/img/loading.gif" /></p>';
+            var container = $('#Edit_Zone_Cont');
+            //empty the container and add loading img
+            container.empty();
+            container.append(img_loading);
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Load_Zones_Edit_View", "Settings")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Load_Zone_areas_View(ZoneId) {
+            var data = {};
+            data.ZoneId = ZoneId;
+            var img_loading = '<p style="text-align:center"><img src="../../assets/img/loading.gif" /></p>';
+            var container = $('#Areas_Zone_Cont');
+            //empty the container and add loading img
+            container.empty();
+            container.append(img_loading);
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Areas_Select", "Settings")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Show_Add_New_Area() {
+
+            $('#new_area_frm').removeClass('hidden');
+        }
+
+        function create_newZone() {
+            var data = {};
+            data.Name = $('#Create_ZoneName_Txt').val();
+
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Zone_Create", "Settings")';
+            ajaxoptions.success = function (result) {
+                push_notification('Create New Zone', 'Code: [' + 0 + ']' + result, false);
+                Load_Zones_View($('#view_type').val());
+                Clear_Zone_Create_Frm();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function create_newArea() {
+            var data = {};
+            data.AreaName = $('#Create_AreaName_Txt').val();
+            data.Zone_ID = $('#Area_Zone_ID').val();
+
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Area_Create", "Settings")';
+            ajaxoptions.success = function (result) {
+                push_notification('Create Area', 'Code: [' + 0 + ']' + result, false);
+                Clear_Area_Create_Frm();
+                $('#temp_no_data').empty();
+                Load_Zone_areas_View(data.Zone_ID);
+                //Load_Areas_Tbl(data.Zone_ID);
+            };
+            ajaxoptions.error = function () {
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function Clear_Area_Create_Frm() {
+            $('#Create_AreaName_Txt').val('');
+            push_notification('New Area Created', 'Cleared Successfully', false);
+        }
+        function Load_Areas_Tbl(ZoneId){
+            var data = {};
+            data.ZoneId = ZoneId;
+            var img_loading = '<p style="text-align:center"><img src="../../assets/img/loading.gif" /></p>';
+            var container = $('#areas_tbl_cont');
+            //empty the container and add loading img
+            container.empty();
+            container.append(img_loading);
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Areas_Tbl_Select", "Settings")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function DeleteArea(areaId) {
+            var data = {};
+            data.areaId = areaId;
+            var img_loading = '<p style="text-align:center"><img src="../../assets/img/loading.gif" /></p>';
+            var container = $('#areas_tbl_cont');
+            //empty the container and add loading img
+            container.empty();
+            container.append(img_loading);
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Areas_Delete", "Settings")';
+            ajaxoptions.success = function (result) {
+                push_notification('Delete Area', result, false);
+                Load_Areas_Tbl($('#Area_Zone_ID').val());
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+
+
+        function DeleteZone(ZoneId) {
+            var data = {};
+            data.ZoneId = ZoneId;
+            var img_loading = '<p style="text-align:center"><img src="../../assets/img/loading.gif" /></p>';
+            var container = $('#zones_tbl_cont');
+            //empty the container and add loading img
+            container.empty();
+            container.append(img_loading);
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Zone_Delete", "Settings")';
+            ajaxoptions.success = function (result) {
+                push_notification('Delete Zone', result, false);
+                Load_Zones_View($('#view_type').val());
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+    </script>
+}

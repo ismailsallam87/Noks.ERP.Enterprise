@@ -1,0 +1,88 @@
+﻿@using OTS.DAL
+@model List<Zones_Select_Result>
+
+<!-- BEGIN SAMPLE TABLE PORTLET-->
+<div class="portlet box green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Zones 
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse">
+            </a>
+            <a href="#portlet-search" data-toggle="modal" class="config">
+            </a>
+            <a href="javascript:;" class="reload" onclick="Load_Zones_View('Table')">
+            </a>
+        </div>
+    </div>
+    @if (Model == null || Model.Count == 0)
+    {
+        @Html.Partial("_NoDataFound");
+    }
+    else
+    {
+        <div class="portlet-body flip-scroll">
+            <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content">
+                    <tr>
+                        <th width="10%">
+                            ID
+                        </th>
+                        <th>
+                           Title
+                        </th>
+                        <th>
+                            Active Tasks
+                        </th>
+                        <th>
+                            Active Areas
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var zone in Model)
+                    {
+                        <tr>
+                            <td class="numeric">
+                                @zone.ID
+                            </td>
+                            <td>
+                                @zone.Title
+                            </td>
+                            <td>
+                                @zone.Active_Tasks
+                                <a href="#">
+                                    <span class="fa fa-plus-square"></span>
+                                </a>
+                            </td>
+                            <td>
+                                @zone.Areas
+                                <a onclick="Load_Zone_areas_View('@zone.ID')" href="#areas_zone_view_modal" data-toggle="modal">
+                                    <span class="fa fa-plus-square"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a onclick="Load_Zone_Edit_View('@zone.ID')" href="#edit_zone_view_modal" data-toggle="modal" title="Edit">
+                                    <span class="fa fa-pencil"></span>
+                                </a> |
+                                <a onclick="Load_Zone_Edit_View('@zone.ID')" href="#edit_zone_view_modal" data-toggle="modal" title="View">
+                                    <span class="fa fa-book"></span>
+                                </a> |
+                                <a href="#" onclick="DeleteZone('@zone.ID')"  title="Delete">
+                                    <span class="fa fa-archive"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+</div>
+<!-- END SAMPLE TABLE PORTLET-->
+

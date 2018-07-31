@@ -1,0 +1,20 @@
+﻿@using OTS.DAL
+@{
+    OTSEntities db = new OTSEntities();
+    List<Runner_List_Result> list = db.Runner_List().ToList();
+}
+<select id="runner_list" class="table-group-action-input form-control input-inline input-small input-sm">
+    @if (list != null && list.Count > 0)
+    {
+        <option value="-1">Please Select a Runner</option>
+        foreach (var runner in list)
+        {
+            <option value="@runner.ID">@runner.UserName</option>
+        }
+    }
+    else
+    {
+        <option value="-1">No Runner Found !</option>
+    }
+</select>
+

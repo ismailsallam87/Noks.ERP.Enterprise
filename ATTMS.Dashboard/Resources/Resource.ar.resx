@@ -1,0 +1,1451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="A" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Absence" xml:space="preserve">
+    <value> غياب</value>
+  </data>
+  <data name="Absence_Days" xml:space="preserve">
+    <value>أيام الغياب</value>
+  </data>
+  <data name="Absent" xml:space="preserve">
+    <value>غائب</value>
+  </data>
+  <data name="account" xml:space="preserve">
+    <value> الحساب.</value>
+  </data>
+  <data name="account_Locked_Out_Message" xml:space="preserve">
+    <value>تم حظر هذا الحساب ، يرجى المحاولة مرة أخرى في وقت لاحق.</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>اجراء</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>اجراءات</value>
+  </data>
+  <data name="Action_button" xml:space="preserve">
+    <value>زر التطبيق</value>
+  </data>
+  <data name="Activate" xml:space="preserve">
+    <value>تفعيل</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>نشيط</value>
+  </data>
+  <data name="Active_duration" xml:space="preserve">
+    <value>مده نشطه</value>
+  </data>
+  <data name="Active_users_in_current_month_December" xml:space="preserve">
+    <value>المستخدمون النشطون في الشهر الحالي</value>
+  </data>
+  <data name="Add_A_document" xml:space="preserve">
+    <value>أضف وثيقة</value>
+  </data>
+  <data name="Add_A_leave" xml:space="preserve">
+    <value>أضف إجازة</value>
+  </data>
+  <data name="Add_Contract" xml:space="preserve">
+    <value>أضف العقد</value>
+  </data>
+  <data name="Add_Document" xml:space="preserve">
+    <value>أضافة مستند</value>
+  </data>
+  <data name="Add_Employee" xml:space="preserve">
+    <value>اضف موظف</value>
+  </data>
+  <data name="Add_Employee_To_Dept_Validation" xml:space="preserve">
+    <value>لإضافة موظفين إلى القسم ، عليك أولاً تسجيل عناوين وظيفية.</value>
+  </data>
+  <data name="Add_Job_Title" xml:space="preserve">
+    <value>أضف عنوان الوظيفة</value>
+  </data>
+  <data name="Add_New_Device" xml:space="preserve">
+    <value>يمكنك اضافه اسم جهاز جديد من 50 حرفًا</value>
+  </data>
+  <data name="Add_New_devioce_No" xml:space="preserve">
+    <value>يمكنك اضافه رقم  جهاز جديد من 50 حرفًا</value>
+  </data>
+  <data name="Add_New_Employee_on" xml:space="preserve">
+    <value>إضافة موظف جديد </value>
+  </data>
+  <data name="Add_New_Job_Title" xml:space="preserve">
+    <value>إضافة عنوان وظيفي جديد إلى</value>
+  </data>
+  <data name="Add_phone_number" xml:space="preserve">
+    <value>أضف رقم هاتف</value>
+  </data>
+  <data name="Add_Remove_Employees_From_Shift" xml:space="preserve">
+    <value>إضافة / إزالة الموظفين من الوردية</value>
+  </data>
+  <data name="Add_Rule" xml:space="preserve">
+    <value>اضافة صلاحية</value>
+  </data>
+  <data name="Admin_Dashboard" xml:space="preserve">
+    <value>لوحة التحكم</value>
+  </data>
+  <data name="All_Income" xml:space="preserve">
+    <value>كل الدخل</value>
+  </data>
+  <data name="Analytics" xml:space="preserve">
+    <value>تحليلات</value>
+  </data>
+  <data name="And_four_weeks" xml:space="preserve">
+    <value>و 4 اسابيع</value>
+  </data>
+  <data name="An_error_occurred" xml:space="preserve">
+    <value>حدث خطأ أثناء معالجة طلبك.</value>
+  </data>
+  <data name="Approval_Status" xml:space="preserve">
+    <value>حالة الموافقة</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>يوافق</value>
+  </data>
+  <data name="Approved_Hours" xml:space="preserve">
+    <value>الساعات المعتمده</value>
+  </data>
+  <data name="Approved_Overtime" xml:space="preserve">
+    <value>موافقة / وقت العمل الإضافي (ساعة)</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>عربي</value>
+  </data>
+  <data name="Associate_your" xml:space="preserve">
+    <value>اربط بحسابك</value>
+  </data>
+  <data name="Association_Form" xml:space="preserve">
+    <value>اربط ب</value>
+  </data>
+  <data name="Attendace_Sheet" xml:space="preserve">
+    <value>تقرير الحضور</value>
+  </data>
+  <data name="Attendacne_Management" xml:space="preserve">
+    <value>إدارة الحضور</value>
+  </data>
+  <data name="Attendance" xml:space="preserve">
+    <value>الحضور</value>
+  </data>
+  <data name="Attendance_Devices" xml:space="preserve">
+    <value>أجهزة الحضور</value>
+  </data>
+  <data name="Attendance_Reporting_Engine" xml:space="preserve">
+    <value>محرك الإبلاغ عن الحضور</value>
+  </data>
+  <data name="Attendance_Sheet_Reporting" xml:space="preserve">
+    <value>تقرير ملف الحضور</value>
+  </data>
+  <data name="Box_title" xml:space="preserve">
+    <value>تقرير الحضور</value>
+  </data>
+  <data name="Branches" xml:space="preserve">
+    <value>فروع</value>
+  </data>
+  <data name="By_easy_filteration_method" xml:space="preserve">
+    <value>من خلال طريقة الترشيح السهلة ، يمكنك بناء وتخصيص تقريرك ثم التصدير.</value>
+  </data>
+  <data name="C3_Charts" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Change_Display_Name" xml:space="preserve">
+    <value>تغيير اسم العرض</value>
+  </data>
+  <data name="Change_password" xml:space="preserve">
+    <value>تغيير كلمة السر</value>
+  </data>
+  <data name="Change_Password_Form" xml:space="preserve">
+    <value>تغيير نموذج كلمة المرور</value>
+  </data>
+  <data name="Change_the_join_and_left_date_hint" xml:space="preserve">
+    <value>يمكنك تغيير تاريخ الانضمام و المغادرة</value>
+  </data>
+  <data name="Change_your_account_settings" xml:space="preserve">
+    <value>قم بتغيير إعدادات حسابك</value>
+  </data>
+  <data name="Chartist" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ChartJs" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Check_In" xml:space="preserve">
+    <value>تسجيل حضور</value>
+  </data>
+  <data name="Check_Out" xml:space="preserve">
+    <value>تسجيل انصراف</value>
+  </data>
+  <data name="Check_Roles_assigned_to" xml:space="preserve">
+    <value>تحقق من الأدوار التي سيتم تعيينها للمستخدم وألغ تحديد الأدوار التي ستتم إزالتها من قائمة المستخدم</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>اغلاق</value>
+  </data>
+  <data name="Close_Month" xml:space="preserve">
+    <value>غلق شهر</value>
+  </data>
+  <data name="Close_Month_Ensure_Message" xml:space="preserve">
+    <value>رسالة تأكيد غلق شهر</value>
+  </data>
+  <data name="Coach" xml:space="preserve">
+    <value>المدير المباشر</value>
+  </data>
+  <data name="Coach_Name" xml:space="preserve">
+    <value>اسم المدير المباشر</value>
+  </data>
+  <data name="code" xml:space="preserve">
+    <value>الكود</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>اللون</value>
+  </data>
+  <data name="color_on_sheet" xml:space="preserve">
+    <value>اللون على ورقة</value>
+  </data>
+  <data name="Common_Working_Hours_Graph" xml:space="preserve">
+    <value>الرسم البياني لساعات العمل المشتركة</value>
+  </data>
+  <data name="Complete_success" xml:space="preserve">
+    <value>كاملة (النجاح)</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>جهات الاتصال</value>
+  </data>
+  <data name="Contracts" xml:space="preserve">
+    <value>عقود</value>
+  </data>
+  <data name="contract_basic_salary" xml:space="preserve">
+    <value>عقد الراتب الأساسي:</value>
+  </data>
+  <data name="contract_gross_salary" xml:space="preserve">
+    <value>الراتب الإجمالي للعقد:</value>
+  </data>
+  <data name="contract_net_salary" xml:space="preserve">
+    <value>راتب العقد الصافي:</value>
+  </data>
+  <data name="Contrary_to_popular_belief" xml:space="preserve">
+    <value>خلافا للاعتقاد الشائع.</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>حقوق النشر</value>
+  </data>
+  <data name="Copyright_2015" xml:space="preserve">
+    <value>حقوق النشر 2015</value>
+  </data>
+  <data name="Copyright_NokTechnology" xml:space="preserve">
+    <value>حقوق الملكية نوك تكنولوجي</value>
+  </data>
+  <data name="Copy_Path" xml:space="preserve">
+    <value>مسار النسخ:</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>انشاء</value>
+  </data>
+  <data name="Created_At" xml:space="preserve">
+    <value>وقت الانشاء</value>
+  </data>
+  <data name="Created_By" xml:space="preserve">
+    <value>انشئ بواسطة</value>
+  </data>
+  <data name="Create_Contract" xml:space="preserve">
+    <value>انشاء عقد</value>
+  </data>
+  <data name="Create_Department" xml:space="preserve">
+    <value>انشاء قسم</value>
+  </data>
+  <data name="Create_Department_Hint" xml:space="preserve">
+    <value>يمكنك اضافه قسم من 50 حرف</value>
+  </data>
+  <data name="Create_Device" xml:space="preserve">
+    <value>انشاء جهاز</value>
+  </data>
+  <data name="Create_Local_Login" xml:space="preserve">
+    <value>إنشاء تسجيل الدخول المحلي</value>
+  </data>
+  <data name="Create_new_account" xml:space="preserve">
+    <value>انشاء حساب جديد.</value>
+  </data>
+  <data name="Create_New_Employee" xml:space="preserve">
+    <value>إنشاء موظف جديد</value>
+  </data>
+  <data name="Create_New_Holiday" xml:space="preserve">
+    <value>انشاء عطلة جديدة</value>
+  </data>
+  <data name="Create_New_Rule" xml:space="preserve">
+    <value>انشاء قاعدة حضور جديدة</value>
+  </data>
+  <data name="Create_New_Rule_Description" xml:space="preserve">
+    <value>لا تضف قاعدة حضور تتعارض مع اخري في نفس الوقت</value>
+  </data>
+  <data name="Create_Shift" xml:space="preserve">
+    <value>اضافة وردية</value>
+  </data>
+  <data name="Current_Shift" xml:space="preserve">
+    <value>الوردية الحالية</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>لوحة التحكم</value>
+  </data>
+  <data name="Dashboard_information_and_statistics" xml:space="preserve">
+    <value>بيانات و احصائيات لوحة التحكم</value>
+  </data>
+  <data name="Data_from_January" xml:space="preserve">
+    <value>بيان</value>
+  </data>
+  <data name="days" xml:space="preserve">
+    <value>ايام</value>
+  </data>
+  <data name="Day_Off" xml:space="preserve">
+    <value>يوم اجازة</value>
+  </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>تعطيل</value>
+  </data>
+  <data name="Deductions" xml:space="preserve">
+    <value>الخصومات</value>
+  </data>
+  <data name="Deduction_Hours" xml:space="preserve">
+    <value>ساعات الخصم</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="Delete_Department" xml:space="preserve">
+    <value>حذف هذا  القسم</value>
+  </data>
+  <data name="Delete_Department_Message" xml:space="preserve">
+    <value>هل أنت متأكد أنك تريد الحذف ...!</value>
+  </data>
+  <data name="Delete_Department_Room" xml:space="preserve">
+    <value>حذف  الإدارة</value>
+  </data>
+  <data name="Delete_Ensure_Message" xml:space="preserve">
+    <value>هل أنت متأكد أنك تريد الحذف ...!</value>
+  </data>
+  <data name="Delete_user" xml:space="preserve">
+    <value>مسح المستخدم</value>
+  </data>
+  <data name="Delete_User_ensure_Message" xml:space="preserve">
+    <value>هل أنت متأكد من أنك تريد حذف هذا المستخدم؟</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>قسم</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>الاقسام</value>
+  </data>
+  <data name="Department_Name" xml:space="preserve">
+    <value>اسم القسم</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>تفاصيل</value>
+  </data>
+  <data name="development" xml:space="preserve">
+    <value>تطوير</value>
+  </data>
+  <data name="Devices" xml:space="preserve">
+    <value>اجهزة</value>
+  </data>
+  <data name="Devices_Management" xml:space="preserve">
+    <value>ادارة الاجهزة</value>
+  </data>
+  <data name="Device_ID" xml:space="preserve">
+    <value>معرف الجهاز</value>
+  </data>
+  <data name="Device_IP" xml:space="preserve">
+    <value>الموقع الشبكي للجهاز</value>
+  </data>
+  <data name="Device_Name" xml:space="preserve">
+    <value>اسم الجهاز</value>
+  </data>
+  <data name="Device_No" xml:space="preserve">
+    <value>رقم الجهاز</value>
+  </data>
+  <data name="Device_Password" xml:space="preserve">
+    <value>كلمة سر الجهاز</value>
+  </data>
+  <data name="Device_Port" xml:space="preserve">
+    <value>المنفذ الشبكي للجهاز</value>
+  </data>
+  <data name="Display_Name" xml:space="preserve">
+    <value>اسم العرض</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>وثيقة</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>وثائق</value>
+  </data>
+  <data name="E" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="Edit_This_Document" xml:space="preserve">
+    <value>تعديل هذة الوثيقة</value>
+  </data>
+  <data name="Edit_This_Employee" xml:space="preserve">
+    <value>تعديل هذا الموظف</value>
+  </data>
+  <data name="Edit_User_Profile" xml:space="preserve">
+    <value>تعديل ملف تعريف المستخدم</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الالكتروني</value>
+  </data>
+  <data name="Email_Link" xml:space="preserve">
+    <value>رابط البريد الالكتروني</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>موظف</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>الموظفيين</value>
+  </data>
+  <data name="Employees_Contract" xml:space="preserve">
+    <value>الموظفين/العقود</value>
+  </data>
+  <data name="Employees_Count" xml:space="preserve">
+    <value>عدد الموظفين</value>
+  </data>
+  <data name="Employees_Working_for" xml:space="preserve">
+    <value>الموظف يعمل لدي</value>
+  </data>
+  <data name="Employee_code" xml:space="preserve">
+    <value>كود الموظف</value>
+  </data>
+  <data name="Employee_First_Name" xml:space="preserve">
+    <value>الاسم الاول للموظف</value>
+  </data>
+  <data name="Employee_Last_Name" xml:space="preserve">
+    <value>الاسم الاخير للموظف</value>
+  </data>
+  <data name="Employee_Mid_Name" xml:space="preserve">
+    <value>الاسم الاوسط للموظف</value>
+  </data>
+  <data name="Employee_Name" xml:space="preserve">
+    <value>اسم الموظف</value>
+  </data>
+  <data name="Emp_Create_Code_Description" xml:space="preserve">
+    <value>يمكنك إنشاء كود موظف جديد مكون من 50 حرفًا</value>
+  </data>
+  <data name="Emp_Create_Description" xml:space="preserve">
+    <value>يمكنك إنشاء  موظف جديد في 50 حرفًا</value>
+  </data>
+  <data name="Emp_Search_Code_Description" xml:space="preserve">
+    <value>يمكنك بحث عن كود موظف  في 50 حرفًا</value>
+  </data>
+  <data name="Emp_Search_Description" xml:space="preserve">
+    <value>يمكنك بحث  عن موظف  في 50 حرفًا</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>مفعل</value>
+  </data>
+  <data name="End_At" xml:space="preserve">
+    <value>انتهاء في</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>انجليزي</value>
+  </data>
+  <data name="Enter_verification_code" xml:space="preserve">
+    <value>أدخل رمز التحقق</value>
+  </data>
+  <data name="Enter_your_email" xml:space="preserve">
+    <value>ادخل بريدك الالكتروني</value>
+  </data>
+  <data name="eporting" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ERR" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
+  <data name="Expected_End_At" xml:space="preserve">
+    <value>متوقع/ينتهي في:</value>
+  </data>
+  <data name="Expected_Start_At" xml:space="preserve">
+    <value>متوقع /يبدأ في:</value>
+  </data>
+  <data name="Expect_End_At" xml:space="preserve">
+    <value>متوقع ينتهي في:</value>
+  </data>
+  <data name="Expect_Start_At" xml:space="preserve">
+    <value>متوقع يبدأ في:</value>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>منتهي:</value>
+  </data>
+  <data name="Expired_At" xml:space="preserve">
+    <value>ينتهي في :</value>
+  </data>
+  <data name="External_Logins" xml:space="preserve">
+    <value>تسجيل الدخول الخارجي:</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>ملفات</value>
+  </data>
+  <data name="Filter_Attendance_Sheet" xml:space="preserve">
+    <value>بحث ملف الحضور</value>
+  </data>
+  <data name="First_Name" xml:space="preserve">
+    <value>الاسم الاول</value>
+  </data>
+  <data name="Flot_charts" xml:space="preserve">
+    <value>خرائط تدفق</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="for_details_on_setting_up_thisASP_NET_application" xml:space="preserve">
+    <value>للحصول على تفاصيل حول إعداد تطبيق ASP.NET هذا لدعم الدخول من خلال السرفرات الخارجية </value>
+  </data>
+  <data name="for_details_on_setting_up_this_ASP" xml:space="preserve">
+    <value>للحصول على تفاصيل حول إعداد تطبيق ASP.NET هذا لدعم التحقق الثنائية.</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="From_To" xml:space="preserve">
+    <value>من/الي</value>
+  </data>
+  <data name="Go_back" xml:space="preserve">
+    <value>ارجع</value>
+  </data>
+  <data name="Gross_Salary" xml:space="preserve">
+    <value>الراتب الكلى</value>
+  </data>
+  <data name="Holiday_End_Date" xml:space="preserve">
+    <value>تاريخ نهاية العطلة</value>
+  </data>
+  <data name="Holiday_Name" xml:space="preserve">
+    <value>اسم العطلة</value>
+  </data>
+  <data name="Holiday_Start_Date" xml:space="preserve">
+    <value>تاريخ بداية العطلة</value>
+  </data>
+  <data name="Homer_Responsive_Admin_Theme" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>الساعات </value>
+  </data>
+  <data name="hrs" xml:space="preserve">
+    <value>ساعة</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>رقم معرف</value>
+  </data>
+  <data name="if_this_is_a_private_computer" xml:space="preserve">
+    <value>اذا كان هذا الجهاز الشخصي</value>
+  </data>
+  <data name="information_in_graphs_design_and_printable" xml:space="preserve">
+    <value>المعلومات في تصميم الرسوم البيانية والطباعة</value>
+  </data>
+  <data name="Inline_graphs" xml:space="preserve">
+    <value>الرسوم البيانية المنسقه</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>الموقع الشبكي للجهاز</value>
+  </data>
+  <data name="Is_Manager" xml:space="preserve">
+    <value>مدير؟</value>
+  </data>
+  <data name="Is_Multiple" xml:space="preserve">
+    <value>متعدد؟</value>
+  </data>
+  <data name="Is_Mutliple" xml:space="preserve">
+    <value>متعدد؟</value>
+  </data>
+  <data name="is_working_for" xml:space="preserve">
+    <value>يعمل ل</value>
+  </data>
+  <data name="It_is_a_long_established" xml:space="preserve">
+    <value>انشئت قديما</value>
+  </data>
+  <data name="Job_Title" xml:space="preserve">
+    <value>عنوان الوظيفه</value>
+  </data>
+  <data name="Job_Titles_are_Registered_to" xml:space="preserve">
+    <value>عنوانين الوظائف مسجلة ل</value>
+  </data>
+  <data name="Job_Title_Department" xml:space="preserve">
+    <value>عنوان الوظيفه/القسم</value>
+  </data>
+  <data name="Joined_At" xml:space="preserve">
+    <value>انضم ف</value>
+  </data>
+  <data name="Last_active_in_" xml:space="preserve">
+    <value>آخر نشاط في</value>
+  </data>
+  <data name="Last_Name" xml:space="preserve">
+    <value>الاسم الاخير</value>
+  </data>
+  <data name="Last_Sync" xml:space="preserve">
+    <value>اخر تحديث</value>
+  </data>
+  <data name="Last_update" xml:space="preserve">
+    <value>اخر تحديث ف 21.05.2015</value>
+  </data>
+  <data name="Leave" xml:space="preserve">
+    <value>اجازة</value>
+  </data>
+  <data name="Leave_Reference" xml:space="preserve">
+    <value>من فضلك اختار مرجع الاجازة</value>
+  </data>
+  <data name="Leave_Requests" xml:space="preserve">
+    <value>طلبات الاجازة</value>
+  </data>
+  <data name="Leave_Request_Report1" xml:space="preserve">
+    <value>يعرض هذا التقرير طلبات الإجازات التي تم تقديمها للموظف خلال الشهر الحالي</value>
+  </data>
+  <data name="Leave_Request_Report2" xml:space="preserve">
+    <value>يجب عليك فتح شهر حضور جديد أولاً لعرض هذا التقرير.</value>
+  </data>
+  <data name="Left_At" xml:space="preserve">
+    <value>ترك في</value>
+  </data>
+  <data name="List_of" xml:space="preserve">
+    <value>قائمة من</value>
+  </data>
+  <data name="Locked_out" xml:space="preserve">
+    <value>اقفل.</value>
+  </data>
+  <data name="Lock_it" xml:space="preserve">
+    <value>أغلق!</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="Logins" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="login_from_your_account" xml:space="preserve">
+    <value>تسجيل الدخول من حسابك</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="Logs" xml:space="preserve">
+    <value>السجلات</value>
+  </data>
+  <data name="Log_off" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="Lorem_Ipsum_is_simply_dummy" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>المدير </value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>مديرين</value>
+  </data>
+  <data name="Manager_Name" xml:space="preserve">
+    <value>اسم المدير </value>
+  </data>
+  <data name="Manager_Reference" xml:space="preserve">
+    <value>من فضلك اختار مرجع المدير...</value>
+  </data>
+  <data name="Mid_Name" xml:space="preserve">
+    <value>الاسم الاوسط</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="Monica_Bolt" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Monitor_your_Resources_by" xml:space="preserve">
+    <value>مراقبة الموارد الخاصة بك بواسطة</value>
+  </data>
+  <data name="Monthly_Attendance_Sheet" xml:space="preserve">
+    <value>ملف الحضور الشهري</value>
+  </data>
+  <data name="Months_10" xml:space="preserve">
+    <value>10 شهور</value>
+  </data>
+  <data name="Month_Code" xml:space="preserve">
+    <value>كود الشهر</value>
+  </data>
+  <data name="Month_Management" xml:space="preserve">
+    <value>ادارة الشهر</value>
+  </data>
+  <data name="Month_master_record" xml:space="preserve">
+    <value>السجل الرئيسي للشهر:</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>نقل</value>
+  </data>
+  <data name="Multiple" xml:space="preserve">
+    <value>متعدد</value>
+  </data>
+  <data name="My_Profile" xml:space="preserve">
+    <value>ملفي</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>اسم</value>
+  </data>
+  <data name="Net_Salary" xml:space="preserve">
+    <value>صافي المرتب </value>
+  </data>
+  <data name="NEW" xml:space="preserve">
+    <value>جديد</value>
+  </data>
+  <data name="New_department_Hint" xml:space="preserve">
+    <value>يمكنك اضافه قسم من 50 حرف</value>
+  </data>
+  <data name="ngine" xml:space="preserve">
+    <value />
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="NOKS_ARE" xml:space="preserve">
+    <value>نوك</value>
+  </data>
+  <data name="NOKS_ARE_APP" xml:space="preserve">
+    <value>تطبيق نوك تكنولوجي</value>
+  </data>
+  <data name="NOKS_ARE_by" xml:space="preserve">
+    <value>بواسطة نوك تكنولوجي</value>
+  </data>
+  <data name="NOKS_ARE_Copyrights" xml:space="preserve">
+    <value>حقوق الملكية تابعة ل نوك تكنولوجي</value>
+  </data>
+  <data name="NOKS_ARE_Dashboard" xml:space="preserve">
+    <value>لوحة تحكم نوك</value>
+  </data>
+  <data name="NokTechnology_Egypt" xml:space="preserve">
+    <value>نوك تكنولوجي مصر</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>لا شئ</value>
+  </data>
+  <data name="Not_Enabled" xml:space="preserve">
+    <value>غير مفعل</value>
+  </data>
+  <data name="Not_Manager" xml:space="preserve">
+    <value>ليس مدير</value>
+  </data>
+  <data name="Not_Multiple" xml:space="preserve">
+    <value>غير متعدد</value>
+  </data>
+  <data name="Not_Valid" xml:space="preserve">
+    <value>غير صالح</value>
+  </data>
+  <data name="No_Attendance_Found_Message" xml:space="preserve">
+    <value>لم يتم العثور علي حضور,يرجي فتح شهر و التأكد مما اذا كان الموظف عضوا بالفعل في احدي الورديات </value>
+  </data>
+  <data name="No_Contracts_are_Found" xml:space="preserve">
+    <value>لم يتم العثور علي اي عقود , الرجاء توقيع عقد الموظف اولا </value>
+  </data>
+  <data name="No_Days_found" xml:space="preserve">
+    <value>لا توجد ايام</value>
+  </data>
+  <data name="No_Departments_found" xml:space="preserve">
+    <value>لا يوجد قسم!...</value>
+  </data>
+  <data name="No_Devices_found" xml:space="preserve">
+    <value>لا توجد اجهزة !..</value>
+  </data>
+  <data name="No_Documents_for_this_employee" xml:space="preserve">
+    <value>لا توجد ملفات لهذا الموظف</value>
+  </data>
+  <data name="No_Employees_found" xml:space="preserve">
+    <value>لا يوجد موظف !..</value>
+  </data>
+  <data name="No_Employees_Joined_this_Shift" xml:space="preserve">
+    <value>لا يوجد موظف منضم لهذة الوردية حتي الان</value>
+  </data>
+  <data name="No_Job_Titles_Department_Ref" xml:space="preserve">
+    <value>لا يوجد مرجع لقسم عناوين وظيفية</value>
+  </data>
+  <data name="No_Job_Titles_Found" xml:space="preserve">
+    <value>لا توجد عناوين وظيفية</value>
+  </data>
+  <data name="No_Managers_Found" xml:space="preserve">
+    <value>لا يوجد مدير!..</value>
+  </data>
+  <data name="No_months_Found" xml:space="preserve">
+    <value>لا يوجد شهر!..</value>
+  </data>
+  <data name="No_Requests_found" xml:space="preserve">
+    <value>لا يوجد طلبات!..</value>
+  </data>
+  <data name="No_Requests_found_for_this_employee" xml:space="preserve">
+    <value>لم يتم العثور على طلبات لهذا الموظف.</value>
+  </data>
+  <data name="No_roles_found_for_this_user" xml:space="preserve">
+    <value>لا توجد صلاحيات لهذا المستخدم</value>
+  </data>
+  <data name="No_Rules_Found_for_this_shift" xml:space="preserve">
+    <value>لا توجد قاعدة </value>
+  </data>
+  <data name="No_Shifts_found" xml:space="preserve">
+    <value>لا توجد ورديات!..</value>
+  </data>
+  <data name="No_Users_Found" xml:space="preserve">
+    <value>لا يوجد مستخدم</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>رقم</value>
+  </data>
+  <data name="Open_New_Month" xml:space="preserve">
+    <value>افتح شهر جديد</value>
+  </data>
+  <data name="Overtime" xml:space="preserve">
+    <value>وقت اضافي</value>
+  </data>
+  <data name="Over_time" xml:space="preserve">
+    <value>وقت اضافي</value>
+  </data>
+  <data name="Page_views" xml:space="preserve">
+    <value>واجهات الصفحات</value>
+  </data>
+  <data name="Page_views_in_last_month" xml:space="preserve">
+    <value>واجهات الصفحت الشهر الماضي</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>كلمة السر</value>
+  </data>
+  <data name="Phone_Number" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="Phone_number_confirmed" xml:space="preserve">
+    <value>تأكيد رقم الهاتف</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>صورة</value>
+  </data>
+  <data name="Please_check_your_email" xml:space="preserve">
+    <value>يرجى التحقق من بريدك الالكتروني لإعادة تعيين كلمة المرور الخاصة بك</value>
+  </data>
+  <data name="Please_Choose_Department" xml:space="preserve">
+    <value>من فضلك اختر قسم</value>
+  </data>
+  <data name="Please_Choose_Document_Reference" xml:space="preserve">
+    <value>من فضلك اختر مرجع قسم</value>
+  </data>
+  <data name="Please_enter_a_user_name_for_this" xml:space="preserve">
+    <value>يرجى إدخال اسم مستخدم لهذا الموقع  أسفل والنقر على زر التسجيل للإنتهاء من تسجيل الدخول.</value>
+  </data>
+  <data name="PLEASE_LOGIN" xml:space="preserve">
+    <value>من فضلك قم بتسجيل الدخول</value>
+  </data>
+  <data name="Please_Selct_Coach" xml:space="preserve">
+    <value>من فضلك اختر مدير مباشر</value>
+  </data>
+  <data name="Please_Select_Type" xml:space="preserve">
+    <value>من فضلك قم باختيار النوع</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>بوابة الدخول</value>
+  </data>
+  <data name="Posted_By" xml:space="preserve">
+    <value>منشور بواسطة</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>الحالي</value>
+  </data>
+  <data name="Processed_Logs" xml:space="preserve">
+    <value>سجلات معالجة</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>الملف الشخصي</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>المشاريع</value>
+  </data>
+  <data name="Purged" xml:space="preserve">
+    <value>حذف تام</value>
+  </data>
+  <data name="R" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>معدل:</value>
+  </data>
+  <data name="Raw_Logs" xml:space="preserve">
+    <value>سجلات غير معالجة</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>اسباب</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="Registered_Logins" xml:space="preserve">
+    <value>تسجيلات دخول محققه</value>
+  </data>
+  <data name="Register_View_Model" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>يرفض</value>
+  </data>
+  <data name="Remember_login" xml:space="preserve">
+    <value>تذكر تسجيل الدخول</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="Remove_this" xml:space="preserve">
+    <value>حذف هذه</value>
+  </data>
+  <data name="renewable" xml:space="preserve">
+    <value>قابل للتحديث</value>
+  </data>
+  <data name="Renwed" xml:space="preserve">
+    <value>محدث</value>
+  </data>
+  <data name="Reporting" xml:space="preserve">
+    <value>التقارير</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>التقارير</value>
+  </data>
+  <data name="Requested_By" xml:space="preserve">
+    <value>مطلوب بواسطة</value>
+  </data>
+  <data name="Requested_From" xml:space="preserve">
+    <value>مطلوب من:</value>
+  </data>
+  <data name="Requested_To" xml:space="preserve">
+    <value>مطلوب ل:</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>الطلبات</value>
+  </data>
+  <data name="Request_Type" xml:space="preserve">
+    <value>نوع الطلب</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>اعادة ضبط</value>
+  </data>
+  <data name="Reset_your_password" xml:space="preserve">
+    <value>اعادة تعيين كلمة السر</value>
+  </data>
+  <data name="Rewnewable" xml:space="preserve">
+    <value>قابل للتجديد</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>الصلاحيات</value>
+  </data>
+  <data name="Rule" xml:space="preserve">
+    <value>قاعدة</value>
+  </data>
+  <data name="Rule_Name" xml:space="preserve">
+    <value>اسم القاعدة</value>
+  </data>
+  <data name="Rule_Type" xml:space="preserve">
+    <value>نوع القاعده</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="Save_changes" xml:space="preserve">
+    <value>حفظ التغييرات</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="Search_An_Employee" xml:space="preserve">
+    <value>بحث عن موظف</value>
+  </data>
+  <data name="Search_something_special" xml:space="preserve">
+    <value>ابحث عن شئ خاص</value>
+  </data>
+  <data name="See_allnotifications" xml:space="preserve">
+    <value>الاطلاع علي كل الاشعارات</value>
+  </data>
+  <data name="See_All_Messages" xml:space="preserve">
+    <value>الاطلاع علي كل الرسائل</value>
+  </data>
+  <data name="Select_an_employee" xml:space="preserve">
+    <value>اختر موظف</value>
+  </data>
+  <data name="Select_an_User" xml:space="preserve">
+    <value>اختر مستخدم</value>
+  </data>
+  <data name="Select_a_Job_Title" xml:space="preserve">
+    <value>اختر عنوان الوظيفة</value>
+  </data>
+  <data name="Select_a_Job_Title_Department_Ref" xml:space="preserve">
+    <value>اختر مرجع عنوان الوظيفة</value>
+  </data>
+  <data name="Select_a_Month_Master_Record" xml:space="preserve">
+    <value>اختر شهر السجل الرئيسي</value>
+  </data>
+  <data name="Select_Two_Factor_Authentication_Provider" xml:space="preserve">
+    <value>اختر مزود عاملين التحقق</value>
+  </data>
+  <data name="Select_User_Rols" xml:space="preserve">
+    <value>اختر دور المستخدم</value>
+  </data>
+  <data name="Send_verification_code" xml:space="preserve">
+    <value>ارسل كود التأكد</value>
+  </data>
+  <data name="Setup" xml:space="preserve">
+    <value>التنصيب</value>
+  </data>
+  <data name="Set_password" xml:space="preserve">
+    <value>ضبط كلمة السر</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>وردية</value>
+  </data>
+  <data name="Shifts" xml:space="preserve">
+    <value>الورديات</value>
+  </data>
+  <data name="Shift_Days" xml:space="preserve">
+    <value>ايام الورديات</value>
+  </data>
+  <data name="Shift_Management" xml:space="preserve">
+    <value>ادارة الورديات</value>
+  </data>
+  <data name="Shift_participants" xml:space="preserve">
+    <value>مشاركين الورديات</value>
+  </data>
+  <data name="Shift_Rules" xml:space="preserve">
+    <value>قواعد الوردية</value>
+  </data>
+  <data name="Shift_statistics" xml:space="preserve">
+    <value>احصائيات الوردية</value>
+  </data>
+  <data name="Shift_Work_Days" xml:space="preserve">
+    <value>ايام عمل الورديات</value>
+  </data>
+  <data name="Signed_At" xml:space="preserve">
+    <value>تت توقيعه في:</value>
+  </data>
+  <data name="Social_Insurance_Code" xml:space="preserve">
+    <value>كود التأمين الاجتماعي</value>
+  </data>
+  <data name="Social_users" xml:space="preserve">
+    <value>المستخدمين الاجتماعيين</value>
+  </data>
+  <data name="Special_Admin_Theme" xml:space="preserve">
+    <value>موضوع مسؤول خاص لل تطبيقات المواقع الصغيرة والمتوسطة مع أسلوب وشعور نظيفة وجمالية للغاية.</value>
+  </data>
+  <data name="SSN" xml:space="preserve">
+    <value>الرقم القومي</value>
+  </data>
+  <data name="Start_At" xml:space="preserve">
+    <value>بدأ في:</value>
+  </data>
+  <data name="Start_From" xml:space="preserve">
+    <value>تبدأ من</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>تأكيد</value>
+  </data>
+  <data name="System_Work_Days" xml:space="preserve">
+    <value>ايام عمل النظام</value>
+  </data>
+  <data name="Target_Hours" xml:space="preserve">
+    <value>عدد الساعات المستهدفه</value>
+  </data>
+  <data name="Target_Monthly" xml:space="preserve">
+    <value>المستهدف الشهري</value>
+  </data>
+  <data name="Terminated" xml:space="preserve">
+    <value>مفصول</value>
+  </data>
+  <data name="Thank_you_for_confirming" xml:space="preserve">
+    <value>شكرا لك لتأكيد البريد الالكتروني من فضلك</value>
+  </data>
+  <data name="There_are_many_variations" xml:space="preserve">
+    <value>هناك  العديد من التنوع</value>
+  </data>
+  <data name="There_are_no_external_authentication" xml:space="preserve">
+    <value>لا توجد خدمات خارجية محققة تم تكوينها. انظر</value>
+  </data>
+  <data name="There_are_no_two_factor_authentication" xml:space="preserve">
+    <value>#N/A</value>
+  </data>
+  <data name="The_graph_below_is_show_the1" xml:space="preserve">
+    <value>الرسم البياني بالاسفل يوضح عدد ساعات العمل الفعلية من المستهدف</value>
+  </data>
+  <data name="The_graph_below_is_show_the2" xml:space="preserve">
+    <value> بناء علي الوردية التي</value>
+  </data>
+  <data name="this_article" xml:space="preserve">
+    <value>هذا المقال</value>
+  </data>
+  <data name="This_show_thepast4month" xml:space="preserve">
+    <value>توضح عدد ساعات العمل اخر 4 شهور</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>الي</value>
+  </data>
+  <data name="Total_Employees" xml:space="preserve">
+    <value>عدد الموظفين:</value>
+  </data>
+  <data name="Total_Logs" xml:space="preserve">
+    <value>اجمالي السجلات</value>
+  </data>
+  <data name="Total_Worked_Hours" xml:space="preserve">
+    <value>مجموع ساعات العمل:</value>
+  </data>
+  <data name="total_worked_hour_rule" xml:space="preserve">
+    <value>يعتمد إجمالي ساعات العمل على الشهر الحالي والمتعلقة بسياسة التحول</value>
+  </data>
+  <data name="Track_and_Monitor" xml:space="preserve">
+    <value>تتبع ومراقبة الموارد البشرية في الوقت الحقيقي واتخاذ القرارات  الصحيحة.</value>
+  </data>
+  <data name="Trial_Duration" xml:space="preserve">
+    <value>الفترة التجريبية</value>
+  </data>
+  <data name="trial_period_duration_End" xml:space="preserve">
+    <value>انتهاء الفترة التجريبية</value>
+  </data>
+  <data name="ttendance" xml:space="preserve">
+    <value> لمحرك تقراير الحضور</value>
+  </data>
+  <data name="Two_factor" xml:space="preserve">
+    <value>بعدان</value>
+  </data>
+  <data name="Two_Factor_Authentication" xml:space="preserve">
+    <value>تحقق البعدان</value>
+  </data>
+  <data name="Unlock_it" xml:space="preserve">
+    <value>فتحه!</value>
+  </data>
+  <data name="Unsuccessful_login_with_service" xml:space="preserve">
+    <value>تسجيل دخول غير ناجح مع الخدمة.</value>
+  </data>
+  <data name="Update_Department" xml:space="preserve">
+    <value>تحديث قسم</value>
+  </data>
+  <data name="Update_Shift" xml:space="preserve">
+    <value>تعديل الوردية</value>
+  </data>
+  <data name="Upload_Document_Message" xml:space="preserve">
+    <value>يمكنك تحميل العديد من الوثائق لكل موظف ، هنا ستجد كل الوثائق ذات الصلة للموظف المختار ،
+     مع ملاحظات كل وثيقة وتاريخ التوقيع بجانب انتهاء الصلاحية إن وجدت.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>مستخدم</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="Users_Activity" xml:space="preserve">
+    <value>نشاط المستخدمين</value>
+  </data>
+  <data name="Users_Administration" xml:space="preserve">
+    <value>إدارة المستخدمين</value>
+  </data>
+  <data name="User_Hasnot_Provided_Phone_No" xml:space="preserve">
+    <value>لم يقم المستخدم بتقديم رقم الهاتف</value>
+  </data>
+  <data name="User_Management" xml:space="preserve">
+    <value>ادراة المستخدم</value>
+  </data>
+  <data name="User_Name" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="User_Profile" xml:space="preserve">
+    <value>ملف تعريفي للمستخدم</value>
+  </data>
+  <data name="Valid" xml:space="preserve">
+    <value>صالح؟</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>معاينة</value>
+  </data>
+  <data name="WAR" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>مرحبا</value>
+  </data>
+  <data name="Welcome_to_NOKS" xml:space="preserve">
+    <value>مرحبا في نوك</value>
+  </data>
+  <data name="Worked" xml:space="preserve">
+    <value>تم عمل</value>
+  </data>
+  <data name="Worked_Hours" xml:space="preserve">
+    <value>الساعات التي تم عملها</value>
+  </data>
+  <data name="Working_Hours" xml:space="preserve">
+    <value>الساعات التي تم عملها</value>
+  </data>
+  <data name="Work_Days" xml:space="preserve">
+    <value>ايام العمل</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+  <data name="Yesteday_Overtime" xml:space="preserve">
+    <value>العمل الاضافي امس</value>
+  </data>
+  <data name="Yesteday_Worked_Hours" xml:space="preserve">
+    <value>ساعات العمل أمس</value>
+  </data>
+  <data name="Yesterday_Absence" xml:space="preserve">
+    <value>غياب امس</value>
+  </data>
+  <data name="Yesterday_Deductions" xml:space="preserve">
+    <value>خصم امس</value>
+  </data>
+  <data name="Your_income_From_Last_Year" xml:space="preserve">
+    <value>دخلك من العام الماضي في مبيعات المنتج X.</value>
+  </data>
+  <data name="Your_password_has_been_reset" xml:space="preserve">
+    <value>تم إعادة تعيين كلمة المرور الخاصة بك. رجاء
+</value>
+  </data>
+  <data name="Your_unique_username_to_app" xml:space="preserve">
+    <value>اسم المستخدم الفريد الخاص بك إلى التطبيق</value>
+  </data>
+  <data name="Youve_successfully_authenticated" xml:space="preserve">
+    <value>لقد قمت بالمصادقة بنجاح مع</value>
+  </data>
+  <data name="you_can_add_a_new_device_ID" xml:space="preserve">
+    <value>يمكنك اضافة معرف جهاز جديد</value>
+  </data>
+  <data name="you_can_add_new_department" xml:space="preserve">
+    <value>يمكنك اضافه قسم جديد</value>
+  </data>
+  <data name="you_can_a_new_employee_code" xml:space="preserve">
+    <value>يمكنك </value>
+  </data>
+  <data name="You_can_edit_add_rules" xml:space="preserve">
+    <value>ينمكنك تعديل و اضافه قواعد لهذه الوردية المختاره</value>
+  </data>
+  <data name="you_can_Edit_This_department" xml:space="preserve">
+    <value>يمكنك تعديل هذا القسم</value>
+  </data>
+  <data name="you_can_Edit_This_employee" xml:space="preserve">
+    <value>يمكنك تعديل هذا الموظف في 50 حرفًا</value>
+  </data>
+  <data name="you_can_Edit_This_employee_Code" xml:space="preserve">
+    <value>يمكنك تعديل كود هذا الموظف في 50 حرفًا</value>
+  </data>
+  <data name="You_do_not_have_a_local_username_password" xml:space="preserve">
+    <value>ليس لديك اسم مستخدم / كلمة مرور محلية لهذا الموقع. إضافة  حساب محلي حتى تتمكن من تسجيل الدخول دون تسجيل دخول خارجي.</value>
+  </data>
+  <data name="You_have_4_new_messages" xml:space="preserve">
+    <value>لديك 4 رسائل جديدة</value>
+  </data>
+  <data name="You_have_two_new_messages_from" xml:space="preserve">
+    <value>لديك رسالتان جديدتان من</value>
+  </data>
+  <data name="_10Months" xml:space="preserve">
+    <value>10 شهور</value>
+  </data>
+  <data name="_Employee_Details_Attendance_Sheet_Message" xml:space="preserve">
+    <value>يعرض هذا التقرير حضور الموظف الحالي في الشهر الحالي ، لذلك يجب عليك فتح شهر جديد قبل عرض التقرير.</value>
+  </data>
+  <data name="_Employee_Detail_Contract_Message" xml:space="preserve">
+    <value>يمكن اضافة العديد من العقود ولكن عقد واحد ساري</value>
+  </data>
+  <data name="an_error_occurred_employees" xml:space="preserve">
+    <value>حدث خطأ أثناء محاولة تحميل الموظفين.</value>
+  </data>
+  <data name="Create_Password" xml:space="preserve">
+    <value>انشئ كلمة السر</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>يوم</value>
+  </data>
+  <data name="Edit_User" xml:space="preserve">
+    <value>تعديل مستخدم</value>
+  </data>
+  <data name="Employees_Management" xml:space="preserve">
+    <value>ادارة الموظفين</value>
+  </data>
+  <data name="Error_Load_Department" xml:space="preserve">
+    <value> حدث خطأ اثناء محاولة تحميل قسم</value>
+  </data>
+  <data name="Error_Load_Shift_Employee" xml:space="preserve">
+    <value>حدث خطأ اثناء محاولة تحميل موظفين الورديات </value>
+  </data>
+  <data name="fatal_error_New_Rule_shift" xml:space="preserve">
+    <value>خطأ اثناء اضافة قاعدة جديدة لهذة الوردية</value>
+  </data>
+  <data name="fatal_error_to_submit_new_shift" xml:space="preserve">
+    <value> حدث خطأ اثناء محاولة اضافة وردية جديدة</value>
+  </data>
+  <data name="fatal_error_Update_Job_Title" xml:space="preserve">
+    <value>حدث خطأ اثناء تحديث المسمي الوظيفي </value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>ادارة</value>
+  </data>
+  <data name="Manager_or_check" xml:space="preserve">
+    <value>مدير او تشيك</value>
+  </data>
+  <data name="Manage_external_logins" xml:space="preserve">
+    <value>إدارة تسجيلات الدخول الخارجية الخاصة بك</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>شهر</value>
+  </data>
+  <data name="please_provide_shift_title" xml:space="preserve">
+    <value>من فضلك اضف عنوان الوردية اولا</value>
+  </data>
+  <data name="Provide_Name_First" xml:space="preserve">
+    <value>من فضلك اضف الاسم اولا</value>
+  </data>
+  <data name="Reqests_Management" xml:space="preserve">
+    <value>ادارة الاجازات</value>
+  </data>
+  <data name="Shifts_Management" xml:space="preserve">
+    <value>ادارة الورديات</value>
+  </data>
+  <data name="Status_cahnged_successfully" xml:space="preserve">
+    <value>الحالة تغيرت بنجاح</value>
+  </data>
+  <data name="Still_Member" xml:space="preserve">
+    <value>ما زال يعمل لدي</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>المستخدمين</value>
+  </data>
+  <data name="User_Details" xml:space="preserve">
+    <value>تفاصيل المستخدم</value>
+  </data>
+  <data name="Verify_Phone_Number" xml:space="preserve">
+    <value>تحقق من رقم الهاتف</value>
+  </data>
+  <data name="you_canceled_shift_creation" xml:space="preserve">
+    <value>لقد قمت بالغاء انشاء الوردية</value>
+  </data>
+  <data name="TerminatedNow" xml:space="preserve">
+    <value>انهاء تماما</value>
+  </data>
+  <data name="EndNow" xml:space="preserve">
+    <value>أنهاء للتجديد</value>
+  </data>
+  <data name="TerminateAndEndContract" xml:space="preserve">
+    <value>أنهاء عقد </value>
+  </data>
+</root>

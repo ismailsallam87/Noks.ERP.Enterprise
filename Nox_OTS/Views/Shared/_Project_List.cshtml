@@ -1,0 +1,19 @@
+﻿@using OTS.DAL
+@{ 
+    OTSEntities db = new OTSEntities();
+    List<Project_List_Result> list = db.Project_List().ToList();
+}
+<select id="project_list" class="table-group-action-input form-control input-inline input-small input-sm">
+    @if (list != null && list.Count > 0)
+    {
+        <option value="-1">Please Select a Project</option>
+        foreach (var project in list)
+        {
+            <option value="@project.ID">@project.Project_Name</option>
+        }
+    }
+    else
+    {
+        <option value="-1">No Project Found !</option>
+    }
+</select>

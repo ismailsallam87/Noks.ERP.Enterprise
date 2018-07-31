@@ -1,0 +1,19 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Department_JobTitles_Select_Result>
+
+
+@if (Model != null && Model.Count > 0)
+{
+    <select class="form-control m-b" name="department_job_ref" id="department_job_ref">
+        <option value="-1">@Resource.Select_a_Job_Title_Department_Ref</option>
+        @foreach (var job in Model)
+        {
+            <option value="@job.Id">@job.title</option>
+        }
+    </select>
+}
+else
+{
+    <p>@Resource.No_Job_Titles_Department_Ref</p>
+}

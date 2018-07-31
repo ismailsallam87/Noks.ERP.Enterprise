@@ -1,0 +1,238 @@
+﻿
+@{
+    ViewBag.Title = "Kanban_View";
+}
+
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-datepicker/css/datepicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-select/bootstrap-select.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2-metronic.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/jquery-multi-select/css/multi-select.css" />
+@*<link href="~/assets/plugins/data-tables/jquery.dataTables.css" rel="stylesheet"  type="text/css"  />*@
+<link href="../../assets/plugins/custom.css" rel="stylesheet" />
+<link rel="stylesheet" href="../../scripts/jqx.base.css" type="text/css" />
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            @ViewBag.Title <small></small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li class="btn-group">
+            </li>
+            <li class="btn-group">
+                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                    <span>
+                        Actions
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="#create_view_modal" data-toggle="modal">
+                            Filter
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            @{Html.RenderAction("Breedcrumb", "Common", new { view = "TasksManagement" });}
+        </ul>
+
+    </div>
+</div>
+
+<!-- END PAGE Modals-->
+<div class="row">
+    <div id="kanban"></div>
+</div>
+<div id="create_view_modal" class="modal fade bs-modal-lg" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Filter By Area and Project and Status</h4>
+            </div>
+            <div class="portlet-body form">
+                <-!- BEGIN FORM-->
+                @Html.Partial("_Project_Status_Area_Filter")
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript" src="../../assets/plugins/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery.pulsate.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery-bootpag/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/holder.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="../../assets/plugins/select2/select2.min.js"></script>
+    <script src="../../assets/scripts/core/app.js"></script>
+    <script src="../../assets/scripts/custom/ui-general.js"></script>
+    <script type="text/javascript" src="../../assets/scripts/custom/form-samples.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/clockface/js/clockface.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="../../assets/scripts/custom/components-pickers.js"></script>
+    <script src="../../assets/plugins/main.js"></script>
+    <title id='Description'>Kanban Board.</title>
+    <script type="text/javascript" src="~/scripts/jqxcore.js"></script>
+    <script type="text/javascript" src="~/scripts/jqxsortable.js"></script>
+    <script type="text/javascript" src="~/scripts/jqxkanban.js"></script>
+    <script type="text/javascript" src="~/scripts/jqxdata.js"></script>
+    <script type="text/javascript">
+
+        var AreaIds = "";
+        var ProjectIds = "";
+        var statusIds = "";
+        $(document).ready(function () {
+            $(".js-source-states-2").select2();
+            $('#AreaId').on('change', function () {
+                AreaIds = ($(this).val().toString() + ",");
+            });
+            $('#ProjectId').on('change', function () {
+                ProjectIds = ($(this).val().toString() + ",");
+            });
+            $('#statusId').on('change', function () {
+                statusIds = ($(this).val().toString() + ",");
+            });
+            Tasks_Opened_Now();
+            @*var tasks = [];
+            var headerColumns = [];
+            var data = {};
+            data.AreaIds = AreaIds;
+            data.ProjectIds = ProjectIds;
+            data.statusIds = statusIds;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Kanban_Data", "Tasks")"
+            ajaxoptions.success = function (result) {
+                alert("fefe");
+                for (var i = 0; i < result.length ; i++) {
+                    var task = {
+                         id: result[i].ID.toString(),
+                        state: result[i].TaskStatus.toString(),
+                        label: result[i].Task_Title.toString()
+                    };
+                    tasks.push(task);
+                }
+                var fields = [
+                     { name: "id", type: "string" },
+                     { name: "status", map: "state", type: "string" },
+                     { name: "text", map: "label", type: "string" },
+                     { name: "tags", type: "string" },
+                     { name: "color", map: "hex", type: "string" },
+                     { name: "resourceId", type: "number" }
+                ];
+                var source =
+                 {
+                     localData: tasks,
+                     dataType: "array",
+                     dataFields: fields
+                 };
+                var dataAdapter = new $.jqx.dataAdapter(source);
+            
+                $('#kanban').jqxKanban({
+                    source: dataAdapter,
+                    columns:
+                        [
+                        { text: "Internal-Preparing", dataField: "Internal-Preparing" },
+                        { text: "Shipping-Active", dataField: "Shipping-Active" },
+                        { text: "Delivered", dataField: "Delivered" },
+                        { text: "UnDelivered", dataField: "UnDelivered" },
+                        { text: "Postpone", dataField: "Postpone" },
+                        { text: "Returned", dataField: "Returned" },
+                        { text: " OFD", dataField: " OFD" },
+                        { text: " Lost Shipment", dataField: " Lost Shipment" },
+                        { text: " Lost Shipment-Internal", dataField: " Lost Shipment-Internal" }
+                      
+                    ]
+                });
+            }
+            ajaxoptions.error = function () {
+            };
+            $.ajax(ajaxoptions);*@
+        });
+   
+        function Tasks_Opened_Now()
+        {
+            debugger;
+            //var AreaIds = "";Tasks_Opened_Now]Packing_Slip_View
+            //var ProjectIds = "";
+            //var statusIds = "";
+         
+                var tasks = [];
+                var headerColumns = [];
+                var data = {};
+                data.AreaIds = AreaIds;
+                data.ProjectIds = ProjectIds;
+                data.statusIds = statusIds;
+                var ajaxoptions = {};
+                ajaxoptions.data = data;
+                ajaxoptions.url = "@Url.Action("Kanban_Data", "Tasks")";
+                ajaxoptions.success = function (result) {
+                    //alert("asem");
+                    for (var i = 0; i < result.length ; i++) {
+                        var task = {
+                            id:    result[i].ID.toString(),
+                            state: result[i].TaskStatus.toString(),
+                            label: result[i].Task_Title.toString()
+                        };
+                        tasks.push(task);
+                    }
+                    var fields = [
+                         { name: "id", type: "string" },
+                         { name: "status", map: "state", type: "string" },
+                         { name: "text", map: "label", type: "string" },
+                         { name: "tags", type: "string" },
+                         { name: "color", map: "hex", type: "string" },
+                         { name: "resourceId", type: "number" }
+                    ];
+                    var source =
+                     {
+                         localData: tasks,
+                         dataType: "array",
+                         dataFields: fields
+                     };
+                    var dataAdapter = new $.jqx.dataAdapter(source);
+            
+                    $('#kanban').jqxKanban({
+                        source: dataAdapter,
+                        columns:
+                            [
+                            { text: "Internal-Preparing", dataField: "Internal-Preparing" },
+                            { text: "Shipping-Active", dataField: "Shipping-Active" },
+                            { text: "Delivered", dataField: "Delivered" },
+                            { text: "UnDelivered", dataField: "UnDelivered" },
+                            { text: "Postpone", dataField: "Postpone" },
+                            { text: "Returned", dataField: "Returned" },
+                            { text: " OFD", dataField: " OFD" },
+                            { text: " Lost Shipment", dataField: " Lost Shipment" },
+                            { text: " Lost Shipment-Internal", dataField: " Lost Shipment-Internal" }
+                      
+                            ]
+                    });
+                }
+                ajaxoptions.error = function () {
+                };
+                $.ajax(ajaxoptions); 
+
+        }
+
+    </script>
+}
+ 

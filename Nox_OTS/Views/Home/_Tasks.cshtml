@@ -1,0 +1,45 @@
+﻿@using OTS.DAL;
+@model List<SP_select_Areas_Tasks_Result>
+
+<div class="tab-pane active" id="tab_1_1">
+    <div class="scroller" style="height: 290px;" data-always-visible="1" data-rail-visible="0">
+        <ul class="feeds">
+            @foreach(var item in Model)
+            {
+
+            <li>
+                <div class="col1">
+                    <div class="cont">
+                        <div class="cont-col1">
+                            <div class="label label-sm label-success">
+                                <i class="fa fa-bell-o"></i>
+                            </div>
+                        </div>
+                        <div class="cont-col2">
+                            <div class="desc">
+                                @item.Task_Title
+                                @*<span class="label label-sm label-danger ">*@
+                                    <span > @item.Task_Account_Name @*<i class="fa fa-share"></i>*@
+                                </span>
+                                <span>
+                                    @item.task_status 
+                                </span>
+                                <span>
+                                    @item.Due_Date 
+                                </span>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col2">
+                    <div class="date">
+                        
+                    </div>
+                </div>
+            </li>
+            }
+        
+        </ul>
+    </div>
+</div>

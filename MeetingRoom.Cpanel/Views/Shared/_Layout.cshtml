@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @{
+        DateTime nextevent = new DateTime(DateTime.Now.Year, DateTime.Now.Month, (DateTime.Now.Hour + 3 > 12 ? DateTime.Now.Day + 1 : DateTime.Now.Day), (DateTime.Now.Hour + 3 > 00 ? 12 : DateTime.Now.Hour + 3), 20, 50);
+    }
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>@ViewBag.Title  | NOKS-Meeting Rooms Management System</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+    <!-- Primary vendor style -->
+    @Styles.Render("~/bundles/font-awesome/css")
+    @Styles.Render("~/bundles/animate/css")
+    @Styles.Render("~/bundles/bootstrap/css")
+    @Styles.Render("~/bundles/peicon7stroke/css")
+    @Styles.Render("~/bundles/sweetAlert/css")
+    @Styles.Render("~/bundles/toastr/css")
+    <!-- Primary HOMER style -->
+    @Styles.Render("~/bundles/homer/css")
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="icon" href="/images/home-icon.png">
+</head>
+<body class="@Html">
+
+    <!-- Simple splash screen-->
+    <div class="splash">
+        <div class="color-line"></div>
+        <div class="splash-title">
+            <h1>Dashboard - NOKS-Meeting Rooms Management System</h1>
+            <div class="spinner">
+                <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div>
+                <div class="rect4"></div> <div class="rect5"></div>
+            </div>
+        </div>
+    </div>
+    <!--[if lt IE 7]>
+    <p class="alert alert-danger">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Header -->
+    <div id="header">
+        @Html.Partial("_Header")
+    </div>
+
+    <!-- Navigation -->
+    <aside id="menu">
+        @Html.Partial("_Navigation")
+    </aside>
+
+    <!-- Main view  -->
+    <div id="wrapper">
+        @RenderBody()
+
+        <!-- Right Sidebar -->
+        @Html.Partial("_Right_Sidebar")
+
+        <!-- Footer-->
+        @Html.Partial("_Footer")
+    </div>
+
+    <!-- Section for main scripts render -->
+    @Scripts.Render("~/bundles/jquery/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/homer/js")
+    @Scripts.Render("~/bundles/sweetAlert/js")
+    @Scripts.Render("~/bundles/toastr/js")
+    <!-- Handler for local scripts -->
+
+    @RenderSection("scripts", required: false)
+    <script>
+        function toaster(type, message) {
+            toastr.options = {
+                "debug": false,
+                "newestOnTop": false,
+                "positionClass": "toast-bottom-right",
+                "closeButton": true,
+                "debug": false,
+                "toastClass": "animated fadeInDown",
+            };
+            if (type == 'success') {
+                toastr.success(message);
+            }
+            else if (type == 'info') {
+                toastr.info(message);
+            }
+            else if (type == 'warning') {
+                toastr.warning(message);
+            }
+            else if (type == 'error') {
+                toastr.error(message);
+            }
+        }
+    </script>
+</body>
+</html>
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+}

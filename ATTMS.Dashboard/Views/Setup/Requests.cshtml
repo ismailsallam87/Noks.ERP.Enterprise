@@ -1,0 +1,127 @@
+﻿
+@using ATTMS.Dashboard.Resources
+@{
+    ViewBag.Title = @Resource.Reqests_Management;
+}
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">@Resource.Dashboard</a></li>
+                    <li class="active">
+                        <span>@Resource.Requests</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>@Resource.List_of @ViewBag.Title.</small>
+            <div>
+                <p>
+                    <a href="#" id="request_grid_btn" onclick="Search_request('grid')" class="btn btn-default right-header-btn btn-active"><i class="fa fa-th"></i></a>
+                    <a href="#" id="request_table_btn" onclick="Search_request('table')" class="btn btn-default right-header-btn"><i class="fa fa-table"></i></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="page-conainer" class="content">
+
+</div>
+
+<input id="viewType" type="hidden" value="grid" />
+
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            load_requests($('#viewType').val());
+        });
+
+        function load_requests(view, data) {
+            $('#viewType').val(view);
+            if (view == 'table') {
+                $('#request_grid_btn').removeClass('btn-active');
+                $('#request_table_btn').addClass('btn-active');
+            }
+            else {
+                $('#request_grid_btn').addClass('btn-active');
+                $('#request_table_btn').removeClass('btn-active');
+            }
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var error_info = '@Resource.an_error_occurred_employees';
+            var container = $('#page-conainer');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            //
+            if (data == undefined) {
+                ajaxoptions.data = { view: view };
+            }
+            else {
+                ajaxoptions.data = data;
+                data.view = view;
+            }
+            ajaxoptions.url = '@Url.Action("Requests_Select")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+                if (view == 'table') {
+                    Initialize_Requests_Tbl();
+                }
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Initialize_Requests_Tbl() {
+            $('#request_tbl').dataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    { extend: 'copy', className: 'btn-sm' },
+                    { extend: 'csv', title: '@ViewBag.Title', className: 'btn-sm' },
+                    { extend: 'pdf', title: '@ViewBag.Title', className: 'btn-sm' },
+                    { extend: 'print', className: 'btn-sm' }
+                ]
+            });
+        }
+        function Search_request(view) {
+            $('#viewType').val(view);
+            load_requests($('#viewType').val());
+        }
+        function approve_request(id, approved)
+        {
+            var data = {};
+            var ajaxoptions = {};
+            data.id = id;
+            data.approved = approved;
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Approve_Request", "Setup")';
+            ajaxoptions.success = function (result) {             
+                toaster('info', result);   
+                load_requests($('#viewType').val());
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.Error_Update_Request');
+            };
+            $.ajax(ajaxoptions);
+        }
+    </script>
+}  

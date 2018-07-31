@@ -1,0 +1,123 @@
+﻿@using ATTMS.Dashboard.Resources
+@{ 
+    var culter = ATTMS.Dashboard.Helpers.CultureHelper.GetCurrentCulture();
+        }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>@ViewBag.Title  | @Resource.NOKS_ARE</title>
+   @*@Resources.Resource.Arabic*@
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+    <!-- Primary vendor style -->
+    @Styles.Render("~/bundles/font-awesome/css")
+    @Styles.Render("~/bundles/animate/css")
+    @if (culter != "ar")
+    {
+        @Styles.Render("~/bundles/bootstrap/css")
+    }
+    else
+    {
+        @Styles.Render("~/bundles/bootstrap/ar/css")
+    }
+  
+    @Styles.Render("~/bundles/peicon7stroke/css")
+    @Styles.Render("~/bundles/sweetAlert/css")
+    @Styles.Render("~/bundles/toastr/css")
+    <!-- Primary HOMER style -->
+    @Styles.Render("~/bundles/homer/css")
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/attendance_sheet.css" rel="stylesheet" />
+</head>
+<body class="@Html.PageClass()">
+
+    <!-- Simple splash screen-->
+    <div class="splash"> <div class="color-line"></div>
+    <div class="splash-title"><h1> @Resource.NOKS_ARE_Dashboard</h1>
+        <p>@Resource.Special_Admin_Theme </p>
+        <div class="spinner"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> 
+        <div class="rect4"></div> <div class="rect5"></div> </div> </div> </div>
+    <!--[if lt IE 7]>
+    <p class="alert alert-danger">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Header -->
+    <div id="header">
+        @Html.Partial("_Header")
+    </div>
+
+    <!-- Navigation -->
+    <aside id="menu">
+        @Html.Partial("_Navigation")
+    </aside>
+
+    <!-- Main view  -->
+    <div id="wrapper">
+        @RenderBody()
+
+        <!-- Right Sidebar -->
+        @Html.Partial("_Right_Sidebar")
+
+        <!-- Footer-->
+        @Html.Partial("_Footer")
+    </div>
+
+    <!-- Section for main scripts render -->
+    @Scripts.Render("~/bundles/jquery/js")
+    @if (culter != "ar")
+    {
+        @Scripts.Render("~/bundles/bootstrap/js")
+    }
+    else
+    {
+        @Scripts.Render("~/bundles/bootstrap/ar/js")
+    }
+  
+    @Scripts.Render("~/bundles/homer/js")
+    @Scripts.Render("~/bundles/sweetAlert/js")
+    @Scripts.Render("~/bundles/toastr/js")
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
+    <script>
+        function resetForm(form) {
+            $(''+form+'').find('input:text, input:password, input:file, select, textarea').val('');
+            $('' + form + '').find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+        }
+        function toaster(type,message) {
+            toastr.options = {
+                "debug": false,
+                "newestOnTop": false,
+                "positionClass": "toast-bottom-right",
+                "closeButton": true,
+                "debug": false,
+                "toastClass": "animated fadeInDown",
+            };
+            if (type == 'success') {
+                toastr.success(message);
+            }
+            else if (type == 'info') {
+                toastr.info(message);
+            }
+            else if (type == 'warning') {
+                toastr.warning(message);
+            }
+            else if (type == 'error') {
+                toastr.error(message);
+            }
+        }
+    </script>
+</body>
+</html>
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+}

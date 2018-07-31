@@ -1,0 +1,76 @@
+﻿@using Nox_OTS.Models
+@model TaskItems
+
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>Items
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse">
+                </a>
+                <a href="#portlet-search" data-toggle="modal" class="config">
+                </a>
+                <a href="javascript:;" class="reload" onclick="Load_Items_View('Table',@Model.TaskId)">
+                </a>
+            </div>
+        </div>
+        @if (Model == null || Model.Items.Count == 0)
+        {
+            @Html.Partial("_NoDataFound");
+        }
+        else
+        {
+            <div class="portlet-body flip-scroll">
+                <table class="table table-bordered table-striped table-condensed flip-content">
+                    <thead class="flip-content">
+                        <tr>                           
+                            <th>
+                               Item SN 
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Item Weight
+                            </th>
+                            <th>
+                                Created By
+                            </th> 
+                            <th>
+                                Created At
+                            </th>                                                    
+                            <th>
+                                Item Notes
+                            </th>                                       
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>@item.Item_SN</td>
+                                <td>@item.Item_Title</td>  
+                                <td>@item.Item_Weight</td> 
+                                <td>@item.Created_By_UserName</td>                                                       
+                                <td>@item.Created_At.ToString("dd-MMM-yyyy")</td>                                                              
+                                <td>@item.Item_Notes</td>
+                               <td>
+                                    <a onclick="update_item('@item.ID')" href="#edit_zone_view_modal" data-toggle="modal" title="Edit">
+                                        <span class="fa fa-pencil"></span>
+                                    </a> |
+                                    <a onclick="Delete('@item.ID')" href="#delete_task_modal" data-toggle="modal" title="Delete">
+                                        <span class="fa fa-archive"></span>
+                                    </a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>

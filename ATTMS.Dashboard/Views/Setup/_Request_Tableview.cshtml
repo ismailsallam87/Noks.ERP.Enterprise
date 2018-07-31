@@ -1,0 +1,72 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Select_Requests_Result>
+<div class="row">
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="request_tbl" class="display table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Resource.Employee_Name
+                                    </th>
+                                    <th>
+                                        @Resource.Reason
+                                    </th>
+                                    <th>
+                                        @Resource.Coach_Name
+                                    </th>
+                                    <th>
+                                        @Resource.Manager_Name
+                                    </th>
+                                    <th>
+                                        @Resource.From
+                                    </th>
+                                    <th>
+                                        @Resource.To
+                                    </th>
+                                    <th>
+                                        @Resource.Requested_By
+                                    </th>
+                                    <th>
+                                        @Resource.Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var request in Model)
+                                {
+                                    <tr>
+                                        <td>@request.EmployeeName</td>
+                                        <td>@request.Reason</td>
+                                        <th>@request.CoachName</th>
+                                        <th>@request.ManagerName</th>
+                                        <th>@request.req_from</th>
+                                        <th>@request.req_to</th>
+                                        <th>@request.PostedBy</th>
+                                        <td width="15%">
+                                            <a href="#" onclick="approve_request(@request.Id,true)" data-toggle="modal" class="btn btn-xs btn-default">
+@Resource.Approve</a>
+                                            <a href="#" onclick="approve_request(@request.Id,false)" data-toggle="modal" class="btn btn-xs btn-default">
+@Resource.Reject</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>
+@Resource.No_Requests_found</p>
+    }
+
+</div>

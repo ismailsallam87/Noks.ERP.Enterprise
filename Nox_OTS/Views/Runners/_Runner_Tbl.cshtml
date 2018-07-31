@@ -1,0 +1,40 @@
+﻿@using OTS.DAL
+@model List<Runner_Select_Result>
+
+@if (Model != null && Model.Count > 0)
+{
+
+    foreach (var runner in Model)
+    {
+        <tr>
+            <td>@task.Project_Name</td>
+            <td>@task.Task_Title</td>
+            <td>@task.Due_Date</td>
+            <td>@task.Task_External_Ref</td>
+            <td>@task.Task_Internal_Ref</td>
+            <td>@task.Task_Account_Name</td>
+            <td>@task.Task_Authorized_Person</td>
+            <td>@task.Task_Authorized_Email</td>
+            <td>@task.Task_Authorized_Phone</td>
+            <td>@task.Task_Shipping_Address</td>
+            <td>@task.Current_Runner</td>
+            <td>@task.Current_Status</td>
+            <td>@task.Expected_End_Time</td>
+            <td>
+                <a href="#">
+                    <span class="fa fa-pencil-square-o">Update</span>
+                </a>
+                |
+                <a href="#">
+                    <span class="fa fa-times">Delete</span>
+                </a>
+            </td>
+        </tr>
+    }
+
+}
+else
+{
+    <p style="text-align:center;color:red">No Results Found</p>
+}
+

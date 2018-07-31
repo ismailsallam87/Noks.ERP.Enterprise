@@ -1,0 +1,63 @@
+﻿<div class="color-line">
+</div>
+<div id="logo" class="light-version">
+    
+</div>
+<nav role="navigation">
+    <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
+    <div class="small-logo">
+        <span class="text-primary">NOKS-Meeting Rooms APP</span>
+    </div>
+    <div class="navbar-right">
+        <ul class="nav navbar-nav no-borders">
+            
+            <li class="dropdown">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                    <i class="pe-7s-keypad"></i>
+                </a>
+                <div class="dropdown-menu hdropdown bigmenu animated flipInX">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Reservations", "Meetingrooms")">
+                                        <i class="pe pe-7s-portfolio text-info"></i>
+                                        <h5>Reservations</h5>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Index", "Meetingrooms")">
+                                        <i class="pe pe-7s-home text-warning"></i>
+                                        <h5>Meeting Rooms</h5>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Index", "Users")">
+                                        <i class="pe pe-7s-users text-success"></i>
+                                        <h5>Users</h5>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Index", "Analytics")">
+                                        <i class="pe pe-7s-graph1 text-danger"></i>
+                                        <h5>Analytics And Reports</h5>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+            <li>
+                <a href="#" id="sidebar" class="right-sidebar-toggle">
+                    <i class="pe-7s-upload pe-7s-news-paper"></i>
+                </a>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:document.getElementById('logoutForm').submit()"><i class="pe-7s-upload pe-rotate-90"></i></a>
+            </li>
+        </ul>
+    </div>
+</nav>

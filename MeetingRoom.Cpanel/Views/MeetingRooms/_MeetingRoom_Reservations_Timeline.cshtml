@@ -1,0 +1,70 @@
+﻿@using MeetingRoom.Cpanel.Models
+@using MeetingRooms_DAL
+@model List<SP_Search_Reservation_Scroll_Result>
+@{
+    CreateNew_ViewModel newModel = new CreateNew_ViewModel();
+    newModel.ButtonName = "New Reservation";
+    newModel.EntityTitle = "Reservations";
+    newModel.Message = "Can't Find any Reservations on the System, Let's Add The First Reservation.";
+    newModel.Target = "#createreservationModal";
+    newModel.Title = "Add your First Reservation";
+}
+
+<div class="row">
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="col-md-12">
+            <div class="hpanel">
+                <div class="v-timeline vertical-container animate-panel" id="scroll_div" data-child="vertical-timeline-block" data-delay="1">
+                    @foreach (var reservation in Model)
+                {
+                        <div class="vertical-timeline-block">
+                            <div class="vertical-timeline-icon navy-bg">
+                                @if (reservation.Checked_In != null)
+                                {
+                                    <i class="fa fa-check"></i>
+                                }
+                                @if (reservation.Canceled_At != null)
+                                {
+                                    <i class="fa fa-times"></i>
+                                }
+                                @if (reservation.Checked_In == null && reservation.Canceled_At == null)
+                                {
+                                    <i class="fa fa-hourglass-o"></i>
+                                }
+
+                            </div>
+                            <div class="vertical-timeline-content">
+                                <div class="p-sm">
+                                    <span class="vertical-date pull-right">
+                                        @string.Format("{0:ddd }", @reservation.Start_From) @string.Format("{0:MMM}", @reservation.Start_From) @reservation.Start_From.Date.Day @reservation.Start_From.Date.Year<br />
+                                        <small>@reservation.Start_From.ToLongTimeString()</small>
+                                        <br />
+                                        @if (reservation.Checked_In == null && reservation.Canceled_At == null)
+                                        {
+                                            <a href="#cancelreservationModal" onclick="cancel_reservation(@reservation.Id)" data-toggle="modal" class="btn">Cancel</a>
+                                        }
+                                        else
+                                        {
+                                        }
+                                    </span>
+                                    <h2>@reservation.Subject</h2>
+                                    <p>
+                                        @reservation.Description
+                                    </p>
+                                </div>
+                                <div class="panel-footer">
+                                    @reservation.Code, @reservation.HostName
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.Partial("_NoDataFound", newModel)
+    }
+</div>

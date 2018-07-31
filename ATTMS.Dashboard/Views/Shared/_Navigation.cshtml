@@ -1,0 +1,93 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Microsoft.AspNet.Identity
+<div id="navigation">
+    <div class="profile-picture">
+        <a href="@Url.Action("Index", "Dashboard")">
+            @{Html.RenderAction("User_Avatar", "Account", new { Id = User.Identity.GetUserId() }); }
+        </a>
+
+        <div class="stats-label text-color">
+            <span class="font-bold word-wrap">@*@User.Identity.GetUserDisplayName()*@</span>
+
+            <div class="dropdown">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                    <small class="text-muted">@Resource.My_Profile <b class="caret"></b></small>
+                </a>
+                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                    <li><a href="/manage/ChangePassword">@Resource.Change_password</a></li>
+                    <li><a href="/manage/ChangeDisplayName">@Resource.Change_Display_Name</a></li>
+                    <li><a href="contacts.html">@Resource.Contacts</a></li>
+                    <li><a href="profile.html">@Resource.Profile</a></li>
+                    <li><a href="analytics.html">@Resource.Analytics</a></li>
+                    <li class="divider"></li>
+                    <li class="logout-li">
+                        @if (Request.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a href="javascript:document.getElementById('logoutForm').submit()">@Resource.Log_off</a>
+                            }
+                        }
+                    </li>
+                </ul>
+            </div>
+            <div id="sparkline1" class="small-chart m-t-sm"></div>
+            <div>
+                <h4 class="font-extra-bold m-b-xs">
+                    $260 104,200
+                </h4>
+                <small class="text-muted">Your income from the last year in sales product X.</small>
+            </div>
+        </div>
+    </div>
+
+    <ul class="nav metismenu" id="side-menu">
+        <li class="@Html.IsSelected(controller: "Dashboard")">
+            <a href="@Url.Action("Index", "Dashboard")"> <span class="nav-label">@Resource.Dashboard</span> <span class="label label-success pull-right">v.1</span> </a>
+        </li>
+        <li class="@Html.IsSelected(controller: "Analytics")">
+            <a href="@Url.Action("Index", "Analytics")"> <span class="nav-label">@Resource.Analytics</span><span class="label label-warning pull-right">@Resource.NEW</span> </a>
+        </li>
+        <li class="@Html.IsSelected(controller: "Setup")">
+            <a href="#"><span class="nav-label">@Resource.Setup</span><span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level">
+                <li class="@Html.IsSelected(action: "Departments")"><a href="@Url.Action("Departments", "Setup")">@Resource.Departments</a></li>
+                <li class="@Html.IsSelected(action: "Lookups")"><a href="#">@Resource.Projects <span class="label label-warning pull-right">@Resource.development</span></a></li>
+                <li class="@Html.IsSelected(action: "Lookups")"><a href="#">@Resource.Branches <span class="label label-warning pull-right">@Resource.development</span></a></li>
+                <li class="@Html.IsSelected(action: "Lookups")"><a href="@Url.Action("Devices", "Setup")">@Resource.Attendance_Devices</a></li>
+                <li class="@Html.IsSelected(action: "Lookups")"><a href="@Url.Action("Requests", "Setup")">@Resource.Leave_Requests</a></li>
+                <li class="@Html.IsSelected(action: "Lookups")"><a href="@Url.Action("MonthManagement", "Setup")">@Resource.Month_Management</a></li>
+                <li class="@Html.IsSelected(action: "Lookups")"><a href="@Url.Action("WorkDays", "Setup")">@Resource.Work_Days</a></li>
+                <li class="@Html.IsSelected(action: "Lookups")"><a href="@Url.Action("Shifts", "Setup")">@Resource.Shifts</a></li>
+                <li class="@Html.IsSelected(action: "Lookups")"><a href="@Url.Action("index", "Users")">@Resource.User_Management</a></li>
+            </ul>
+        </li>
+        <li class="@Html.IsSelected(controller: "Employees")">
+            <a href="#"><span class="nav-label">@Resource.Employees_Management</span><span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level">
+                <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Employees")">@Resource.Employees</a></li>
+            </ul>
+        </li>
+        <li class="@Html.IsSelected(controller: "Reports")">
+            <a href="#"><span class="nav-label">@Resource.Reports</span><span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level">
+                <li class="@Html.IsSelected(action: "ChartJs")"><a href="@Url.Action("ChartJs", "Charts")">@Resource.ChartJs</a></li>
+                <li class="@Html.IsSelected(action: "FlotCharts")"><a href="@Url.Action("FlotCharts", "Charts")">@Resource.Flot_charts</a></li>
+                <li class="@Html.IsSelected(action: "InlineGraphs")"><a href="@Url.Action("InlineGraphs", "Charts")">@Resource.Inline_graphs</a></li>
+                <li class="@Html.IsSelected(action: "Chartist")"><a href="@Url.Action("Chartist", "Charts")">@Resource.Chartist</a></li>
+                <li class="@Html.IsSelected(action: "C3Charts")"><a href="@Url.Action("C3Charts", "Charts")">@Resource.C3_Charts</a></li>
+            </ul>
+        </li>
+        <li class="@Html.IsSelected(controller: "Attendacne")">
+            <a href="#"><span class="nav-label">@Resource.Attendacne_Management</span><span class="fa arrow"></span> </a>
+            <ul class="nav nav-second-level">
+                <li class="@Html.IsSelected(action: "Reporting")">
+                    <a href="@Url.Action("AttendanceSheet", "Reporting")">
+                    <span class="label label-success pull-right">@Resource.Reporting</span> @Resource.Attendace_Sheet </a>  
+                </li>
+                <li class="@Html.IsSelected(action: "ColumnsFromUp")"><a href="@Url.Action("ColumnsFromUp", "BoxTransitions")">@Resource.Leave_Requests</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,57 @@
+﻿<form action="#" class="form-horizontal form-row-seperated">
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-3">Email: </label>
+            <div class="col-md-9">
+                <input type="text" placeholder="Email" id="Email_Txt" class="form-control" />
+                <span class="help-block">
+                    john@mycompany.com
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Password</label>
+            <div class="col-md-9">
+                <input type="text" placeholder="Password" id="Password_Txt" class="form-control" />
+                <span class="help-block">
+                    Password minimum is 6 characters
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Roles List</label>
+            <div class="col-md-9">
+                <input type="hidden" class="form-control select2_sample3" id="user_roles_mchoice" value="">
+                <span class="help-block">
+                    Select one or Multiple Roles.
+                </span>
+            </div>
+        </div>
+        <div class="form-group last">
+            <label class="control-label col-md-3">Lock Status</label>
+            <div class="col-md-9">
+                <div class="radio-list">
+                    <label>
+                        <input type="radio" name="optionsRadios2" id="Locked_Cbox" value="Locked" />
+                        Locked
+                    </label>
+                    <label>
+                        <input type="radio" name="optionsRadios2" id="UnLocked_Cbox" value="UnLocked" checked />
+                        UnLocked
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn green modal_submit" data-dismiss="modal" onclick="create_newUser()" aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Create User', 'The Operation of Creation New User is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

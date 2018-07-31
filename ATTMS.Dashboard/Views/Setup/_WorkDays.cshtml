@@ -1,0 +1,47 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_WorkDays_Select_Result>
+<div class="row">
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="days_tbl" class="display table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="select_all_chk" onchange="checkAll(this)"/></th>
+                                    <th>@Resource.days</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var day in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (day.day_on.HasValue && day.day_on.Value)
+                                            {
+                                                <input type="checkbox" class="days_" value="@day.Id" checked="checked" />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" class="days_" value="@day.Id"/>
+                                            }
+                                        </td>
+                                        <td>@day.name</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>@Resource.No_Days_found</p>
+    }
+
+</div>

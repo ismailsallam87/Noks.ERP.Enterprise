@@ -1,0 +1,305 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model SP_Department_Select_Result
+@{
+    ViewBag.Title = Model.title + @Resource.Details;
+}
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">@Resource.Dashboard</a></li>
+                    <li><a href="@Url.Action("Departments", "Setup")">@Resource.Departments</a></li>
+                    <li class="active">
+                        <span>@Model.title</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @Model.title @Resource.Details
+            </h2>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a title="Job Titles" data-toggle="tab" href="#tab-1"> <i class="fa fa-id-badge "></i></a></li>
+                    <li class=""><a title="Employees" data-toggle="tab" href="#tab-2"><i class="fa fa-user-o"></i></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+                            <strong>
+                                @Resource.Job_Titles_are_Registered_to @Model.title
+                                <a href="#" data-toggle="modal" data-target="#jobTitleDepartmentModal">
+                                    <span class="fa fa-plus-square"></span>
+                                   @Resource.Add_Job_Title
+                                </a>
+                            </strong>
+                            <div id="dep_jobtitles_cont">
+                                @{Html.RenderAction("Department_JobTitles_Select", new { Id = Model.Id });}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <strong>
+                                @Resource.Employees_Working_for@Model.title
+                                <a href="#" data-toggle="modal" data-target="#employeesDepartmentModal" >
+                                    <span class="fa fa-plus-square"></span>
+                                    @Resource.Add_Employee
+                                </a>
+                            </strong>
+                            @{Html.RenderAction("Department_Employees_Select", new { Id = Model.Id });}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="jobTitleDepartmentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">  @Resource.Add_New_Job_Title @Model.title</h4>
+                <small class="font-bold">@Resource.Add_Employee_To_Dept_Validation</small>
+            </div>
+            <div class="modal-body">
+                <form method="get" class="form-horizontal" id="create_frm">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.code</label>
+                        <div class="col-sm-10"><input type="text" id="code" class="form-control"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Job_Title</label>
+
+                        <div id="job_title_list_cont" class="col-sm-10">
+                            @{Html.RenderAction("Job_Titles_List_Select", new { department_Id = Model.Id}); }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div><label class="form-checkbox"> <input id="is_manager" type="checkbox" class="i-checks"> @Resource.Is_Manager </label></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div><label class="form-checkbox"> <input id="multiple_available" type="checkbox" class="i-checks" checked> @Resource.Is_Multiple </label></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+                <button type="button" onclick="create_jobtitle_department('@Model.Id')" class="btn btn-primary" data-dismiss="modal">@Resource.Save_changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="employeesDepartmentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Add_New_Employee_on @Model.title</h4>
+            </div>
+            <div class="modal-body">
+                <form method="get" class="form-horizontal" id="employee_frm">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Employee</label>
+                        <div id="employee_free_list_cont" class="col-sm-10">
+                            @{Html.RenderAction("Employee_List_Select","Employees", new { only_free = true }); }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Job_Title</label>
+                        <div id="job_title_department_ref_list_cont" class="col-sm-10">
+                            @{Html.RenderAction("load_jobtitles_for_department", new { department_Id = Model.Id}); }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Joined_At</label>
+                        <div class="col-sm-10">
+                            <input id="joined_at" type="text" value="@DateTime.Now.ToString(HMTLHelperExtensions.datepicker_format)" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Coach</label>
+                        <div id="employee_free_coacj_list_cont" class="col-sm-10">
+                            @{Html.RenderAction("Employee_List_Select", "Employees", new {department_Id = Model.Id }); }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Notes</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="notes"></textarea>
+                        </div>
+                        </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+                <button type="button" onclick="Department_employee_Create('@Model.Id')" class="btn btn-primary" data-dismiss="modal">@Resource.Save_changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/bundles/datepicker/css")
+    @Styles.Render("~/bundles/datetimepicker/css")
+}
+@section Scripts {
+@Scripts.Render("~/bundles/datepicker/js")
+@Scripts.Render("~/bundles/datetimepicker/js")
+
+    <script>
+        $(document).ready(function () {
+            $('#joined_at').datepicker();
+        })
+        function create_jobtitle_department(Id) {
+            var data = {};
+            data.department_Id = Id;
+            data.code = $('#code').val();
+            data.job_title_Id = $('#job_title_Id').val();
+            data.is_manager = $('#is_manager').prop("checked");
+            data.multiple_available = $('#multiple_available').prop("checked");
+
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Department_JobTitle_Create")';
+            ajaxoptions.data = data;
+            ajaxoptions.success = function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    toaster('info', result[i].user_message);
+                }
+                load_jobtitles(data.department_Id);
+                load_jobtitles_for_department(data.department_Id);
+                resetForm("#create_frm");
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to submit a new job-title to the department !.');
+            };
+            var valid = true;
+            if (data.job_title_Id <= 0) {
+                valid = false;
+                toaster('info', 'Please select a job-title first..');
+            }
+            if (valid) {
+                $.ajax(ajaxoptions);
+            }
+        }
+        function load_jobtitles_for_department(Id) {
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var cont = $('#job_title_department_ref_list_cont');
+            cont.empty();
+            cont.append(loading_img);
+            var data = {};
+            data.Id = Id;
+            
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Department_JobTitles_Select")';
+            ajaxoptions.data = data;
+            ajaxoptions.success = function (result) {
+                cont.empty();
+                cont.append(result);
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to recall a fresh job-title list!.');
+            };
+            $.ajax(ajaxoptions);
+        }
+        function load_jobtitles(Id) {
+            var cont = $('#job_title_list_cont');
+            var data = {};
+            data.Id = Id;
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Job_Titles_List_Select")';
+            ajaxoptions.data = data;
+            ajaxoptions.success = function (result) {
+                cont.empty();
+                cont.append(result);
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to recall a fresh job-title list!.');
+            };
+            $.ajax(ajaxoptions);
+        }
+        function load_jobtitles_department_ref(Id) {
+            var cont = $('#job_title_list_cont');
+            var data = {};
+            data.Id = Id;
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Job_Titles_List_Select")';
+            ajaxoptions.data = data;
+            ajaxoptions.success = function (result) {
+                cont.empty();
+                cont.append(result);
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to recall a fresh job-title list!.');
+            };
+            $.ajax(ajaxoptions);
+
+        }
+        function update_jobtitle_manager(Id, status) {
+
+        }
+        function update_jobtitle_multiple(Id, status) {
+
+        }
+        function update_jobtitle_valid(Id, status) {
+
+        }
+
+        function Department_employee_Create(Id) {
+            var data = {};
+            data.department_Id = Id;
+            data.department_job_ref = $('#job_title_department_ref_list_cont').find('#department_job_ref').val();
+            data.employee_Id = $('#employee_free_list_cont').find('#employee_Id').val();
+            data.joined_at = $('#joined_at').val();
+            data.notes = $('#notes').val();
+            data.employee_coach_Id = $('#employee_free_coacj_list_cont').find('#employee_Id').val();
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Department_employee_Create")';
+            ajaxoptions.data = data;
+            ajaxoptions.success = function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    toaster('info', result[i].user_message);
+                }
+                load_employees_for_department(data.department_Id);
+                resetForm("#employee_frm");
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to submit a new employee to the department !.');
+            };
+            var valid = true;
+            if (data.department_job_ref <= 0) {
+                valid = false;
+                toaster('info', 'Please select a job-title first..');
+            }
+            if (data.employee_Id <= 0 || data.employee_Id === undefined) {
+                valid = false;
+                toaster('info', 'Please select an employee first..');
+            }
+            if (data.joined_at == '') {
+                valid = false;
+                toaster('info', 'Please define an employee joining-date first..');
+            }
+
+            if (valid) {
+                $.ajax(ajaxoptions);
+            }
+        }
+    </script>
+}

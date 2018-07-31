@@ -1,0 +1,37 @@
+﻿@model int?
+@using ATTMS.Dashboard.Resources
+<form id="frm_terminate_contract" method="post">
+    <div class="modal-content">
+        <div class="color-line"></div>
+        <div class="modal-header text-center">
+            <h4 class="modal-title">@Resource.TerminateAndEndContract</h4>
+        </div>
+        <div class="modal-body">
+            <div class="panel-body">                             
+              
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">@Resource.End_At</label>
+                        <div class="col-sm-9 input-group date">
+                            <input type="text" class="form-control date" id="endat_dp" name="endat_dp">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-th"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">
+                            @Resource.Terminated
+                            <input type="checkbox" id="terminated_chk" class="i-checks">
+                        </label>
+                    </div>
+                </div>     
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" onclick="cancel_terminate_and_end_contract()" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" onclick="confirm_terminate_and_end_contract(@Model)" disabled id="terminate_and_end_contract_btn" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+    </div>
+</form>

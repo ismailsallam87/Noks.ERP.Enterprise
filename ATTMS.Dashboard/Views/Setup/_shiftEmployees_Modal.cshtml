@@ -1,0 +1,40 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Employees_For_Shift_Result>
+
+<input type="hidden" id="shift_id" value="@ViewBag.shiftId" />
+<div class="color-line"></div>
+<div class="modal-header text-center">
+    <h4 class="modal-title">@Resource.Add_Remove_Employees_From_Shift</h4>
+    <small class="font-bold">@Resource.Change_the_join_and_left_date_hint</small>
+</div>
+<div class="modal-body">
+    <table id="user" class="table table-bordered table-striped" style="clear: both">
+        <thead>
+            <tr>
+                <th>@Resource.Employee</th>
+                <th>@Resource.code</th>
+                <th>@Resource.Current_Shift</th>
+                <th>@Resource.Joined_At</th>
+                <th>@Resource.Move</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var shift_employee in Model)
+            {
+                <tr>
+                    <td>@shift_employee.name</td>
+                    <td>@shift_employee.code</td>
+                    <td>@shift_employee.current_shift_title</td>
+                    <td>@(shift_employee.current_shift_joining_date != null? shift_employee.current_shift_joining_date.Value.ToString(HMTLHelperExtensions.date_format):"")</td>
+                    <td id="employee_cell_@shift_employee.Id">
+                    <a class="dob" href="@Url.Action("Join_Shift")" id="dob" data-type="combodate" data-pk="@shift_employee.Id;@ViewBag.shiftId" data-url="@Url.Action("Join_Shift")" data-value="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day" data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY" data-template="D / MMM / YYYY" data-pk="1" data-title="Select Date of birth" class="editable editable-click">@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+</div>

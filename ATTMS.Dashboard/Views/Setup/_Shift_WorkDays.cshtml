@@ -1,0 +1,97 @@
+﻿@using ATTMS.Dashboard.Resources
+@using ATTMS.Dashboard.Models;
+@model WorkDaysViewModel
+@if (@Model.ShiftDays.Count > 0)
+{
+    <div class="modal-content">
+        <div class="color-line"></div>
+        <div class="modal-header text-center">
+            <h4 class="modal-title">@Resource.Shift_Work_Days</h4>
+        </div>
+        <div class="modal-body">
+            <div class="panel-body">
+                <form method="get" class="form-horizontal">
+                    <div class="table-responsive">
+                        <table id="days_tbl" class="display table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="select_all_chk" onchange="checkAll(this)" /></th>
+                                    <th>@Resource.Day</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var day in Model.ShiftDays)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (day.day_on== true)
+                                            {
+                                                <input type="checkbox" class="days_" value="@day.Id" checked="checked" />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" class="days_" value="@day.Id" />
+                                            }
+                                        </td>
+                                        <td>@day.name</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" onclick="confirm_Update_Shift_Days(@Model.ShiftId)" data-dismiss="modal" class="btn btn-primary">@Resource.Save_changes</button>
+    </div>
+}
+else
+{
+    <div class="modal-content">
+        <div class="color-line"></div>
+        <div class="modal-header text-center">
+            <h4 class="modal-title">@Resource.System_Work_Days </h4>
+        </div>
+        <div class="modal-body">
+            <div class="panel-body">
+                <form method="get" class="form-horizontal">
+                    <div class="table-responsive">
+                        <table id="day_tbl" class="display table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="select_all_chk_def" onchange="checkAlldef(this)" /></th>
+                                    <th>Day</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var day in Model.DefaultDays)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (day.IsWorkDay == true)
+                                            {
+                                                <input type="checkbox" class="days_def" value="@day.Id" checked="checked" />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" class="days_def" value="@day.Id" />
+                                            }
+                                        </td>
+                                        <td><p class="days_txt">@day.Name</p></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+        <button type="button" onclick="confirm_Insert_Shift_Days(@Model.ShiftId)" data-dismiss="modal" class="btn btn-primary">@Resource.Save_changes</button>
+    </div>
+}

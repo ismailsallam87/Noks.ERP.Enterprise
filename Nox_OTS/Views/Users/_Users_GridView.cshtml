@@ -1,0 +1,81 @@
+﻿@using OTS.DAL
+@model List<SP_Users_Select_Result>
+
+<div class="portlet box green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Users
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse">
+            </a>
+            <a href="#portlet-config" data-toggle="modal" class="config">
+            </a>
+        </div>
+    </div>
+    @if (Model == null || Model.Count == 0)
+    {
+        Html.Partial("_NoUsersFound");
+    }
+    else
+    {
+        <div class="portlet-body">
+            <div class="note note-info hidden">
+                <p>
+                    Extend Bootstrap's grid system with the thumbnail component to easily display grids of images, videos, text, and more.
+                </p>
+            </div>
+            <div class="row">
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var user in Model)
+                    {
+                        <div class="col-sm-4 col-md-4">
+                            <a class="thumbnail">
+                                <img src="@{Html.RenderAction("LoadUser_Img", new { userId = user.Id });}" alt="" style="width: 100%; height: 200px;">
+                                
+                                <div class="caption">
+                                    <h5 class="username_grid">@user.UserName</h5>
+                                    <p>
+                                        Role: @{
+                                            List<string> roles_list = user.Roles.Split(',').ToList();
+                                            foreach (string role in roles_list)
+                                            {
+                                                <div>@role</div>
+                                            }
+                                        }
+                                        Email: @user.Email   
+                                        @if (user.EmailConfirmed)
+                                        {
+                                            <span class="label label-success">
+                                                Confirmed
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-warning">
+                                                Not-Confirmed
+                                            </span>
+                                        }
+                                    </p>
+                                    <p>
+                                        @if (user.LockoutEnabled)
+                                        {
+                                            <input type="button" onclick="UpdateLockStatus('@user.Id',false)" class="btn blue" value="UnLock" />
+                                        }
+                                        else
+                                        {
+                                            <input type="button" onclick="UpdateLockStatus('@user.Id',true)" class="btn danger" value="Lock" />
+                                        }
+                                        
+                                        <input type="button" class="btn default" value="Edit">
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>

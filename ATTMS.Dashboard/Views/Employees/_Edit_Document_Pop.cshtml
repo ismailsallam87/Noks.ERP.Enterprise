@@ -1,0 +1,52 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model SP_Edit_Employee_Document_Result
+
+<form id="frm_document">
+    <div class="modal-content">
+
+        <div class="modal-body">
+            <div class="panel-body">
+                @{Html.RenderAction("Document_Ref_Drop_DownList", "Employees", new { selectedElement = Model.document_ref_Id });}
+                <div method="get" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Signed_At</label>
+                        <div class="col-sm-10">
+                            <input id="datapicker_Signed_At_Edit" type="text" value="02-16-2012" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Expired_At</label>
+                        <div class="col-sm-10">
+                            <input id="datapicker_Expired_At_Edit" type="text" value="02-16-2012" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div method="get" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Copy_Path</label>
+                        <div class="col-sm-10">
+                            <input id="file_Copy_path_Edit" value="@Model.copy_path" name="file_Copy_path" type="file" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div method="get" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Notes</label>
+                        <div class="col-sm-10">
+                            <input id="txt_Notes_Edit" name="txt_Notes" value="@Model.notes" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+        <button type="button" onclick="Edit_Document_Dtail(@Model.employee_document_Id)" data-dismiss="modal" class="btn btn-primary">@Resource.Save_changes</button>
+    </div>
+</form>
+
+

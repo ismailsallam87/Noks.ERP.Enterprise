@@ -1,0 +1,152 @@
+﻿@using Nox_OTS.Models
+@model TaskStatusViewModel
+<div>
+    <form method="get" class="form-horizontal form-row-seperated">
+        <div class="form-body @Model.IsTaskClosed">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">User</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="user" required>
+                        <option>Select User</option>
+                        @foreach (var usr in Model.Users)
+                        {
+                            <option value="@usr.Id">@usr.UserName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Status</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="remained_status" required>
+                        <option>Select Status</option>
+                        @foreach (var st in Model.RemainedStatuses)
+                        {
+                            <option value="@st.ID">@st.Title</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" style="display:inline-block">
+                <label class="col-sm-2 control-label">Actual Start</label>
+                <div class="col-sm-4">
+                    <input id="actual_date" type="text" name="actual_date" class="form-control datepicker" required placeholder="02-16-2012">
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group clockpicker" data-autoclose="true"> 
+                        <input type="text" class="form-control" pattern="\b((1[0-2]|0?[1-9]):([0-5][0-9]) ([AaPp][Mm]))" required name="actual_time" id="actual_time" placeholder="09:30 PM">                       
+                    </div>
+
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn green modal_submit" onclick="create_new_task_status(@Model.TaskId)">+</button>
+                    @*<button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Create Task Status', 'The Operation of Creation New Task Status is canceled !', false)" aria-hidden="true">Cancel</button>*@
+                </div>
+            </div>     
+        </div>
+    </form>
+</div>
+@if (Model == null || Model.Statuses.Count == 0)
+{
+    <div class="alert alert-block alert-info fade in">
+        <h4 class="alert-heading">No Statuses Found!</h4>
+    </div>
+}
+else
+{
+    <div class="portlet-body flip-scroll">
+        <table class="table table-bordered table-striped table-condensed flip-content" id="status_tbl">
+            <thead class="flip-content">
+                <tr>
+                    <th width="10%">
+                        Status Name
+                    </th>
+                    <th width="10%">
+                        Expected StartTime
+                    </th>
+                    <th width="10%">
+                        Expected EndTime
+                    </th>
+                    <th width="10%">
+                        Actual StartTime
+                    </th>
+                    <th width="10%">
+                        Actual EndTime
+                    </th>
+                    <th width="10%">
+                        Expected Duration
+                    </th>
+                    <th width="10%">
+                        Actual Duration
+                    </th>
+                    <th width="15%">
+                        Ordered By
+                    </th>
+                    <th width="15%">
+                        Ordered To
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var status in Model.Statuses)
+            {
+                    <tr>
+                        <td>@status.StatusName</td>
+                        <td>@status.Expected_Start_Time.ToString("dd-MMM-yyyy")</td>
+                        <td>@status.Expected_End_Time.ToString("dd-MMM-yyyy")</td>
+                        <td>
+                            @if (status.Actual_Start_Time != null)
+                            {
+                                @status.Actual_Start_Time.Value.ToString("dd-MMM-yyyy")
+                            }
+                            else
+                            {
+                                <p>Not Started</p>
+                            }
+                        </td>
+                        <td>
+                            @if (status.Actual_End_Time != null)
+                            {
+                                @status.Actual_End_Time.Value.ToString("dd-MMM-yyyy")
+                            }
+                            else
+                            {
+                                <p>Not Ended</p>
+                            }
+                        </td>
+                        @*@status.Actual_End_Time.Value.ToString("dd-MMM-yyyy")
+                            </td>*@
+                        <td>
+                            @if (status.Expected_End_Time != null && status.Expected_Start_Time != null)
+                            {
+                                var minute = (status.Expected_End_Time - status.Expected_Start_Time).TotalMinutes / 60;
+                                var sec = (status.Expected_End_Time - @status.Expected_Start_Time).TotalMinutes % 60;
+                                <p> @minute:@sec</p>
+                            }
+                            else
+                            {
+                                <p>00:00:00</p>
+                            }
+                        </td>
+                        <td>
+                            @if (status.Actual_End_Time != null && status.Actual_Start_Time != null)
+                            {
+                                var minute = (status.Actual_End_Time.Value - status.Actual_Start_Time.Value).TotalMinutes / 60;
+                                var sec = (status.Actual_End_Time.Value - status.Actual_Start_Time.Value).TotalMinutes % 60;
+                                <p>@minute:@sec</p>
+                            }
+                            else
+                            {
+                                <p>00:00:00</p>
+                            }
+                            @*@((status.Actual_End_Time.Value - status.Actual_Start_Time.Value).TotalMinutes / 60) : @((status.Actual_End_Time.Value - status.Actual_Start_Time.Value).TotalMinutes % 60)*@
+                        </td>
+                        <td>@status.Ordered_By</td>
+                        <td>@status.Ordered_To</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+

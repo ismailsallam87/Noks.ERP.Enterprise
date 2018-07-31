@@ -1,0 +1,56 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Devices_Select_Result>
+<div class="row">
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="devices_tbl" class="display table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>@Resource.Title</th>
+                                    <th>@Resource.Number</th>
+                                    <th>@Resource.ID</th>
+                                    <th>@Resource.IP</th>
+                                    <th width="10%">@Resource.Port</th>
+                                    <th width="10%">@Resource.Last_Sync</th>
+                                    <th width="10%">@Resource.Logs</th>
+                                    <th width="10%">@Resource.Active</th>
+                                    <th width="15%">@Resource.Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var device in Model)
+                                {
+                                    <tr>
+                                        <td>@device.Device_Name</td>
+                                        <td>@device.Device_No</td>
+                                        <td>@device.Device_ID</td>
+                                        <td>@device.Device_IP</td>
+                                        <td width="10%">@device.Device_Port</td>
+                                        <td width="10%">@device.Device_Last_Sync</td>
+                                        <td width="10%">@device.Processed_log_count/@device.Raw_log_count</td>
+                                        <td width="10%">@device.Device_Last_Status</td>
+                                    <td width="15%">
+                                        <a href="#" class="btn btn-xs btn-default"> @Resource.View</a>
+                                        <a class="btn btn-xs btn-default">@Resource.Edit</a>
+                                        <a class="btn btn-xs btn-default">@Resource.Delete</a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>@Resource.No_Devices_found</p>
+    }
+
+</div>

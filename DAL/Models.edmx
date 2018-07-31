@@ -1,0 +1,1406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OTSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Areas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Zone_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bulk_Tasks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bulk_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Bulk_Received_Date" Type="datetime" Nullable="false" />
+          <Property Name="Bulk_Received_By_Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Bulk_Received_By_Email" Type="nvarchar" MaxLength="500" />
+          <Property Name="Bulk_Uploaded_Date" Type="datetime" Nullable="false" />
+          <Property Name="Bulk_Uploaded_By" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Bulk_Total_Tasks" Type="int" Nullable="false" />
+          <Property Name="Bulk_New_Tasks" Type="int" Nullable="false" />
+          <Property Name="Bulk_Project" Type="int" Nullable="false" />
+          <Property Name="Sync" Type="bit" Nullable="false" />
+          <Property Name="Sync_At" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Project_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Project_Start_Date" Type="datetime" Nullable="false" />
+          <Property Name="Project_End_Date" Type="datetime" />
+          <Property Name="Project_Start_By" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Created_At" Type="datetime" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Project_ID" Type="int" Nullable="false" />
+          <Property Name="Task_Title" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Task_External_Ref" Type="nvarchar" MaxLength="128" />
+          <Property Name="Task_Internal_Ref" Type="nvarchar" MaxLength="128" />
+          <Property Name="Task_Is_Closed" Type="bit" Nullable="false" />
+          <Property Name="Task_Created_By" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Task_Account_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="Task_Area" Type="int" Nullable="false" />
+          <Property Name="Due_Date" Type="datetime" Nullable="false" />
+          <Property Name="Task_Shipping_Address" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Task_Authorized_Person" Type="nvarchar" MaxLength="500" />
+          <Property Name="Task_Authorized_Email" Type="nvarchar" MaxLength="500" />
+          <Property Name="Task_Authorized_Phone" Type="nvarchar" MaxLength="500" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task_Fees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Task_ID" Type="bigint" Nullable="false" />
+          <Property Name="Fees_Type" Type="tinyint" Nullable="false" />
+          <Property Name="Fees_Amount" Type="money" Nullable="false" />
+          <Property Name="Fees_Discount" Type="money" Nullable="false" />
+          <Property Name="Created_By" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Created_At" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Collected" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task_Generic_Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="500" />
+          <Property Name="Logical_Order" Type="tinyint" Nullable="false" />
+          <Property Name="Expected_Duration_Sec" Type="int" Nullable="false" />
+          <Property Name="To_Close" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task_Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Task_ID" Type="bigint" />
+          <Property Name="Item_SN" Type="nvarchar" MaxLength="500" />
+          <Property Name="Item_Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Item_Desc" Type="nvarchar" MaxLength="500" />
+          <Property Name="Item_Weight" Type="nvarchar" MaxLength="500" />
+          <Property Name="Item_Delivery_Status" Type="tinyint" Nullable="false" />
+          <Property Name="Item_Notes" Type="nvarchar" MaxLength="500" />
+          <Property Name="Created_By" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Created_At" Type="datetime" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task_Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Task_ID" Type="bigint" Nullable="false" />
+          <Property Name="Task_Generic_Status_ID" Type="tinyint" Nullable="false" />
+          <Property Name="Expected_Start_Time" Type="datetime" Nullable="false" />
+          <Property Name="Expected_End_Time" Type="datetime" Nullable="false" />
+          <Property Name="Actual_Start_Time" Type="datetime" />
+          <Property Name="Actual_End_Time" Type="datetime" />
+          <Property Name="Ordered_By" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Ordered_To" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zones">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Areas_Zones">
+          <End Role="Zones" Type="Self.Zones" Multiplicity="1" />
+          <End Role="Areas" Type="Self.Areas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zones">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Areas">
+              <PropertyRef Name="Zone_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bulk_Tasks_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Bulk_Tasks" Type="Self.Bulk_Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bulk_Tasks">
+              <PropertyRef Name="Bulk_Project" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Areas">
+          <End Role="Areas" Type="Self.Areas" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Areas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Task_Area" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Fees_Task">
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="Task_Fees" Type="Self.Task_Fees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task_Fees">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Items_Task">
+          <End Role="Task" Type="Self.Task" Multiplicity="0..1" />
+          <End Role="Task_Items" Type="Self.Task_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task_Items">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Project_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Status_Task">
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="Task_Status" Type="Self.Task_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task_Status">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Status_Task_Generic_Status">
+          <End Role="Task_Generic_Status" Type="Self.Task_Generic_Status" Multiplicity="1" />
+          <End Role="Task_Status" Type="Self.Task_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task_Generic_Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task_Status">
+              <PropertyRef Name="Task_Generic_Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Bulk_Task_Tbl_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="Bulk_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Bulk_Received_Date_From" Type="date" Mode="In" />
+          <Parameter Name="Bulk_Received_Date_To" Type="date" Mode="In" />
+          <Parameter Name="Bulk_Received_By_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Bulk_Received_By_Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Bulk_Uploaded_Date_From" Type="date" Mode="In" />
+          <Parameter Name="Bulk_Uploaded_Date_To" Type="date" Mode="In" />
+          <Parameter Name="Bulk_Uploaded_By" Type="nvarchar" Mode="In" />
+          <Parameter Name="Bulk_Total_Tasks" Type="int" Mode="In" />
+          <Parameter Name="Bulk_New_Tasks" Type="int" Mode="In" />
+          <Parameter Name="Bulk_Project" Type="int" Mode="In" />
+          <Parameter Name="Sync" Type="bit" Mode="In" />
+          <Parameter Name="Sync_At_From" Type="date" Mode="In" />
+          <Parameter Name="Sync_At_To" Type="date" Mode="In" />
+        </Function>
+        <Function Name="Project_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Projects_Tbl_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Project_ID" Type="int" Mode="In" />
+          <Parameter Name="Project_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Project_Start_At_From" Type="date" Mode="In" />
+          <Parameter Name="Project_End_At_To" Type="date" Mode="In" />
+          <Parameter Name="Project_Start_By" Type="nvarchar" Mode="In" />
+          <Parameter Name="Deleted" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="Runner_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Runner_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Get_User_By_UserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="type" Type="int" Mode="In" />
+          <Parameter Name="search" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Menu_Configuration_Role_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Role_ID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Parent_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Menu_Configuration_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="Parent_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Menu_Parents_Role_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoleID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Menu_Parents_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Roles_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Roles_UI_Array_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_UI_Actions_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_UserRole_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="RoleId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Users_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Role_ID" Type="nvarchar" Mode="In" />
+          <Parameter Name="PasswordHash" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SecurityStamp" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Locked" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_Users_Lock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="Locked" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_Users_Rest_Password" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="PasswordHash" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SecurityStamp" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_Users_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Role_ID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Task_Items_Tbl_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="bigint" Mode="In" />
+          <Parameter Name="Task_ID" Type="bigint" Mode="In" />
+          <Parameter Name="Item_SN" Type="nvarchar" Mode="In" />
+          <Parameter Name="Item_Title" Type="nvarchar" Mode="In" />
+          <Parameter Name="Item_Desc" Type="nvarchar" Mode="In" />
+          <Parameter Name="Item_Weight" Type="nvarchar" Mode="In" />
+          <Parameter Name="Item_Delivery_Status" Type="tinyint" Mode="In" />
+          <Parameter Name="Item_Notes" Type="nvarchar" Mode="In" />
+          <Parameter Name="Created_By" Type="nvarchar" Mode="In" />
+          <Parameter Name="Created_At_From" Type="date" Mode="In" />
+          <Parameter Name="Created_At_To" Type="date" Mode="In" />
+          <Parameter Name="Deleted" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="Task_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="bigint" Mode="In" />
+          <Parameter Name="Project_ID" Type="int" Mode="In" />
+          <Parameter Name="Task_Title" Type="nvarchar" Mode="In" />
+          <Parameter Name="Task_External_Ref" Type="nvarchar" Mode="In" />
+          <Parameter Name="Task_Internal_Ref" Type="nvarchar" Mode="In" />
+          <Parameter Name="Task_Is_Closed" Type="bit" Mode="In" />
+          <Parameter Name="Task_Created_By" Type="nvarchar" Mode="In" />
+          <Parameter Name="Task_Account_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Task_Area" Type="int" Mode="In" />
+          <Parameter Name="Due_Date_From" Type="date" Mode="In" />
+          <Parameter Name="Due_Date_To" Type="date" Mode="In" />
+          <Parameter Name="Task_Shipping_Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="Task_Authorized_Person" Type="nvarchar" Mode="In" />
+          <Parameter Name="Task_Authorized_Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Task_Authorized_Mobile" Type="nvarchar" Mode="In" />
+          <Parameter Name="Task_Deleted" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="Task_Status_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Zones_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="OTSModelStoreContainer">
+          <EntitySet Name="Areas" EntityType="Self.Areas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bulk_Tasks" EntityType="Self.Bulk_Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task_Fees" EntityType="Self.Task_Fees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task_Generic_Status" EntityType="Self.Task_Generic_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task_Items" EntityType="Self.Task_Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task_Status" EntityType="Self.Task_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zones" EntityType="Self.Zones" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Areas_Zones" Association="Self.FK_Areas_Zones">
+            <End Role="Zones" EntitySet="Zones" />
+            <End Role="Areas" EntitySet="Areas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bulk_Tasks_Project" Association="Self.FK_Bulk_Tasks_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Bulk_Tasks" EntitySet="Bulk_Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Areas" Association="Self.FK_Task_Areas">
+            <End Role="Areas" EntitySet="Areas" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Fees_Task" Association="Self.FK_Task_Fees_Task">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="Task_Fees" EntitySet="Task_Fees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Items_Task" Association="Self.FK_Task_Items_Task">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="Task_Items" EntitySet="Task_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Project" Association="Self.FK_Task_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Status_Task" Association="Self.FK_Task_Status_Task">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="Task_Status" EntitySet="Task_Status" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Status_Task_Generic_Status" Association="Self.FK_Task_Status_Task_Generic_Status">
+            <End Role="Task_Generic_Status" EntitySet="Task_Generic_Status" />
+            <End Role="Task_Status" EntitySet="Task_Status" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OTSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bulk_Tasks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bulk_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bulk_Received_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Bulk_Received_By_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Bulk_Received_By_Email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Bulk_Uploaded_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Bulk_Uploaded_By" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bulk_Total_Tasks" Type="Int32" Nullable="false" />
+          <Property Name="Bulk_New_Tasks" Type="Int32" Nullable="false" />
+          <Property Name="Bulk_Project" Type="Int32" Nullable="false" />
+          <Property Name="Sync" Type="Boolean" Nullable="false" />
+          <Property Name="Sync_At" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Bulk_Tasks_Project" FromRole="Bulk_Tasks" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Project_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Project_Start_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Project_End_Date" Type="DateTime" Precision="3" />
+          <Property Name="Project_Start_By" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created_At" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Bulk_Tasks" Relationship="Self.FK_Bulk_Tasks_Project" FromRole="Project" ToRole="Bulk_Tasks" />
+          <NavigationProperty Name="Tasks" Relationship="OTSModel.FK_Task_Project" FromRole="Project" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Task_Fees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Task_ID" Type="Int64" Nullable="false" />
+          <Property Name="Fees_Type" Type="Byte" Nullable="false" />
+          <Property Name="Fees_Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Fees_Discount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created_At" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="Collected" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Task" Relationship="OTSModel.FK_Task_Fees_Task" FromRole="Task_Fees" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Task_Generic_Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Logical_Order" Type="Byte" Nullable="false" />
+          <Property Name="Expected_Duration_Sec" Type="Int32" Nullable="false" />
+          <Property Name="To_Close" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Task_Status" Relationship="Self.FK_Task_Status_Task_Generic_Status" FromRole="Task_Generic_Status" ToRole="Task_Status" />
+        </EntityType>
+        <EntityType Name="Task_Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Task_ID" Type="Int64" />
+          <Property Name="Item_SN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Item_Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Item_Desc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Item_Weight" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Item_Delivery_Status" Type="Byte" Nullable="false" />
+          <Property Name="Item_Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created_At" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Task" Relationship="OTSModel.FK_Task_Items_Task" FromRole="Task_Items" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Task_Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Task_ID" Type="Int64" Nullable="false" />
+          <Property Name="Task_Generic_Status_ID" Type="Byte" Nullable="false" />
+          <Property Name="Expected_Start_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Expected_End_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Actual_Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="Actual_End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Ordered_By" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ordered_To" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Task_Generic_Status" Relationship="Self.FK_Task_Status_Task_Generic_Status" FromRole="Task_Status" ToRole="Task_Generic_Status" />
+          <NavigationProperty Name="Task" Relationship="OTSModel.FK_Task_Status_Task" FromRole="Task_Status" ToRole="Task" />
+        </EntityType>
+        <Association Name="FK_Bulk_Tasks_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Bulk_Tasks" Type="Self.Bulk_Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bulk_Tasks">
+              <PropertyRef Name="Bulk_Project" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Status_Task_Generic_Status">
+          <End Role="Task_Generic_Status" Type="Self.Task_Generic_Status" Multiplicity="1" />
+          <End Role="Task_Status" Type="Self.Task_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task_Generic_Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task_Status">
+              <PropertyRef Name="Task_Generic_Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OTSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bulk_Tasks" EntityType="Self.Bulk_Tasks" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="Task_Fees" EntityType="Self.Task_Fees" />
+          <EntitySet Name="Task_Generic_Status" EntityType="Self.Task_Generic_Status" />
+          <EntitySet Name="Task_Items" EntityType="Self.Task_Items" />
+          <EntitySet Name="Task_Status" EntityType="Self.Task_Status" />
+          <AssociationSet Name="FK_Bulk_Tasks_Project" Association="Self.FK_Bulk_Tasks_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Bulk_Tasks" EntitySet="Bulk_Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Status_Task_Generic_Status" Association="Self.FK_Task_Status_Task_Generic_Status">
+            <End Role="Task_Generic_Status" EntitySet="Task_Generic_Status" />
+            <End Role="Task_Status" EntitySet="Task_Status" />
+          </AssociationSet>
+          <EntitySet Name="Areas" EntityType="OTSModel.Area" />
+          <EntitySet Name="Tasks" EntityType="OTSModel.Task" />
+          <EntitySet Name="Zones" EntityType="OTSModel.Zone" />
+          <AssociationSet Name="FK_Areas_Zones" Association="OTSModel.FK_Areas_Zones">
+            <End Role="Zone" EntitySet="Zones" />
+            <End Role="Area" EntitySet="Areas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Areas" Association="OTSModel.FK_Task_Areas">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Project" Association="OTSModel.FK_Task_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Fees_Task" Association="OTSModel.FK_Task_Fees_Task">
+            <End Role="Task" EntitySet="Tasks" />
+            <End Role="Task_Fees" EntitySet="Task_Fees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Items_Task" Association="OTSModel.FK_Task_Items_Task">
+            <End Role="Task" EntitySet="Tasks" />
+            <End Role="Task_Items" EntitySet="Task_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Status_Task" Association="OTSModel.FK_Task_Status_Task">
+            <End Role="Task" EntitySet="Tasks" />
+            <End Role="Task_Status" EntitySet="Task_Status" />
+          </AssociationSet>
+          <FunctionImport Name="Task_Select" ReturnType="Collection(OTSModel.Task_Select_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int64" />
+            <Parameter Name="Project_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Task_Title" Mode="In" Type="String" />
+            <Parameter Name="Task_External_Ref" Mode="In" Type="String" />
+            <Parameter Name="Task_Internal_Ref" Mode="In" Type="String" />
+            <Parameter Name="Task_Is_Closed" Mode="In" Type="Boolean" />
+            <Parameter Name="Task_Created_By" Mode="In" Type="String" />
+            <Parameter Name="Task_Account_Name" Mode="In" Type="String" />
+            <Parameter Name="Task_Area" Mode="In" Type="Int32" />
+            <Parameter Name="Due_Date_From" Mode="In" Type="DateTime" />
+            <Parameter Name="Due_Date_To" Mode="In" Type="DateTime" />
+            <Parameter Name="Task_Shipping_Address" Mode="In" Type="String" />
+            <Parameter Name="Task_Authorized_Person" Mode="In" Type="String" />
+            <Parameter Name="Task_Authorized_Email" Mode="In" Type="String" />
+            <Parameter Name="Task_Authorized_Mobile" Mode="In" Type="String" />
+            <Parameter Name="Task_Deleted" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="Project_List" ReturnType="Collection(OTSModel.Project_List_Result)" />
+          <FunctionImport Name="Task_Status_List" ReturnType="Collection(OTSModel.Task_Status_List_Result)" />
+          <FunctionImport Name="Runner_List" ReturnType="Collection(OTSModel.Runner_List_Result)" />
+          <FunctionImport Name="Runner_Select" ReturnType="Collection(OTSModel.Runner_Select_Result)">
+            <Parameter Name="Id" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Zones_Select" ReturnType="Collection(OTSModel.Zones_Select_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Projects_Tbl_Select" ReturnType="Collection(OTSModel.Projects_Tbl_Select_Result)">
+            <Parameter Name="Project_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Project_Name" Mode="In" Type="String" />
+            <Parameter Name="Project_Start_At_From" Mode="In" Type="DateTime" />
+            <Parameter Name="Project_End_At_To" Mode="In" Type="DateTime" />
+            <Parameter Name="Project_Start_By" Mode="In" Type="String" />
+            <Parameter Name="Deleted" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="Bulk_Task_Tbl_Select" ReturnType="Collection(OTSModel.Bulk_Task_Tbl_Select_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="Bulk_Name" Mode="In" Type="String" />
+            <Parameter Name="Bulk_Received_Date_From" Mode="In" Type="DateTime" />
+            <Parameter Name="Bulk_Received_Date_To" Mode="In" Type="DateTime" />
+            <Parameter Name="Bulk_Received_By_Name" Mode="In" Type="String" />
+            <Parameter Name="Bulk_Received_By_Email" Mode="In" Type="String" />
+            <Parameter Name="Bulk_Uploaded_Date_From" Mode="In" Type="DateTime" />
+            <Parameter Name="Bulk_Uploaded_Date_To" Mode="In" Type="DateTime" />
+            <Parameter Name="Bulk_Uploaded_By" Mode="In" Type="String" />
+            <Parameter Name="Bulk_Total_Tasks" Mode="In" Type="Int32" />
+            <Parameter Name="Bulk_New_Tasks" Mode="In" Type="Int32" />
+            <Parameter Name="Bulk_Project" Mode="In" Type="Int32" />
+            <Parameter Name="Sync" Mode="In" Type="Boolean" />
+            <Parameter Name="Sync_At_From" Mode="In" Type="DateTime" />
+            <Parameter Name="Sync_At_To" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Get_User_By_UserID">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="Int32" />
+            <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Menu_Configuration_Role_Select" ReturnType="Collection(OTSModel.SP_Menu_Configuration_Role_Select_Result)">
+            <Parameter Name="Role_ID" Mode="In" Type="String" />
+            <Parameter Name="Parent_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Menu_Configuration_Select" ReturnType="Collection(OTSModel.SP_Menu_Configuration_Select_Result)">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="Parent_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Menu_Parents_Role_Select" ReturnType="Collection(OTSModel.SP_Menu_Parents_Role_Select_Result)">
+          <Parameter Name="RoleID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Menu_Parents_Select" ReturnType="Collection(OTSModel.SP_Menu_Parents_Select_Result)">
+          <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Roles_Select" ReturnType="Collection(OTSModel.SP_Roles_Select_Result)" />
+          <FunctionImport Name="SP_Roles_UI_Array_Select" ReturnType="Collection(String)" />
+          <FunctionImport Name="SP_UI_Actions_List" ReturnType="Collection(OTSModel.SP_UI_Actions_List_Result)" />
+          <FunctionImport Name="SP_UserRole_Create" ReturnType="Collection(OTSModel.SP_UserRole_Create_Result)">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="RoleId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Users_Create" ReturnType="Collection(OTSModel.SP_Users_Create_Result)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Role_ID" Mode="In" Type="String" />
+            <Parameter Name="PasswordHash" Mode="In" Type="String" />
+            <Parameter Name="SecurityStamp" Mode="In" Type="String" />
+            <Parameter Name="Locked" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Users_Lock" ReturnType="Collection(OTSModel.SP_Users_Lock_Result)">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="Locked" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Users_Rest_Password" ReturnType="Collection(OTSModel.SP_Users_Rest_Password_Result)">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="PasswordHash" Mode="In" Type="String" />
+            <Parameter Name="SecurityStamp" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Users_Select" ReturnType="Collection(OTSModel.SP_Users_Select_Result)">
+            <Parameter Name="ID" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Role_ID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Task_Items_Tbl_Select" ReturnType="Collection(OTSModel.Task_Items_Tbl_Select_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int64" />
+            <Parameter Name="Task_ID" Mode="In" Type="Int64" />
+            <Parameter Name="Item_SN" Mode="In" Type="String" />
+            <Parameter Name="Item_Title" Mode="In" Type="String" />
+            <Parameter Name="Item_Desc" Mode="In" Type="String" />
+            <Parameter Name="Item_Weight" Mode="In" Type="String" />
+            <Parameter Name="Item_Delivery_Status" Mode="In" Type="Byte" />
+            <Parameter Name="Item_Notes" Mode="In" Type="String" />
+            <Parameter Name="Created_By" Mode="In" Type="String" />
+            <Parameter Name="Created_At_From" Mode="In" Type="DateTime" />
+            <Parameter Name="Created_At_To" Mode="In" Type="DateTime" />
+            <Parameter Name="Deleted" Mode="In" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zone_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Zone" Relationship="OTSModel.FK_Areas_Zones" FromRole="Area" ToRole="Zone" />
+          <NavigationProperty Name="Tasks" Relationship="OTSModel.FK_Task_Areas" FromRole="Area" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Project_ID" Type="Int32" Nullable="false" />
+          <Property Name="Task_Title" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Task_External_Ref" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Task_Internal_Ref" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Task_Is_Closed" Type="Boolean" Nullable="false" />
+          <Property Name="Task_Created_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Task_Account_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Task_Area" Type="Int32" Nullable="false" />
+          <Property Name="Due_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Task_Shipping_Address" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Task_Authorized_Person" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Task_Authorized_Email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Task_Authorized_Phone" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Area" Relationship="OTSModel.FK_Task_Areas" FromRole="Task" ToRole="Area" />
+          <NavigationProperty Name="Project" Relationship="OTSModel.FK_Task_Project" FromRole="Task" ToRole="Project" />
+          <NavigationProperty Name="Task_Fees" Relationship="OTSModel.FK_Task_Fees_Task" FromRole="Task" ToRole="Task_Fees" />
+          <NavigationProperty Name="Task_Items" Relationship="OTSModel.FK_Task_Items_Task" FromRole="Task" ToRole="Task_Items" />
+          <NavigationProperty Name="Task_Status" Relationship="OTSModel.FK_Task_Status_Task" FromRole="Task" ToRole="Task_Status" />
+        </EntityType>
+        <EntityType Name="Zone">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Areas" Relationship="OTSModel.FK_Areas_Zones" FromRole="Zone" ToRole="Area" />
+        </EntityType>
+        <Association Name="FK_Areas_Zones">
+          <End Type="OTSModel.Zone" Role="Zone" Multiplicity="1" />
+          <End Type="OTSModel.Area" Role="Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zone">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="Zone_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Areas">
+          <End Type="OTSModel.Area" Role="Area" Multiplicity="1" />
+          <End Type="OTSModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Task_Area" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Project">
+          <End Type="OTSModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="OTSModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Project_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Fees_Task">
+          <End Type="OTSModel.Task" Role="Task" Multiplicity="1" />
+          <End Type="OTSModel.Task_Fees" Role="Task_Fees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task_Fees">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Items_Task">
+          <End Type="OTSModel.Task" Role="Task" Multiplicity="1" />
+          <End Type="OTSModel.Task_Items" Role="Task_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task_Items">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Status_Task">
+          <End Type="OTSModel.Task" Role="Task" Multiplicity="1" />
+          <End Type="OTSModel.Task_Status" Role="Task_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task_Status">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Task_Select_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="Project_ID" Nullable="false" />
+          <Property Type="String" Name="Task_Title" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Task_External_Ref" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Task_Internal_Ref" Nullable="true" MaxLength="128" />
+          <Property Type="Boolean" Name="Task_Is_Closed" Nullable="false" />
+          <Property Type="String" Name="Created_By_Code" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Task_Account_Name" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Task_Area_ID" Nullable="false" />
+          <Property Type="DateTime" Name="Due_Date" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Task_Shipping_Address" Nullable="false" MaxLength="1000" />
+          <Property Type="String" Name="Task_Authorized_Person" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Task_Authorized_Email" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Task_Authorized_Phone" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="String" Name="Project_Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Area_Desc" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="Current_Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Current_Runner" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Expected_End_Time" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="Project_List_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Project_Name" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Task_Status_List_Result">
+          <Property Type="Byte" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Runner_List_Result">
+          <Property Type="String" Name="ID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="Runner_Select_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="Active_Tasks" Nullable="true" />
+          <Property Type="Int32" Name="Delivered_Tasks" Nullable="true" />
+          <Property Type="Int32" Name="UnDelivered_Tasks" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Zones_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Active_Tasks" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Projects_Tbl_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Project_Name" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Created_At" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Project_Start_Date" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Project_End_Date" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="String" Name="Bulk_Tasks" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Tasks" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="Bulk_Task_Tbl_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Bulk_Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Bulk_Received_By_Name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Bulk_Received_By_Email" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="Bulk_Received_Date" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Bulk_Uploaded_Date" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Uploaded_By" Nullable="true" MaxLength="1500" />
+          <Property Type="Int32" Name="Bulk_Total_Tasks" Nullable="false" />
+          <Property Type="Int32" Name="Bulk_New_Tasks" Nullable="false" />
+          <Property Type="Int32" Name="Bulk_Project" Nullable="false" />
+          <Property Type="String" Name="Project_Name" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="Sync" Nullable="false" />
+          <Property Type="DateTime" Name="Sync_At" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_Menu_Configuration_Role_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Element_Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Element_Action" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Element_Controller" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Icon" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="Int32" Name="Parent_ID" Nullable="true" />
+          <Property Type="Int32" Name="Display_Order" Nullable="false" />
+          <Property Type="DateTime" Name="Created_At" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Created_By" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="TreeLevel" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Menu_Configuration_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Element_Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Element_Action" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Element_Controller" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Icon" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="Int32" Name="Parent_ID" Nullable="true" />
+          <Property Type="Int32" Name="Display_Order" Nullable="false" />
+          <Property Type="DateTime" Name="Created_At" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Created_By" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="TreeLevel" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Menu_Parents_Role_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Element_Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Element_Action" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Element_Controller" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Icon" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="Int32" Name="Parent_ID" Nullable="true" />
+          <Property Type="Int32" Name="Display_Order" Nullable="false" />
+          <Property Type="DateTime" Name="Created_At" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Created_By" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="TreeLevel" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Menu_Parents_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Element_Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Element_Action" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Element_Controller" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Icon" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="Int32" Name="Parent_ID" Nullable="true" />
+          <Property Type="Int32" Name="Display_Order" Nullable="false" />
+          <Property Type="DateTime" Name="Created_At" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Created_By" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="TreeLevel" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Roles_Select_Result">
+          <Property Type="String" Name="id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="SP_UI_Actions_List_Result">
+          <Property Type="String" Name="action_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="controller" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_UserRole_Create_Result">
+          <Property Type="String" Name="Rel_ID" Nullable="true" MaxLength="128" />
+          <Property Type="Int64" Name="Rows_No" Nullable="true" />
+          <Property Type="Boolean" Name="Success" Nullable="true" />
+          <Property Type="String" Name="Error_Code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Display_Message" Nullable="true" MaxLength="1023" />
+        </ComplexType>
+        <ComplexType Name="SP_Users_Create_Result">
+          <Property Type="String" Name="Rel_ID" Nullable="true" MaxLength="128" />
+          <Property Type="Int64" Name="Rows_No" Nullable="true" />
+          <Property Type="Boolean" Name="Success" Nullable="true" />
+          <Property Type="String" Name="Error_Code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Display_Message" Nullable="true" MaxLength="1023" />
+        </ComplexType>
+        <ComplexType Name="SP_Users_Lock_Result">
+          <Property Type="String" Name="Rel_ID" Nullable="true" MaxLength="128" />
+          <Property Type="Int64" Name="Rows_No" Nullable="true" />
+          <Property Type="Boolean" Name="Success" Nullable="true" />
+          <Property Type="String" Name="Error_Code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Display_Message" Nullable="true" MaxLength="1023" />
+        </ComplexType>
+        <ComplexType Name="SP_Users_Rest_Password_Result">
+          <Property Type="String" Name="Rel_ID" Nullable="true" MaxLength="128" />
+          <Property Type="Int64" Name="Rows_No" Nullable="true" />
+          <Property Type="Boolean" Name="Success" Nullable="true" />
+          <Property Type="String" Name="Error_Code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Display_Message" Nullable="true" MaxLength="1023" />
+        </ComplexType>
+        <ComplexType Name="SP_Users_Select_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
+          <Property Type="Boolean" Name="EmailConfirmed" Nullable="false" />
+          <Property Type="String" Name="PasswordHash" Nullable="true" />
+          <Property Type="String" Name="SecurityStamp" Nullable="true" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" />
+          <Property Type="Boolean" Name="PhoneNumberConfirmed" Nullable="false" />
+          <Property Type="Boolean" Name="TwoFactorEnabled" Nullable="false" />
+          <Property Type="DateTime" Name="LockoutEndDateUtc" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="LockoutEnabled" Nullable="false" />
+          <Property Type="Int32" Name="AccessFailedCount" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Roles" Nullable="true" MaxLength="1023" />
+        </ComplexType>
+        <ComplexType Name="Task_Items_Tbl_Select_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="Int64" Name="Task_ID" Nullable="true" />
+          <Property Type="String" Name="Item_SN" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Item_Title" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Item_Desc" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Item_Weight" Nullable="true" MaxLength="500" />
+          <Property Type="Byte" Name="Item_Delivery_Status_ID" Nullable="false" />
+          <Property Type="String" Name="Item_Notes" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Created_By" Nullable="false" MaxLength="128" />
+          <Property Type="DateTime" Name="Created_At" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="String" Name="Created_By_UserName" Nullable="true" MaxLength="1500" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OTSModelStoreContainer" CdmEntityContainer="OTSEntities">
+          <EntitySetMapping Name="Bulk_Tasks">
+            <EntityTypeMapping TypeName="OTSModel.Bulk_Tasks">
+              <MappingFragment StoreEntitySet="Bulk_Tasks">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Bulk_Name" ColumnName="Bulk_Name" />
+                <ScalarProperty Name="Bulk_Received_Date" ColumnName="Bulk_Received_Date" />
+                <ScalarProperty Name="Bulk_Received_By_Name" ColumnName="Bulk_Received_By_Name" />
+                <ScalarProperty Name="Bulk_Received_By_Email" ColumnName="Bulk_Received_By_Email" />
+                <ScalarProperty Name="Bulk_Uploaded_Date" ColumnName="Bulk_Uploaded_Date" />
+                <ScalarProperty Name="Bulk_Uploaded_By" ColumnName="Bulk_Uploaded_By" />
+                <ScalarProperty Name="Bulk_Total_Tasks" ColumnName="Bulk_Total_Tasks" />
+                <ScalarProperty Name="Bulk_New_Tasks" ColumnName="Bulk_New_Tasks" />
+                <ScalarProperty Name="Bulk_Project" ColumnName="Bulk_Project" />
+                <ScalarProperty Name="Sync" ColumnName="Sync" />
+                <ScalarProperty Name="Sync_At" ColumnName="Sync_At" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="OTSModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+                <ScalarProperty Name="Project_Start_Date" ColumnName="Project_Start_Date" />
+                <ScalarProperty Name="Project_End_Date" ColumnName="Project_End_Date" />
+                <ScalarProperty Name="Project_Start_By" ColumnName="Project_Start_By" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Task_Fees">
+            <EntityTypeMapping TypeName="OTSModel.Task_Fees">
+              <MappingFragment StoreEntitySet="Task_Fees">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+                <ScalarProperty Name="Fees_Type" ColumnName="Fees_Type" />
+                <ScalarProperty Name="Fees_Amount" ColumnName="Fees_Amount" />
+                <ScalarProperty Name="Fees_Discount" ColumnName="Fees_Discount" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Collected" ColumnName="Collected" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Task_Generic_Status">
+            <EntityTypeMapping TypeName="OTSModel.Task_Generic_Status">
+              <MappingFragment StoreEntitySet="Task_Generic_Status">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Logical_Order" ColumnName="Logical_Order" />
+                <ScalarProperty Name="Expected_Duration_Sec" ColumnName="Expected_Duration_Sec" />
+                <ScalarProperty Name="To_Close" ColumnName="To_Close" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Task_Items">
+            <EntityTypeMapping TypeName="OTSModel.Task_Items">
+              <MappingFragment StoreEntitySet="Task_Items">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+                <ScalarProperty Name="Item_SN" ColumnName="Item_SN" />
+                <ScalarProperty Name="Item_Title" ColumnName="Item_Title" />
+                <ScalarProperty Name="Item_Desc" ColumnName="Item_Desc" />
+                <ScalarProperty Name="Item_Weight" ColumnName="Item_Weight" />
+                <ScalarProperty Name="Item_Delivery_Status" ColumnName="Item_Delivery_Status" />
+                <ScalarProperty Name="Item_Notes" ColumnName="Item_Notes" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Task_Status">
+            <EntityTypeMapping TypeName="OTSModel.Task_Status">
+              <MappingFragment StoreEntitySet="Task_Status">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+                <ScalarProperty Name="Task_Generic_Status_ID" ColumnName="Task_Generic_Status_ID" />
+                <ScalarProperty Name="Expected_Start_Time" ColumnName="Expected_Start_Time" />
+                <ScalarProperty Name="Expected_End_Time" ColumnName="Expected_End_Time" />
+                <ScalarProperty Name="Actual_Start_Time" ColumnName="Actual_Start_Time" />
+                <ScalarProperty Name="Actual_End_Time" ColumnName="Actual_End_Time" />
+                <ScalarProperty Name="Ordered_By" ColumnName="Ordered_By" />
+                <ScalarProperty Name="Ordered_To" ColumnName="Ordered_To" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Areas">
+            <EntityTypeMapping TypeName="OTSModel.Area">
+              <MappingFragment StoreEntitySet="Areas">
+                <ScalarProperty Name="Zone_ID" ColumnName="Zone_ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="OTSModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Task_Authorized_Phone" ColumnName="Task_Authorized_Phone" />
+                <ScalarProperty Name="Task_Authorized_Email" ColumnName="Task_Authorized_Email" />
+                <ScalarProperty Name="Task_Authorized_Person" ColumnName="Task_Authorized_Person" />
+                <ScalarProperty Name="Task_Shipping_Address" ColumnName="Task_Shipping_Address" />
+                <ScalarProperty Name="Due_Date" ColumnName="Due_Date" />
+                <ScalarProperty Name="Task_Area" ColumnName="Task_Area" />
+                <ScalarProperty Name="Task_Account_Name" ColumnName="Task_Account_Name" />
+                <ScalarProperty Name="Task_Created_By" ColumnName="Task_Created_By" />
+                <ScalarProperty Name="Task_Is_Closed" ColumnName="Task_Is_Closed" />
+                <ScalarProperty Name="Task_Internal_Ref" ColumnName="Task_Internal_Ref" />
+                <ScalarProperty Name="Task_External_Ref" ColumnName="Task_External_Ref" />
+                <ScalarProperty Name="Task_Title" ColumnName="Task_Title" />
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zones">
+            <EntityTypeMapping TypeName="OTSModel.Zone">
+              <MappingFragment StoreEntitySet="Zones">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Task_Select" FunctionName="OTSModel.Store.Task_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.Task_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="Task_Title" ColumnName="Task_Title" />
+                <ScalarProperty Name="Task_External_Ref" ColumnName="Task_External_Ref" />
+                <ScalarProperty Name="Task_Internal_Ref" ColumnName="Task_Internal_Ref" />
+                <ScalarProperty Name="Task_Is_Closed" ColumnName="Task_Is_Closed" />
+                <ScalarProperty Name="Created_By_Code" ColumnName="Created_By_Code" />
+                <ScalarProperty Name="Task_Account_Name" ColumnName="Task_Account_Name" />
+                <ScalarProperty Name="Task_Area_ID" ColumnName="Task_Area_ID" />
+                <ScalarProperty Name="Due_Date" ColumnName="Due_Date" />
+                <ScalarProperty Name="Task_Shipping_Address" ColumnName="Task_Shipping_Address" />
+                <ScalarProperty Name="Task_Authorized_Person" ColumnName="Task_Authorized_Person" />
+                <ScalarProperty Name="Task_Authorized_Email" ColumnName="Task_Authorized_Email" />
+                <ScalarProperty Name="Task_Authorized_Phone" ColumnName="Task_Authorized_Phone" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+                <ScalarProperty Name="Area_Desc" ColumnName="Area_Desc" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Current_Status" ColumnName="Current_Status" />
+                <ScalarProperty Name="Current_Runner" ColumnName="Current_Runner" />
+                <ScalarProperty Name="Expected_End_Time" ColumnName="Expected_End_Time" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Project_List" FunctionName="OTSModel.Store.Project_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.Project_List_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Task_Status_List" FunctionName="OTSModel.Store.Task_Status_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.Task_Status_List_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Runner_List" FunctionName="OTSModel.Store.Runner_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.Runner_List_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Runner_Select" FunctionName="OTSModel.Store.Runner_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.Runner_Select_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Active_Tasks" ColumnName="Active_Tasks" />
+                <ScalarProperty Name="Delivered_Tasks" ColumnName="Delivered_Tasks" />
+                <ScalarProperty Name="UnDelivered_Tasks" ColumnName="UnDelivered_Tasks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Zones_Select" FunctionName="OTSModel.Store.Zones_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.Zones_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Active_Tasks" ColumnName="Active_Tasks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Projects_Tbl_Select" FunctionName="OTSModel.Store.Projects_Tbl_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.Projects_Tbl_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Project_Start_Date" ColumnName="Project_Start_Date" />
+                <ScalarProperty Name="Project_End_Date" ColumnName="Project_End_Date" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Bulk_Tasks" ColumnName="Bulk_Tasks" />
+                <ScalarProperty Name="Tasks" ColumnName="Tasks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Bulk_Task_Tbl_Select" FunctionName="OTSModel.Store.Bulk_Task_Tbl_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.Bulk_Task_Tbl_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Bulk_Name" ColumnName="Bulk_Name" />
+                <ScalarProperty Name="Bulk_Received_By_Name" ColumnName="Bulk_Received_By_Name" />
+                <ScalarProperty Name="Bulk_Received_By_Email" ColumnName="Bulk_Received_By_Email" />
+                <ScalarProperty Name="Bulk_Received_Date" ColumnName="Bulk_Received_Date" />
+                <ScalarProperty Name="Bulk_Uploaded_Date" ColumnName="Bulk_Uploaded_Date" />
+                <ScalarProperty Name="Uploaded_By" ColumnName="Uploaded_By" />
+                <ScalarProperty Name="Bulk_Total_Tasks" ColumnName="Bulk_Total_Tasks" />
+                <ScalarProperty Name="Bulk_New_Tasks" ColumnName="Bulk_New_Tasks" />
+                <ScalarProperty Name="Bulk_Project" ColumnName="Bulk_Project" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+                <ScalarProperty Name="Sync" ColumnName="Sync" />
+                <ScalarProperty Name="Sync_At" ColumnName="Sync_At" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Get_User_By_UserID" FunctionName="OTSModel.Store.SP_Get_User_By_UserID" />
+          <FunctionImportMapping FunctionImportName="SP_Menu_Configuration_Role_Select" FunctionName="OTSModel.Store.SP_Menu_Configuration_Role_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.SP_Menu_Configuration_Role_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Element_Name" ColumnName="Element_Name" />
+                <ScalarProperty Name="Element_Action" ColumnName="Element_Action" />
+                <ScalarProperty Name="Element_Controller" ColumnName="Element_Controller" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+                <ScalarProperty Name="Display_Order" ColumnName="Display_Order" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="TreeLevel" ColumnName="TreeLevel" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Menu_Configuration_Select" FunctionName="OTSModel.Store.SP_Menu_Configuration_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.SP_Menu_Configuration_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Element_Name" ColumnName="Element_Name" />
+                <ScalarProperty Name="Element_Action" ColumnName="Element_Action" />
+                <ScalarProperty Name="Element_Controller" ColumnName="Element_Controller" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+                <ScalarProperty Name="Display_Order" ColumnName="Display_Order" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="TreeLevel" ColumnName="TreeLevel" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Menu_Parents_Role_Select" FunctionName="OTSModel.Store.SP_Menu_Parents_Role_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.SP_Menu_Parents_Role_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Element_Name" ColumnName="Element_Name" />
+                <ScalarProperty Name="Element_Action" ColumnName="Element_Action" />
+                <ScalarProperty Name="Element_Controller" ColumnName="Element_Controller" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+                <ScalarProperty Name="Display_Order" ColumnName="Display_Order" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="TreeLevel" ColumnName="TreeLevel" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Menu_Parents_Select" FunctionName="OTSModel.Store.SP_Menu_Parents_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.SP_Menu_Parents_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Element_Name" ColumnName="Element_Name" />
+                <ScalarProperty Name="Element_Action" ColumnName="Element_Action" />
+                <ScalarProperty Name="Element_Controller" ColumnName="Element_Controller" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+                <ScalarProperty Name="Display_Order" ColumnName="Display_Order" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="TreeLevel" ColumnName="TreeLevel" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Roles_Select" FunctionName="OTSModel.Store.SP_Roles_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.SP_Roles_Select_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Roles_UI_Array_Select" FunctionName="OTSModel.Store.SP_Roles_UI_Array_Select" />
+          <FunctionImportMapping FunctionImportName="SP_UI_Actions_List" FunctionName="OTSModel.Store.SP_UI_Actions_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.SP_UI_Actions_List_Result">
+                <ScalarProperty Name="action_name" ColumnName="action_name" />
+                <ScalarProperty Name="controller" ColumnName="controller" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserRole_Create" FunctionName="OTSModel.Store.SP_UserRole_Create">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.SP_UserRole_Create_Result">
+                <ScalarProperty Name="Rel_ID" ColumnName="Rel_ID" />
+                <ScalarProperty Name="Rows_No" ColumnName="Rows_No" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Error_Code" ColumnName="Error_Code" />
+                <ScalarProperty Name="Display_Message" ColumnName="Display_Message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Users_Create" FunctionName="OTSModel.Store.SP_Users_Create">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.SP_Users_Create_Result">
+                <ScalarProperty Name="Rel_ID" ColumnName="Rel_ID" />
+                <ScalarProperty Name="Rows_No" ColumnName="Rows_No" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Error_Code" ColumnName="Error_Code" />
+                <ScalarProperty Name="Display_Message" ColumnName="Display_Message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Users_Lock" FunctionName="OTSModel.Store.SP_Users_Lock">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.SP_Users_Lock_Result">
+                <ScalarProperty Name="Rel_ID" ColumnName="Rel_ID" />
+                <ScalarProperty Name="Rows_No" ColumnName="Rows_No" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Error_Code" ColumnName="Error_Code" />
+                <ScalarProperty Name="Display_Message" ColumnName="Display_Message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Users_Rest_Password" FunctionName="OTSModel.Store.SP_Users_Rest_Password">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.SP_Users_Rest_Password_Result">
+                <ScalarProperty Name="Rel_ID" ColumnName="Rel_ID" />
+                <ScalarProperty Name="Rows_No" ColumnName="Rows_No" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Error_Code" ColumnName="Error_Code" />
+                <ScalarProperty Name="Display_Message" ColumnName="Display_Message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Users_Select" FunctionName="OTSModel.Store.SP_Users_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.SP_Users_Select_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Task_Items_Tbl_Select" FunctionName="OTSModel.Store.Task_Items_Tbl_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OTSModel.Task_Items_Tbl_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+                <ScalarProperty Name="Item_SN" ColumnName="Item_SN" />
+                <ScalarProperty Name="Item_Title" ColumnName="Item_Title" />
+                <ScalarProperty Name="Item_Desc" ColumnName="Item_Desc" />
+                <ScalarProperty Name="Item_Weight" ColumnName="Item_Weight" />
+                <ScalarProperty Name="Item_Delivery_Status_ID" ColumnName="Item_Delivery_Status_ID" />
+                <ScalarProperty Name="Item_Notes" ColumnName="Item_Notes" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Created_By_UserName" ColumnName="Created_By_UserName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

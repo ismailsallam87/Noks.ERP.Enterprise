@@ -1,0 +1,21 @@
+﻿@using OTS.DAL
+@model List<SP_Menu_Configuration_Select_Result>
+
+@if (Model != null && Model.Count > 0)
+{
+    <ul class="sub-menu">
+        @foreach (var element in Model)
+        {
+            <li>
+                <a href="@(element.Element_Action == null ? "#":Url.Action(element.Element_Action,element.Element_Controller))">
+                    <i class="@element.Icon"></i>
+                        @element.Element_Name
+                    
+                </a>
+            </li>
+        }
+
+
+    </ul>
+}
+

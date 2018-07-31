@@ -1,0 +1,12 @@
+﻿@using MeetingRooms_DAL
+@model List<SP_Search_Meeting_Rooms_Result>
+@{
+    string Type = ViewBag.Type;
+}
+<select class="form-control @(Type == "Filter"? "m-b":"")" name="meetingrooms_list">
+    <option value="-1" selected>Select Meeting Room....</option>
+    @foreach (var meetingroom in Model)
+    {
+        <option value="@meetingroom.Id">@meetingroom.Name</option>
+    }
+</select>

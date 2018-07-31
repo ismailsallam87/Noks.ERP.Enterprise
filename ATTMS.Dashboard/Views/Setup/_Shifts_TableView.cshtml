@@ -1,0 +1,65 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Shifts_Select_Result>
+<div class="row">
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="shifts_tbl" class="display table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>@Resource.Title</th>
+                                    <th>@Resource.Check_In</th>
+                                    <th>@Resource.Check_Out</th>
+                                    <th>@Resource.Working_Hours</th>
+                                    <th width="15%">@Resource.Employees_Count</th>
+                                    <th width="15%">@Resource.Active</th>
+                                    <th width="15%">@Resource.Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var shift in Model)
+                                {
+                                    <tr>
+                                        <td>@shift.title</td>
+                                        <th>@shift.check_in</th>
+                                        <th>@shift.check_out</th>
+                                        <th>@shift.work_hours (hours)</th>
+                                        <th width="15%">
+                                            @shift.employees_count
+                                        <a class="btn btn-xs btn-default" onclick="load_shift_employees_modal('@shift.Id')" href="#" data-target="#employeeShiftModal" data-toggle="modal"> @Resource.Add_Employee</a>
+                                        <a class="btn btn-xs btn-default" onclick="load_shift_Days_modal('@shift.Id')" href="#" data-target="#ShiftDaysModal" data-toggle="modal"> @Resource.Shift_Days</a>
+                                    </th>
+                                    <th width="15%">
+                                        @if (shift.status)
+                                        {
+                                            <a href="#" class="btn btn-default"onclick="Change_Status(1,@shift.Id)" >@Resource.Deactivate</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" class="btn btn-success" onclick="Change_Status(0,@shift.Id)">@Resource.Activate</a>
+                                        }
+                                    </th>
+                                    <td width="15%">
+                                        <a href="@Url.Action("Shift_Details","Setup", new {Id=shift.Id})" class="btn btn-xs btn-default"> @Resource.View</a>
+                                        <a class="btn btn-xs btn-default" data-toggle="modal" href="#editJobTitleModal" onclick="Update_Shift(@shift.Id)"> @Resource.Edit</a>
+                                        <a href="#deleteDepartmentModal" onclick="delete_Shift(@shift.Id)" data-toggle="modal" class="btn btn-xs btn-default">@Resource.Delete</a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>@Resource.No_Shifts_found</p>
+    }
+
+</div>

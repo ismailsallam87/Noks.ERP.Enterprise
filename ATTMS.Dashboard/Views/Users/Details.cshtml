@@ -1,0 +1,98 @@
+@using ATTMS.Dashboard.Resources
+@using ATTMS.Dashboard.Models
+@model UserDetailsViewModel
+
+@{
+    ViewBag.Title = Resource.User_Details;
+}
+<div class="page-header"><h1>@Resource.User_Profile</h1></div>
+<div class="row">
+    <div class="col-xs-6">
+        <div class="row">
+            <div class="col-xs-12 user-profile">
+                <h4 class="blue">
+                    <span class="middle">@Model.User.UserName</span>
+                </h4>
+                
+                
+                <div class="profile-user-info">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">@Resource.Display_Name</div>
+                        <div class="profile-info-value"><span>@Model.User.UserName</span></div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">@Resource.Logins</div>
+                        <div class="profile-info-value">
+                            @foreach (var login in Model.User.Logins)
+                            {
+                                <span class="label label-info">@login.LoginProvider</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">@Resource.Two_factor</div>
+                        <div class="profile-info-value">
+                            @if (@Model.User.TwoFactorEnabled)
+                            {
+                                <span class="label label-success">@Resource.Enabled</span>
+                            }
+                            else
+                            {
+                                <span class="label label-danger">@Resource.Not_Enabled</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">@Resource.Phone_Number</div>
+                        <div class="profile-info-value">
+                            @if (string.IsNullOrEmpty(@Model.User.PhoneNumber))
+                            {
+                                <span>@Resource.User_Hasnot_Provided_Phone_No</span>
+                            }
+                            else
+                            {
+                                <span class="label label-inverse">@Model.User.PhoneNumber</span>
+                            }
+                        </div>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.User.PhoneNumber))
+{
+    <div class="profile-info-row">
+        <div class="profile-info-name">@Resource.Phone_number_confirmed</div>
+        <div class="profile-info-value">
+            @if (@Model.User.PhoneNumberConfirmed)
+            {
+                <span class="label label-success">@Resource.Yes</span>
+            }
+            else
+            {
+                <span class="label label-danger">@Resource.No</span>
+            }
+        </div>
+    </div>
+}
+                </div>
+                <div>
+                    <h4>Roles assigned to @Model.User.UserName</h4>
+                    @if (ViewBag.RoleNames.Count == 0)
+                    {
+                        <hr />
+                        <p>@Resource.No_roles_found_for_this_user</p>
+                    }
+                    <ul class="list-unstyled">
+                        @foreach (var item in ViewBag.RoleNames)
+                        {
+                            <li><i class="ace-icon fa fa-angle-right bigger-110"></i> @item</li>
+                        }
+                    </ul>
+                </div>
+                <div>
+                    <a class="btn btn-sm btn-info" href="@Url.Action("Edit", "Users", new{id=Model.User.Id})"><i class="ace-icon fa fa-pencil align-top bigger-125"></i> @Resource.Edit</a> <a class="btn btn-danger btn-sm" href="@Url.Action("Index", "Users")"><i class="ace-icon fa fa-arrow-left"></i> @Resource.Go_back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

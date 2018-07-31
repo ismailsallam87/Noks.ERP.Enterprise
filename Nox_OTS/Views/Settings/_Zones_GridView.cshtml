@@ -1,0 +1,56 @@
+﻿@using OTS.DAL
+@model List<Zones_Select_Result>
+
+<div class="portlet box green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Zones
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse">
+            </a>
+            <a href="javascript:;" class="reload" onclick="Load_Zones_View('Grid')">
+            </a>
+        </div>
+    </div>
+    @if (Model == null || Model.Count == 0)
+    {
+        @Html.Partial("_NoDataFound");
+
+    }
+    else
+    {
+        <div class="portlet-body">
+            <div class="row">
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var zone in Model)
+                    {
+                        <div class="col-sm-4 col-md-4">
+                            <div class="thumbnail">
+                                @{Html.RenderAction("Loadzone_Img", new { title = zone.Title });}
+                                
+                                <div class="caption">
+                                    <h5 class="username_grid">@zone.Title</h5>
+                                    <p>
+                                        Active Tasks: @zone.Active_Tasks 
+                                        <a href="#">
+                                            <span class="fa fa-plus-square"></span>
+                                        </a>
+                                        Active Areas: @zone.Areas  
+                                        <a onclick="Load_Zone_areas_View('@zone.ID')" href="#areas_zone_view_modal" data-toggle="modal"><span class="fa fa-plus-square"></span>
+                                        </a>
+                                    </p>
+                                    <p>
+                                        <input type="button" class="btn danger" value="Delete" onclick="DeleteZone('@zone.ID')" >|
+                                        <input type="button" class="btn default" value="Edit" onclick="Load_Zone_Edit_View('@zone.ID')" href="#edit_zone_view_modal" data-toggle="modal">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>

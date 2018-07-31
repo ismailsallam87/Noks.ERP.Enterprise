@@ -1,0 +1,15 @@
+﻿@using Nox_OTS.Models
+@model  List<BreedCrumb_Elements>
+
+@foreach (var element in Model)
+{
+    <li>
+        <i class="fa fa-home"></i>
+        <a href="@element.URL">
+            @element.Name
+        </a>
+        <i class="fa fa-angle-right"></i>
+    </li>
+}
+
+

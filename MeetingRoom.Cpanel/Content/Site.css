@@ -1,0 +1,168 @@
+﻿
+.letter-blue {
+    color: blue;
+}
+
+.logout-li {
+    padding-left: 20px;
+}
+
+.word-wrap {
+    overflow-wrap: break-word;
+}
+
+.header-btn {
+    margin-top: 12px;
+    margin-bottom: -10px;
+}
+
+.right-header-btn {
+    margin-top: 12px;
+    margin-bottom: -10px;
+    float: right;
+}
+
+.btn-active {
+    background-color: #f1f3f6 !important;
+    color: #62cb31 !important;
+}
+
+.grid-view-item {
+    min-height: 230px;
+    max-height: 230px;
+}
+
+.form-checkbox {
+    padding-left: 20px !important;
+}
+
+.grid-f-right {
+    float: right;
+    margin-top: 15px;
+}
+
+.clockpicker {
+    padding-right: -1px !important;
+    padding-left: 13px !important;
+}
+
+.editable-buttons {
+    float: left !important;
+    margin-top: 10px !important;
+    margin-left: 80px !important;
+}
+
+.dropdown-menu {
+    z-index: 1500 !important;
+}
+
+.not-alone-left {
+    float: left !important;
+    width: 90% !important;
+}
+
+.progress-bar {
+    padding-right: 0 !important;
+}
+
+.progress-bar-success {
+    background-color: #62cb31;
+    border-right: 0px solid #58b62c !important;
+}
+
+.employee-element {
+    min-height: 230px !important;
+}
+
+.document-element {
+    border-top-color: #f1f3f6;
+    border-top-width: 1px;
+    border-top-style: solid;
+}
+
+
+#logo {
+    padding: unset !important;
+}
+
+    #logo > img {
+        height: 53px !important;
+    }
+
+.modal-body {
+    height: 400px !important;
+    overflow-y: auto !important;
+}
+
+.modal-header {
+    padding: unset !important;
+}
+
+.modal-dialog {
+    margin-top: 2% !important;
+}
+
+
+.pagination-group {
+    text-align: center;
+    padding-left: 30%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.clock-filter {
+    padding-top: 3px !important;
+    padding-left: unset !important;
+}
+
+.range-btn{
+    margin-right:5px;
+}
+.selection-range-btn{
+    margin-left:5px;
+    margin-right:5px;
+}
+.pagination-chart{
+    text-align:center;
+    padding-top:10px !important;
+}
+#bar_chart_reservation_common{
+    padding-top:10px !important;
+}
+.department-select{
+    width:50% !important;
+    display:unset;
+}
+
+.not-selected{
+    display:none;
+}
+.date-selected{
+    
+}
+
+.last-col-dash{
+    padding-top:22px !important;
+}
+.project-list{
+    max-height:555px !important;
+}
+.modal_dialog{
+    height:100px !important;
+}
+
+.edit-btn{
+    margin:5px !important;
+}
+
+.btn_setup{
+    margin:5px;
+}
+
+.grid-item{
+    min-height:490px !important;
+}
+
+.circle-logo{
+    height:100px !important;
+}

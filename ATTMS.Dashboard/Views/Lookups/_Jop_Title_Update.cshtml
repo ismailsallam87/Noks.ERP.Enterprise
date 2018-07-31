@@ -1,0 +1,26 @@
+﻿@using Models;
+@model SP_Get_Job_Title_By_Id_Result
+<div class="modal-content">
+    <div class="color-line"></div>
+    <div class="modal-header text-center">
+        <h4 class="modal-title">Update Meeting Room</h4>
+    </div>
+    <div class="modal-body">
+        <div class="panel-body">
+            <form method="get" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Name:</label>
+                    <div class="col-sm-10">
+                        <input id="edit_Job_Title" type="text" value="@Model.title" class="form-control">
+                    </div>
+                </div>
+                
+                
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" onclick="cancel_meetingroom_update()" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" onclick="confirm_update_Job_Title(@Model.Id)" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+</div>

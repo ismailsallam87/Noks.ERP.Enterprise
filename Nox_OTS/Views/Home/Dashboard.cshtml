@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                Widget settings form goes here
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue">Save changes</button>
+                <button type="button" class="btn default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<!-- BEGIN STYLE CUSTOMIZER -->
+<div class="theme-panel hidden-xs hidden-sm">
+    <div class="toggler">
+    </div>
+    <div class="toggler-close">
+    </div>
+    <div class="theme-options">
+        <div class="theme-option theme-colors clearfix">
+            <span>
+                THEME COLOR
+            </span>
+            <ul>
+                <li class="color-black current color-default" data-style="default">
+                </li>
+                <li class="color-blue" data-style="blue">
+                </li>
+                <li class="color-brown" data-style="brown">
+                </li>
+                <li class="color-purple" data-style="purple">
+                </li>
+                <li class="color-grey" data-style="grey">
+                </li>
+                <li class="color-white color-light" data-style="light">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END STYLE CUSTOMIZER -->
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Dashboard <small>statistics and more</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="index.html">
+                    Home
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">
+                    Dashboard
+                </a>
+            </li>
+            <li class="pull-right">
+
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    @*asem*@
+    @{Html.RenderAction("Widget_Unfinshed_Tasks");}
+    @*End asem*@ 
+    @*asem*@
+    @{Html.RenderAction("Widget_Delivers_Tasks");}
+    @*End asem*@ 
+    @*asem*@
+   @{Html.RenderAction("Widget_Zones");}
+    @*End asem*@ 
+    @*asem*@
+    @{Html.RenderAction("Widget_Runners");}
+    @*End asem*@ 
+</div>
+<!-- END DASHBOARD STATS -->
+<div class="clearfix">
+</div>
+<div class="row ">
+    @*asem*@
+    @*@{Html.RenderAction("Widget_Display_Tasks");}*@
+    @*End asem*@
+
+    @*asem Feeds*@
+    @{Html.RenderAction("Display_Region_Tasks");}
+    @*End asem*@
+    <div class="clearfix">
+    </div> 
+    
+    <div class="clearfix">
+    </div>
+    @*<div class="row">
+        <div class="col-md-6 col-sm-6">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet box blue calendar">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-calendar"></i>Calendar
+                    </div>
+                </div>
+                <div class="portlet-body light-grey">
+                    <div id="calendar">
+                    </div>
+                </div>
+            </div>
+            <!-- END PORTLET-->
+        </div>
+    </div>*@
+    <div class="clearfix">
+    </div>
+</div>
+
+
+@section Scripts {
+ 
+
+    <script>
+        $(document).ready(function () {
+            Tabs_Content(1);
+        });
+        debugger;
+        function Tabs_Content(ID) {
+            var img = '<p style="text-align:center"><img width="50px" src="../../assets/img/loading.gif" /></p>';
+            var data = {};
+            data.ID = ID;
+            //ajax 
+            var cont = $('#Menu_Content');
+            cont.empty(); 
+            cont.append(img);
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Region_Tasks_Tabs_content")';
+            ajaxoptions.success = function (result) {
+                cont.empty();
+                cont.append(result);
+                UINestable.init();
+            }; 
+            $.ajax(ajaxoptions);
+        }
+</script>
+}

@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="~/Content/digitalsignage_blank/digitalsignage_blank.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+</head>
+<body onload="startTime()" class="w3-content" style="max-width:1300px">
+
+    <!-- First Grid: Logo & About -->
+
+    <div class="w3-row">
+
+        <div class="w3-col w3-container w3-red" style="width:50px; height:648px"> <h1 class="vertical-text">equiped</h1></div>
+        <div class="w3-quarter w3-white w3-container" style="height:648px; width:462px">
+            <div class="w3-padding-32 w3-center">
+                <p id="txt" class="tet"></p>
+                <p id="demo" class="tet"></p>
+                <img src="~/images/Emaar_logo.png" class="w3-margin w3-round-xxlarge" alt="logo" style="width:50%">
+                <h1 class="w3-tangerine w3-xxxlarge">Meeting Room 1</h1>
+                <div class="w3-left-align w3-padding-large">
+                    <h2>Status: Not Avalible  till type</h2>
+                    <p class="w3-xlarge"> </p>
+                </div>
+            </div>
+        </div>
+        <div class="w3-half w3-indigo w3-container" style="min-height:648px">
+            <div class="w3-padding-64 w3-center">
+                <h2>Resume</h2>
+                <p>A draft from my CV</p>
+                <div class="w3-container w3-responsive">
+                    <table class="w3-table">
+                        <tr>
+                            <th>Year</th>
+                            <th>Title</th>
+                            <th>Where</th>
+                        </tr>
+                        <tr class="w3-white">
+                            <td>2012-2016</td>
+                            <td>The rest is history..</td>
+                            <td>Lorem ipsum</td>
+                        </tr>
+                        <tr>
+                            <td>2009-2012</td>
+                            <td>Started my own company</td>
+                            <td>My Garage</td>
+                        </tr>
+                        <tr class="w3-white">
+                            <td>2008-2009</td>
+                            <td>Started working for Lorem</td>
+                            <td>London, UK</td>
+                        </tr>
+                        <tr>
+                            <td>2005-2008</td>
+                            <td>Degree in Bachelor of Design</td>
+                            <td>Harvard, USA</td>
+                        </tr>
+                        <tr class="w3-white">
+                            <td>2002-2005</td>
+                            <td>Degree in Bachelor of Business</td>
+                            <td>RMIT University, Melbourne, Australia</td>
+                        </tr>
+                        <tr class="w3-hide-medium">
+                            <td>2002-2005</td>
+                            <td>Degree in Bachelor of Business</td>
+                            <td>RMIT University, Melbourne, Australia</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Grid: Work & Resume -->
+    <!-- Third Grid: Swing By & Contact -->
+    <!-- Footer -->
+
+
+    <script type="text/javascript">
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('txt').innerHTML =
+            h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+    </script>
+
+    <script type="text/javascript">
+        var d = new Date();
+        document.getElementById("demo").innerHTML = d.toDateString();
+
+    </script>
+</body>
+</html>

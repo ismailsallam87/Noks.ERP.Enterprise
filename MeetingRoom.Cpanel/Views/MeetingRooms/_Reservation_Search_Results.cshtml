@@ -1,0 +1,19 @@
+﻿@using MeetingRooms_DAL
+@model List<SP_Search_Reservation_Result>
+
+@foreach (var reservation in Model)
+{
+    <div class="hpanel filter-item">
+        <a href="#">
+            <div class="panel-body">
+                <div class="pull-right text-right">
+                    <small class="stat-label">@reservation.Start_From.ToString("dd-MMM-yyyy")</small>
+                    <h4>@reservation.Start_From.ToLongTimeString()</h4>
+                </div>
+                <h4 class="m-b-xs">@reservation.MeetingRoom_Name | @reservation.Subject by @reservation.HostName</h4>
+                <p class="small">@reservation.Description</p>
+            </div>
+        </a>
+    </div>
+}
+

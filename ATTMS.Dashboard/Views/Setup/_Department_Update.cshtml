@@ -1,0 +1,27 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models;
+@model SP_Department_Select_Result
+<div class="modal-content">
+    <div class="color-line"></div>
+    <div class="modal-header text-center">
+        <h4 class="modal-title">@Resource.Update_Department</h4>
+    </div>
+    <div class="modal-body">
+        <div class="panel-body">
+            <form method="get" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">@Resource.Department</label>
+                    <div class="col-sm-10">
+                        <input id="edit_Departmet_Title" type="text" value="@Model.title" class="form-control">
+                    </div>
+                </div>
+              
+              
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button"   class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+    <button type="button" onclick="confirm_update_Department(@Model.Id)" data-dismiss="modal" class="btn btn-primary">@Resource.Save_changes</button>
+</div>

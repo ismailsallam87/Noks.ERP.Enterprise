@@ -1,0 +1,9 @@
+﻿.day-off {
+    background-color: #07ad07 !important;
+    color: white !important;
+}
+
+.day-absent {
+    background-color: #e85a5a !important;
+    color: white !important;
+}

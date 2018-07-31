@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0d08cc3c5b4b4c7093973edc868483ad" Name="Diagram1">
+        <EntityTypeShape EntityType="Noks_POSModel.Invoice" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Noks_POSModel.Invoice_Items" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Noks_POSModel.POS_Sessions" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Noks_POSModel.Setting" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="Noks_POSModel.FK_Invoice_Items_Invoice" ManuallyRouted="false" />
+        <AssociationConnector Association="Noks_POSModel.FK_Invoice_POS_Sessions" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Noks_POSModel.Category" Width="1.5" PointX="0.75" PointY="5.625" />
+        <EntityTypeShape EntityType="Noks_POSModel.Item_Measures" Width="1.5" PointX="5.25" PointY="9.375" />
+        <EntityTypeShape EntityType="Noks_POSModel.Item_PriceList" Width="1.5" PointX="7.5" PointY="9.375" />
+        <EntityTypeShape EntityType="Noks_POSModel.Item" Width="1.5" PointX="3" PointY="9.125" />
+        <AssociationConnector Association="Noks_POSModel.FK_Items_Categories" />
+        <AssociationConnector Association="Noks_POSModel.FK_Invoice_Items_Item_PriceList" />
+        <AssociationConnector Association="Noks_POSModel.FK_Item_Measures_Items" />
+        <AssociationConnector Association="Noks_POSModel.FK_Item_PriceList_Item_Measures" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

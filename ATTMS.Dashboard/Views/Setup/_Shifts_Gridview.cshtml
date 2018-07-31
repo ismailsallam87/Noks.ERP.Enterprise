@@ -1,0 +1,45 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Shifts_Select_Result>
+
+<div class="row projects">
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var shift in Model)
+        {
+            <div class="col-md-3">
+                <div class="hpanel">
+                    <div class="panel-body">
+                        <div class="stats-title pull-left">
+                            <h4>@shift.title</h4>
+                        </div>
+                        <div class="stats-icon pull-right">
+                            <h3 class="text-info">@shift.employees_count <span class="pe-7s-users"></span></h3>
+
+                        </div>
+                        <div class="m-t-xl">
+                            <h1 class="text-warning"></h1>
+                            <small>
+                                <b>@Resource.Check_In</b> @shift.check_in <br />
+                                <b>@Resource.Check_Out</b> @shift.check_out <br />
+                                <b>@Resource.Working_Hours</b> @shift.work_hours (@Resource.hrs)
+                            </small>
+                        </div>
+                        <div class="btn-group grid-f-right">
+                            <a href="@Url.Action("Shift_Details","Setup", new {Id=shift.Id})" class="btn btn-xs btn-default"> @Resource.View</a>
+                            <a class="btn btn-xs btn-default" data-toggle="modal" href="#editJobTitleModal" onclick="Update_Shift(@shift.Id)"> @Resource.Edit</a>
+ 
+                             <a href="#deleteDepartmentModal" onclick="delete_Shift(@shift.Id)" data-toggle="modal" class="btn btn-xs btn-default">@Resource.Delete</a>
+                             <a class="btn btn-xs btn-default" onclick="load_shift_employees_modal('@shift.Id')" href="#" data-target="#employeeShiftModal" data-toggle="modal"> @Resource.Add_Employee</a>
+                            <a href="#" class="btn btn-xs btn-default" onclick="load_shift_Days_modal('@shift.Id')" data-target="#ShiftDaysModal" data-toggle="modal"> @Resource.Shift_Days</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>@Resource.No_Shifts_found </p>
+    }
+</div>

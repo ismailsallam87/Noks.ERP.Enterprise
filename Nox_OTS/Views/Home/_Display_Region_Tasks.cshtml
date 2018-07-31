@@ -1,0 +1,72 @@
+﻿@using OTS.DAL;
+@model List<SP_Select_Areas_Has_Tasks_Result>
+
+<div class="col-md-6 col-sm-6">
+    <!-- BEGIN PORTLET-->
+    <div class="portlet paddingless">
+        <div class="portlet-title line">
+            <div class="caption">
+                <i class="fa fa-bell-o"></i>Feeds
+            </div>
+            <div class="tools">
+                <a href="" class="collapse">
+                </a>
+                <a href="#portlet-config" data-toggle="modal" class="config">
+                </a>
+                <a href="" class="reload">
+                </a>
+                <a href="" class="remove">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <!--BEGIN TABS-->
+            <div class="tabbable tabbable-custom">
+                <ul class="nav nav-tabs">
+                 @foreach (var item in Model)
+                 {
+                     if (item.ID == 1)
+                     {
+                     <li class="active">
+
+                        <a href="#tab_@item.ID" onclick="Tabs_Content(@item.id1)" data-toggle="tab">
+                          
+                            @item.title
+                        </a>
+                    </li>
+                     }
+
+                     else
+                     {
+                        <li  >
+                            <a data-toggle="tab" onclick="Tabs_Content(@item.id1)" href="#tab_@item.ID">
+                                @item.title
+
+
+                            </a>
+                        </li>
+
+                     }
+                 }
+                    @*<li>
+                        <a href="#tab_1_2" data-toggle="tab">
+                            Activities
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tab_1_3" data-toggle="tab">
+                            Recent Users
+                        </a>
+                    </li>*@
+                </ul>
+                <div class="tab-content">
+                    <div id="Menu_Content"> </div>
+                </div>
+            </div>
+            <!--END TABS-->
+        </div>
+    </div>
+    <!-- END PORTLET-->
+</div>
+
+

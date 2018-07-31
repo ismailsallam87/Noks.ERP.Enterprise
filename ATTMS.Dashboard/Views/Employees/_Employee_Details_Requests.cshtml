@@ -1,0 +1,97 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Employee_Leave_Requests_Result>
+
+<p>
+    @Resource.Leave_Request_Report1<br />
+    @Resource.Leave_Request_Report2  
+</p>
+<div class="table-responsive">
+    <div  class="form-horizontal">
+        <div class="form-group">
+            <div class="row">
+                <label class="col-sm-2 control-label" style="visibility:@ViewBag.Visible"> @Resource.Add_A_leave </label>
+                <div class="col-sm-2">
+                    <a href="#" data-toggle="modal" data-target="#createLeaveModal" class="btn btn-primary" style="visibility:@ViewBag.Visible">+</a>
+                </div>
+            </div>
+        </div>
+    </div>
+     @if (Model != null && Model.Count > 0)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Resource.From</th>
+                    <th>@Resource.To</th>
+                    <th>@Resource.Request_Type</th>
+                    <th>@Resource.Posted_By</th>
+                    <th>@Resource.Manager</th>
+                    <th>@Resource.Approval_Status</th>
+                    <th>@Resource.Coach</th>
+                    <th>@Resource.Approval_Status</th>
+                    <th>@Resource.Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var request in Model)
+                {
+                    <tr>
+                        <td>@request.req_from</td>
+                        <td>@request.req_to</td>
+                        <td>@request.leave_request_title</td>
+                        <td>@request.posted_by</td>
+                        <td>@request.manager_name</td>
+                        <td>
+                            @if (request.manager_approval == null)
+                            {
+                                <a href="#"><i class="fa fa-hourglass-half text-success"></i></a>
+                            }
+                            else if (request.manager_approval.Value)
+                            {
+                                <a href="#"><i class="fa fa-check text-success"></i></a>
+                            }
+                            else
+                            {
+                                <a href="#"><i class="fa fa-close text-success"></i></a>
+                            }
+                        </td>
+                        <td>@request.coach_name</td>
+                        <td>
+                            @if (request.coach_approval == null)
+                    {
+                                <a href="#"><i class="fa fa-hourglass-half text-success"></i></a>
+                            }
+                            else if (request.coach_approval.Value)
+                            {
+                                <a href="#"><i class="fa fa-check text-success"></i></a>
+                            }
+                            else
+                            {
+                                <a href="#"><i class="fa fa-close text-success"></i></a>
+                            }
+                        </td>
+                        <td>
+                            @Resource.Nothing
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>@Resource.No_Requests_found_for_this_employee</p>
+        <form method="get" class="form-horizontal">
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-sm-2 control-label">@Resource.Add_A_leave </label>
+                    <div class="col-sm-2">
+                        <a href="#" data-toggle="modal" data-target="#createLeaveModal" class="btn btn-primary">+</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+
+</div>

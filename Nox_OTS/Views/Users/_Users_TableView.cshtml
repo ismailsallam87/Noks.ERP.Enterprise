@@ -1,0 +1,129 @@
+﻿@using OTS.DAL
+@model List<SP_Users_Select_Result>
+
+<!-- BEGIN SAMPLE TABLE PORTLET-->
+<div class="portlet box green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Users 
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse">
+            </a>
+            <a href="#portlet-search" data-toggle="modal" class="config">
+            </a>
+            <a href="javascript:;" class="reload" onclick="Load_User_View('Table')">
+            </a>
+        </div>
+    </div>
+    @if (Model == null || Model.Count == 0)
+    {
+        Html.Partial("_NoUsersFound");
+    }
+    else
+    {
+        <div class="portlet-body flip-scroll">
+            <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content">
+                    <tr>
+                        <th width="10%">
+                            ID
+                        </th>
+                        <th>
+                           Name
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Email Confirmed
+                        </th>
+                        <th>
+                            Roles
+                        </th>
+                        <th>
+                            Locked
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td class="numeric">
+                                @user.Id
+                            </td>
+                            <td>
+                                @user.UserName
+                            </td>
+                            <td>
+                                @user.Email
+                            </td>
+                            <td class="cell_label">
+                                @if (user.EmailConfirmed)
+                                {
+                                    <span class="label label-success">
+                                        Confirmed
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="label label-warning">
+                                        Not-Confirmed
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                @{
+                                    List<string> roles_list = user.Roles.Split(',').ToList();
+                                    foreach (string role in roles_list)
+                                    {
+                                        <div>@role</div>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @if (user.LockoutEnabled)
+                                {
+                                    <span class="label label-warning">
+                                        Locked
+                                    </span>
+                                    <a href="#" title="Unlock" onclick="UpdateLockStatus('@user.Id',false)" class="btn btn-success">
+                                         <i class="fa fa-check"></i>
+                                    </a>
+           
+                                }
+                                else
+                                {
+                                    <span class="label label-info">
+                                        Active
+                                    </span>
+                                    <a href="#" title="Lock" onclick="UpdateLockStatus('@user.Id',true)" class="btn btn-danger">
+                                        <i class="fa fa-ban"></i>
+                                    </a>
+                                }
+                            </td>
+                            <td>
+                                <a onclick="load_employee_view(true,'@user.Id')" href="#emp_view_modal" data-toggle="modal" title="Edit">
+                                    <span class="fa fa-pencil"></span>
+                                </a> |
+                                <a onclick="load_employee_view(false,'@user.Id')" href="#emp_view_modal" data-toggle="modal" title="View">
+                                    <span class="fa fa-book"></span>
+                                </a> |
+                                <a href="#static" data-toggle="modal" title="Delete">
+                                    <span class="fa fa-archive"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+</div>
+<!-- END SAMPLE TABLE PORTLET-->
+

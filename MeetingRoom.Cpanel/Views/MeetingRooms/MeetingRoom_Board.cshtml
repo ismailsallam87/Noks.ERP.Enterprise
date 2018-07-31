@@ -1,0 +1,151 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="../../Vendor/meetingroom/CSS/jquery.skeduler.css" rel="stylesheet" />
+    <title>Reservation Board | NOKS-Meeting Rooms Management System</title>
+    <link rel="icon" href="/images/home-icon.png">
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12" id="skeduler-container" style="width:100%;">
+
+        </div>
+    </div>
+</body>
+</html>
+@*@section scripts{*@
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="../../Vendor/meetingroom/JS/jquery.skeduler.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script type="text/javascript">
+    $(function()
+    {
+        // Reference the hub.
+        var hubNotif = $.connection.meetinRoomHub;
+        // Start the connection.  
+        $.connection.hub.start().done(function () {
+            getAll();
+        });
+        // Notify while anyChanges.  
+        hubNotif.client.ReservationsOnCurrentDay = function () {
+            getAll();
+        };
+    });
+    function hours_diff(t1, t2) {
+        //create date format          
+        var timeStart = new Date("01/01/2007 " + t2).getMinutes();
+        var timeEnd = new Date("01/01/2007 " + t1).getMinutes();
+
+        var hourDiff = (timeEnd - timeStart)/60;
+        return hourDiff;
+    }
+    function getAll()
+    {
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var output = d.getFullYear() + '/' +
+            (month < 10 ? '0' : '') + month + '/' +
+            (day < 10 ? '0' : '') + day;
+
+        var from = output;
+        var to = output;
+        var data={};
+        data.from = from;
+        data.to = to;
+        var ajaxoptions = {};
+        ajaxoptions.url = "@Url.Action("MeetingRoom_Reservations_On_Current_Day", "MeetingRooms")"
+        ajaxoptions.data = data;
+        ajaxoptions.success = function (result) {
+            var header = [];
+            var tasks = [];
+            for (var i = 0; i < result.length; i++)
+            {
+                header.push(result[i].Name);
+                var reservations = JSON.parse(result[i].Reservations);
+                if (reservations != null) {
+                    for (var j = 0; j < reservations.length ; j++) {
+                        var dt = new Date(reservations[j].Start_From);
+                        duration = reservations[j].Duration_Minutes / 60;
+                        //var date = new date();
+                        var timeStart = new Date("01/01/2007 " + reservations[j].start_day).getHours();
+                        var timeEnd = new Date("01/01/2007 " + reservations[j].start_time).getHours();
+
+                        var timeEnd_minutes = new Date("01/01/2007 " + reservations[j].start_time).getMinutes();
+                        
+                        var startTime = timeEnd - timeStart + (timeEnd_minutes/60);
+                        
+
+                        var task = {
+                            startTime: startTime,
+                            duration: duration,
+                            column: i,
+                            id: reservations[j].Id,// Math.ceil(Math.random() * 100000),
+                            title: reservations[j].Subject + ', Starting:' + reservations[j].start_time + ' Ending:' + reservations[j].end_time
+                        };
+                        console.log(task);
+                        tasks.push(task);
+                    }
+                }
+                else
+                {
+                    var startTime = -1;
+                    var duration = 0.5;
+                    for (var j = 0; j < 10; j++) {
+                        if (Math.random() * 10 > 5) {
+                            startTime += 0.5 + duration;
+                        } else {
+                            startTime += 1 + duration;
+                        }
+
+                        if (Math.random() * 10 > 5) {
+                            startTime -= duration;
+                            startTime = Math.max(0, startTime);
+                        }
+
+                        if (startTime > 23) {
+                            break;
+                        }
+                        duration = Math.ceil(Math.random() * 2) + (Math.random() * 10 > 5 ? 0 : 0.5);
+                        duration -= startTime + duration > 24 ? (startTime + duration) - 24 : 0;
+                        var task = {
+                            startTime: -2,
+                            duration: 0,
+                            column: i,
+                            id: '',
+                            title:'' 
+                        };
+                        tasks.push(task);
+                    }
+                }
+            }
+            $("#skeduler-container").skeduler({
+                headers: header,
+                tasks: tasks,                
+                cardTemplate: '<div>${title}</div>',
+                onClick: function (e, t) {
+                  //  console.log(e, t);
+                }
+            });
+            //Clear_Empty_Tasks();
+        };
+        ajaxoptions.error = function () {
+
+        };
+        $.ajax(ajaxoptions);
+    }
+
+    function Clear_Empty_Tasks() {
+        var divs = $('.skeduler-main-body').find('.skeduler-task-placeholder').find('div>div');
+        for (var i = 0; divs.length; i++) {
+            if (divs[i].innerText == '') {
+               $(divs[i]).empty();
+            }
+        }
+    }
+</script>

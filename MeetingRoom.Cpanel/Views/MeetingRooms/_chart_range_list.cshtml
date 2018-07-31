@@ -1,0 +1,32 @@
+﻿@using MeetingRooms_DAL
+@model  List<SP_reservation_chart_range_list_Result>
+@{ 
+    DateTime selected = DateTime.Now;
+}
+<a href="javascript:void(0)" id="pre_range_selector"><span class="fa fa-arrow-circle-left"></span></a>
+@foreach (var element in Model)
+{
+    if (element.selected.Value)
+    {
+        selected = element.start_from.Value;
+    }
+    <input type="button" data-from='@element.start_from' data-to='@element.end_at' class="btn btn-default selection-rang @(element.selected.Value ? "date-selected" : "not-selected")" value="@element.name" />
+}
+<a href="javascript:void(0)" id="next_range_selector" ><span class="fa fa-arrow-circle-right"></span></a>
+
+<input type="hidden" value="@selected" id="date_selected" />
+
+
+<select id="range_list" class="hidden">
+    @foreach (var element in Model)
+    {
+        if (element.selected.Value)
+        {
+            <option selected="selected" value="@element.name">@element.name</option>
+        }
+        else
+        {
+            <option value="@element.name">@element.name</option>
+        }
+    }
+</select>

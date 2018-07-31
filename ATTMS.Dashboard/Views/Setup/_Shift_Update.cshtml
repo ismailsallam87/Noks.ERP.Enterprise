@@ -1,0 +1,84 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models;
+@model SP_Shifts_Select_Result
+<div class="modal-content">
+    <div class="color-line"></div>
+    <div class="modal-header text-center">
+        <h4 class="modal-title">@Resource.Update_Shift</h4>
+    </div>
+    @*<div class="modal-body">
+        <div class="panel-body">
+            <form method="get" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Department:</label>
+                    <div class="col-sm-10">
+                        <input id="edit_Shift_Title" type="text" value="@Model.title" class="form-control">
+                    </div>
+                </div>
+             
+                <disv class="form-group">
+                    <label class="col-sm-2 control-label">Check-In:</label>
+                    <div class="input-group clockpicker col-sm-10" data-autoclose="true">
+                        <input id="edit_Check_In" type="text" class="form-control" value="09:30">
+                        <span class="input-group-addon">
+                            <span class="fa fa-clock-o"></span>
+                        </span>
+                    </div>
+                </disv>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Check-Out:</label>
+                    <div class="input-group clockpicker col-sm-10" data-autoclose="true">
+                        <input id="edit_Check_Out" type="text" class="form-control" value="17:30">
+                        <span class="input-group-addon">
+                            <span class="fa fa-clock-o"></span>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>*@
+
+
+
+
+
+
+    <div class="modal-body">
+        <div class="panel-body">
+            <form method="get" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">@Resource.Department_Name</label>
+                    <div class="col-sm-10">
+                        <input id="edit_Shift_Title" type="text" value="@Model.title" class="form-control">
+
+                        <span class="help-block m-b-none">@Resource.you_can_Edit_This_department</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">@Resource.Check_In</label>
+                    <div class="input-group clockpicker col-sm-10" data-autoclose="true">
+                        <input id="edit_Check_In" type="text" class="form-control" value="09:30">
+                        <span class="input-group-addon">
+                            <span class="fa fa-clock-o"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">@Resource.Check_Out</label>
+                    <div class="input-group clockpicker col-sm-10" data-autoclose="true">
+                        <input id="edit_Check_Out" type="text" class="form-control" value="17:30">
+                        <span class="input-group-addon">
+                            <span class="fa fa-clock-o"></span>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+    <button type="button" onclick="confirm_update_Update_Shift(@Model.Id)" data-dismiss="modal" class="btn btn-primary">@Resource.Save_changes</button>
+</div>

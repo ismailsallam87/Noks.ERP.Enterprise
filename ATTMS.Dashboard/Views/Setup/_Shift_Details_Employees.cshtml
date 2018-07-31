@@ -1,0 +1,26 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Employee_List_Select_Result>
+
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var emp in Model)
+    {
+        <div class="col col-md-6">
+            <div class="hpanel">
+                <div class="panel-body text-center">
+                    <img alt="@emp.name" class="img-circle img-small" src="@{Html.RenderAction("Load_Employee_Photo", "Employees", new { photo = emp.photo}); } ">
+                    <div class="m-t-sm">
+                        <strong>@emp.name</strong>
+                        <p class="small">@emp.job_title / @emp.department_title</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    }
+    else
+    {
+        <p>@Resource.No_Employees_Joined_this_Shift</p>
+    }
+

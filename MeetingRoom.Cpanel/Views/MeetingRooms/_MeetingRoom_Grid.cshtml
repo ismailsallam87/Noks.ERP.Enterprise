@@ -1,0 +1,32 @@
+﻿@using MeetingRooms_DAL
+@model List<SP_Search_Meeting_Rooms_Result>
+<div class="row">
+    @foreach (var room in Model)
+    {
+        <div class="col-lg-3 grid-item">
+            <div class="hpanel hgreen contact-panel">
+                <div class="panel-body employee-element">
+                    <img alt="@room.Photo" class="img-circle m-b" src="@{Html.RenderAction("Load_Photo", "MeetingRooms", new { photo = room.Photo });}">
+                    <h3><a href="@Url.Action("Details", new {Id=room.Id})"> @room.Name</a></h3>
+                    <div class="text-muted font-bold m-b-xs">@room.Description</div>
+                    <p>
+                        <b>Overhead: </b>@room.Overhead_projector <br />
+                        <b>Slider: </b>@room.Slide_projector <br />
+                        <b>Film: </b>@room.Film_projector<br />
+                        <b>IFP: </b>@room.IFP <br />
+                        <b>Video Screen: </b>@room.Video_Screen<br />
+                        <b>Mic: </b> @room.Microphones <br />
+                        <b>Louad Speakers: </b> @room.LoudSpeakers<br />
+                        <b>Computers: </b>@room.Computer <br />
+                        <b>White Board: </b>@room.WhiteBoard
+                    </p>
+                </div>
+                <div class="panel-footer contact-footer">
+                    <div class="row">
+                        <div class="col-md-12 border-right"> <div class="contact-stat"><span>Occupied Hours: </span> <strong>@room.Occupied_Hours</strong></div> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

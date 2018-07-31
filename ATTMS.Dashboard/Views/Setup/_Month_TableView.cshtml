@@ -1,0 +1,53 @@
+﻿@using ATTMS.Dashboard.Resources
+
+@using Models
+@model SP_Select_Opened_Month_Result
+<div class="row">
+    @if (Model != null)
+    {
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="month_tbl" class="display table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>@Resource.Code</th>
+                                    <th>@Resource.Created By</th>
+                                    <th>@Resource.Createsd At</th>
+                                    <th>@Resource.Start From</th>
+                                    <th>@Resource.End At</th>
+                                    <th>@Resource.Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>@Model.code</td>
+                                    <td>@Model.UserName</td>
+                                    <td>@Model.created_at</td>
+                                    <td>@Model.start_from</td>
+                                    <td>@Model.end_at</td>
+                                    <td>
+                                        <a data-toggle="modal" data-target="#closemonthModal" class="btn btn-xs btn-default" onclick="close_month(@Model.Id)"> @Resource.Close</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {       
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <p>@Resource.No_months_Found</p>
+                    <p>
+                        <a href="#" data-toggle="modal" data-target="#openMonthModal" class="btn btn-default header-btn">@Resource.Create</a>
+                    </p>
+                </div>               
+            </div>
+        </div>
+    }

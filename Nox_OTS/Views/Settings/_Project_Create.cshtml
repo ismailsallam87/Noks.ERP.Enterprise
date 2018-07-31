@@ -1,0 +1,34 @@
+﻿
+<form action="#" class="form-horizontal form-row-seperated">
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-3">Project Name: </label>
+            <div class="col-md-9">
+                <input type="text" placeholder="Project Name" id="Create_ProjectName_Txt" class="form-control" />
+                <span class="help-block">
+                    Project A,Project B
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Project Range</label>
+            <div class="col-md-9">
+                    <input class="form-control form-control-inline input-medium date-picker" id="Create_Project_StartDate_Txt" size="16" type="text" value="" />
+                <span class="help-block">
+                    Dont's Select To (Date) if the project still running.
+                </span>
+                <!-- /input-group -->
+            </div>
+        </div>
+    </div>
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn green modal_submit" data-dismiss="modal" onclick="create_newPrject()" aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Create Project', 'The Operation of Creation New Project is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,1608 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Noks_ATT_MSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="enroll_employee_device" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employee_code" Type="nvarchar" Mode="In" />
+          <Parameter Name="employee_no" Type="int" Mode="In" />
+          <Parameter Name="device_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Log_Proceed_ByEmpID_And_RangeDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="empId" Type="int" Mode="In" />
+          <Parameter Name="from" Type="datetime" Mode="In" />
+          <Parameter Name="to" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="SP_agent_Employee_Attendance_Update_Absence" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="Sp_Change_Status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="status" Type="bit" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_Department_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Department_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Department_employee_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="department_Id" Type="int" Mode="In" />
+          <Parameter Name="department_job_ref" Type="int" Mode="In" />
+          <Parameter Name="employee_Id" Type="int" Mode="In" />
+          <Parameter Name="joined_at" Type="datetime" Mode="In" />
+          <Parameter Name="notes" Type="nvarchar" Mode="In" />
+          <Parameter Name="employee_coach_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Department_Employees_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="department_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Department_JobTitle_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="department_Id" Type="int" Mode="In" />
+          <Parameter Name="code" Type="nvarchar" Mode="In" />
+          <Parameter Name="job_title_Id" Type="int" Mode="In" />
+          <Parameter Name="is_manager" Type="bit" Mode="In" />
+          <Parameter Name="multiple_available" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_Department_JobTitles_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="department_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Department_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="title" Type="nvarchar" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Device_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Device_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Device_No" Type="int" Mode="In" />
+          <Parameter Name="Device_ID" Type="int" Mode="In" />
+          <Parameter Name="Device_IP" Type="nvarchar" Mode="In" />
+          <Parameter Name="Device_Port" Type="nvarchar" Mode="In" />
+          <Parameter Name="Device_Password" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Devices_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Edit_Employee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Emp_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Edit_Employee_Document" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employee_documents_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Employee_Attendance_Sheet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="day_from" Type="date" Mode="In" />
+          <Parameter Name="day_to" Type="date" Mode="In" />
+          <Parameter Name="employee_Id" Type="int" Mode="In" />
+          <Parameter Name="monthly_master_ref_Id" Type="int" Mode="In" />
+          <Parameter Name="monthly_master_ref_current" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_Employee_Attendance_Sheet_Open_Month" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date_from" Type="date" Mode="In" />
+          <Parameter Name="date_to" Type="date" Mode="In" />
+          <Parameter Name="employee_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Employee_Contracts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Employee_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Employee_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="photo" Type="nvarchar" Mode="In" />
+          <Parameter Name="code" Type="nvarchar" Mode="In" />
+          <Parameter Name="user_Id" Type="nvarchar" Mode="In" />
+          <Parameter Name="ssn" Type="nvarchar" Mode="In" />
+          <Parameter Name="mobile" Type="nvarchar" Mode="In" />
+          <Parameter Name="social_insurance_code" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Employee_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Employee_Department_Transfer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employee_Id" Type="int" Mode="In" />
+          <Parameter Name="department_job_Id_ref" Type="int" Mode="In" />
+          <Parameter Name="joined_at" Type="datetime" Mode="In" />
+          <Parameter Name="notes" Type="nvarchar" Mode="In" />
+          <Parameter Name="employee_coach_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Employee_Documents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Employee_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Employee_Edit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="photo" Type="nvarchar" Mode="In" />
+          <Parameter Name="code" Type="nvarchar" Mode="In" />
+          <Parameter Name="ssn" Type="nvarchar" Mode="In" />
+          <Parameter Name="mobile" Type="nvarchar" Mode="In" />
+          <Parameter Name="social_insurance_code" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Employee_Leave_Requests" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="All" Type="bit" Mode="In" />
+          <Parameter Name="Employee_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Employee_List_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Only_free" Type="bit" Mode="In" />
+          <Parameter Name="department_Id" Type="int" Mode="In" />
+          <Parameter Name="shift_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Employee_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="photo" Type="nvarchar" Mode="In" />
+          <Parameter Name="code" Type="nvarchar" Mode="In" />
+          <Parameter Name="ssn" Type="nvarchar" Mode="In" />
+          <Parameter Name="mobile" Type="nvarchar" Mode="In" />
+          <Parameter Name="social_insurance_code" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Employees_For_Shift" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Get_Job_Title_By_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Insert_Contract_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Employee_id" Type="int" Mode="In" />
+          <Parameter Name="Job_Title_id" Type="int" Mode="In" />
+          <Parameter Name="Employee_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Employee_Mid_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Employee_last_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="aspuser" Type="nvarchar" Mode="In" />
+          <Parameter Name="datapicker2" Type="datetime" Mode="In" />
+          <Parameter Name="datapicker3_Exp_Start" Type="datetime" Mode="In" />
+          <Parameter Name="datapicker4" Type="datetime" Mode="In" />
+          <Parameter Name="datapicker5" Type="datetime" Mode="In" />
+          <Parameter Name="datapicker6_Exp_End" Type="datetime" Mode="In" />
+          <Parameter Name="contract_net_salary" Type="decimal" Mode="In" />
+          <Parameter Name="contract_basic_salary" Type="decimal" Mode="In" />
+          <Parameter Name="contract_gross_salary" Type="decimal" Mode="In" />
+          <Parameter Name="chk_terminated" Type="bit" Mode="In" />
+          <Parameter Name="chk_renewable" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_Insert_Document_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Employee_id" Type="int" Mode="In" />
+          <Parameter Name="document_ref_id" Type="int" Mode="In" />
+          <Parameter Name="signed_at" Type="datetime" Mode="In" />
+          <Parameter Name="expires_at" Type="datetime" Mode="In" />
+          <Parameter Name="notes" Type="nvarchar" Mode="In" />
+          <Parameter Name="expired" Type="bit" Mode="In" />
+          <Parameter Name="copy_Path" Type="nvarchar" Mode="In" />
+          <Parameter Name="purged" Type="bit" Mode="In" />
+          <Parameter Name="renwed" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_Insert_Leave_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="leave_request_ref_Id" Type="int" Mode="In" />
+          <Parameter Name="requested_for_employee_Id" Type="int" Mode="In" />
+          <Parameter Name="req_from" Type="datetime" Mode="In" />
+          <Parameter Name="req_to" Type="datetime" Mode="In" />
+          <Parameter Name="posted_by" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Insert_New_Log" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Device_ID" Type="int" Mode="In" />
+          <Parameter Name="Enroll_No" Type="int" Mode="In" />
+          <Parameter Name="Log_Mode" Type="nvarchar" Mode="In" />
+          <Parameter Name="Log_Date" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="SP_Job_Title_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_JobTitle_List_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="department_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_monthly_master_ref_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Is_Current" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_Pending_Requests" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_select_Coach" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="department_id" Type="int" Mode="In" />
+          <Parameter Name="employee_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Select_Departments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Select_Document_Reference" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_select_Employee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Select_Employee_Transfered" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employee_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Sp_Select_Job_Title" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Select_Job_Title_By_Dept_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="department_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Select_Leave_request_ref" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Select_Requests" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Shift_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="title" Type="nvarchar" Mode="In" />
+          <Parameter Name="check_in" Type="time" Mode="In" />
+          <Parameter Name="check_out" Type="time" Mode="In" />
+          <Parameter Name="work_hours" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Shift_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Shift_Employee_Join" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employee_Id" Type="int" Mode="In" />
+          <Parameter Name="shift_Id" Type="int" Mode="In" />
+          <Parameter Name="Join_Date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SP_Shift_Rule_Submit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="title" Type="nvarchar" Mode="In" />
+          <Parameter Name="range_from" Type="time" Mode="In" />
+          <Parameter Name="range_to" Type="time" Mode="In" />
+          <Parameter Name="rate" Type="int" Mode="In" />
+          <Parameter Name="color" Type="nvarchar" Mode="In" />
+          <Parameter Name="type_Id" Type="int" Mode="In" />
+          <Parameter Name="shift_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Shift_Rule_Type_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Shift_Rules" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="shift_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Shift_Stat_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="shift_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Shifts_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="shift_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Department" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Document_Detail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employee_document_Id" Type="int" Mode="In" />
+          <Parameter Name="document_ref_id" Type="int" Mode="In" />
+          <Parameter Name="signed_at" Type="datetime" Mode="In" />
+          <Parameter Name="expires_at" Type="datetime" Mode="In" />
+          <Parameter Name="notes" Type="nvarchar" Mode="In" />
+          <Parameter Name="copy_Path" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Document_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employee_document_Id" Type="int" Mode="In" />
+          <Parameter Name="document_ref_id" Type="int" Mode="In" />
+          <Parameter Name="signed_at" Type="datetime" Mode="In" />
+          <Parameter Name="expires_at" Type="datetime" Mode="In" />
+          <Parameter Name="notes" Type="nvarchar" Mode="In" />
+          <Parameter Name="copy_Path" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Job_Title" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Shift" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+          <Parameter Name="check_in" Type="time" Mode="In" />
+          <Parameter Name="check_out" Type="time" Mode="In" />
+        </Function>
+        <Function Name="SP_User_Avatar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_User_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Noks_ATT_MSModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Noks_ATT_MSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Noks_ATT_MSEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Department_Create" ReturnType="Collection(Noks_ATT_MSModel.SP_Department_Create_Result)">
+          <Parameter Name="Title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Department_Select" ReturnType="Collection(Noks_ATT_MSModel.SP_Department_Select_Result)">
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Department_Employees_Select" ReturnType="Collection(Noks_ATT_MSModel.SP_Department_Employees_Select_Result)">
+          <Parameter Name="department_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Department_JobTitles_Select" ReturnType="Collection(Noks_ATT_MSModel.SP_Department_JobTitles_Select_Result)">
+          <Parameter Name="department_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Department_JobTitle_Create" ReturnType="Collection(Noks_ATT_MSModel.SP_Department_JobTitle_Create_Result)">
+            <Parameter Name="department_Id" Mode="In" Type="Int32" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="job_title_Id" Mode="In" Type="Int32" />
+            <Parameter Name="is_manager" Mode="In" Type="Boolean" />
+            <Parameter Name="multiple_available" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_JobTitle_List_Select" ReturnType="Collection(Noks_ATT_MSModel.SP_JobTitle_List_Select_Result)">
+          <Parameter Name="department_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Department_employee_Create" ReturnType="Collection(Noks_ATT_MSModel.SP_Department_employee_Create_Result)">
+            <Parameter Name="department_Id" Mode="In" Type="Int32" />
+            <Parameter Name="department_job_ref" Mode="In" Type="Int32" />
+            <Parameter Name="employee_Id" Mode="In" Type="Int32" />
+            <Parameter Name="joined_at" Mode="In" Type="DateTime" />
+            <Parameter Name="notes" Mode="In" Type="String" />
+            <Parameter Name="employee_coach_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Employee_List_Select" ReturnType="Collection(Noks_ATT_MSModel.SP_Employee_List_Select_Result)">
+            <Parameter Name="Only_free" Mode="In" Type="Boolean" />
+            <Parameter Name="department_Id" Mode="In" Type="Int32" />
+            <Parameter Name="shift_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Shifts_Select" ReturnType="Collection(Noks_ATT_MSModel.SP_Shifts_Select_Result)" >
+          <Parameter Name="shift_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Shift_Create" ReturnType="Collection(Noks_ATT_MSModel.SP_Shift_Create_Result)">
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="check_in" Mode="In" Type="Time" />
+            <Parameter Name="check_out" Mode="In" Type="Time" />
+            <Parameter Name="work_hours" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Employees_For_Shift" ReturnType="Collection(Noks_ATT_MSModel.SP_Employees_For_Shift_Result)" />
+          <FunctionImport Name="SP_Shift_Employee_Join" ReturnType="Collection(Noks_ATT_MSModel.SP_Shift_Employee_Join_Result)">
+            <Parameter Name="employee_Id" Mode="In" Type="Int32" />
+            <Parameter Name="shift_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Join_Date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Shift_Rules" ReturnType="Collection(Noks_ATT_MSModel.SP_Shift_Rules_Result)">
+          <Parameter Name="shift_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Shift_Stat_Details" ReturnType="Collection(Noks_ATT_MSModel.SP_Shift_Stat_Details_Result)">
+          <Parameter Name="shift_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Shift_Rule_Type_List" ReturnType="Collection(Noks_ATT_MSModel.SP_Shift_Rule_Type_List_Result)" />
+          <FunctionImport Name="SP_Shift_Rule_Submit" ReturnType="Collection(Noks_ATT_MSModel.SP_Shift_Rule_Submit_Result)">
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="range_from" Mode="In" Type="Time" />
+            <Parameter Name="range_to" Mode="In" Type="Time" />
+            <Parameter Name="rate" Mode="In" Type="Int32" />
+            <Parameter Name="color" Mode="In" Type="String" />
+            <Parameter Name="type_Id" Mode="In" Type="Int32" />
+            <Parameter Name="shift_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Employee_Select" ReturnType="Collection(Noks_ATT_MSModel.SP_Employee_Select_Result)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="photo" Mode="In" Type="String" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="ssn" Mode="In" Type="String" />
+            <Parameter Name="mobile" Mode="In" Type="String" />
+            <Parameter Name="social_insurance_code" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Employee_Create" ReturnType="Collection(Noks_ATT_MSModel.SP_Employee_Create_Result)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="photo" Mode="In" Type="String" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="user_Id" Mode="In" Type="String" />
+            <Parameter Name="ssn" Mode="In" Type="String" />
+            <Parameter Name="mobile" Mode="In" Type="String" />
+            <Parameter Name="social_insurance_code" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_User_List" ReturnType="Collection(Noks_ATT_MSModel.SP_User_List_Result)" />
+          <FunctionImport Name="SP_Employee_Attendance_Sheet" ReturnType="Collection(Noks_ATT_MSModel.SP_Employee_Attendance_Sheet_Result)">
+            <Parameter Name="day_from" Mode="In" Type="DateTime" />
+            <Parameter Name="day_to" Mode="In" Type="DateTime" />
+            <Parameter Name="employee_Id" Mode="In" Type="Int32" />
+            <Parameter Name="monthly_master_ref_Id" Mode="In" Type="Int32" />
+            <Parameter Name="monthly_master_ref_current" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Employee_Contracts" ReturnType="Collection(Noks_ATT_MSModel.SP_Employee_Contracts_Result)">
+          <Parameter Name="Employee_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Employee_Leave_Requests" ReturnType="Collection(Noks_ATT_MSModel.SP_Employee_Leave_Requests_Result)">
+            <Parameter Name="All" Mode="In" Type="Boolean" />
+            <Parameter Name="Employee_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_monthly_master_ref_List" ReturnType="Collection(Noks_ATT_MSModel.SP_monthly_master_ref_List_Result)">
+          <Parameter Name="Is_Current" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Edit_Employee" ReturnType="Collection(Noks_ATT_MSModel.SP_Edit_Employee_Result)">
+          <Parameter Name="Emp_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Employee_Edit" ReturnType="Collection(Noks_ATT_MSModel.SP_Employee_Edit_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="photo" Mode="In" Type="String" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="ssn" Mode="In" Type="String" />
+            <Parameter Name="mobile" Mode="In" Type="String" />
+            <Parameter Name="social_insurance_code" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Devices_Select" ReturnType="Collection(Noks_ATT_MSModel.SP_Devices_Select_Result)" />
+          <FunctionImport Name="SP_Device_Create" ReturnType="Collection(Noks_ATT_MSModel.SP_Device_Create_Result)">
+            <Parameter Name="Device_Name" Mode="In" Type="String" />
+            <Parameter Name="Device_No" Mode="In" Type="Int32" />
+            <Parameter Name="Device_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Device_IP" Mode="In" Type="String" />
+            <Parameter Name="Device_Port" Mode="In" Type="String" />
+            <Parameter Name="Device_Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Department_Delete">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_User_Avatar" ReturnType="Collection(String)">
+          <Parameter Name="userId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Job_Title_Create" ReturnType="Collection(Noks_ATT_MSModel.SP_Job_Title_Create_Result)">
+          <Parameter Name="Title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Sp_Select_Job_Title" ReturnType="Collection(Noks_ATT_MSModel.Sp_Select_Job_Title_Result)" />
+          <FunctionImport Name="SP_Get_Job_Title_By_Id" ReturnType="Collection(Noks_ATT_MSModel.SP_Get_Job_Title_By_Id_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Job_Title">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Department">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Shift">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="check_in" Mode="In" Type="Time" />
+            <Parameter Name="check_out" Mode="In" Type="Time" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Shift_Delete">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Sp_Change_Status">
+            <Parameter Name="status" Mode="In" Type="Boolean" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Employee_Delete">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Select_Departments" ReturnType="Collection(Noks_ATT_MSModel.SP_Select_Departments_Result)" />
+          <FunctionImport Name="SP_Select_Job_Title_By_Dept_id" ReturnType="Collection(Noks_ATT_MSModel.SP_Select_Job_Title_By_Dept_id_Result)">
+          <Parameter Name="department_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insert_Document_Details">
+            <Parameter Name="Employee_id" Mode="In" Type="Int32" />
+            <Parameter Name="document_ref_id" Mode="In" Type="Int32" />
+            <Parameter Name="signed_at" Mode="In" Type="DateTime" />
+            <Parameter Name="expires_at" Mode="In" Type="DateTime" />
+            <Parameter Name="notes" Mode="In" Type="String" />
+            <Parameter Name="expired" Mode="In" Type="Boolean" />
+            <Parameter Name="copy_Path" Mode="In" Type="String" />
+            <Parameter Name="purged" Mode="In" Type="Boolean" />
+            <Parameter Name="renwed" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insert_Contract_Details">
+            <Parameter Name="Employee_id" Mode="In" Type="Int32" />
+            <Parameter Name="Job_Title_id" Mode="In" Type="Int32" />
+            <Parameter Name="Employee_Name" Mode="In" Type="String" />
+            <Parameter Name="Employee_Mid_Name" Mode="In" Type="String" />
+            <Parameter Name="Employee_last_Name" Mode="In" Type="String" />
+            <Parameter Name="aspuser" Mode="In" Type="String" />
+            <Parameter Name="datapicker2" Mode="In" Type="DateTime" />
+            <Parameter Name="datapicker3_Exp_Start" Mode="In" Type="DateTime" />
+            <Parameter Name="datapicker4" Mode="In" Type="DateTime" />
+            <Parameter Name="datapicker5" Mode="In" Type="DateTime" />
+            <Parameter Name="datapicker6_Exp_End" Mode="In" Type="DateTime" />
+            <Parameter Name="contract_net_salary" Mode="In" Type="Decimal" />
+            <Parameter Name="contract_basic_salary" Mode="In" Type="Decimal" />
+            <Parameter Name="contract_gross_salary" Mode="In" Type="Decimal" />
+            <Parameter Name="chk_terminated" Mode="In" Type="Boolean" />
+            <Parameter Name="chk_renewable" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Select_Document_Reference" ReturnType="Collection(Noks_ATT_MSModel.SP_Select_Document_Reference_Result)" />
+          <FunctionImport Name="SP_Select_Leave_request_ref" ReturnType="Collection(Noks_ATT_MSModel.SP_Select_Leave_request_ref_Result)" />
+          <FunctionImport Name="SP_select_Employee" ReturnType="Collection(Noks_ATT_MSModel.SP_select_Employee_Result)" />
+          <FunctionImport Name="SP_Employee_Documents" ReturnType="Collection(Noks_ATT_MSModel.SP_Employee_Documents_Result)">
+          <Parameter Name="Employee_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Edit_Employee_Document" ReturnType="Collection(Noks_ATT_MSModel.SP_Edit_Employee_Document_Result)">
+          <Parameter Name="employee_documents_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Document_Details">
+            <Parameter Name="employee_document_Id" Mode="In" Type="Int32" />
+            <Parameter Name="document_ref_id" Mode="In" Type="Int32" />
+            <Parameter Name="signed_at" Mode="In" Type="DateTime" />
+            <Parameter Name="expires_at" Mode="In" Type="DateTime" />
+            <Parameter Name="notes" Mode="In" Type="String" />
+            <Parameter Name="copy_Path" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Document_Detail">
+            <Parameter Name="employee_document_Id" Mode="In" Type="Int32" />
+            <Parameter Name="document_ref_id" Mode="In" Type="Int32" />
+            <Parameter Name="signed_at" Mode="In" Type="DateTime" />
+            <Parameter Name="expires_at" Mode="In" Type="DateTime" />
+            <Parameter Name="notes" Mode="In" Type="String" />
+            <Parameter Name="copy_Path" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_agent_Employee_Attendance_Update_Absence" />
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Employee_Attendance_Sheet_Open_Month">
+            <Parameter Name="date_from" Mode="In" Type="DateTime" />
+            <Parameter Name="date_to" Mode="In" Type="DateTime" />
+            <Parameter Name="employee_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insert_New_Log" ReturnType="Collection(Boolean)">
+            <Parameter Name="Device_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Enroll_No" Mode="In" Type="Int32" />
+            <Parameter Name="Log_Mode" Mode="In" Type="String" />
+            <Parameter Name="Log_Date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Select_Requests" ReturnType="Collection(Noks_ATT_MSModel.SP_Select_Requests_Result)" />
+          <FunctionImport Name="SP_Update_Request_Approvement">
+            <Parameter Name="id" Type="Int32" Mode="In" />
+            <Parameter Name="approved" Type="Boolean" Mode="In" />
+            <Parameter Name="rejected" Type="Boolean" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="enroll_employee_device">
+            <Parameter Name="employee_code" Mode="In" Type="String" />
+            <Parameter Name="employee_no" Mode="In" Type="Int32" />
+            <Parameter Name="device_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insert_Leave_Details">
+            <Parameter Name="leave_request_ref_Id" Mode="In" Type="Int32" />
+            <Parameter Name="requested_for_employee_Id" Mode="In" Type="Int32" />
+            <Parameter Name="req_from" Mode="In" Type="DateTime" />
+            <Parameter Name="req_to" Mode="In" Type="DateTime" />
+            <Parameter Name="posted_by" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Work_days">
+            <Parameter Name="id_list" Type="String" Mode="In" />
+            <Parameter Name="ids" Type="String" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="SP_WorkDays_Select" ReturnType="Collection(Noks_ATT_MSModel.SP_WorkDays_Select_Result)" />
+          <FunctionImport Name="SP_Insert_Shift_Days">
+            <Parameter Name="day" Type="String" Mode="In" />
+            <Parameter Name="day_on" Type="Boolean" Mode="In" />
+            <Parameter Name="shiftId" Type="Int32" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Select_Shift_Days" ReturnType="Collection(Noks_ATT_MSModel.SP_Select_Shift_Days_Result)">
+          <Parameter Name="shiftId" Type="Int32" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Shift_Days">
+            <Parameter Name="shiftId" Type="Int32" Mode="In" />
+            <Parameter Name="chk_ids" Type="String" Mode="In" />
+            <Parameter Name="ids" Type="String" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Close_Month">
+          <Parameter Name="id" Type="Int32" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Select_Opened_Month" ReturnType="Collection(Noks_ATT_MSModel.SP_Select_Opened_Month_Result)" />
+          <FunctionImport Name="SP_Open_Month">
+            <Parameter Name="code" Type="String" Mode="In" />
+            <Parameter Name="from" Type="DateTime" Mode="In" />
+            <Parameter Name="to" Type="DateTime" Mode="In" />
+            <Parameter Name="created_by" Type="String" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="Log_Proceed_ByEmpID_And_RangeDate" ReturnType="Collection(Noks_ATT_MSModel.Log_Proceed_ByEmpID_And_RangeDate_Result)">
+            <Parameter Name="empId" Mode="In" Type="Int32" />
+            <Parameter Name="from" Mode="In" Type="DateTime" />
+            <Parameter Name="to" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Terminate_And_End_Contract">
+            <Parameter Name="Id" Type="Int32" Mode="In" />
+            <Parameter Name="endAt" Type="DateTime" Mode="In" />
+            <Parameter Name="isTerminate" Type="Boolean" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Pending_Requests" ReturnType="Collection(Noks_ATT_MSModel.SP_Pending_Requests_Result)">
+          <Parameter Name="UserID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_select_Coach" ReturnType="Collection(Noks_ATT_MSModel.SP_select_Coach_Result)">
+            <Parameter Name="department_id" Mode="In" Type="Int32" />
+            <Parameter Name="employee_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Employee_Department_Transfer">
+            <Parameter Name="employee_Id" Mode="In" Type="Int32" />
+            <Parameter Name="department_job_Id_ref" Mode="In" Type="Int32" />
+            <Parameter Name="joined_at" Mode="In" Type="DateTime" />
+            <Parameter Name="notes" Mode="In" Type="String" />
+            <Parameter Name="employee_coach_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Select_Employee_Transfered" ReturnType="Collection(Noks_ATT_MSModel.SP_Select_Employee_Transfered_Result)">
+          <Parameter Name="employee_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_Department_Create_Result">
+          <Property Type="String" Name="Id" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="updated_rows" Nullable="true" />
+          <Property Type="Boolean" Name="success" Nullable="true" />
+          <Property Type="String" Name="user_message" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="advanced_message" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_Department_Select_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="employee_count" Nullable="true" />
+          <Property Type="Int32" Name="contarct_count" Nullable="true" />
+          <Property Type="Int32" Name="gross_salary_total" Nullable="true" />
+          <Property Type="Int32" Name="total_absence" Nullable="true" />
+          <Property Type="Int32" Name="total_workedhours" Nullable="true" />
+          <Property Type="Int32" Name="total_deductedhours" Nullable="true" />
+          <Property Type="Int32" Name="total_overtimehours" Nullable="true" />
+          <Property Type="Int32" Name="total_approved_overtimehours" Nullable="true" />
+          <Property Type="String" Name="managers" Nullable="true" />
+          <Property Type="String" Name="employees_photos" Nullable="true" />
+          <Property Type="Boolean" Name="is_fresh" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Department_Employees_Select_Result">
+          <Property Type="String" Name="job_title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="department_job_employee_trns_Id" Nullable="false" />
+          <Property Type="Int32" Name="employee_Id" Nullable="false" />
+          <Property Type="Int32" Name="department_job_Id_ref" Nullable="false" />
+          <Property Type="DateTime" Name="joined_at" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="left_at" Nullable="true" Precision="23" />
+          <Property Type="String" Name="notes" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="employee_coach_Id" Nullable="true" />
+          <Property Type="String" Name="employee_coach_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="trns_employee_Id" Nullable="false" />
+          <Property Type="String" Name="trns_employee_name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="trns_employee_coach_Id" Nullable="true" />
+          <Property Type="Boolean" Name="is_manager" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Department_JobTitles_Select_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="code" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="valid" Nullable="false" />
+          <Property Type="Boolean" Name="is_manager" Nullable="false" />
+          <Property Type="Boolean" Name="multiple_available" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="employee_count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Department_JobTitle_Create_Result">
+          <Property Type="String" Name="Id" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="updated_rows" Nullable="true" />
+          <Property Type="Boolean" Name="success" Nullable="true" />
+          <Property Type="String" Name="user_message" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="advanced_message" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_JobTitle_List_Select_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Department_employee_Create_Result">
+          <Property Type="String" Name="Id" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="updated_rows" Nullable="true" />
+          <Property Type="Boolean" Name="success" Nullable="true" />
+          <Property Type="String" Name="user_message" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="advanced_message" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_Employee_List_Select_Result">
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="code" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="photo" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="department_title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="job_title" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Shifts_Select_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="status" Nullable="false" />
+          <Property Type="Time" Name="check_in" Nullable="false" />
+          <Property Type="Time" Name="check_out" Nullable="false" />
+          <Property Type="Int32" Name="work_hours" Nullable="false" />
+          <Property Type="Int32" Name="employees_count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Shift_Create_Result">
+          <Property Type="String" Name="Id" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="updated_rows" Nullable="true" />
+          <Property Type="Boolean" Name="success" Nullable="true" />
+          <Property Type="String" Name="user_message" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="advanced_message" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_Employees_For_Shift_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="current_shift_title" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="current_shift_Id" Nullable="true" />
+          <Property Type="DateTime" Name="current_shift_joining_date" Nullable="true" />
+          <Property Type="Int32" Name="current_shift_trns_Id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Shift_Employee_Join_Result">
+          <Property Type="String" Name="Id" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="updated_rows" Nullable="true" />
+          <Property Type="Boolean" Name="success" Nullable="true" />
+          <Property Type="String" Name="user_message" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="advanced_message" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_Shift_Rules_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Time" Name="range_from" Nullable="false" />
+          <Property Type="Time" Name="range_to" Nullable="false" />
+          <Property Type="Int32" Name="rate" Nullable="false" />
+          <Property Type="String" Name="color" Nullable="false" MaxLength="15" />
+          <Property Type="Int32" Name="type_Id" Nullable="false" />
+          <Property Type="String" Name="rule_type" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Shift_Stat_Details_Result">
+          <Property Type="Int32" Name="Total_Worked_Hours" Nullable="true" />
+          <Property Type="Int32" Name="ys_Absence" Nullable="true" />
+          <Property Type="Int32" Name="ys_Deductions" Nullable="true" />
+          <Property Type="Int32" Name="ys_workedhours" Nullable="true" />
+          <Property Type="Int32" Name="ys_Overtime" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Shift_Rule_Type_List_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Shift_Rule_Submit_Result">
+          <Property Type="String" Name="Id" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="updated_rows" Nullable="true" />
+          <Property Type="Boolean" Name="success" Nullable="true" />
+          <Property Type="String" Name="user_message" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="advanced_message" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_Employee_Select_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="photo" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="user_Id" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="ssn" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="mobile" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="social_insurance_code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="user_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="department_title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="job_title" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="absence_total" Nullable="true" />
+          <Property Type="Int32" Name="total_approved_overtime" Nullable="true" />
+          <Property Type="Int32" Name="total_deductions" Nullable="true" />
+          <Property Type="Int32" Name="worked_hours" Nullable="true" />
+          <Property Type="Boolean" Name="Is_Related" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Employee_Create_Result">
+          <Property Type="String" Name="Id" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="updated_rows" Nullable="true" />
+          <Property Type="Boolean" Name="success" Nullable="true" />
+          <Property Type="String" Name="user_message" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="advanced_message" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_User_List_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="SP_Employee_Attendance_Sheet_Result">
+          <Property Type="Int64" Name="attendance_sheet_Id" Nullable="false" />
+          <Property Type="Int32" Name="employee_shift_Id" Nullable="false" />
+          <Property Type="DateTime" Name="log_day" Nullable="false" />
+          <Property Type="Time" Name="log_In" Nullable="true" />
+          <Property Type="Int32" Name="log_in_applied_shift_rule" Nullable="true" />
+          <Property Type="Time" Name="log_out" Nullable="true" />
+          <Property Type="Int32" Name="log_out_applied_shift_rule" Nullable="true" />
+          <Property Type="Time" Name="worked_hours" Nullable="true" />
+          <Property Type="Time" Name="target_working_hours" Nullable="false" />
+          <Property Type="Time" Name="rated_deduction_hours" Nullable="true" />
+          <Property Type="Time" Name="rated_overtime" Nullable="true" />
+          <Property Type="Time" Name="rated_approved_overtime" Nullable="true" />
+          <Property Type="Boolean" Name="is_absent" Nullable="false" />
+          <Property Type="Int32" Name="monthly_master_ref_Id" Nullable="false" />
+          <Property Type="Int32" Name="shift_Id" Nullable="false" />
+          <Property Type="String" Name="shift_title" Nullable="false" MaxLength="50" />
+          <Property Type="Time" Name="shift_checkIn" Nullable="false" />
+          <Property Type="Time" Name="shift_checkOut" Nullable="false" />
+          <Property Type="Int32" Name="employee_Id" Nullable="false" />
+          <Property Type="String" Name="checkIn_rule_title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="checkIn_rule_color" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="checkOut_rule_title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="checkout_rule_color" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="employee_name" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="day_off" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Employee_Contracts_Result">
+          <Property Type="Int32" Name="contracts_Id" Nullable="false" />
+          <Property Type="String" Name="contract_employee_first_name" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="contract_employee_last_name" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="contract_employee_mid_name" Nullable="true" MaxLength="150" />
+          <Property Type="Decimal" Name="contract_gross_salary" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="contract_net_salary" Nullable="false" Precision="19" />
+          <Property Type="DateTime" Name="created_at" Nullable="false" Precision="23" />
+          <Property Type="String" Name="created_by" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="CreatedBy_UserName" Nullable="true" MaxLength="256" />
+          <Property Type="Int32" Name="department_job_Id_ref" Nullable="false" />
+          <Property Type="Int32" Name="employee_Id" Nullable="false" />
+          <Property Type="DateTime" Name="start_at" Nullable="true" />
+          <Property Type="DateTime" Name="end_at" Nullable="true" />
+          <Property Type="Boolean" Name="renewable" Nullable="false" />
+          <Property Type="DateTime" Name="exp_start_at" Nullable="true" />
+          <Property Type="DateTime" Name="exp_end_at" Nullable="true" />
+          <Property Type="Boolean" Name="terminated" Nullable="false" />
+          <Property Type="DateTime" Name="trial_period_duration_start" Nullable="true" />
+          <Property Type="DateTime" Name="trial_period_duration_end" Nullable="true" />
+          <Property Type="String" Name="department_title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="job_title" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Employee_Leave_Requests_Result">
+          <Property Type="Int64" Name="leave_request_trns_Id" Nullable="false" />
+          <Property Type="Int32" Name="leave_request_ref_Id" Nullable="false" />
+          <Property Type="DateTime" Name="req_from" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="req_to" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="posted_at" Nullable="false" Precision="23" />
+          <Property Type="String" Name="posted_by" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="requested_for_employee_Id" Nullable="false" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="posted_by_userName" Nullable="true" MaxLength="256" />
+          <Property Type="Boolean" Name="approved" Nullable="true" />
+          <Property Type="Boolean" Name="rejected" Nullable="true" />
+          <Property Type="Boolean" Name="manager_approval" Nullable="true" />
+          <Property Type="Int32" Name="manager_Id" Nullable="true" />
+          <Property Type="String" Name="manager_name" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="coach_approval" Nullable="true" />
+          <Property Type="Int32" Name="coach_Id" Nullable="true" />
+          <Property Type="String" Name="coach_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="leave_request_title" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Employee_Documents_Result">
+          <Property Type="String" Name="document_type_title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="icon" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="copy_path" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="employee_Id" Nullable="false" />
+          <Property Type="String" Name="notes" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="signed_at" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="document_ref_Id" Nullable="false" />
+          <Property Type="Int32" Name="employee_document_Id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_monthly_master_ref_List_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="code" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="start_from" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="end_at" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="created_at" Nullable="false" Precision="23" />
+          <Property Type="String" Name="created_by" Nullable="false" MaxLength="128" />
+          <Property Type="Boolean" Name="deleted" Nullable="false" />
+          <Property Type="Boolean" Name="is_current" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Edit_Employee_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ssn" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="mobile" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="social_insurance_code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="photo" Nullable="false" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="SP_Employee_Edit_Result">
+          <Property Type="String" Name="Id" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="updated_rows" Nullable="true" />
+          <Property Type="Boolean" Name="success" Nullable="true" />
+          <Property Type="String" Name="user_message" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="advanced_message" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_Device_Create_Result">
+          <Property Type="String" Name="Id" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="updated_rows" Nullable="true" />
+          <Property Type="Boolean" Name="success" Nullable="true" />
+          <Property Type="String" Name="user_message" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="advanced_message" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_Job_Title_Create_Result">
+          <Property Type="String" Name="Id" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="updated_rows" Nullable="true" />
+          <Property Type="Boolean" Name="success" Nullable="true" />
+          <Property Type="String" Name="user_message" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="advanced_message" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="Sp_Select_Job_Title_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Get_Job_Title_By_Id_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Select_Departments_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Select_Job_Title_By_Dept_id_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Job_Title" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Select_Document_Reference_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="document_type_title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="icon" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="valid" Nullable="false" />
+          <Property Type="Int32" Name="expiration_days" Nullable="false" />
+          <Property Type="Boolean" Name="required" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Select_Leave_request_ref_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="leave_request_title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="open_balance_defualt" Nullable="false" />
+          <Property Type="Boolean" Name="is_default" Nullable="false" />
+          <Property Type="Boolean" Name="valid" Nullable="false" />
+          <Property Type="Int32" Name="starting_from_days" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_select_Employee_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="photo" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="user_Id" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="ssn" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="mobile" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="social_insurance_code" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Edit_Employee_Document_Result">
+          <Property Type="Int32" Name="document_ref_Id" Nullable="false" />
+          <Property Type="String" Name="document_type_title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="icon" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="copy_path" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="employee_Id" Nullable="false" />
+          <Property Type="Int32" Name="employee_document_Id" Nullable="false" />
+          <Property Type="String" Name="notes" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="signed_at" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_Select_Requests_Result">
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Reason" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="req_from" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="req_to" Nullable="false" Precision="23" />
+          <Property Type="String" Name="EmployeeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CoachName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ManagerName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PostedBy" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="SP_WorkDays_Select_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="10" />
+          <Property Type="Boolean" Name="IsWorkDay" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Select_Shift_Days_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="shift_Id" Nullable="false" />
+          <Property Type="Int32" Name="week_day" Nullable="true" />
+          <Property Type="DateTime" Name="on_calendar_date" Nullable="true" />
+          <Property Type="Boolean" Name="is_routine" Nullable="true" />
+          <Property Type="Boolean" Name="day_on" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Select_Opened_Month_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="code" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="created_at" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="start_from" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="end_at" Nullable="false" Precision="23" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="Log_Proceed_ByEmpID_And_RangeDate_Result">
+          <Property Type="Time" Name="log_in" Nullable="true" />
+          <Property Type="Time" Name="log_out" Nullable="true" />
+          <Property Type="DateTime" Name="Log_day" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Pending_Requests_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="256" />
+          <Property Type="DateTime" Name="posted_at" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="req_from" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="req_to" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="approved" Nullable="true" />
+          <Property Type="Boolean" Name="rejected" Nullable="true" />
+          <Property Type="String" Name="Manaer_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Coach_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="leave_request_title" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_select_Coach_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+          </ComplexType>
+        <ComplexType Name="SP_Select_Employee_Transfered_Result">
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="coach_name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="joined_at" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="left_at" Nullable="true" Precision="23" />
+          <Property Type="String" Name="notes" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="dept_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="job_title" Nullable="false" MaxLength="50" />
+          </ComplexType>
+        <ComplexType Name="SP_Devices_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Device_Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Device_No" Nullable="false" />
+          <Property Type="Int32" Name="Device_ID" Nullable="false" />
+          <Property Type="String" Name="Device_IP" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Device_Port" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Device_Password" Nullable="false" MaxLength="150" />
+          <Property Type="Byte" Name="Device_Last_Status" Nullable="true" />
+          <Property Type="DateTime" Name="Device_Last_Sync" Nullable="true" Precision="23" />
+          <Property Type="Int64" Name="Processed_log_count" Nullable="true" />
+          <Property Type="Int64" Name="Raw_log_count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Select_Requests1_Result">
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Reason" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="req_from" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="req_to" Nullable="false" Precision="23" />
+          <Property Type="String" Name="EmployeeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CoachName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ManagerName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PostedBy" Nullable="false" MaxLength="256" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Noks_ATT_MSModelStoreContainer" CdmEntityContainer="Noks_ATT_MSEntities" >
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Noks_ATT_MSModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="SP_Department_Create" FunctionName="Noks_ATT_MSModel.Store.SP_Department_Create">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Department_Create_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="updated_rows" ColumnName="updated_rows" />
+                <ScalarProperty Name="success" ColumnName="success" />
+                <ScalarProperty Name="user_message" ColumnName="user_message" />
+                <ScalarProperty Name="advanced_message" ColumnName="advanced_message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Department_Select" FunctionName="Noks_ATT_MSModel.Store.SP_Department_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Department_Select_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="employee_count" ColumnName="employee_count" />
+                <ScalarProperty Name="contarct_count" ColumnName="contarct_count" />
+                <ScalarProperty Name="gross_salary_total" ColumnName="gross_salary_total" />
+                <ScalarProperty Name="total_absence" ColumnName="total_absence" />
+                <ScalarProperty Name="total_workedhours" ColumnName="total_workedhours" />
+                <ScalarProperty Name="total_deductedhours" ColumnName="total_deductedhours" />
+                <ScalarProperty Name="total_overtimehours" ColumnName="total_overtimehours" />
+                <ScalarProperty Name="total_approved_overtimehours" ColumnName="total_approved_overtimehours" />
+                <ScalarProperty Name="managers" ColumnName="managers" />
+                <ScalarProperty Name="employees_photos" ColumnName="employees_photos" />
+                <ScalarProperty Name="is_fresh" ColumnName="is_fresh" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Department_Employees_Select" FunctionName="Noks_ATT_MSModel.Store.SP_Department_Employees_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Department_Employees_Select_Result">
+                <ScalarProperty Name="job_title" ColumnName="job_title" />
+                <ScalarProperty Name="department_job_employee_trns_Id" ColumnName="department_job_employee_trns_Id" />
+                <ScalarProperty Name="employee_Id" ColumnName="employee_Id" />
+                <ScalarProperty Name="department_job_Id_ref" ColumnName="department_job_Id_ref" />
+                <ScalarProperty Name="joined_at" ColumnName="joined_at" />
+                <ScalarProperty Name="left_at" ColumnName="left_at" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="employee_coach_Id" ColumnName="employee_coach_Id" />
+                <ScalarProperty Name="employee_coach_name" ColumnName="employee_coach_name" />
+                <ScalarProperty Name="trns_employee_Id" ColumnName="trns_employee_Id" />
+                <ScalarProperty Name="trns_employee_name" ColumnName="trns_employee_name" />
+                <ScalarProperty Name="trns_employee_coach_Id" ColumnName="trns_employee_coach_Id" />
+                <ScalarProperty Name="is_manager" ColumnName="is_manager" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Department_JobTitles_Select" FunctionName="Noks_ATT_MSModel.Store.SP_Department_JobTitles_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Department_JobTitles_Select_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="valid" ColumnName="valid" />
+                <ScalarProperty Name="is_manager" ColumnName="is_manager" />
+                <ScalarProperty Name="multiple_available" ColumnName="multiple_available" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="employee_count" ColumnName="employee_count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Department_JobTitle_Create" FunctionName="Noks_ATT_MSModel.Store.SP_Department_JobTitle_Create">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Department_JobTitle_Create_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="updated_rows" ColumnName="updated_rows" />
+                <ScalarProperty Name="success" ColumnName="success" />
+                <ScalarProperty Name="user_message" ColumnName="user_message" />
+                <ScalarProperty Name="advanced_message" ColumnName="advanced_message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_JobTitle_List_Select" FunctionName="Noks_ATT_MSModel.Store.SP_JobTitle_List_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_JobTitle_List_Select_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Department_employee_Create" FunctionName="Noks_ATT_MSModel.Store.SP_Department_employee_Create">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Department_employee_Create_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="updated_rows" ColumnName="updated_rows" />
+                <ScalarProperty Name="success" ColumnName="success" />
+                <ScalarProperty Name="user_message" ColumnName="user_message" />
+                <ScalarProperty Name="advanced_message" ColumnName="advanced_message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Employee_List_Select" FunctionName="Noks_ATT_MSModel.Store.SP_Employee_List_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Employee_List_Select_Result">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="department_title" ColumnName="department_title" />
+                <ScalarProperty Name="job_title" ColumnName="job_title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Shifts_Select" FunctionName="Noks_ATT_MSModel.Store.SP_Shifts_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Shifts_Select_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="check_in" ColumnName="check_in" />
+                <ScalarProperty Name="check_out" ColumnName="check_out" />
+                <ScalarProperty Name="work_hours" ColumnName="work_hours" />
+                <ScalarProperty Name="employees_count" ColumnName="employees_count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Shift_Create" FunctionName="Noks_ATT_MSModel.Store.SP_Shift_Create">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Shift_Create_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="updated_rows" ColumnName="updated_rows" />
+                <ScalarProperty Name="success" ColumnName="success" />
+                <ScalarProperty Name="user_message" ColumnName="user_message" />
+                <ScalarProperty Name="advanced_message" ColumnName="advanced_message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Employees_For_Shift" FunctionName="Noks_ATT_MSModel.Store.SP_Employees_For_Shift">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Employees_For_Shift_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="current_shift_title" ColumnName="current_shift_title" />
+                <ScalarProperty Name="current_shift_Id" ColumnName="current_shift_Id" />
+                <ScalarProperty Name="current_shift_joining_date" ColumnName="current_shift_joining_date" />
+                <ScalarProperty Name="current_shift_trns_Id" ColumnName="current_shift_trns_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Shift_Employee_Join" FunctionName="Noks_ATT_MSModel.Store.SP_Shift_Employee_Join">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Shift_Employee_Join_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="updated_rows" ColumnName="updated_rows" />
+                <ScalarProperty Name="success" ColumnName="success" />
+                <ScalarProperty Name="user_message" ColumnName="user_message" />
+                <ScalarProperty Name="advanced_message" ColumnName="advanced_message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Shift_Rules" FunctionName="Noks_ATT_MSModel.Store.SP_Shift_Rules">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Shift_Rules_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="range_from" ColumnName="range_from" />
+                <ScalarProperty Name="range_to" ColumnName="range_to" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="type_Id" ColumnName="type_Id" />
+                <ScalarProperty Name="rule_type" ColumnName="rule_type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Shift_Stat_Details" FunctionName="Noks_ATT_MSModel.Store.SP_Shift_Stat_Details">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Shift_Stat_Details_Result">
+                <ScalarProperty Name="Total_Worked_Hours" ColumnName="Total_Worked_Hours" />
+                <ScalarProperty Name="ys_Absence" ColumnName="ys_Absence" />
+                <ScalarProperty Name="ys_Deductions" ColumnName="ys_Deductions" />
+                <ScalarProperty Name="ys_workedhours" ColumnName="ys_workedhours" />
+                <ScalarProperty Name="ys_Overtime" ColumnName="ys_Overtime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Shift_Rule_Type_List" FunctionName="Noks_ATT_MSModel.Store.SP_Shift_Rule_Type_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Shift_Rule_Type_List_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Shift_Rule_Submit" FunctionName="Noks_ATT_MSModel.Store.SP_Shift_Rule_Submit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Shift_Rule_Submit_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="updated_rows" ColumnName="updated_rows" />
+                <ScalarProperty Name="success" ColumnName="success" />
+                <ScalarProperty Name="user_message" ColumnName="user_message" />
+                <ScalarProperty Name="advanced_message" ColumnName="advanced_message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Employee_Select" FunctionName="Noks_ATT_MSModel.Store.SP_Employee_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Employee_Select_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="user_Id" ColumnName="user_Id" />
+                <ScalarProperty Name="ssn" ColumnName="ssn" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="social_insurance_code" ColumnName="social_insurance_code" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="department_title" ColumnName="department_title" />
+                <ScalarProperty Name="job_title" ColumnName="job_title" />
+                <ScalarProperty Name="absence_total" ColumnName="absence_total" />
+                <ScalarProperty Name="total_approved_overtime" ColumnName="total_approved_overtime" />
+                <ScalarProperty Name="total_deductions" ColumnName="total_deductions" />
+                <ScalarProperty Name="worked_hours" ColumnName="worked_hours" />
+                <ScalarProperty Name="Is_Related" ColumnName="Is_Related" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Employee_Create" FunctionName="Noks_ATT_MSModel.Store.SP_Employee_Create">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Employee_Create_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="updated_rows" ColumnName="updated_rows" />
+                <ScalarProperty Name="success" ColumnName="success" />
+                <ScalarProperty Name="user_message" ColumnName="user_message" />
+                <ScalarProperty Name="advanced_message" ColumnName="advanced_message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_User_List" FunctionName="Noks_ATT_MSModel.Store.SP_User_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_User_List_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Employee_Attendance_Sheet" FunctionName="Noks_ATT_MSModel.Store.SP_Employee_Attendance_Sheet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Employee_Attendance_Sheet_Result">
+                <ScalarProperty Name="attendance_sheet_Id" ColumnName="attendance_sheet_Id" />
+                <ScalarProperty Name="employee_shift_Id" ColumnName="employee_shift_Id" />
+                <ScalarProperty Name="log_day" ColumnName="log_day" />
+                <ScalarProperty Name="log_In" ColumnName="log_In" />
+                <ScalarProperty Name="log_in_applied_shift_rule" ColumnName="log_in_applied_shift_rule" />
+                <ScalarProperty Name="log_out" ColumnName="log_out" />
+                <ScalarProperty Name="log_out_applied_shift_rule" ColumnName="log_out_applied_shift_rule" />
+                <ScalarProperty Name="worked_hours" ColumnName="worked_hours" />
+                <ScalarProperty Name="target_working_hours" ColumnName="target_working_hours" />
+                <ScalarProperty Name="rated_deduction_hours" ColumnName="rated_deduction_hours" />
+                <ScalarProperty Name="rated_overtime" ColumnName="rated_overtime" />
+                <ScalarProperty Name="rated_approved_overtime" ColumnName="rated_approved_overtime" />
+                <ScalarProperty Name="is_absent" ColumnName="is_absent" />
+                <ScalarProperty Name="monthly_master_ref_Id" ColumnName="monthly_master_ref_Id" />
+                <ScalarProperty Name="shift_Id" ColumnName="shift_Id" />
+                <ScalarProperty Name="shift_title" ColumnName="shift_title" />
+                <ScalarProperty Name="shift_checkIn" ColumnName="shift_checkIn" />
+                <ScalarProperty Name="shift_checkOut" ColumnName="shift_checkOut" />
+                <ScalarProperty Name="employee_Id" ColumnName="employee_Id" />
+                <ScalarProperty Name="checkIn_rule_title" ColumnName="checkIn_rule_title" />
+                <ScalarProperty Name="checkIn_rule_color" ColumnName="checkIn_rule_color" />
+                <ScalarProperty Name="checkOut_rule_title" ColumnName="checkOut_rule_title" />
+                <ScalarProperty Name="checkout_rule_color" ColumnName="checkout_rule_color" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="day_off" ColumnName="day_off" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Employee_Contracts" FunctionName="Noks_ATT_MSModel.Store.SP_Employee_Contracts">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Employee_Contracts_Result">
+                <ScalarProperty Name="contracts_Id" ColumnName="contracts_Id" />
+                <ScalarProperty Name="contract_employee_first_name" ColumnName="contract_employee_first_name" />
+                <ScalarProperty Name="contract_employee_last_name" ColumnName="contract_employee_last_name" />
+                <ScalarProperty Name="contract_employee_mid_name" ColumnName="contract_employee_mid_name" />
+                <ScalarProperty Name="contract_gross_salary" ColumnName="contract_gross_salary" />
+                <ScalarProperty Name="contract_net_salary" ColumnName="contract_net_salary" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="CreatedBy_UserName" ColumnName="CreatedBy_UserName" />
+                <ScalarProperty Name="department_job_Id_ref" ColumnName="department_job_Id_ref" />
+                <ScalarProperty Name="employee_Id" ColumnName="employee_Id" />
+                <ScalarProperty Name="start_at" ColumnName="start_at" />
+                <ScalarProperty Name="end_at" ColumnName="end_at" />
+                <ScalarProperty Name="renewable" ColumnName="renewable" />
+                <ScalarProperty Name="exp_start_at" ColumnName="exp_start_at" />
+                <ScalarProperty Name="exp_end_at" ColumnName="exp_end_at" />
+                <ScalarProperty Name="terminated" ColumnName="terminated" />
+                <ScalarProperty Name="trial_period_duration_start" ColumnName="trial_period_duration_start" />
+                <ScalarProperty Name="trial_period_duration_end" ColumnName="trial_period_duration_end" />
+                <ScalarProperty Name="department_title" ColumnName="department_title" />
+                <ScalarProperty Name="job_title" ColumnName="job_title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Employee_Leave_Requests" FunctionName="Noks_ATT_MSModel.Store.SP_Employee_Leave_Requests">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Employee_Leave_Requests_Result">
+                <ScalarProperty Name="leave_request_trns_Id" ColumnName="leave_request_trns_Id" />
+                <ScalarProperty Name="leave_request_ref_Id" ColumnName="leave_request_ref_Id" />
+                <ScalarProperty Name="req_from" ColumnName="req_from" />
+                <ScalarProperty Name="req_to" ColumnName="req_to" />
+                <ScalarProperty Name="posted_at" ColumnName="posted_at" />
+                <ScalarProperty Name="posted_by" ColumnName="posted_by" />
+                <ScalarProperty Name="requested_for_employee_Id" ColumnName="requested_for_employee_Id" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="posted_by_userName" ColumnName="posted_by_userName" />
+                <ScalarProperty Name="approved" ColumnName="approved" />
+                <ScalarProperty Name="rejected" ColumnName="rejected" />
+                <ScalarProperty Name="manager_approval" ColumnName="manager_approval" />
+                <ScalarProperty Name="manager_Id" ColumnName="manager_Id" />
+                <ScalarProperty Name="manager_name" ColumnName="manager_name" />
+                <ScalarProperty Name="coach_approval" ColumnName="coach_approval" />
+                <ScalarProperty Name="coach_Id" ColumnName="coach_Id" />
+                <ScalarProperty Name="coach_name" ColumnName="coach_name" />
+                <ScalarProperty Name="leave_request_title" ColumnName="leave_request_title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_monthly_master_ref_List" FunctionName="Noks_ATT_MSModel.Store.SP_monthly_master_ref_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_monthly_master_ref_List_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="start_from" ColumnName="start_from" />
+                <ScalarProperty Name="end_at" ColumnName="end_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="is_current" ColumnName="is_current" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Edit_Employee" FunctionName="Noks_ATT_MSModel.Store.SP_Edit_Employee">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Edit_Employee_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="ssn" ColumnName="ssn" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="social_insurance_code" ColumnName="social_insurance_code" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_User_Avatar" FunctionName="Noks_ATT_MSModel.Store.SP_User_Avatar" />
+          <FunctionImportMapping FunctionImportName="SP_Job_Title_Create" FunctionName="Noks_ATT_MSModel.Store.SP_Job_Title_Create">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Job_Title_Create_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="updated_rows" ColumnName="updated_rows" />
+                <ScalarProperty Name="success" ColumnName="success" />
+                <ScalarProperty Name="user_message" ColumnName="user_message" />
+                <ScalarProperty Name="advanced_message" ColumnName="advanced_message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Sp_Select_Job_Title" FunctionName="Noks_ATT_MSModel.Store.Sp_Select_Job_Title">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.Sp_Select_Job_Title_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Get_Job_Title_By_Id" FunctionName="Noks_ATT_MSModel.Store.SP_Get_Job_Title_By_Id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Get_Job_Title_By_Id_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Update_Job_Title" FunctionName="Noks_ATT_MSModel.Store.SP_Update_Job_Title" />
+          <FunctionImportMapping FunctionImportName="SP_Update_Department" FunctionName="Noks_ATT_MSModel.Store.SP_Update_Department" />
+          <FunctionImportMapping FunctionImportName="SP_Update_Shift" FunctionName="Noks_ATT_MSModel.Store.SP_Update_Shift" />
+          <FunctionImportMapping FunctionImportName="SP_Shift_Delete" FunctionName="Noks_ATT_MSModel.Store.SP_Shift_Delete" />
+          <FunctionImportMapping FunctionImportName="Sp_Change_Status" FunctionName="Noks_ATT_MSModel.Store.Sp_Change_Status" />
+          <FunctionImportMapping FunctionImportName="SP_Select_Departments" FunctionName="Noks_ATT_MSModel.Store.SP_Select_Departments">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Select_Departments_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Select_Job_Title_By_Dept_id" FunctionName="Noks_ATT_MSModel.Store.SP_Select_Job_Title_By_Dept_id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Select_Job_Title_By_Dept_id_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Insert_Document_Details" FunctionName="Noks_ATT_MSModel.Store.SP_Insert_Document_Details" />
+          <FunctionImportMapping FunctionImportName="SP_Insert_Contract_Details" FunctionName="Noks_ATT_MSModel.Store.SP_Insert_Contract_Details" />
+          <FunctionImportMapping FunctionImportName="SP_Select_Document_Reference" FunctionName="Noks_ATT_MSModel.Store.SP_Select_Document_Reference">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Select_Document_Reference_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="document_type_title" ColumnName="document_type_title" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="valid" ColumnName="valid" />
+                <ScalarProperty Name="expiration_days" ColumnName="expiration_days" />
+                <ScalarProperty Name="required" ColumnName="required" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Select_Leave_request_ref" FunctionName="Noks_ATT_MSModel.Store.SP_Select_Leave_request_ref">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Select_Leave_request_ref_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="leave_request_title" ColumnName="leave_request_title" />
+                <ScalarProperty Name="open_balance_defualt" ColumnName="open_balance_defualt" />
+                <ScalarProperty Name="is_default" ColumnName="is_default" />
+                <ScalarProperty Name="valid" ColumnName="valid" />
+                <ScalarProperty Name="starting_from_days" ColumnName="starting_from_days" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_select_Employee" FunctionName="Noks_ATT_MSModel.Store.SP_select_Employee">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_select_Employee_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="user_Id" ColumnName="user_Id" />
+                <ScalarProperty Name="ssn" ColumnName="ssn" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="social_insurance_code" ColumnName="social_insurance_code" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Employee_Documents" FunctionName="Noks_ATT_MSModel.Store.SP_Employee_Documents">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Employee_Documents_Result">
+                <ScalarProperty Name="document_type_title" ColumnName="document_type_title" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="copy_path" ColumnName="copy_path" />
+                <ScalarProperty Name="employee_Id" ColumnName="employee_Id" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="signed_at" ColumnName="signed_at" />
+                <ScalarProperty Name="document_ref_Id" ColumnName="document_ref_Id" />
+                <ScalarProperty Name="employee_document_Id" ColumnName="employee_document_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Edit_Employee_Document" FunctionName="Noks_ATT_MSModel.Store.SP_Edit_Employee_Document">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Edit_Employee_Document_Result">
+                <ScalarProperty Name="document_ref_Id" ColumnName="document_ref_Id" />
+                <ScalarProperty Name="document_type_title" ColumnName="document_type_title" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="copy_path" ColumnName="copy_path" />
+                <ScalarProperty Name="employee_Id" ColumnName="employee_Id" />
+                <ScalarProperty Name="employee_document_Id" ColumnName="employee_document_Id" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="signed_at" ColumnName="signed_at" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Update_Document_Details" FunctionName="Noks_ATT_MSModel.Store.SP_Update_Document_Details" />
+          <FunctionImportMapping FunctionImportName="SP_Update_Document_Detail" FunctionName="Noks_ATT_MSModel.Store.SP_Update_Document_Detail" />
+          <FunctionImportMapping FunctionImportName="SP_agent_Employee_Attendance_Update_Absence" FunctionName="Noks_ATT_MSModel.Store.SP_agent_Employee_Attendance_Update_Absence" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Noks_ATT_MSModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="SP_Employee_Attendance_Sheet_Open_Month" FunctionName="Noks_ATT_MSModel.Store.SP_Employee_Attendance_Sheet_Open_Month" />
+          <FunctionImportMapping FunctionImportName="SP_Insert_New_Log" FunctionName="Noks_ATT_MSModel.Store.SP_Insert_New_Log" />
+          <FunctionImportMapping FunctionImportName="enroll_employee_device" FunctionName="Noks_ATT_MSModel.Store.enroll_employee_device" />
+          <FunctionImportMapping FunctionImportName="SP_Insert_Leave_Details" FunctionName="Noks_ATT_MSModel.Store.SP_Insert_Leave_Details" />
+          <FunctionImportMapping FunctionImportName="Log_Proceed_ByEmpID_And_RangeDate" FunctionName="Noks_ATT_MSModel.Store.Log_Proceed_ByEmpID_And_RangeDate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.Log_Proceed_ByEmpID_And_RangeDate_Result">
+                <ScalarProperty Name="log_in" ColumnName="log_in" />
+                <ScalarProperty Name="log_out" ColumnName="log_out" />
+                <ScalarProperty Name="Log_day" ColumnName="Log_day" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Pending_Requests" FunctionName="Noks_ATT_MSModel.Store.SP_Pending_Requests">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Pending_Requests_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="posted_at" ColumnName="posted_at" />
+                <ScalarProperty Name="req_from" ColumnName="req_from" />
+                <ScalarProperty Name="req_to" ColumnName="req_to" />
+                <ScalarProperty Name="approved" ColumnName="approved" />
+                <ScalarProperty Name="rejected" ColumnName="rejected" />
+                <ScalarProperty Name="Manaer_name" ColumnName="Manaer_name" />
+                <ScalarProperty Name="Coach_name" ColumnName="Coach_name" />
+                <ScalarProperty Name="leave_request_title" ColumnName="leave_request_title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_select_Coach" FunctionName="Noks_ATT_MSModel.Store.SP_select_Coach">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_select_Coach_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Employee_Department_Transfer" FunctionName="Noks_ATT_MSModel.Store.SP_Employee_Department_Transfer" />
+          <FunctionImportMapping FunctionImportName="SP_Select_Employee_Transfered" FunctionName="Noks_ATT_MSModel.Store.SP_Select_Employee_Transfered">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Select_Employee_Transfered_Result">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="coach_name" ColumnName="coach_name" />
+                <ScalarProperty Name="joined_at" ColumnName="joined_at" />
+                <ScalarProperty Name="left_at" ColumnName="left_at" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="dept_Title" ColumnName="dept_Title" />
+                <ScalarProperty Name="job_title" ColumnName="job_title" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Devices_Select" FunctionName="Noks_ATT_MSModel.Store.SP_Devices_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Devices_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Device_Name" ColumnName="Device_Name" />
+                <ScalarProperty Name="Device_No" ColumnName="Device_No" />
+                <ScalarProperty Name="Device_ID" ColumnName="Device_ID" />
+                <ScalarProperty Name="Device_IP" ColumnName="Device_IP" />
+                <ScalarProperty Name="Device_Port" ColumnName="Device_Port" />
+                <ScalarProperty Name="Device_Password" ColumnName="Device_Password" />
+                <ScalarProperty Name="Device_Last_Status" ColumnName="Device_Last_Status" />
+                <ScalarProperty Name="Device_Last_Sync" ColumnName="Device_Last_Sync" />
+                <ScalarProperty Name="Processed_log_count" ColumnName="Processed_log_count" />
+                <ScalarProperty Name="Raw_log_count" ColumnName="Raw_log_count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Select_Requests" FunctionName="Noks_ATT_MSModel.Store.SP_Select_Requests">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_ATT_MSModel.SP_Select_Requests_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="req_from" ColumnName="req_from" />
+                <ScalarProperty Name="req_to" ColumnName="req_to" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="CoachName" ColumnName="CoachName" />
+                <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+                <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

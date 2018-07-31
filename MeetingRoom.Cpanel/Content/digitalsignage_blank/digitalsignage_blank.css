@@ -1,0 +1,19 @@
+.w3-tangerine {
+    font-family: "Tangerine", serif;
+}
+.tet
+{
+    display: inline;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.vertical-text {
+	transform: rotate(-90deg);
+	transform-origin:  0;
+    margin-top: 300px;
+    text-align: center;
+      
+    
+  
+}

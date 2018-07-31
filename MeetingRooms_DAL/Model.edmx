@@ -1,0 +1,1051 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Noks_MeetingRoomsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_Attendees_Count_In_Room_ByDateRange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="from" Type="datetime" Mode="In" />
+          <Parameter Name="to" Type="datetime" Mode="In" />
+          <Parameter Name="department" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Cancel_Resevation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_chart_range_list" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="range_type" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_Delete_Meeting_Room" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Delete_Person" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Delete_Reservation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_DigitalSignage_Calendar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MeetingRoom_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_DigitalSignage_Current_Attendees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MeetingRoom_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Get_Hosts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Get_Meeting_Rooms_By_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Get_MeetingRoom_Reservations_On_Current_Day" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="from" Type="datetime" Mode="In" />
+          <Parameter Name="to" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="SP_Get_Settings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Insert_Atendees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="reservation_Id" Type="int" Mode="In" />
+          <Parameter Name="attendees_list" Type="nvarchar" Mode="In" />
+          <Parameter Name="checked_in" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="SP_Insert_Meeting_Room" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+          <Parameter Name="photo" Type="nvarchar" Mode="In" />
+          <Parameter Name="capacity" Type="int" Mode="In" />
+          <Parameter Name="valid" Type="bit" Mode="In" />
+          <Parameter Name="created_by" Type="nvarchar" Mode="In" />
+          <Parameter Name="overhead_projector" Type="int" Mode="In" />
+          <Parameter Name="slide_projctor" Type="int" Mode="In" />
+          <Parameter Name="film_projctor" Type="int" Mode="In" />
+          <Parameter Name="ifp" Type="int" Mode="In" />
+          <Parameter Name="video_screen" Type="int" Mode="In" />
+          <Parameter Name="white_board" Type="int" Mode="In" />
+          <Parameter Name="microphones" Type="int" Mode="In" />
+          <Parameter Name="computer" Type="int" Mode="In" />
+          <Parameter Name="loud_speakers" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Insert_Person" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="fname" Type="nvarchar" Mode="In" />
+          <Parameter Name="lname" Type="nvarchar" Mode="In" />
+          <Parameter Name="mname" Type="nvarchar" Mode="In" />
+          <Parameter Name="title" Type="nvarchar" Mode="In" />
+          <Parameter Name="job_title" Type="nvarchar" Mode="In" />
+          <Parameter Name="department" Type="nvarchar" Mode="In" />
+          <Parameter Name="valid" Type="bit" Mode="In" />
+          <Parameter Name="created_at" Type="datetime" Mode="In" />
+          <Parameter Name="created_by" Type="nvarchar" Mode="In" />
+          <Parameter Name="is_guest" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_Insert_Reservations_And_Attendees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="created_by" Type="nvarchar" Mode="In" />
+          <Parameter Name="start_from" Type="datetime" Mode="In" />
+          <Parameter Name="end_at" Type="datetime" Mode="In" />
+          <Parameter Name="check_in" Type="datetime" Mode="In" />
+          <Parameter Name="check_out" Type="datetime" Mode="In" />
+          <Parameter Name="canceled_at" Type="datetime" Mode="In" />
+          <Parameter Name="meetinroom_Id" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+          <Parameter Name="confirmed" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_Insert_Reservations_Person_And_Attendees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="code" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="created_at" Type="datetime" Mode="In" />
+          <Parameter Name="created_by" Type="nvarchar" Mode="In" />
+          <Parameter Name="attendees_emails_list" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_MeetingRoom_DigitalSignage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_reservation_chart_range_list" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="range_type" Type="nvarchar" Mode="In" />
+          <Parameter Name="dt_1" Type="date" Mode="In" />
+          <Parameter Name="dt_2" Type="date" Mode="In" />
+          <Parameter Name="selected" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="SP_Reservations_Hours_Count_In_Room_ByDateRange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="from" Type="datetime" Mode="In" />
+          <Parameter Name="to" Type="datetime" Mode="In" />
+          <Parameter Name="department" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Room_Reservations_Count_ByDateRange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="from" Type="datetime" Mode="In" />
+          <Parameter Name="to" Type="datetime" Mode="In" />
+          <Parameter Name="department" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Search_Attendees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="reservation_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Search_Meeting_Rooms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="capacity" Type="int" Mode="In" />
+          <Parameter Name="overhead_projector" Type="bit" Mode="In" />
+          <Parameter Name="slide_projector" Type="bit" Mode="In" />
+          <Parameter Name="film_projector" Type="bit" Mode="In" />
+          <Parameter Name="ifp" Type="bit" Mode="In" />
+          <Parameter Name="video_screen" Type="bit" Mode="In" />
+          <Parameter Name="white_board" Type="bit" Mode="In" />
+          <Parameter Name="microphones" Type="bit" Mode="In" />
+          <Parameter Name="computer" Type="bit" Mode="In" />
+          <Parameter Name="load_speaker" Type="bit" Mode="In" />
+          <Parameter Name="from" Type="datetime" Mode="In" />
+          <Parameter Name="to" Type="datetime" Mode="In" />
+          <Parameter Name="Projector" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_Search_Reservation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="room_meeting_Id" Type="int" Mode="In" />
+          <Parameter Name="attendees_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="host_Id" Type="int" Mode="In" />
+          <Parameter Name="from" Type="datetime" Mode="In" />
+          <Parameter Name="to" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="SP_Search_Reservation_Scroll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="room_meeting_Id" Type="int" Mode="In" />
+          <Parameter Name="attendees_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="host_Id" Type="int" Mode="In" />
+          <Parameter Name="index" Type="int" Mode="In" />
+          <Parameter Name="from" Type="datetime" Mode="In" />
+          <Parameter Name="to" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="SP_Select_Distinct_Department" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Select_MeetingRoom_DigitalSignange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Select_MeetingRoom_Reservation_And_Users_In_CurrentTime_ById_And_Today_Reservations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Select_MeetingRooms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Settings_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Settings_Select_ByKey_AndGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="group" Type="nvarchar" Mode="In" />
+          <Parameter Name="key" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Settings_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Setting_Key" Type="nvarchar" Mode="In" />
+          <Parameter Name="Setting_Group" Type="nvarchar" Mode="In" />
+          <Parameter Name="Setting_Value" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Email_Settings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+          <Parameter Name="ssl" Type="nvarchar" Mode="In" />
+          <Parameter Name="user_name" Type="nvarchar" Mode="In" />
+          <Parameter Name="SMTP_server" Type="nvarchar" Mode="In" />
+          <Parameter Name="port" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Localization_Format_Settings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="activity_time" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Meeting_Room" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+          <Parameter Name="photo" Type="nvarchar" Mode="In" />
+          <Parameter Name="capacity" Type="int" Mode="In" />
+          <Parameter Name="valid" Type="bit" Mode="In" />
+          <Parameter Name="overhewd_projector" Type="int" Mode="In" />
+          <Parameter Name="slide_projctor" Type="int" Mode="In" />
+          <Parameter Name="film_projctor" Type="int" Mode="In" />
+          <Parameter Name="ifp" Type="int" Mode="In" />
+          <Parameter Name="vedio_screen" Type="int" Mode="In" />
+          <Parameter Name="white_board" Type="int" Mode="In" />
+          <Parameter Name="microphones" Type="int" Mode="In" />
+          <Parameter Name="computer" Type="int" Mode="In" />
+          <Parameter Name="loud_speakers" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Person" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="fname" Type="nvarchar" Mode="In" />
+          <Parameter Name="lname" Type="nvarchar" Mode="In" />
+          <Parameter Name="mname" Type="nvarchar" Mode="In" />
+          <Parameter Name="title" Type="nvarchar" Mode="In" />
+          <Parameter Name="job_title" Type="nvarchar" Mode="In" />
+          <Parameter Name="department" Type="nvarchar" Mode="In" />
+          <Parameter Name="valid" Type="bit" Mode="In" />
+          <Parameter Name="created_at" Type="datetime" Mode="In" />
+          <Parameter Name="created_by" Type="nvarchar" Mode="In" />
+          <Parameter Name="is_guest" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Reservation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="emploee_Id" Type="int" Mode="In" />
+          <Parameter Name="start_from" Type="datetime" Mode="In" />
+          <Parameter Name="end_at" Type="datetime" Mode="In" />
+          <Parameter Name="check_in" Type="datetime" Mode="In" />
+          <Parameter Name="check_out" Type="datetime" Mode="In" />
+          <Parameter Name="canceled_at" Type="datetime" Mode="In" />
+          <Parameter Name="meetinroom_Id" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Reservation_Configuration_Settings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="unconfirmed_cancellation" Type="nvarchar" Mode="In" />
+          <Parameter Name="check_in" Type="nvarchar" Mode="In" />
+          <Parameter Name="week_start" Type="nvarchar" Mode="In" />
+          <Parameter Name="week_end" Type="nvarchar" Mode="In" />
+          <Parameter Name="day_start" Type="nvarchar" Mode="In" />
+          <Parameter Name="day_end" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Update_Reservation_Confirmation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="code" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="subject" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Noks_MeetingRoomsModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Noks_MeetingRoomsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Noks_MeetingRoomsEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Noks_MeetingRoomsModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Noks_MeetingRoomsModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="SP_Delete_Meeting_Room">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Delete_Person">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Delete_Reservation">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insert_Atendees">
+            <Parameter Name="reservation_Id" Mode="In" Type="Int32" />
+            <Parameter Name="attendees_list" Mode="In" Type="String" />
+            <Parameter Name="checked_in" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insert_Meeting_Room">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="photo" Mode="In" Type="String" />
+            <Parameter Name="capacity" Mode="In" Type="Int32" />
+            <Parameter Name="valid" Mode="In" Type="Boolean" />
+            <Parameter Name="created_by" Mode="In" Type="String" />
+            <Parameter Name="overhead_projector" Mode="In" Type="Int32" />
+            <Parameter Name="slide_projctor" Mode="In" Type="Int32" />
+            <Parameter Name="film_projctor" Mode="In" Type="Int32" />
+            <Parameter Name="ifp" Mode="In" Type="Int32" />
+            <Parameter Name="video_screen" Mode="In" Type="Int32" />
+            <Parameter Name="white_board" Mode="In" Type="Int32" />
+            <Parameter Name="microphones" Mode="In" Type="Int32" />
+            <Parameter Name="computer" Mode="In" Type="Int32" />
+            <Parameter Name="loud_speakers" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insert_Person">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="fname" Mode="In" Type="String" />
+            <Parameter Name="lname" Mode="In" Type="String" />
+            <Parameter Name="mname" Mode="In" Type="String" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="job_title" Mode="In" Type="String" />
+            <Parameter Name="department" Mode="In" Type="String" />
+            <Parameter Name="valid" Mode="In" Type="Boolean" />
+            <Parameter Name="created_at" Mode="In" Type="DateTime" />
+            <Parameter Name="created_by" Mode="In" Type="String" />
+            <Parameter Name="is_guest" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insert_Reservations_And_Attendees" ReturnType="Collection(String)">
+            <Parameter Name="created_by" Mode="In" Type="String" />
+            <Parameter Name="start_from" Mode="In" Type="DateTime" />
+            <Parameter Name="end_at" Mode="In" Type="DateTime" />
+            <Parameter Name="check_in" Mode="In" Type="DateTime" />
+            <Parameter Name="check_out" Mode="In" Type="DateTime" />
+            <Parameter Name="canceled_at" Mode="In" Type="DateTime" />
+            <Parameter Name="meetinroom_Id" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="confirmed" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Search_Attendees" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Search_Attendees_Result)">
+          <Parameter Name="reservation_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Search_Meeting_Rooms" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Search_Meeting_Rooms_Result)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="capacity" Mode="In" Type="Int32" />
+            <Parameter Name="overhead_projector" Mode="In" Type="Boolean" />
+            <Parameter Name="slide_projector" Mode="In" Type="Boolean" />
+            <Parameter Name="film_projector" Mode="In" Type="Boolean" />
+            <Parameter Name="ifp" Mode="In" Type="Boolean" />
+            <Parameter Name="video_screen" Mode="In" Type="Boolean" />
+            <Parameter Name="white_board" Mode="In" Type="Boolean" />
+            <Parameter Name="microphones" Mode="In" Type="Boolean" />
+            <Parameter Name="computer" Mode="In" Type="Boolean" />
+            <Parameter Name="load_speaker" Mode="In" Type="Boolean" />
+            <Parameter Name="from" Mode="In" Type="DateTime" />
+            <Parameter Name="to" Mode="In" Type="DateTime" />
+            <Parameter Name="Projector" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Search_Reservation" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Search_Reservation_Result)">
+            <Parameter Name="room_meeting_Id" Mode="In" Type="Int32" />
+            <Parameter Name="attendees_Name" Mode="In" Type="String" />
+            <Parameter Name="host_Id" Mode="In" Type="Int32" />
+            <Parameter Name="from" Mode="In" Type="DateTime" />
+            <Parameter Name="to" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Meeting_Room">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="photo" Mode="In" Type="String" />
+            <Parameter Name="capacity" Mode="In" Type="Int32" />
+            <Parameter Name="valid" Mode="In" Type="Boolean" />
+            <Parameter Name="overhewd_projector" Mode="In" Type="Int32" />
+            <Parameter Name="slide_projctor" Mode="In" Type="Int32" />
+            <Parameter Name="film_projctor" Mode="In" Type="Int32" />
+            <Parameter Name="ifp" Mode="In" Type="Int32" />
+            <Parameter Name="vedio_screen" Mode="In" Type="Int32" />
+            <Parameter Name="white_board" Mode="In" Type="Int32" />
+            <Parameter Name="microphones" Mode="In" Type="Int32" />
+            <Parameter Name="computer" Mode="In" Type="Int32" />
+            <Parameter Name="loud_speakers" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Person">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="fname" Mode="In" Type="String" />
+            <Parameter Name="lname" Mode="In" Type="String" />
+            <Parameter Name="mname" Mode="In" Type="String" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="job_title" Mode="In" Type="String" />
+            <Parameter Name="department" Mode="In" Type="String" />
+            <Parameter Name="valid" Mode="In" Type="Boolean" />
+            <Parameter Name="created_at" Mode="In" Type="DateTime" />
+            <Parameter Name="created_by" Mode="In" Type="String" />
+            <Parameter Name="is_guest" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Reservation">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="emploee_Id" Mode="In" Type="Int32" />
+            <Parameter Name="start_from" Mode="In" Type="DateTime" />
+            <Parameter Name="end_at" Mode="In" Type="DateTime" />
+            <Parameter Name="check_in" Mode="In" Type="DateTime" />
+            <Parameter Name="check_out" Mode="In" Type="DateTime" />
+            <Parameter Name="canceled_at" Mode="In" Type="DateTime" />
+            <Parameter Name="meetinroom_Id" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Get_Meeting_Rooms_By_Id" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Get_Meeting_Rooms_By_Id_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Search_Reservation_Scroll" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Search_Reservation_Scroll_Result)">
+            <Parameter Name="room_meeting_Id" Mode="In" Type="Int32" />
+            <Parameter Name="attendees_Name" Mode="In" Type="String" />
+            <Parameter Name="host_Id" Mode="In" Type="Int32" />
+            <Parameter Name="index" Mode="In" Type="Int32" />
+            <Parameter Name="from" Mode="In" Type="DateTime" />
+            <Parameter Name="to" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insert_Reservations_Person_And_Attendees">
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="created_at" Mode="In" Type="DateTime" />
+            <Parameter Name="created_by" Mode="In" Type="String" />
+            <Parameter Name="attendees_emails_list" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Reservation_Confirmation">
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MeetingRoom_DigitalSignage" ReturnType="Collection(Noks_MeetingRoomsModel.SP_MeetingRoom_DigitalSignage_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Attendees_Count_In_Room_ByDateRange" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Attendees_Count_In_Room_ByDateRange_Result)">
+            <Parameter Name="from" Mode="In" Type="DateTime" />
+            <Parameter Name="to" Mode="In" Type="DateTime" />
+            <Parameter Name="department" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_reservation_chart_range_list" ReturnType="Collection(Noks_MeetingRoomsModel.SP_reservation_chart_range_list_Result)">
+            <Parameter Name="range_type" Mode="In" Type="String" />
+            <Parameter Name="dt_1" Mode="In" Type="DateTime" />
+            <Parameter Name="dt_2" Mode="In" Type="DateTime" />
+            <Parameter Name="selected" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Reservations_Hours_Count_In_Room_ByDateRange" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Reservations_Hours_Count_In_Room_ByDateRange_Result)">
+            <Parameter Name="from" Mode="In" Type="DateTime" />
+            <Parameter Name="to" Mode="In" Type="DateTime" />
+            <Parameter Name="department" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Room_Reservations_Count_ByDateRange" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Room_Reservations_Count_ByDateRange_Result)">
+            <Parameter Name="from" Mode="In" Type="DateTime" />
+            <Parameter Name="to" Mode="In" Type="DateTime" />
+            <Parameter Name="department" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Get_MeetingRoom_Reservations_On_Current_Day" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Get_MeetingRoom_Reservations_On_Current_Day_Result)">
+            <Parameter Name="from" Mode="In" Type="DateTime" />
+            <Parameter Name="to" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Cancel_Resevation">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Select_Distinct_Department" ReturnType="Collection(String)" />
+          <FunctionImport Name="SP_Get_Hosts" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Get_Hosts_Result)" />
+          <FunctionImport Name="SP_Get_Settings" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Get_Settings_Result)" />
+          <FunctionImport Name="SP_Settings_Update">
+            <Parameter Name="Setting_Key" Mode="In" Type="String" />
+            <Parameter Name="Setting_Group" Mode="In" Type="String" />
+            <Parameter Name="Setting_Value" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Email_Settings">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="ssl" Mode="In" Type="String" />
+            <Parameter Name="user_name" Mode="In" Type="String" />
+            <Parameter Name="SMTP_server" Mode="In" Type="String" />
+            <Parameter Name="port" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Localization_Format_Settings">
+          <Parameter Name="activity_time" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Update_Reservation_Configuration_Settings">
+            <Parameter Name="unconfirmed_cancellation" Mode="In" Type="String" />
+            <Parameter Name="check_in" Mode="In" Type="String" />
+            <Parameter Name="week_start" Mode="In" Type="String" />
+            <Parameter Name="week_end" Mode="In" Type="String" />
+            <Parameter Name="day_start" Mode="In" Type="String" />
+            <Parameter Name="day_end" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_chart_range_list" ReturnType="Collection(Noks_MeetingRoomsModel.SP_chart_range_list_Result)">
+          <Parameter Name="range_type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Settings_Select" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Settings_Select_Result)" />
+          <FunctionImport Name="SP_Settings_Select_ByKey_AndGroup" ReturnType="Collection(String)">
+            <Parameter Name="group" Mode="In" Type="String" />
+            <Parameter Name="key" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Select_MeetingRoom_Reservation_And_Users_In_CurrentTime_ById_And_Today_Reservations" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Select_MeetingRoom_Reservation_And_Users_In_CurrentTime_ById_And_Today_Reservations_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Select_MeetingRoom_DigitalSignange" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Select_MeetingRoom_DigitalSignange_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Select_MeetingRooms" ReturnType="Collection(Noks_MeetingRoomsModel.SP_Select_MeetingRooms_Result)" />
+          <FunctionImport Name="SP_DigitalSignage_Calendar" ReturnType="Collection(Noks_MeetingRoomsModel.SP_DigitalSignage_Calendar_Result)">
+          <Parameter Name="MeetingRoom_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_DigitalSignage_Current_Attendees" ReturnType="Collection(Noks_MeetingRoomsModel.SP_DigitalSignage_Current_Attendees_Result)">
+            <Parameter Name="MeetingRoom_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Search_Attendees_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="First_Name" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Last_Name" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Mid_Name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Job_Title" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Department" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="Valid" Nullable="true" />
+          <Property Type="DateTime" Name="Created_At" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Created_By" Nullable="false" MaxLength="128" />
+          <Property Type="Boolean" Name="Is_Guest" Nullable="false" />
+          <Property Type="DateTime" Name="Checked_In" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_Search_Meeting_Rooms_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Photo" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Capacity" Nullable="false" />
+          <Property Type="Boolean" Name="Valid" Nullable="false" />
+          <Property Type="DateTime" Name="Created_At" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Created_By" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="Overhead_projector" Nullable="true" />
+          <Property Type="Int32" Name="Slide_projector" Nullable="true" />
+          <Property Type="Int32" Name="Film_projector" Nullable="true" />
+          <Property Type="Int32" Name="IFP" Nullable="true" />
+          <Property Type="Int32" Name="Video_Screen" Nullable="true" />
+          <Property Type="Int32" Name="WhiteBoard" Nullable="true" />
+          <Property Type="Int32" Name="Microphones" Nullable="true" />
+          <Property Type="Int32" Name="Computer" Nullable="true" />
+          <Property Type="Int32" Name="LoudSpeakers" Nullable="true" />
+          <Property Type="String" Name="availbility" Nullable="true" />
+          <Property Type="Int32" Name="Occupied_Hours" Nullable="true" />
+          <Property Type="Boolean" Name="is_deletable" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Search_Reservation_Result">
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="Code" Nullable="false" />
+          <Property Type="Int32" Name="Employee_Id" Nullable="false" />
+          <Property Type="DateTime" Name="Start_From" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="End_At" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Checked_In" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Checked_Out" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Canceled_At" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="MeetingRoom_Id" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="HostName" Nullable="true" MaxLength="452" />
+          <Property Type="Boolean" Name="Confirmed" Nullable="false" />
+          <Property Type="Int32" Name="Duration_Minutes" Nullable="true" />
+          <Property Type="String" Name="MeetingRoom_Name" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Get_Meeting_Rooms_By_Id_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Photo" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Capacity" Nullable="false" />
+          <Property Type="Boolean" Name="Valid" Nullable="false" />
+          <Property Type="DateTime" Name="Created_At" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Created_By" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="Overhead_projector" Nullable="true" />
+          <Property Type="Int32" Name="Slide_projector" Nullable="true" />
+          <Property Type="Int32" Name="Film_projector" Nullable="true" />
+          <Property Type="Int32" Name="IFP" Nullable="true" />
+          <Property Type="Int32" Name="Video_Screen" Nullable="true" />
+          <Property Type="Int32" Name="WhiteBoard" Nullable="true" />
+          <Property Type="Int32" Name="Microphones" Nullable="true" />
+          <Property Type="Int32" Name="Computer" Nullable="true" />
+          <Property Type="Int32" Name="LoudSpeakers" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Search_Reservation_Scroll_Result">
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="Code" Nullable="false" />
+          <Property Type="Int32" Name="Employee_Id" Nullable="false" />
+          <Property Type="DateTime" Name="Start_From" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="End_At" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Checked_In" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Checked_Out" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Canceled_At" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="MeetingRoom_Id" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="HostName" Nullable="true" MaxLength="452" />
+        </ComplexType>
+        <ComplexType Name="SP_MeetingRoom_DigitalSignage_Result">
+          <Property Type="String" Name="background" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="current_meeting_code" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="current_meeting_subject" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="current_meeting_host" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="current_meeting_start" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="current_meeting_end" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="first_meeting_start" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="first_meeting_end" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="first_meeting_booked" Nullable="true" />
+          <Property Type="DateTime" Name="second_meeting_start" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="second_meeting_end" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="second_meeting_booked" Nullable="true" />
+          <Property Type="DateTime" Name="third_meeting_start" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="third_meeting_end" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="third_meeting_booked" Nullable="true" />
+          <Property Type="DateTime" Name="fourth_meeting_start" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="fourth_meeting_end" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="fourth_meeting_booked" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Attendees_Count_In_Room_ByDateRange_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Reservation_Attendees_Count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_reservation_chart_range_list_Result">
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="start_from" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="end_at" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="selected" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Reservations_Hours_Count_In_Room_ByDateRange_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Reservation_Attendees_Count" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Room_Reservations_Count_ByDateRange_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Reservations_Total_Count" Nullable="true" />
+          <Property Type="Int32" Name="ChechIn_Count" Nullable="true" />
+          <Property Type="Int32" Name="Canceled_Count" Nullable="true" />
+          <Property Type="Int32" Name="Pending_Count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Get_MeetingRoom_Reservations_On_Current_Day_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Reservations" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Get_Hosts_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="host_Nam" Nullable="false" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="SP_Get_Settings_Result">
+          <Property Type="String" Name="Setting_Key" Nullable="false" MaxLength="225" />
+          <Property Type="String" Name="Setting_Value" Nullable="false" MaxLength="1023" />
+          <Property Type="String" Name="Setting_Group" Nullable="false" MaxLength="225" />
+        </ComplexType>
+        <ComplexType Name="SP_chart_range_list_Result">
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="start_from" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="end_at" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_Settings_Select_Result">
+          <Property Type="String" Name="Setting_Key" Nullable="false" MaxLength="225" />
+          <Property Type="String" Name="Setting_Value" Nullable="false" MaxLength="1023" />
+          <Property Type="String" Name="Setting_Group" Nullable="false" MaxLength="225" />
+        </ComplexType>
+        <ComplexType Name="SP_Settings_Select_ByKey_AndGroup_Result">
+          <Property Type="String" Name="Setting_Value" Nullable="false" MaxLength="1023" />
+        </ComplexType>
+        <ComplexType Name="SP_Select_MeetingRoom_Reservation_And_Users_In_CurrentTime_ById_And_Today_Reservations_Result">
+          <Property Type="String" Name="CurrentMeetingStatus" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CurrentMeetingTitle" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="CurrentMeetingDuration" Nullable="true" MaxLength="17" />
+          <Property Type="String" Name="CurrentMeetingLeft" Nullable="true" MaxLength="21" />
+          <Property Type="String" Name="CurrentMeetingDescription" Nullable="true" MaxLength="500" />
+          </ComplexType>
+        <ComplexType Name="SP_Select_MeetingRoom_DigitalSignange_Result">
+          <Property Type="String" Name="Background_URL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MeetingRoom_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MeetingRoom_Status" Nullable="true" MaxLength="20" />
+          <Property Type="Boolean" Name="MeetingRoom_Valid" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Select_MeetingRooms_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_DigitalSignage_Calendar_Result">
+          <Property Type="DateTime" Name="Start_From" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="End_At" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Subject" Nullable="false" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="SP_DigitalSignage_Current_Attendees_Result">
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="305" />
+          <Property Type="String" Name="ImgUrl" Nullable="true" MaxLength="500" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Noks_MeetingRoomsModelStoreContainer" CdmEntityContainer="Noks_MeetingRoomsEntities" >
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Noks_MeetingRoomsModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Noks_MeetingRoomsModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Noks_MeetingRoomsModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Noks_MeetingRoomsModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Noks_MeetingRoomsModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Noks_MeetingRoomsModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Noks_MeetingRoomsModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="SP_Delete_Meeting_Room" FunctionName="Noks_MeetingRoomsModel.Store.SP_Delete_Meeting_Room" />
+          <FunctionImportMapping FunctionImportName="SP_Delete_Person" FunctionName="Noks_MeetingRoomsModel.Store.SP_Delete_Person" />
+          <FunctionImportMapping FunctionImportName="SP_Delete_Reservation" FunctionName="Noks_MeetingRoomsModel.Store.SP_Delete_Reservation" />
+          <FunctionImportMapping FunctionImportName="SP_Insert_Atendees" FunctionName="Noks_MeetingRoomsModel.Store.SP_Insert_Atendees" />
+          <FunctionImportMapping FunctionImportName="SP_Insert_Meeting_Room" FunctionName="Noks_MeetingRoomsModel.Store.SP_Insert_Meeting_Room" />
+          <FunctionImportMapping FunctionImportName="SP_Insert_Person" FunctionName="Noks_MeetingRoomsModel.Store.SP_Insert_Person" />
+          <FunctionImportMapping FunctionImportName="SP_Insert_Reservations_And_Attendees" FunctionName="Noks_MeetingRoomsModel.Store.SP_Insert_Reservations_And_Attendees" />
+          <FunctionImportMapping FunctionImportName="SP_Search_Attendees" FunctionName="Noks_MeetingRoomsModel.Store.SP_Search_Attendees">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Search_Attendees_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Mid_Name" ColumnName="Mid_Name" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Is_Guest" ColumnName="Is_Guest" />
+                <ScalarProperty Name="Checked_In" ColumnName="Checked_In" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Search_Meeting_Rooms" FunctionName="Noks_MeetingRoomsModel.Store.SP_Search_Meeting_Rooms">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Search_Meeting_Rooms_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Overhead_projector" ColumnName="Overhead_projector" />
+                <ScalarProperty Name="Slide_projector" ColumnName="Slide_projector" />
+                <ScalarProperty Name="Film_projector" ColumnName="Film_projector" />
+                <ScalarProperty Name="IFP" ColumnName="IFP" />
+                <ScalarProperty Name="Video_Screen" ColumnName="Video_Screen" />
+                <ScalarProperty Name="WhiteBoard" ColumnName="WhiteBoard" />
+                <ScalarProperty Name="Microphones" ColumnName="Microphones" />
+                <ScalarProperty Name="Computer" ColumnName="Computer" />
+                <ScalarProperty Name="LoudSpeakers" ColumnName="LoudSpeakers" />
+                <ScalarProperty Name="availbility" ColumnName="availbility" />
+                <ScalarProperty Name="Occupied_Hours" ColumnName="Occupied_Hours" />
+                <ScalarProperty Name="is_deletable" ColumnName="is_deletable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Search_Reservation" FunctionName="Noks_MeetingRoomsModel.Store.SP_Search_Reservation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Search_Reservation_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="Start_From" ColumnName="Start_From" />
+                <ScalarProperty Name="End_At" ColumnName="End_At" />
+                <ScalarProperty Name="Checked_In" ColumnName="Checked_In" />
+                <ScalarProperty Name="Checked_Out" ColumnName="Checked_Out" />
+                <ScalarProperty Name="Canceled_At" ColumnName="Canceled_At" />
+                <ScalarProperty Name="MeetingRoom_Id" ColumnName="MeetingRoom_Id" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="Confirmed" ColumnName="Confirmed" />
+                <ScalarProperty Name="Duration_Minutes" ColumnName="Duration_Minutes" />
+                <ScalarProperty Name="MeetingRoom_Name" ColumnName="MeetingRoom_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Update_Meeting_Room" FunctionName="Noks_MeetingRoomsModel.Store.SP_Update_Meeting_Room" />
+          <FunctionImportMapping FunctionImportName="SP_Update_Person" FunctionName="Noks_MeetingRoomsModel.Store.SP_Update_Person" />
+          <FunctionImportMapping FunctionImportName="SP_Update_Reservation" FunctionName="Noks_MeetingRoomsModel.Store.SP_Update_Reservation" />
+          <FunctionImportMapping FunctionImportName="SP_Get_Meeting_Rooms_By_Id" FunctionName="Noks_MeetingRoomsModel.Store.SP_Get_Meeting_Rooms_By_Id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Get_Meeting_Rooms_By_Id_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Overhead_projector" ColumnName="Overhead_projector" />
+                <ScalarProperty Name="Slide_projector" ColumnName="Slide_projector" />
+                <ScalarProperty Name="Film_projector" ColumnName="Film_projector" />
+                <ScalarProperty Name="IFP" ColumnName="IFP" />
+                <ScalarProperty Name="Video_Screen" ColumnName="Video_Screen" />
+                <ScalarProperty Name="WhiteBoard" ColumnName="WhiteBoard" />
+                <ScalarProperty Name="Microphones" ColumnName="Microphones" />
+                <ScalarProperty Name="Computer" ColumnName="Computer" />
+                <ScalarProperty Name="LoudSpeakers" ColumnName="LoudSpeakers" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Search_Reservation_Scroll" FunctionName="Noks_MeetingRoomsModel.Store.SP_Search_Reservation_Scroll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Search_Reservation_Scroll_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="Start_From" ColumnName="Start_From" />
+                <ScalarProperty Name="End_At" ColumnName="End_At" />
+                <ScalarProperty Name="Checked_In" ColumnName="Checked_In" />
+                <ScalarProperty Name="Checked_Out" ColumnName="Checked_Out" />
+                <ScalarProperty Name="Canceled_At" ColumnName="Canceled_At" />
+                <ScalarProperty Name="MeetingRoom_Id" ColumnName="MeetingRoom_Id" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Insert_Reservations_Person_And_Attendees" FunctionName="Noks_MeetingRoomsModel.Store.SP_Insert_Reservations_Person_And_Attendees" />
+          <FunctionImportMapping FunctionImportName="SP_Update_Reservation_Confirmation" FunctionName="Noks_MeetingRoomsModel.Store.SP_Update_Reservation_Confirmation" />
+          <FunctionImportMapping FunctionImportName="SP_MeetingRoom_DigitalSignage" FunctionName="Noks_MeetingRoomsModel.Store.SP_MeetingRoom_DigitalSignage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_MeetingRoom_DigitalSignage_Result">
+                <ScalarProperty Name="background" ColumnName="background" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="current_meeting_code" ColumnName="current_meeting_code" />
+                <ScalarProperty Name="current_meeting_subject" ColumnName="current_meeting_subject" />
+                <ScalarProperty Name="current_meeting_host" ColumnName="current_meeting_host" />
+                <ScalarProperty Name="current_meeting_start" ColumnName="current_meeting_start" />
+                <ScalarProperty Name="current_meeting_end" ColumnName="current_meeting_end" />
+                <ScalarProperty Name="first_meeting_start" ColumnName="first_meeting_start" />
+                <ScalarProperty Name="first_meeting_end" ColumnName="first_meeting_end" />
+                <ScalarProperty Name="first_meeting_booked" ColumnName="first_meeting_booked" />
+                <ScalarProperty Name="second_meeting_start" ColumnName="second_meeting_start" />
+                <ScalarProperty Name="second_meeting_end" ColumnName="second_meeting_end" />
+                <ScalarProperty Name="second_meeting_booked" ColumnName="second_meeting_booked" />
+                <ScalarProperty Name="third_meeting_start" ColumnName="third_meeting_start" />
+                <ScalarProperty Name="third_meeting_end" ColumnName="third_meeting_end" />
+                <ScalarProperty Name="third_meeting_booked" ColumnName="third_meeting_booked" />
+                <ScalarProperty Name="fourth_meeting_start" ColumnName="fourth_meeting_start" />
+                <ScalarProperty Name="fourth_meeting_end" ColumnName="fourth_meeting_end" />
+                <ScalarProperty Name="fourth_meeting_booked" ColumnName="fourth_meeting_booked" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Attendees_Count_In_Room_ByDateRange" FunctionName="Noks_MeetingRoomsModel.Store.SP_Attendees_Count_In_Room_ByDateRange">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Attendees_Count_In_Room_ByDateRange_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Reservation_Attendees_Count" ColumnName="Reservation_Attendees_Count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_reservation_chart_range_list" FunctionName="Noks_MeetingRoomsModel.Store.SP_reservation_chart_range_list">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_reservation_chart_range_list_Result">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_from" ColumnName="start_from" />
+                <ScalarProperty Name="end_at" ColumnName="end_at" />
+                <ScalarProperty Name="selected" ColumnName="selected" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Reservations_Hours_Count_In_Room_ByDateRange" FunctionName="Noks_MeetingRoomsModel.Store.SP_Reservations_Hours_Count_In_Room_ByDateRange">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Reservations_Hours_Count_In_Room_ByDateRange_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Reservation_Attendees_Count" ColumnName="Reservation_Attendees_Count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Room_Reservations_Count_ByDateRange" FunctionName="Noks_MeetingRoomsModel.Store.SP_Room_Reservations_Count_ByDateRange">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Room_Reservations_Count_ByDateRange_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Reservations_Total_Count" ColumnName="Reservations_Total_Count" />
+                <ScalarProperty Name="ChechIn_Count" ColumnName="ChechIn_Count" />
+                <ScalarProperty Name="Canceled_Count" ColumnName="Canceled_Count" />
+                <ScalarProperty Name="Pending_Count" ColumnName="Pending_Count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Get_MeetingRoom_Reservations_On_Current_Day" FunctionName="Noks_MeetingRoomsModel.Store.SP_Get_MeetingRoom_Reservations_On_Current_Day">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Get_MeetingRoom_Reservations_On_Current_Day_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Reservations" ColumnName="Reservations" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Cancel_Resevation" FunctionName="Noks_MeetingRoomsModel.Store.SP_Cancel_Resevation" />
+          <FunctionImportMapping FunctionImportName="SP_Select_Distinct_Department" FunctionName="Noks_MeetingRoomsModel.Store.SP_Select_Distinct_Department" />
+          <FunctionImportMapping FunctionImportName="SP_Get_Hosts" FunctionName="Noks_MeetingRoomsModel.Store.SP_Get_Hosts">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Get_Hosts_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="host_Nam" ColumnName="host_Nam" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Get_Settings" FunctionName="Noks_MeetingRoomsModel.Store.SP_Get_Settings">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Get_Settings_Result">
+                <ScalarProperty Name="Setting_Key" ColumnName="Setting_Key" />
+                <ScalarProperty Name="Setting_Value" ColumnName="Setting_Value" />
+                <ScalarProperty Name="Setting_Group" ColumnName="Setting_Group" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Settings_Update" FunctionName="Noks_MeetingRoomsModel.Store.SP_Settings_Update" />
+          <FunctionImportMapping FunctionImportName="SP_Update_Email_Settings" FunctionName="Noks_MeetingRoomsModel.Store.SP_Update_Email_Settings" />
+          <FunctionImportMapping FunctionImportName="SP_Update_Localization_Format_Settings" FunctionName="Noks_MeetingRoomsModel.Store.SP_Update_Localization_Format_Settings" />
+          <FunctionImportMapping FunctionImportName="SP_Update_Reservation_Configuration_Settings" FunctionName="Noks_MeetingRoomsModel.Store.SP_Update_Reservation_Configuration_Settings" />
+          <FunctionImportMapping FunctionImportName="SP_chart_range_list" FunctionName="Noks_MeetingRoomsModel.Store.SP_chart_range_list">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_chart_range_list_Result">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_from" ColumnName="start_from" />
+                <ScalarProperty Name="end_at" ColumnName="end_at" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Settings_Select" FunctionName="Noks_MeetingRoomsModel.Store.SP_Settings_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Settings_Select_Result">
+                <ScalarProperty Name="Setting_Key" ColumnName="Setting_Key" />
+                <ScalarProperty Name="Setting_Value" ColumnName="Setting_Value" />
+                <ScalarProperty Name="Setting_Group" ColumnName="Setting_Group" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Settings_Select_ByKey_AndGroup" FunctionName="Noks_MeetingRoomsModel.Store.SP_Settings_Select_ByKey_AndGroup">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Select_MeetingRoom_Reservation_And_Users_In_CurrentTime_ById_And_Today_Reservations" FunctionName="Noks_MeetingRoomsModel.Store.SP_Select_MeetingRoom_Reservation_And_Users_In_CurrentTime_ById_And_Today_Reservations">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Select_MeetingRoom_Reservation_And_Users_In_CurrentTime_ById_And_Today_Reservations_Result">
+                <ScalarProperty Name="CurrentMeetingStatus" ColumnName="CurrentMeetingStatus" />
+                <ScalarProperty Name="CurrentMeetingTitle" ColumnName="CurrentMeetingTitle" />
+                <ScalarProperty Name="CurrentMeetingDuration" ColumnName="CurrentMeetingDuration" />
+                <ScalarProperty Name="CurrentMeetingLeft" ColumnName="CurrentMeetingLeft" />
+                <ScalarProperty Name="CurrentMeetingDescription" ColumnName="CurrentMeetingDescription" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Select_MeetingRoom_DigitalSignange" FunctionName="Noks_MeetingRoomsModel.Store.SP_Select_MeetingRoom_DigitalSignange">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Select_MeetingRoom_DigitalSignange_Result">
+                <ScalarProperty Name="Background_URL" ColumnName="Background_URL" />
+                <ScalarProperty Name="MeetingRoom_Title" ColumnName="MeetingRoom_Title" />
+                <ScalarProperty Name="MeetingRoom_Status" ColumnName="MeetingRoom_Status" />
+                <ScalarProperty Name="MeetingRoom_Valid" ColumnName="MeetingRoom_Valid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Select_MeetingRooms" FunctionName="Noks_MeetingRoomsModel.Store.SP_Select_MeetingRooms">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_Select_MeetingRooms_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_DigitalSignage_Calendar" FunctionName="Noks_MeetingRoomsModel.Store.SP_DigitalSignage_Calendar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_DigitalSignage_Calendar_Result">
+                <ScalarProperty Name="Start_From" ColumnName="Start_From" />
+                <ScalarProperty Name="End_At" ColumnName="End_At" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_DigitalSignage_Current_Attendees" FunctionName="Noks_MeetingRoomsModel.Store.SP_DigitalSignage_Current_Attendees">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_MeetingRoomsModel.SP_DigitalSignage_Current_Attendees_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

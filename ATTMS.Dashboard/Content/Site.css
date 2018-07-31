@@ -1,0 +1,103 @@
+﻿
+.letter-blue {
+    color: blue;
+}
+
+.logout-li {
+    padding-left: 20px;
+}
+
+.word-wrap {
+    overflow-wrap: break-word;
+}
+
+.header-btn {
+    margin-top: 12px;
+    margin-bottom: -10px;
+}
+
+.right-header-btn {
+    margin-top: 12px;
+    margin-bottom: -10px;
+    float: right;
+}
+
+.btn-active {
+    background-color: #f1f3f6 !important;
+    color: #62cb31 !important;
+}
+
+.grid-view-item {
+    min-height: 230px;
+    max-height: 230px;
+}
+
+.form-checkbox {
+    padding-left: 20px !important;
+}
+
+.grid-f-right {
+    float: right;
+    margin-top: 15px;
+}
+
+.clockpicker {
+    padding-right: -1px !important;
+    padding-left: 13px !important;
+}
+
+.editable-buttons {
+    float: left !important;
+    margin-top: 10px !important;
+    margin-left: 80px !important;
+}
+
+.dropdown-menu {
+    z-index: 1500 !important;
+}
+
+.not-alone-left {
+    float: left !important;
+    width: 90% !important;
+}
+
+.progress-bar {
+    padding-right: 0 !important;
+}
+
+.progress-bar-success {
+    background-color: #62cb31;
+    border-right: 0px solid #58b62c !important;
+}
+
+.employee-element {
+    min-height: 230px !important;
+}
+
+.document-element {
+    border-top-color: #f1f3f6;
+    border-top-width: 1px;
+    border-top-style: solid;
+}
+
+
+.avatar{
+    width:100%;
+}
+
+.grid-f-right > a{
+    margin:3px !important;
+}
+
+.modal-header{
+    padding:unset !important;
+    padding-top:5px !important;
+    height:50px !important;
+}
+.modal{
+    top:-50px !important;
+}
+.modal-body{
+    max-height: 400px;
+    overflow-y: auto;
+}

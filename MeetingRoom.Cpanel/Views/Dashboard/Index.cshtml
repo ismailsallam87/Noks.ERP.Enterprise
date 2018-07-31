@@ -1,0 +1,550 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12 text-center m-t-md">
+            <h2>
+                Welcome to NOKS-<b class="letter-blue">M</b>eeting <b class="letter-blue">R</b>oom <b class="letter-blue">E</b>ngine
+            </h2>
+            <p>
+                Welcome <strong>@User.Identity.Name</strong>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="hpanel">
+                <div id="chart_a_range_list_container" class="panel-heading">
+                </div>
+                <div class="panel-body" id="chart_a_container">
+                    <div>
+                        @{Html.RenderAction("Department_List", "MeetingRooms"); }
+                        <input type="button" id="year_chart_btn" onclick="load_pagination_chart('year')" class="btn btn-success pull-right range-btn" value="Year" />
+                        <input type="button" id="month_chart_btn" onclick="load_pagination_chart('month')" class="btn btn-default pull-right range-btn" value="Month" />
+                        <input type="button" id="week_chart_btn" onclick="load_pagination_chart('week')" class="btn btn-default pull-right range-btn" value="Week" />
+                        <div id="chart_a_content"></div>
+                        <p id="chart_a" class="pagination-chart">
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="hpanel">
+                <div class="panel-heading">
+                </div>
+                <div id="chart_b_container" class="panel-body">
+                    <div>
+                        @{
+                            Html.RenderAction("Department_List", "MeetingRooms");
+                        }
+                        <input type="button" id="year_chart_attendees_btn" onclick="load_pagination_attendees_chart('year')" class="btn btn-success pull-right range-btn range_attendees-btn" value="Year" />
+                        <input type="button" id="month_chart_attendees_btn" onclick="load_pagination_attendees_chart('month')" class="btn btn-default pull-right range-btn range_attendees-btn" value="Month" />
+                        <input type="button" id="week_chart_attendees_btn" onclick="load_pagination_attendees_chart('week')" class="btn btn-default pull-right  range-btn range_attendees-btn" value="Week" />
+                        <div id="chart_b_content"></div>
+                        <p id="chart_b" class="pagination-chart">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel-heading">
+            </div>
+            <div class="hpanel">
+                <div class="panel-body" id="chart_c_container">
+                    <div>
+                        @{Html.RenderAction("Department_List", "MeetingRooms"); }
+                        <input type="button" id="year_chart_hours_btn" onclick="load_pagination_hours_chart('year')" class="btn btn-success pull-right  range-btn range_hours-btn" value="Year" />
+                        <input type="button" id="month_chart_hours_btn" onclick="load_pagination_hours_chart('month')" class="btn btn-default pull-right range-btn range_hours-btn" value="Month" />
+                        <input type="button" id="week_chart_hours_btn" onclick="load_pagination_hours_chart('week')" class="btn btn-default pull-right range-btn range_hours-btn" value="Week" />
+                        <div id="chart_c_content"></div>
+                        <p id="chart_c" class="pagination-chart">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    Recently active Reservations
+                </div>
+                <div class="panel-body list">
+                    @{Html.RenderAction("LastReservations_Dashboard", "MeetingRooms"); }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-3">
+
+        </div>
+
+    </div>
+
+</div>
+<input type="hidden" id="common_selected_date" value="@DateTime.Now" />
+@section Scripts {
+    @Scripts.Render("~/bundles/chartjs/js")
+    <script type="text/javascript">
+
+        function load_pagination_chart(type) {
+            if (type == undefined || type == null) {
+                var selected_btn = $('#chart_a_container').find('.btn-success').val();
+                type = selected_btn;
+            }
+            var selected = $('#chart_a').find('date_selected').val();
+            if (selected == undefined) {
+                selected = $('#common_selected_date').val();
+            }
+
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            $('#chart_a_container').find('.range-btn').removeClass('btn-success');
+            $('#chart_a_container').find('.range-btn').removeClass('btn-default');
+            $('#' + type + '_chart_btn').addClass('btn-success');
+            var container = $('#chart_a');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("chart_range_list","meetingrooms")';
+            ajaxoptions.data = { type: type, selected: selected, adj_value: null };
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+                $('#chart_a').find('#pre_range_selector').click(function () {
+                    $('#chart_a').find('.selection-rang').removeClass('date-selected');
+                    $('#chart_a').find('.selection-rang').addClass('not-selected');
+                    var list = $('#chart_a').find('input')
+                    for (var i = 0; i < list.length; i++) {
+                        if ($(list[i]).prop('value') == $('#chart_a').find('#range_list').val()) {
+                            $(list[i]).addClass('date-selected');
+                            $(list[i]).removeClass('not-selected');
+                            break;
+                        }
+                    }
+                    reload_pagination_selection('chart_a', 0);
+                });
+                $('#chart_a').find('#next_range_selector').click(function () {
+                    $('#chart_a').find('.selection-rang').removeClass('date-selected');
+                    $('#chart_a').find('.selection-rang').addClass('not-selected');
+                    var list = $('#chart_a').find('input')
+                    for (var i = 0; i < list.length; i++) {
+
+                        if ($(list[i]).prop('value') == $('#chart_a').find('#range_list').val()) {
+                            $(list[i]).addClass('date-selected');
+                            $(list[i]).removeClass('not-selected');
+                            break;
+                        }
+                    }
+                    reload_pagination_selection('chart_a', 1);
+                });
+                Load_Charts();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function reload_pagination_selection(chart, type) {
+            var select_obj = ($('#' + chart).find('#range_list'));
+            var size = select_obj.find('option').size();
+            var idx = select_obj.prop('selectedIndex');
+            if (type == 0 && idx > 0) {
+                select_obj.prop('selectedIndex', (idx - 1));
+            }
+            else if (type == 0 && idx == 0) {
+                select_obj.prop('selectedIndex', (size - 1));
+            }
+            else if (type == 1 && (idx + 1 <= size - 1)) {
+                select_obj.prop('selectedIndex', (idx + 1));
+            }
+            else if (type == 1 && (idx + 1 == size)) {
+                select_obj.prop('selectedIndex', 0);
+            }
+            if (chart == 'chart_a') { Load_Charts(); }
+            if (chart == 'chart_b') { Load_attendees_Charts(); }
+            if (chart == 'chart_c') { Load_Hours_Charts(); }
+        }
+        function load_pagination_attendees_chart(type) {
+            var selected = $.now();
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            $('.range_attendees-btn').removeClass('btn-success');
+            $('.range_attendees-btn').removeClass('btn-default');
+            $('#' + type + '_chart_attendees_btn').addClass('btn-success');
+            var container = $('#chart_b');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("chart_range_list","meetingrooms")';
+            ajaxoptions.data = { type: type, selected: selected };
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+                $('#chart_b').find('#pre_range_selector').click(function () {
+                    $('#chart_b').find('.selection-rang').removeClass('date-selected');
+                    $('#chart_b').find('.selection-rang').addClass('not-selected');
+                    var list = $('#chart_b').find('input')
+                    for (var i = 0; i < list.length; i++) {
+                        if ($(list[i]).prop('value') == $('#chart_b').find('#range_list').val()) {
+                            $(list[i]).addClass('date-selected');
+                            $(list[i]).removeClass('not-selected');
+                            break;
+                        }
+                    }
+                    reload_pagination_selection('chart_b', 0);
+                });
+                $('#chart_b').find('#next_range_selector').click(function () {
+                    $('#chart_b').find('.selection-rang').removeClass('date-selected');
+                    $('#chart_b').find('.selection-rang').addClass('not-selected');
+                    var list = $('#chart_b').find('input')
+                    for (var i = 0; i < list.length; i++) {
+
+                        if ($(list[i]).prop('value') == $('#chart_b').find('#range_list').val()) {
+                            $(list[i]).addClass('date-selected');
+                            $(list[i]).removeClass('not-selected');
+                            break;
+                        }
+                    }
+                    reload_pagination_selection('chart_b', 1);
+                });
+                Load_attendees_Charts();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function load_pagination_hours_chart(type) {
+            var selected = $.now();
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            $('.range_hours-btn').removeClass('btn-success');
+            $('.range_hours-btn').removeClass('btn-default');
+            $('#' + type + '_chart_hours_btn').addClass('btn-success');
+            var container = $('#chart_c');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("chart_range_list","meetingrooms")';
+            ajaxoptions.data = { type: type, selected: selected };
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+
+                $('#chart_c').find('#pre_range_selector').click(function () {
+                    $('#chart_c').find('.selection-rang').removeClass('date-selected');
+                    $('#chart_c').find('.selection-rang').addClass('not-selected');
+                    var list = $('#chart_c').find('input')
+                    for (var i = 0; i < list.length; i++) {
+                        if ($(list[i]).prop('value') == $('#chart_b').find('#range_list').val()) {
+                            $(list[i]).addClass('date-selected');
+                            $(list[i]).removeClass('not-selected');
+                            break;
+                        }
+                    }
+                    reload_pagination_selection('chart_c', 0);
+                });
+                $('#chart_c').find('#next_range_selector').click(function () {
+                    $('#chart_c').find('.selection-rang').removeClass('date-selected');
+                    $('#chart_c').find('.selection-rang').addClass('not-selected');
+                    var list = $('#chart_c').find('input')
+                    for (var i = 0; i < list.length; i++) {
+
+                        if ($(list[i]).prop('value') == $('#chart_c').find('#range_list').val()) {
+                            $(list[i]).addClass('date-selected');
+                            $(list[i]).removeClass('not-selected');
+                            break;
+                        }
+                    }
+                    reload_pagination_selection('chart_c', 1);
+                });
+                Load_Hours_Charts();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function Load_Charts() {
+            var loading_img = '<p style="text-align:center"><img src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            $('#bar_chart_reservation_common').empty();
+            $('#bar_chart_reservation_common').append(loading_img);
+            var ajaxoptions = {};
+            var data = {};
+            data.department = $('#chart_a_container').find('.department-select').val();
+            if (data.department == 'Select Departmenet') { data.department = null; }
+            data.from = $('#chart_a').find('.date-selected').data('from');
+            data.to = $('#chart_a').find('.date-selected').data('to');
+            console.log(data);
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Reservations_Count_In_Rooms","MeetingRooms")"
+            ajaxoptions.success = function (result) {
+                var rooms = [];
+                var canceled = [];
+                var checked_in = [];
+                var pending = [];
+
+                for (var i = 0; i < result.length; i++) {
+                    var roomName = result[i].Name;
+                    rooms.push(roomName);
+                    canceled.push(result[i].Canceled_Count);
+                    checked_in.push(result[i].ChechIn_Count);
+                    pending.push(result[i].Pending_Count);
+                }
+
+                var barOptions = {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Meeting Rooms, Reservations Analysis'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Meeting Room'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Reservation(s)'
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }]
+                    }
+                };
+                var barData = {
+                    labels: rooms,
+                    datasets: [
+                        {
+                            label: "Pending",
+                            backgroundColor: "rgba(220,220,220,0.5)",
+                            borderColor: "rgba(220,220,220,0.8)",
+                            highlightFill: "rgba(220,220,220,0.75)",
+                            highlightStroke: "rgba(220,220,220,1)",
+                            borderWidth: 1,
+                            data: pending
+                        },
+                        {
+                            label: "Canceled",
+                            backgroundColor: "rgba(255,182,6,1)",
+                            borderColor: "rgba(98,203,49,0.8)",
+                            highlightFill: "rgba(98,203,49,0.75)",
+                            highlightStroke: "rgba(98,203,49,1)",
+                            borderWidth: 1,
+                            data: canceled
+                        },
+                        {
+                            label: "Checked-In",
+                            backgroundColor: "rgba(98,203,49,0.5)",
+                            borderColor: "rgba(98,203,49,0.8)",
+                            highlightFill: "rgba(98,203,49,0.75)",
+                            highlightStroke: "rgba(98,203,49,1)",
+                            borderWidth: 1,
+                            data: checked_in
+                        }
+                    ]
+                };
+                $('#chart_a_content').empty();
+                $('#chart_a_content').append('<canvas id="bar_chart_reservation_common" height="300"></canvas>');
+
+                var ctx = document.getElementById("bar_chart_reservation_common").getContext("2d");
+                new Chart(ctx, { type: 'bar', data: barData, options: barOptions });
+            };
+            ajaxoptions.error = function () {
+
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function Load_attendees_Charts() {
+            var loading_img = '<p style="text-align:center"><img src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            $('#bar_chart_reservation_attendees').empty();
+            $('#bar_chart_reservation_attendees').append(loading_img);
+            var ajaxoptions = {};
+            var data = {};
+            data.department = $('#chart_b_container').find('.department-select').val();
+            if (data.department == 'Select Departmenet') { data.department = null; }
+            data.from = $('#chart_b').find('.date-selected').data('from');
+            data.to = $('#chart_b').find('.date-selected').data('to');
+            ajaxoptions.url = "@Url.Action("Reservations_Attendees_Count_In_Rooms", "MeetingRooms")"
+            ajaxoptions.success = function (result) {
+                var rooms = [];
+                var attendees_count = [];
+                for (var i = 0; i < result.length; i++) {
+                    var roomName = result[i].Name;
+                    rooms.push(roomName);
+                    attendees_count.push(result[i].Reservation_Attendees_Count);
+                }
+
+                // Options for Bar chart
+                var singleBarOptions = {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Meeting Rooms, Attendees Analysis'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Meeting Room'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Attendee(s)'
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    }
+                };
+
+                // Data for Bar chart
+                var singleBarData = {
+                    labels: rooms,
+                    datasets: [
+                        {
+                            label: "Attendees",
+                            backgroundColor: "rgba(98,203,49,0.5)",
+                            borderColor: "rgba(98,203,49,0.8)",
+                            highlightFill: "rgba(98,203,49,0.75)",
+                            highlightStroke: "rgba(98,203,49,1)",
+                            borderWidth: 1,
+                            data: attendees_count
+                        }
+                    ]
+                };
+
+                $('#chart_b_content').empty();
+                $('#chart_b_content').append('<canvas id="bar_chart_reservation_attendees" height="300"></canvas>');
+
+                var ctx = document.getElementById("bar_chart_reservation_attendees").getContext("2d");
+                new Chart(ctx, { type: 'bar', data: singleBarData, options: singleBarOptions });
+            };
+            ajaxoptions.error = function () {
+
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function Load_Hours_Charts() {
+            var loading_img = '<p style="text-align:center"><img src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            $('#bar_chart_reservation_hours').empty();
+            $('#bar_chart_reservation_hours').append(loading_img);
+            var ajaxoptions = {};
+            var data = {};
+            data.department = $('#chart_c_container').find('.department-select').val();
+            if (data.department == 'Select Departmenet') { data.department = null; }
+            data.from = $('#chart_c').find('.date-selected').data('from');
+            data.to = $('#chart_c').find('.date-selected').data('to');
+            ajaxoptions.url = "@Url.Action("Reservations_Hours_Count_In_Rooms", "MeetingRooms")"
+            ajaxoptions.success = function (result) {
+                var rooms = [];
+                var hours_count = [];
+                for (var i = 0; i < result.length; i++) {
+                    var roomName = result[i].Name;
+                    rooms.push(roomName);
+                    hours_count.push(result[i].Reservation_Attendees_Count);
+                }
+
+                // Options for Bar chart
+                var singleBarOptions = {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Meeting Rooms, Hours Analysis'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Meeting Room'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Hours(s)'
+                            },
+                            ticks: {
+                                stepSize: 500
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    }
+                };
+
+                // Data for Bar chart
+                var singleBarData = {
+                    labels: rooms,
+                    datasets: [
+                        {
+                            label: "Hours",
+                            backgroundColor: "rgba(98,203,49,0.5)",
+                            borderColor: "rgba(98,203,49,0.8)",
+                            highlightFill: "rgba(98,203,49,0.75)",
+                            highlightStroke: "rgba(98,203,49,1)",
+                            borderWidth: 1,
+                            data: hours_count
+                        }
+                    ]
+                };
+                $('#chart_c_content').empty();
+                $('#chart_c_content').append('<canvas id="bar_chart_reservation_hours" height="300"></canvas>');
+
+                var ctx = document.getElementById("bar_chart_reservation_hours").getContext("2d");
+                new Chart(ctx, { type: 'bar', data: singleBarData, options: singleBarOptions });
+
+            };
+            ajaxoptions.error = function () {
+
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        $(function () {
+            load_pagination_chart('week');
+            load_pagination_attendees_chart('week');
+            load_pagination_hours_chart('week');
+        });
+        function resetChart(chart, chartContainer, chartTitle) {
+            $('#' + chart).remove(); // this is my <canvas> element
+            $('#' + chartContainer).append('<canvas id="' + chart + '"><canvas>');
+            canvas = document.querySelector('#' + chart);
+            ctx = canvas.getContext('2d');
+            ctx.canvas.width = $('#graph').width(); // resize to parent width
+            ctx.canvas.height = $('#graph').height(); // resize to parent height
+            var x = canvas.width / 2;
+            var y = canvas.height / 2;
+            ctx.font = '10pt Verdana';
+            ctx.textAlign = 'center';
+            ctx.fillText('This text is centered on the canvas', x, y);
+        };
+    </script>
+}

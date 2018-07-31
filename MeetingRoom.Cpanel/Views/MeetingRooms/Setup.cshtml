@@ -1,0 +1,289 @@
+﻿@using MeetingRooms_DAL
+@model List<SP_Settings_Select_Result>
+
+@{   
+    ViewBag.Title = "Setup"; 
+}
+
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+                    <li class="active">
+                        <span>Setup</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>@ViewBag.Title.</small>
+        </div>
+    </div>
+</div>
+<div id="page-conainer" class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1">Email Server</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2">Reservation Configurations</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3">Localization & Format</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+                            <form method="get" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SMTP-Server</label>                                   
+                                    <div class="col-sm-10">
+                                       <input type="text" class="form-control smtp" value="@Settings.SMTP_SERVER">                                    
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">User Name</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control user_name" value="@Settings.User_Name">
+                                    
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Password</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control password" value="@Settings.Password">                                   
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Email (From Name)</label>
+                                    <div class="col-sm-10">                                
+                                       <input type="text" class="form-control email" value="@Settings.Email">                                        
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Port</label>
+                                    <div class="col-sm-4">                                  
+                                        <input type="text" class="form-control port" value="@Settings.Port">                                  
+                                    </div>
+                                    <label class="col-sm-2 control-label">SSL</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control ssl">
+                                            <option value="True">SSL</option>
+                                            <option value="False">Not SSL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-primary pull-right btn_setup" type="button" onclick="update_email_Server()">Save changes</button>
+                                        <button class="btn btn-default pull-right btn_setup" type="button"onclick="cancel_update_email_Server()">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <form method="get" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Unconfirmed Cancellation (Minutes)</label>
+                                    <div class="col-sm-10">
+                                    <input type="number" class="form-control unconfirmed_cancellation" value="@Convert.ToInt32(@Settings.UnConfirmed_Cancellation)"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Check-In Policy</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control check_in">
+                                            <option value="0">Disabled</option>
+                                            <option value="10">10 Minutes</option>
+                                            <option value="15">15 Minutes</option>
+                                            <option value="20">20 Minutes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">WeekStart Day</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control week_start">
+                                            <option value="Saturday">Saturday</option>
+                                            <option value="Sunday">Sunday</option>
+                                            <option value="Monday">Monday</option>
+                                            <option value="Tuesday">Tuesday</option>
+                                            <option value="Wednesday">Wednesday</option>
+                                            <option value="Thursday">Thursday</option>
+                                            <option value="Friday">Friday</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">WeekEnd Day</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control week_end">
+                                            <option value="Saturday">Saturday</option>
+                                            <option value="Sunday">Sunday</option>
+                                            <option value="Monday">Monday</option>
+                                            <option value="Tuesday">Tuesday</option>
+                                            <option value="Wednesday">Wednesday</option>
+                                            <option value="Thursday">Thursday</option>
+                                            <option value="Friday">Friday</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Day Start</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group clockpicker" data-autoclose="true">
+                                            <input type="text" class="form-control dates" id="day_start" value="@Settings.Day_Start">
+                                            <span class="input-group-addon">
+                                                <span class="fa fa-clock-o"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Day End</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group clockpicker" data-autoclose="true">
+                                            <input type="text" class="form-control dates" id="day_end" value="@Settings.Day_End">
+                                            <span class="input-group-addon">
+                                                <span class="fa fa-clock-o"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-primary pull-right btn_setup" type="button" onclick="update_reservation_configuration()">Save changes</button>
+                                        <button class="btn btn-default pull-right btn_setup" type="button" onclick="cancel_update_reservation_configuration()">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="tab-3" class="tab-pane">
+                        <div class="panel-body">
+                            <form method="get" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Activity Time</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control activity_time">
+                                            <option value="dd-MMM-yyyy hh:mm:ss">"dd-MMM-yyyy hh:mm:ss"</option>
+                                            <option value="dddd MMM-yyyy hh:mm:ss">"dddd MMM-yyyy hh:mm:ss"</option>
+                                            <option value="dddd MM-yyyy hh:mm:ss">"dddd MM-yyyy hh:mm:ss"</option>
+                                            <option value="dd MM-yyyy hh:mm:ss">"dd MM-yyyy hh:mm:ss"</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-primary pull-right btn_setup" type="button" onclick="update_localization_format()">Save changes</button>
+                                        <button class="btn btn-default pull-right btn_setup" type="button" onclick="cancel_update_localization_format()">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/bundles/clockpicker/css")
+}
+         
+@section Scripts {
+@Scripts.Render("~/bundles/clockpicker/js")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.clockpicker').clockpicker({ autoclose: true });
+         var ssl = '@Settings.SSL';
+        if (ssl == 'True') {
+            $('.ssl').val('True');
+        }
+        else {
+            $('.ssl').val('False');
+        }
+        $('.week_start').val('@Settings.Week_Start_Day');
+        $('.week_end').val('@Settings.Week_End_Day');
+        $('.check_in').val('@Settings.Check_In_Policy');
+        $('.activity_time').val('@Settings.Activity_Time');
+    })
+    function cancel_update_email_Server() {      
+        toaster('warning', 'you canceled Update Email Server!');
+    }
+    function update_email_Server() {
+        var data = {};
+        data.email = $('.email').val();
+        data.password = $('.password').val();
+        data.ssl = $('.ssl :selected').val();
+        data.user_name = $('.user_name').val();
+        data.smtp = $('.smtp').val();
+        data.port = $('.port').val();
+        var ajaxoptions = {};
+        ajaxoptions.data = data;
+        ajaxoptions.url = '@Url.Action("Update_Email_Server", "MeetingRooms")';
+        ajaxoptions.success = function (result) {
+            toaster('success', result.message);
+        };
+        ajaxoptions.error = function () {
+            toaster('error', 'a fatal error occurred while trying to Update Email Server !.');
+        };
+        $.ajax(ajaxoptions);
+    }
+
+    function cancel_update_localization_format() {
+        toaster('warning', 'you canceled Update Localization Format!');
+    }
+    function update_localization_format() {
+        var data = {};
+        data.activity_time = $('.activity_time :selected').val();
+        var ajaxoptions = {};
+        ajaxoptions.data = data;
+        ajaxoptions.url = '@Url.Action("Update_Localization_Format", "MeetingRooms")';
+        ajaxoptions.success = function (result) {
+            toaster('success', result.message);
+        };
+        ajaxoptions.error = function () {
+            toaster('error', 'a fatal error occurred while trying to Update Localization Format!.');
+        };
+        $.ajax(ajaxoptions);
+    }
+
+    function cancel_update_reservation_configuration() {
+        $('.unconfirmed_cancellation').val('');
+        toaster('warning', 'you canceled Update Reservation Configuration!');
+    }
+
+    function update_reservation_configuration() {
+        var data = {};
+        data.unconfirmed_cancellation = $('.unconfirmed_cancellation').val();
+        data.check_in = $('.check_in :selected').val();
+        data.week_start = $('.week_start').val();
+        data.week_end = $('.week_end').val();
+        data.day_start = $('#day_start').val();
+        data.day_end = $('#day_end').val();
+        var ajaxoptions = {};
+        ajaxoptions.data = data;
+        ajaxoptions.url = '@Url.Action("Update_Reservation_Configuration", "MeetingRooms")';
+        ajaxoptions.success = function (result) {
+            toaster('success', result.message);
+        };
+        ajaxoptions.error = function () {
+            toaster('error', 'a fatal error occurred while trying to Update Reservation Configuration !.');
+        };
+        $.ajax(ajaxoptions);
+    }
+
+    </script>
+}

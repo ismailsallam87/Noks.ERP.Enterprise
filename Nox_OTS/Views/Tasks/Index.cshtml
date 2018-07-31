@@ -1,0 +1,517 @@
+﻿
+@{
+    ViewBag.Title = "Tasks Management";
+}
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-datepicker/css/datepicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-select/bootstrap-select.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2-metronic.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/jquery-multi-select/css/multi-select.css" />
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row" id="maindiv">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Tasks Management <small></small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li class="btn-group">
+                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                    <span>
+                        Actions
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="#create_view_modal" data-toggle="modal">
+                            Create New
+                        </a>
+                        <a href="#filter_view_modal" data-toggle="modal">
+                            Filter
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#bulkTasks_view_modal" data-toggle="modal">
+                            Import Bulk Tasks
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @{Html.RenderAction("Breedcrumb", "Common", new { view = "TasksManagement" });}
+        </ul>
+        <div class="actions">
+            <a href="#" onclick="Load_Tasks_View('Table')" class="btn blue pull-right">
+                <i class="fa fa-table"></i> Table
+            </a>
+            <a href="#" onclick="Load_Tasks_View('Grid')" class="btn green pull-right">
+                <i class="fa fa-group"></i> Grid
+            </a>
+        </div>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+
+<div class="row">
+    <div class="col-md-12" id="tasks_tbl_cont">
+
+    </div>
+</div>
+<!-- END PAGE CONTENT-->
+<div id="create_view_modal" class="modal fade bs-modal-lg" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Create New Task</h4>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @Html.Partial("_Task_Create")
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="filter_view_modal" class="modal fade bs-modal-lg" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Filter Tasks</h4>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @Html.Partial("_Tasks_Filter")
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="delete_task_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Delete Tasks</h4>
+            </div>
+            <div id="delete_task_dv" class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="edit_zone_view_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Edit Tasks</h4>
+            </div>
+            <div id="Edit_Task_Cont" class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="task_status_view_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Task Status</h4>
+            </div>
+            <div id="task_status" class="portlet-body form">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Task_Items_view_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Add Task Item</h4>
+            </div>
+            <div id="Task_Items_Cont" class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="bulkTasks_view_modal" class="modal fade bs-modal-lg" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Import Bulk Tasks</h4>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @Html.Partial("_Task_Bulk")
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="view_type" value="Table" />
+<!-- END PAGE Modals-->
+
+@section Scripts {
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="../../assets/plugins/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery.pulsate.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery-bootpag/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/holder.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="../../assets/plugins/select2/select2.min.js"></script>
+    <script src="../../assets/scripts/core/app.js"></script>
+    <script src="../../assets/scripts/custom/ui-general.js"></script>
+    <script type="text/javascript" src="../../assets/scripts/custom/form-samples.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/clockface/js/clockface.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="../../assets/scripts/custom/components-pickers.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datepicker();
+            UIGeneral.init();
+            Load_Tasks_View('Table');
+            ComponentsPickers.init();
+        })
+        function update_task(Id) {
+            var data = {};
+            data.Id = Id;
+            var container = $('#Edit_Task_Cont');
+            container.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Update", "Tasks")'
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function confirm_update_Task(Id)
+        {
+            var data = {};
+            data.Id = Id;
+            data.Task_Title = $('#Task_Title_Txt_').val();
+            data.DueDate = $('#DueDate_Txt_').val();
+            data.Task_External_Ref = $('#Task_External_Ref_Txt_').val();
+            data.Task_Internal_Ref = $('#Task_Internal_Ref_Txt_').val();
+            data.project = $('#project_list_').val();
+            data.area = $('#area_list_').val();
+            data.Task_Authorized_Person = $('#Task_Authorized_Person_Txt_').val();
+            data.ShippingAddress = $('#ShippingAddress_Txt_').val();
+            data.Task_Authorized_Phone = $('#Task_Authorized_Phone_Txt_').val();
+            data.Task_Authorized_Email = $('#Task_Authorized_Email_Txt_').val();
+            data.Task_Account_Name = $('#Task_Account_Name_Txt_').val();
+
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Confirm_Update", "Tasks")';
+            ajaxoptions.success = function (result) {
+                push_notification('Update Task', result, false);
+                Load_Tasks_View($('#view_type').val());
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function filter_Tasks()
+        {
+            var data = {};
+            data.Task_Title = $('#Task_Title_Txt').val();
+            data.DueDate = $('#DueDate_Txt').val();
+            data.Task_External_Ref = $('#Task_External_Ref_Txt').val();
+            data.Task_Internal_Ref = $('#Task_Internal_Ref_Txt').val();
+            data.project = $('#project_list').val();
+            data.area = $('#area_list').val();
+            data.Task_Authorized_Person = $('#Task_Authorized_Person_Txt').val();
+            data.ShippingAddress = $('#ShippingAddress_Txt').val();
+            data.from = $('#from').val();
+            data.to = $('#to').val();
+            data.Task_Account_Name = $('#Task_Account_Name_Txt').val();
+
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Task_Create", "Tasks")';
+            ajaxoptions.success = function (result) {
+                push_notification('Filter Tasks', result, false);
+                Load_Tasks_View($('#view_type').val());
+                Clear_Tasks_Filter_Frm();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Clear_Tasks_Filter_Frm() {
+            $('#Task_Title_Txt').val('');
+            $('#DueDate_Txt').val('');
+            $('#Task_External_Ref_Txt').val('');
+            $('#Task_Internal_Ref_Txt').val('');
+            $('#Task_Internal_Ref_Txt').val('');
+            $('#project_list').val(-1);
+            $('#area_list').val(-1);
+            $('#Task_Authorized_Person_Txt').val('');
+            $('#ShippingAddress_Txt').val('');
+            $('#Task_Authorized_Phone_Txt').val('');
+            $('#Task_Authorized_Email_Txt').val('');
+            $('#Task_Account_Name_Txt').val('');
+
+        }
+        function create_newTask() {
+            var data = {};
+            data.Task_Title = $('#Task_Title_Txt').val();
+            data.DueDate = $('#DueDate_Txt').val();
+            data.Task_External_Ref = $('#Task_External_Ref_Txt').val();
+            data.Task_Internal_Ref = $('#Task_Internal_Ref_Txt').val();
+            data.project = $('#project_list').val();
+            data.area = $('#area_list').val();
+            data.Task_Authorized_Person = $('#Task_Authorized_Person_Txt').val();
+            data.ShippingAddress = $('#ShippingAddress_Txt').val();
+            data.Task_Authorized_Phone = $('#Task_Authorized_Phone_Txt').val();
+            data.Task_Authorized_Email = $('#Task_Authorized_Email_Txt').val();
+            data.Task_Account_Name = $('#Task_Account_Name_Txt').val();
+
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Task_Create", "Tasks")';
+            ajaxoptions.success = function (result) {
+                push_notification('Create New Task', result, false);
+                Load_Tasks_View($('#view_type').val());
+                Clear_Tasks_Create_Frm();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Clear_Tasks_Create_Frm() {
+            $('#Task_Title_Txt').val('');
+            $('#DueDate_Txt').val('');
+            $('#Task_External_Ref_Txt').val('');
+            $('#Task_Internal_Ref_Txt').val('');
+            $('#Task_Internal_Ref_Txt').val('');
+            $('#project_list').val(-1);
+            $('#area_list').val(-1);
+            $('#Task_Authorized_Person_Txt').val('');
+            $('#ShippingAddress_Txt').val('');
+            $('#Task_Authorized_Phone_Txt').val('');
+            $('#Task_Authorized_Email_Txt').val('');
+            $('#Task_Account_Name_Txt').val('');
+
+        }
+        function Load_Items_View(taskId) {
+            var data = {};
+            data.taskId = taskId;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("TaskItems", "Tasks")';
+            ajaxoptions.success = function (result) {
+                window.location.href = result.redirecturl;
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function Load_Tasks_View(view) {
+            $('#view_type').val(view);
+            var data = {};
+            data.View = view;
+            var img_loading = '<p style="text-align:center"><img src="../../assets/img/loading.gif" /></p>';
+            var container = $('#tasks_tbl_cont');
+            //empty the container and add loading img
+            container.empty();
+            container.append(img_loading);
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Task_Select", "Tasks")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function filter_Tasks() {           
+            var data = {};
+            data.from = $('#from').val();
+            data.to = $('#to').val();
+            data.accountName = $('#Account_Name').val();
+            data.status = $('#status').val();
+            data.area = $('#area').val();
+            data.project = $('#project').val();
+            data.view = $('#view_type').val();
+            var img_loading = '<p style="text-align:center"><img src="../../assets/img/loading.gif" /></p>';
+            var container = $('#tasks_tbl_cont');
+            //empty the container and add loading img
+            container.empty();
+            container.append(img_loading);
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Task_Filter", "Tasks")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Import_BulkTask() {
+            var formData = new FormData();
+            var totalFiles = document.getElementById("Bulk_File").files.length;
+            for (var i = 0; i < totalFiles; i++) {
+                var file = document.getElementById("Bulk_File").files[i];
+
+                formData.append("Bulk_File", file);
+            }
+
+            var ajaxoptions = {};
+            var data = {};
+            data.BulkName = $('#BulkName_Txt').val();
+            data.Bulk_Received_Date = $('#Bulk_Received_Date_Txt').val();
+            data.Bulk_Received_By_Name = $('#Bulk_Received_By_Name').val();
+            data.Bulk_Received_By_Email = $('#Bulk_Received_By_Email').val();
+            data.file = formData;
+            ajaxoptions.url = '';
+            ajaxoptions.success = function (result) {
+
+            };
+            ajaxoptions.error = function () {
+
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Load_Task_Status_View(taskId, taskIsClosed) {
+            var data = {};
+            data.taskId = taskId;
+            taskIsClosed = taskIsClosed;
+            data.isTaskClosed = taskIsClosed;
+            if (taskIsClosed == undefined || taskIsClosed == null)
+                data.isTaskClosed = null;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Load_Task_Status_View", "Tasks")';
+            ajaxoptions.success = function (result) {
+                $('#task_status').empty();
+                $('#task_status').append(result);
+                $('.datepicker').datepicker();
+            };
+            ajaxoptions.error = function () {
+
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function create_new_task_status(taskId) {
+            var data = {};
+            data.status_Id = $('#remained_status option:selected').val();
+            data.taskId = taskId;
+            data.actual_start = $('#actual_date').val() + ' ' + $('#actual_time').val();
+            data.orderd_to = $('#user option:selected').val();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Add_Task_Status_ByTaskId", "Tasks")';
+            ajaxoptions.success = function (result) {
+                push_notification('Create New Task', result, false);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function OpenPackingSlip(Id) {
+            var data = {};
+            data.taskIds = Id;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("PackingSlipForTask", "Tasks")';
+            ajaxoptions.success = function (result) {
+                $('#tasks_tbl_cont').empty();
+                $('#maindiv').empty();
+                $('#maindiv').append(result);
+            };
+            ajaxoptions.error = function () {
+
+            };
+            $.ajax(ajaxoptions);
+        }
+        function printDiv() {
+            var divToPrint = document.getElementById('newpage');
+            var newWin = window.open('', 'Print-Window');
+            newWin.document.open();
+            newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+            newWin.document.close();
+            setTimeout(function () { newWin.close(); }, 10);
+        }
+        function Delete(Id) {
+            var data = {};
+            data.Id = Id;
+            var container = $('#delete_task_dv');
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Delete", "Tasks")'
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function confirm_delete_task(Id) {
+            var data = {};
+            data.Id = Id;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Confirm_Delete", "Tasks")';
+            ajaxoptions.success = function (result) {
+                push_notification('Delete Task', result, false);
+                Load_Tasks_View($('#view_type').val());
+            };
+            ajaxoptions.error = function () {
+                push_notification('Delete Task', 'a fatal error occurred while trying to Delete a task !.', false);
+            };
+            $.ajax(ajaxoptions);
+        }
+
+
+    </script>
+}

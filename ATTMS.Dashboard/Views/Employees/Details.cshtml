@@ -1,0 +1,1292 @@
+﻿@using ATTMS.Dashboard.Resources 
+@using Models
+@model SP_Employee_Select_Result
+@{
+    ViewBag.Title = "Employee (" + Model.name + ") Details";
+}
+@{
+    int target_hours = 172;
+    int rate_worked_hours = Model.worked_hours.Value / target_hours;
+}
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">@Resource.Dashboard</a></li>
+                    <li>
+                        <a href="@Url.Action("Index", "Employees")">
+                            <span>@Resource.Employees_Management</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <span>@Model.name @Resource.Details</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>Show @Model.name @Resource.information_in_graphs_design_and_printable</small>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="hpanel hgreen">
+                <div class="panel-body">
+                    <div class="pull-right text-right">
+                        <div class="btn-group">
+                            <a href="java:void(0)" onclick="load_upload_file()"><i class="fa fa-photo btn btn-default btn-xs"></i></a>
+                        </div>
+                    </div>
+                    <img alt="@Model.photo" class="img-circle m-b m-t-md" src="@{Html.RenderAction("Load_Employee_Photo", "Employees", new { photo = Model.photo });}">
+                    <h3><a href="">@Model.name</a></h3>
+                    <div class="text-muted font-bold m-b-xs">@Model.job_title, @Model.department_title</div>
+                    <p>
+                      @Resource.The_graph_below_is_show_the1  (@target_hours hours)@Resource.The_graph_below_is_show_the2 <b>@Model.name</b> @Resource.is_working_for.
+                    </p>
+                    <div class="progress m-t-xs full progress-small">
+                        <div style="width: @rate_worked_hours.ToString()%" aria-valuemax="@target_hours.ToString()" aria-valuemin="0" aria-valuenow="@rate_worked_hours" role="progressbar" class=" progress-bar progress-bar-success">
+                            <span title="@rate_worked_hours.ToString()" class="sr-only">@rate_worked_hours.ToString()% Complete (success)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-right border-left">
+                    <div class="hpanel hbgblue">
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <h2>@Model.name Stats</h2>
+                                <h3>Total Worked Hours</h3>
+                                <p class="text-big font-light">
+                                    @Model.worked_hours / @target_hours
+                                </p>
+                                <small>
+                                   @Resource.total_worked_hour_rule 
+                                </small>
+                            </div>
+                        </div>
+                        <div class="panel-footer contact-footer">
+                            <div class="row">
+                                <div class="col-md-4 border-right">
+                                    <div class="contact-stat"><span>@Resource.Absence_Days </span> <strong>@Model.absence_total</strong></div>
+                                </div>
+                                <div class="col-md-4 border-right">
+                                    <div class="contact-stat"><span>@Resource.Deduction_Hours </span> <strong>@Model.total_deductions</strong></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contact-stat"><span>@Resource.Approved_Hours (@Resource.Overtime) </span> <strong>@Model.total_approved_overtime</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="hpanel">
+                <div class="hpanel"> 
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab-1">@Resource.Attendance</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-2">@Resource.Contracts</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-3">@Resource.Leave_Requests</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-4">@Resource.Documents</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-5">Department</a></li>
+
+                     </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane active">
+                            <div class="panel-body">
+                                <strong>@Resource.Monthly_Attendance_Sheet</strong>
+                                @{Html.RenderAction("Employee_Details_Attendance_Sheet", new { Id = Model.Id, Is_Current = true });}
+                            </div>
+                        </div>
+                        <div id="tab-2" class="tab-pane">
+                            <div class="panel-body">
+                                <strong>@Model.name @Resource.Contracts</strong>
+                                <div id="Employee_Contract_Details_id"></div>
+                            </div>
+                        </div>
+                        <div id="tab-3" class="tab-pane">
+                            <div class="panel-body">
+                                <strong>@Model.name, @Resource.Leave_Requests</strong>
+                                <div id="Employee_Leave_Details_id"></div>
+                            </div>
+                        </div>
+                        <div id="tab-4" class="tab-pane">
+                            <div class="panel-body">
+                                <strong>@Model.name, @Resource.Documents</strong>
+                                <div id="Employee_Details_Documents_id"></div> 
+                            </div>
+                        </div>
+                        <div id="tab-5" class="tab-pane">
+                            <div class="panel-body">
+                                <strong>@Model.name, Department</strong>
+                                <div id="Employee_Department_id"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Department pop up*@
+<div class="modal fade" id="create_department_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="frm_Contract">
+            <div class="modal-content">
+                <div class="color-line"></div>
+                <div class="modal-header text-center">
+                    <h4 class="modal-title">Transfer department </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        @{Html.RenderAction("Department_Drop_DownList", "Employees");}
+
+                        @*<div id="Job_Title_Content"></div>*@
+
+                        <div class="form-horizontal">
+                            <div class="form-group" id="Job_Title_id">
+                                @*<label class="col-sm-2 control-label">@Resource.Job_Title</label>*@
+                                @*<div class="col-sm-10"  >*@
+                                    @*<select class="form-control m-b" name="Job_Title_id" ></select>*@
+                                @*</div>*@
+                            </div>
+                        </div>
+                        @*<div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Employee_First_Name</label>
+                                <div class="col-sm-10">
+                                    <input id="Employee_Name" name="Employee_Name" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>*@
+                        @*<div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Employee_Mid_Name</label>
+                                <div class="col-sm-10">
+                                    <input id="Employee_Mid_Name" name="Employee_Mid_Name" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>*@
+                        @*<div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Employee_Last_Name</label>
+                                <div class="col-sm-10">
+                                    <input id="Employee_last_Name" name="Employee_last_Name" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>*@
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Joined At</label>
+                                <div class="col-sm-10">
+                                    <input id="Joined_At_dtp" type="text" value="02-16-2012" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        @*<div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Left At</label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker3_Left_At" type="text" value="02-16-2012" class="form-control">
+                                </div>
+                            </div>
+                        </div>*@  
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Notes</label>
+                                <div class="col-sm-10">
+                                    <input id="txt_Notes" name="txt_Notes" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        @*@{Html.RenderAction("Employee_Drop_DownList", "Employees");}*@
+                        @*<div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.contract_basic_salary</label>
+                                <div class="col-sm-10">
+                                    <input id="contract_basic_salary" name="contract_basic_salary" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>*@
+                        @*<div class="form-group">
+                            <label class="col-sm-12 control-label">
+                                Is Manager
+                                <input type="checkbox" id="chk_terminated" class="i-checks">
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label">
+                                @Resource.renewable
+                                <input type="checkbox" id="chk_renewable" class="i-checks">
+                            </label>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="create_Employee_Deparment(@Model.Id)" disabled id="Contract_save_btn" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+ 
+<div class="modal fade" id="create_department_Modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="frm_Leave" method="get" class="form-horizontal">
+            <div class="modal-content">
+                <div class="color-line"></div>
+                <div class="modal-header text-center">
+                    <h4 class="modal-title">sad_A_leave </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        @{Html.RenderAction("Leave_Ref_Drop_DownList", "Employees");}
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Requested_From </label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker_Requested_From" type="text" value="02-16-2012" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Requested_To</label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker_Requested_to" type="text" value="02-16-2012" class="form-control">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" disabled id="Leave_save_btn" onclick="create_Leave(@Model.Id)" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+    </div>
+</div>
+@*leave pop up*@
+<div class="modal fade" id="createLeaveModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="frm_Leave" method="get" class="form-horizontal">
+            <div class="modal-content">
+                <div class="color-line"></div>
+                <div class="modal-header text-center">
+                    <h4 class="modal-title">@Resource.Add_A_leave </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">  
+                        @{Html.RenderAction("Leave_Ref_Drop_DownList", "Employees");}
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Requested_From </label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker_Requested_From" type="text" value="02-16-2012" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Requested_To</label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker_Requested_to" type="text" value="02-16-2012" class="form-control">
+
+                                </div>
+                            </div>
+                        </div>
+                         
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" disabled id="Leave_save_btn" onclick="create_Leave(@Model.Id)" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+    </div>
+</div>
+@*document pop up*@
+<div class="modal fade" id="createDocumentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="frm_document">
+            <div class="modal-content">
+                <div class="color-line"></div>
+                <div class="modal-header text-center">
+                    <h4 class="modal-title">@Resource.Add_Document </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        @{Html.RenderAction("Document_Ref_Drop_DownList", "Employees");}
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Signed_At</label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker_Signed_At" type="text" value="02-16-2012" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Expired_At</label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker_Expired_At" type="text" value="02-16-2012" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Copy_Path</label>
+                                <div class="col-sm-10">
+                                    <input id="file_Copy_path" name="file_Copy_path" type="file" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Notes</label>
+                                <div class="col-sm-10">
+                                    <input id="txt_Notes"  name="txt_Notes" type="text" class="form-control">
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label">
+                                @Resource.Expired:&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" id="chk_Expired" class="i-checks">
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label">
+                                @Resource.Purged:&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" id="chk_Purged" class="i-checks">
+                            </label>
+                        </div> 
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label">
+                                @Resource.Renwed:&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" id="chk_Renwed" class="i-checks">
+                            </label>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="upload_document(@Model.Id)" disabled id="save_btn" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+    </div>
+
+</div>
+
+
+@*contract pop up*@
+<div class="modal fade" id="createContractModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="frm_Contract">
+            <div class="modal-content">
+                <div class="color-line"></div>
+                <div class="modal-header text-center">
+                    <h4 class="modal-title">@Resource.Create_Contract </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        @{Html.RenderAction("Department_Drop_DownList", "Employees");}
+
+                        @*<div id="Job_Title_Content"></div>*@
+
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Job_Title</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="Job_Title_id" id="Job_Title_id"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Employee_First_Name</label>
+                                <div class="col-sm-10">
+                                    <input id="Employee_Name" name="Employee_Name" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Employee_Mid_Name</label>
+                                <div class="col-sm-10">
+                                    <input id="Employee_Mid_Name" name="Employee_Mid_Name" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Employee_Last_Name</label>
+                                <div class="col-sm-10">
+                                    <input id="Employee_last_Name" name="Employee_last_Name" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Start_At</label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker2" type="text" value="02-16-2012" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Expected_Start_At</label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker3_Exp_Start" type="text" value="02-16-2012" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.Expected_End_At :</label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker6_Exp_End" type="text" value="02-16-2012" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.End_At</label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker4" type="text" value="02-16-2012" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.trial_period_duration_End </label>
+                                <div class="col-sm-10">
+                                    <input id="datapicker5" type="text" value="02-16-2012" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.contract_net_salary</label>
+                                <div class="col-sm-10">
+                                    <input id="contract_net_salary" name="contract_net_salary" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.contract_gross_salary</label>
+                                <div class="col-sm-10">
+                                    <input id="contract_gross_salary" name="contract_gross_salary" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@Resource.contract_basic_salary</label>
+                                <div class="col-sm-10">
+                                    <input id="contract_basic_salary" name="contract_basic_salary" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label">
+                                @Resource.Terminated
+                                <input type="checkbox" id="chk_terminated" class="i-checks">
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label">
+                                @Resource.renewable
+                                <input type="checkbox" id="chk_renewable" class="i-checks">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="create_Contract(@Model.Id)" disabled id="Contract_save_btn" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="contract_terminated_and_endatModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" id="contract_terminated_and_endat_Content">
+        @*<div class="modal-content">
+        <div class="color-line"></div>
+        <div class="modal-header text-center">
+            <h4 class="modal-title">@Resource.TerminateAndEndContract</h4>
+        </div>
+        <div >
+
+        </div>
+    </div>*@
+    </div>
+</div>
+<div class="modal fade" id="EditDocumentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Edit_This_Document</h4>
+            </div>
+            <div id="Edit_Popup_Content"></div>
+        </div>
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/bundles/xeditable/css")
+    @Styles.Render("~/bundles/select2/css")
+    @Styles.Render("~/bundles/touchspin/css")
+    @Styles.Render("~/bundles/datepicker/css")
+    @Styles.Render("~/bundles/bootstrapCheckbox/css")
+    @Styles.Render("~/bundles/datetimepicker/css")
+    @Styles.Render("~/bundles/clockpicker/css")
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/xeditable/js")
+    @Scripts.Render("~/bundles/select2/js")
+    @Scripts.Render("~/bundles/touchspin/js")
+    @Scripts.Render("~/bundles/datepicker/js")
+    @Scripts.Render("~/bundles/datetimepicker/js")
+    @Scripts.Render("~/bundles/clockpicker/js")
+    <script src="~/Vendor/flot/examples/shared/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ///; 
+            fill_Employee_Contract_Detail();
+            fill_Employee_Document_Detail();
+            fill_Employee_Leave_Detail();
+            fill_Employee_Department();
+            $('.date').datepicker({});
+            $("#create_frm").validate({
+                rules: {
+                    endat_dp: {
+                        required: true
+                    }
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                },
+                errorClass: "error",
+                validClass: "valid"
+            });
+            $('#frm_terminate_contract').on('blur keyup change', 'input', function (e) {
+                var form = $("#frm_terminate_contract");
+
+                if (form.valid()) {
+                    $('#terminate_and_end_contract_btn').prop('disabled', false);
+                }
+                else {
+                    $('#terminate_and_end_contract_btn').prop('disabled', 'disabled');
+                    return;
+                }
+            });
+        });
+
+        function cancel_terminate_and_end_contract(){
+            resetForm('#frm_terminate_contract');
+            toaster('warning', 'Terminate and End Contract Cancelled...');
+        }
+        function terminate_and_end_contract(Id){
+            var data = {};
+            data.Id = Id;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Terminate_And_End_Contract", "Employees")";
+            ajaxoptions.success = function (result) {
+                $('#contract_terminated_and_endat_Content').empty();
+                $('#contract_terminated_and_endat_Content').append(result);
+                frm_terminate_contract_validation();
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to Terminate And End Contract!.');
+            };
+            $.ajax(ajaxoptions);
+        }
+        function confirm_terminate_and_end_contract(Id){
+            var data = {};
+            data.Id = Id
+            data.endAt = $('#endat_dp').val();
+            data.isTerminate = $('#terminated_chk').prop('checked')
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Confirm_Terminate_And_End_Contract", "Employees")";
+            ajaxoptions.success = function (result) {
+                resetForm('#frm_terminate_contract')
+                fill_Employee_Contract_Detail();
+                toaster('info', result);
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to Terminate And End Contract!.');
+            };
+            $.ajax(ajaxoptions);
+        }
+        function frm_terminate_contract_validation(){
+            $('.date').datepicker({});
+
+            $('#frm_terminate_contract').on('blur keyup change', 'input', function (e) {
+                var form = $("#frm_terminate_contract");
+
+                if (form.valid()) {
+                    $('#terminate_and_end_contract_btn').prop('disabled', false);
+                }
+                else {
+                    $('#terminate_and_end_contract_btn').prop('disabled', 'disabled');
+                    return;
+                }
+            });
+        }
+
+       function Edit_Document_Dtail(employee_document_Id)
+       {
+            var data = {};
+           data.employee_document_Id = employee_document_Id;
+           data.document_ref_id  = $('#EditDocumentModal').find('#Document_ref_ddl').val();
+           data.signed_at = $('#datapicker_Signed_At_Edit').val();
+           data.expires_at = $('#datapicker_Expired_At_Edit').val();
+           data.notes = $('#txt_Notes_Edit').val();
+           data.copy_path = $('#file_Copy_path_Edit').val();
+           var ajaxoptions = {};
+           ajaxoptions.data = data;
+           ajaxoptions.url = "@Url.Action("Save_edited_Document", "Employees")";
+           ajaxoptions.success = function (result) {
+               fill_Employee_Document_Detail();
+               toaster('info', result);
+           };
+           ajaxoptions.error = function () {
+               toaster('error', 'a fatal error occurred while trying to submit adding A Document !.');
+           };
+           if (data.title != '') {
+               $.ajax(ajaxoptions);
+           }
+           else {
+               toaster('warning', 'please provide the adding A Document title first, its required !.');
+           }
+        }
+        function upload_document(employee_Id)
+        {
+            debugger;
+            var e =$('#file_Copy_path').val();
+            var files = e.files;
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++)
+                    {
+                        data.append("file" + x, files[x]);
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("upload_document")',
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            create_Document(employee_Id,result)
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                }
+                else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        }
+        function cancel_leave_creation()
+        {
+            resetForm('#frm_Leave');
+            toaster('warning', 'Create Leave Cancelled!.');
+        }
+        function cancel_contract_creation()
+        {
+            resetForm('#frm_Contract');
+            toaster('warning', 'Create Contract Cancelled!.');
+        }
+        function cancel_document_creation()
+        {
+            resetForm('#frm_document');
+            toaster('warning', 'Create Document Cancelled!.');
+        }
+        function Get_Data_Edit_Pop_UP(ID)
+        {
+            var cont = $('#Edit_Popup_Content');
+            cont.empty();
+            var data = {};
+            data.ID = ID;
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Edit_Document")';
+            ajaxoptions.data = data;
+            ajaxoptions.success = function (result) {
+                cont.empty();
+                cont.append(result);
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        jQuery.validator.addMethod('selectcheck', function (value) {
+            return (value != '0');
+        }, 'Pleace Select Item');
+
+            $("#frm_document").validate({
+                rules: {
+                    txt_Notes: { required: true },
+                    Document_ref_ddl: { required: true , selectcheck: true   },
+                    file_Copy_path: { required: true }
+                },
+                messages: {
+                },
+                errorClass: "error",
+                validClass: "valid"
+            });
+            //leave validation
+            $("#frm_Leave").validate({
+                rules: {
+                    Leave_Ref_id_ddl: { required: true , selectcheck: true   }
+                },
+                errorClass: "error",
+                validClass: "valid"
+            });
+            $('#frm_Leave').on('blur keyup change', 'input', function (e) {
+                var form = $("#frm_Leave");
+
+                if (form.valid()) {
+                  $('#Leave_save_btn').prop('disabled', false);
+                }
+                else {
+                    $('#Leave_save_btn').prop('disabled', 'disabled');
+                    return;
+                }
+            });
+            $('#Leave_save_btn').on('blur keyup change', 'select', function (e) {
+                var form = $("#Leave_save_btn");
+
+                if (form.valid()) {
+                    $('#Leave_save_btn').prop('disabled', false);
+                }
+                else {
+                    $('#Leave_save_btn').prop('disabled', 'disabled');
+                    return;
+                }
+            });
+            //leave validation end
+            $("#frm_Contract").validate({
+                rules: {
+                    Employee_Name: { required: true },
+                    Employee_Mid_Name: { required: true },
+                    Document_ref_ddl: { required: true , selectcheck: true   },
+                    Job_Title_id: { required: true , selectcheck: true   },
+                    title:{required:true, selectcheck: true},
+                    Employee_last_Name: { required: true },
+                    contract_net_salary : { required: true },
+                    contract_basic_salary: { required: true },
+                    contract_gross_salary: { required: true },
+                },
+                messages: {
+                    //txt_Notes: { required: 'akjshogtiwedfspjls;kfcmndssfhyooprj' },
+                },
+                errorClass: "error",
+                validClass: "valid"
+            });
+         $(function () {
+            $('#datepicker').datepicker();
+            $("#datepicker").on("changeDate", function (event) {
+                $("#my_hidden_input").val($("#datepicker").datepicker('getFormattedDate'))
+            });
+            $('#datapicker2').datepicker();
+            $('#datapicker_Requested_From').datepicker();
+            $('#datapicker_Requested_to').datepicker();
+            $('#datapicker_Signed_At').datepicker();
+            $('#Joined_At_dtp').datepicker();
+            $('#datapicker_Expired_At').datepicker();
+            $('#datapicker3_Exp_Start').datepicker();
+            $('#datapicker4').datepicker();
+            $('#datapicker5').datepicker();
+            $('#datapicker6_Exp_End').datepicker();
+            $('.input-group.date').datepicker({});
+            $('.input-daterange').datepicker({});
+            $("#demo1").TouchSpin({
+                min: 0,
+                max: 100,
+                step: 0.1,
+                decimals: 2,
+                boostat: 5,
+                maxboostedstep: 10,
+            });
+            $("#demo2").TouchSpin({
+                verticalbuttons: true
+            });
+            $("#demo3").TouchSpin({
+                postfix: '%'
+            });
+            $("#demo4").TouchSpin({
+                postfix: "a button",
+                postfix_extraclass: "btn btn-default"
+            });
+            $(".js-source-states").select2();
+            $(".js-source-states-2").select2();
+            //turn to inline mode
+            $.fn.editable.defaults.mode = 'inline';
+            //defaults
+            $.fn.editable.defaults.url = '#';
+            //editables
+            $('#username').editable({
+                url: '#',
+                type: 'text',
+                pk: 1,
+                name: 'username',
+                title: 'Enter username'
+            });
+            $('#firstname').editable({
+                validate: function (value) {
+                    if ($.trim(value) == '') return 'This field is required';
+                }
+            });
+            $('#sex').editable({
+                prepend: "not selected",
+                source: [
+                    { value: 1, text: 'Male' },
+                    { value: 2, text: 'Female' }
+                ],
+                display: function (value, sourceData) {
+                    var colors = { "": "gray", 1: "green", 2: "blue" },
+                            elem = $.grep(sourceData, function (o) { return o.value == value; });
+                    if (elem.length) {
+                        $(this).text(elem[0].text).css("color", colors[value]);
+                    } else {
+                        $(this).empty();
+                    }
+                }
+            });
+
+            $('#dob').editable();
+            $('#event').editable({
+                placement: 'right',
+                combodate: {
+                    firstItem: 'name'
+                }
+            });
+            $('#comments').editable({
+                showbuttons: 'bottom'
+            });
+            $('#fruits').editable({
+                pk: 1,
+                limit: 3,
+                source: [
+                    { value: 1, text: 'banana' },
+                    { value: 2, text: 'peach' },
+                    { value: 3, text: 'apple' },
+                    { value: 4, text: 'watermelon' },
+                    { value: 5, text: 'orange' }
+                ]
+            });
+
+            $('#user .editable').on('hidden', function (e, reason) {
+                if (reason === 'save' || reason === 'nochange') {
+                    var $next = $(this).closest('tr').next().find('.editable');
+                    if ($('#autoopen').is(':checked')) {
+                        setTimeout(function () {
+                            $next.editable('show');
+                        }, 300);
+                    } else {
+                        $next.focus();
+                    }
+                }
+            });
+            // ClockPicker
+            $('.clockpicker').clockpicker({ autoclose: true });
+            // DateTimePicker
+            $('#datetimepicker1').datetimepicker();
+        });
+
+        $('#frm_document').on('blur keyup change', 'input', function (e) {
+            var form = $("#frm_document");
+            if (form.valid()) {
+                $('#save_btn').prop('disabled', false);
+            }
+            else {
+                $('#save_btn').prop('disabled', 'disabled');
+                return;
+            }
+        });
+        $('#frm_document').on('blur keyup change', 'select', function (e) {
+            var form = $("#frm_document");
+
+            if (form.valid()) {
+                $('#save_btn').prop('disabled', false);
+            }
+            else {
+                $('#save_btn').prop('disabled', 'disabled');
+                return;
+            }
+        });
+
+        $('#frm_Contract').on('blur keyup change', 'input', function (e) {
+            var form = $("#frm_Contract");
+
+            if (form.valid()) {
+                $('#Contract_save_btn').prop('disabled', false);
+            }
+            else {
+                $('#Contract_save_btn').prop('disabled', 'disabled');
+                return;
+            }
+        });
+        $('#frm_Contract').on('blur keyup change', 'select', function (e) {
+            var form = $("#frm_Contract");
+            if (form.valid()) {
+                $('#Contract_save_btn').prop('disabled', false);
+            }
+            else {
+                $('#Contract_save_btn').prop('disabled', 'disabled');
+                return;
+            }
+        });
+        function fill_Employee_Document_Detail()
+        {
+            var data ={};
+            data.Id =  @Model.Id ;
+            var cont = $('#Employee_Details_Documents_id');
+            cont.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Employee_Details_Documents", "Employees")";
+            ajaxoptions.success = function (result) {
+                cont.append(result);
+                toaster('info', result);
+            };
+            $.ajax(ajaxoptions);
+        } 
+        //Fill employee department
+        function fill_Employee_Department()
+        {
+            var data ={};
+            data.Id =  @Model.Id ;
+            var cont = $('#Employee_Department_id');
+            cont.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Transfer_Employee_Department", "Employees")";
+            ajaxoptions.success = function (result) 
+            {
+                cont.append(result);
+                //toaster('info', result);
+            };
+            $.ajax(ajaxoptions);
+        }
+
+
+        //Employee_Leave_Details_id
+        function fill_Employee_Leave_Detail()
+        {
+            var data ={};
+            data.Id =  @Model.Id ;
+            var cont = $('#Employee_Leave_Details_id');
+            cont.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Employee_Details_Requests", "Employees")";
+            ajaxoptions.success = function (result) {
+                cont.empty();
+                cont.append(result);
+            };
+            $.ajax(ajaxoptions);
+        }
+        function fill_Employee_Contract_Detail()
+        {
+            var data ={};
+            data.Id =  @Model.Id ;
+            var cont = $('#Employee_Contract_Details_id');
+            cont.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Employee_Details_Contracts", "Employees")";
+            ajaxoptions.success = function (result) {
+                cont.append(result);
+                //for (var i = 0; i < result.length; i++) {
+                //    toaster('info', result[i].user_message);
+                //toaster('info', 'Contract Added Successfully');
+                //}
+            };
+            $.ajax(ajaxoptions);
+        }
+        //create_Employee_Deparment
+        debugger
+        function create_Employee_Deparment(emlployee_id) {
+            var data = {};
+            data.Employee_id = emlployee_id;
+            data.Department_id = $('#title').val();
+            //alert("geehh"); 
+            data.Job_Title_id = $('#ddl_Job_Title_id').val(); 
+            data.Coach_Title_id = $('#Coach_Title_id').val(); 
+            data.Joined_At_dtp = $('#Joined_At_dtp').val();
+            data.notes=$('#txt_Notes').val(); 
+            //data.datapicker4 = $('#datapicker4').val();
+            //data.datapicker5 = $('#datapicker5').val();
+            //data.datapicker6_Exp_End = $('#datapicker6_Exp_End').val();
+            //data.contract_net_salary = $('#contract_net_salary').val();
+            //data.contract_basic_salary = $('#contract_basic_salary').val();
+            //data.contract_gross_salary = $('#contract_gross_salary').val();
+            //if ($('#chk_terminated').is(':checked')) {
+            //    data.chk_terminated = true;
+            //} else
+            //{
+            //    data.chk_terminated = false;
+            //}
+            //if ($('#chk_renewable').is(':checked')) {
+            //    data.chk_renewable = true;
+            //} else
+            //{
+            //    data.chk_renewable = false;
+            //}
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("transfer_Employee_Deparment", "Employees")";
+            ajaxoptions.success = function (result) {
+               
+                fill_Employee_Department();
+                 //resetForm('#frm_Contract')
+                //fill_Employee_Contract_Detail();
+ 
+                toaster('info', result);
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to submit a new department !.');
+            };
+            if (data.title != '') {
+                $.ajax(ajaxoptions);
+            }
+            else {
+                toaster('warning', 'please provide the department title first, its required !.');
+            }
+        }
+
+  
+        //end
+        function create_Contract(emlployee_id) {
+            var data = {};
+            data.Employee_id = emlployee_id;
+            data.Job_Title_id = $('#Job_Title_id').val();
+            data.Employee_Name = $('#Employee_Name').val();
+            data.Employee_Mid_Name = $('#Employee_Mid_Name').val();
+            data.Employee_last_Name = $('#Employee_last_Name').val();
+            data.datapicker2 = $('#datapicker2').val();
+            data.datapicker3_Exp_Start = $('#datapicker3_Exp_Start').val();
+            data.datapicker4 = $('#datapicker4').val();
+            data.datapicker5 = $('#datapicker5').val();
+            data.datapicker6_Exp_End = $('#datapicker6_Exp_End').val();
+            data.contract_net_salary = $('#contract_net_salary').val();
+            data.contract_basic_salary = $('#contract_basic_salary').val();
+            data.contract_gross_salary = $('#contract_gross_salary').val();
+            if ($('#chk_terminated').is(':checked')) {
+                data.chk_terminated = true;
+            } else
+            {
+                data.chk_terminated = false;
+            }
+            if ($('#chk_renewable').is(':checked')) {
+                data.chk_renewable = true;
+            } else
+            {
+                data.chk_renewable = false;
+            }
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Contract_Create", "Employees")";
+            ajaxoptions.success = function (result) {
+                resetForm('#frm_Contract')
+                fill_Employee_Contract_Detail();
+                toaster('info', result);
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to submit a new department !.');
+            };
+            if (data.title != '') {
+                $.ajax(ajaxoptions);
+            }
+            else {
+                toaster('warning', 'please provide the department title first, its required !.');
+            }
+        }
+
+        //create_Document
+        function create_Document(emlployee_id,path) {
+            var form = $("#frm_document");
+            if (!form.valid()) {
+                return;
+            }
+            var data = {};
+            data.Employee_id = emlployee_id;
+            data.document_ref_id = $('#Document_ref_ddl').val();
+            data.signed_at = $('#datapicker_Signed_At').val();
+            data.expires_at = $('#datapicker_Expired_At').val();
+            data.notes = $('#txt_Notes').val();
+            data.copy_path = path;
+            var form = $("#frm_document");
+            if (!form.valid()) {
+            $('#save_btn').prop('disabled', 'disabled');
+            return;
+            }
+            if ($('#chk_Purged').is(':checked'))
+            {
+                data.purged = true;
+            } else
+            {
+                data.purged = false;
+            }
+            if ($('#chk_Expired').is(':checked'))
+            {
+                data.expired = true;
+            } else
+            {
+                data.expired = false;
+            }
+            if ($('#chk_renewable').is(':checked')) {
+                data.renwed = true;
+            } else
+            {
+                data.renwed = false;
+            }
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("create_Document", "Employees")";
+            ajaxoptions.success = function (result) {
+                resetForm('#frm_document')
+                fill_Employee_Document_Detail();
+                toaster('info', result);
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to submit adding A Document !.');
+            };
+            if (data.title != '') {
+                $.ajax(ajaxoptions);
+            }
+            else {
+                toaster('warning', 'please provide the adding A Document title first, its required !.');
+            }
+        }
+        //create_Leave
+        function create_Leave(emlployee_id) {
+            var data = {};
+            data.leave_request_ref_Id = $('#Leave_Ref_id_ddl').val();
+            data.requested_for_employee_Id = emlployee_id;
+            data.req_from = $('#datapicker_Requested_From').val();
+            data.req_to = $('#datapicker_Requested_to').val();
+            //data.coach_Id = $('#Coach_id_ddl').val();
+            //data.manager_Id = $('#Manager_id_ddl').val();
+            //data.req_to = $('#datapicker_Requested_to').val();
+            //if ($('#chk_Approved').is(':checked'))
+            //{
+            //    data.approved = true;
+            //} else
+            //{
+            //    data.approved = false;
+            //}
+
+            //if ($('#chk_Rejected').is(':checked'))
+            //{
+
+            //    data.rejected = true;
+            //} else
+            //{
+            //    data.rejected = false;
+            //}
+
+            //if ($('#chk_Manager_Approve').is(':checked'))
+            //{
+
+            //    data.manager_approval = true;
+            //} else
+            //{
+            //    data.manager_approval = false;
+            //}
+
+            //if ($('#chk_Coach_pprove').is(':checked'))
+            //{
+
+            //    data.coach_approval = true;
+            //} else
+            //{
+            //    data.coach_approval = false;
+            //}
+
+
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Create_Leave_Details", "Employees")";
+            ajaxoptions.success = function (result) {
+                resetForm('#frm_Leave')
+                fill_Employee_Document_Detail();
+                toaster('info', result);
+                fill_Employee_Leave_Detail();
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to submit Leave Details Creation !.');
+            };
+                $.ajax(ajaxoptions);
+            }
+            function load_upload_file() {
+                $('#upload_img_input').trigger('click');
+            }
+            function Fill_Job_Title()
+            {
+                var cont = $('#Job_Title_id');
+                cont.empty();
+                var error_fn = '<p style="color:red;text-align:center;"></p>';
+                var img = '<p style="text-align:center"><img width="50px" src="../../Content/loading.gif" /></p>';
+                var data = {};
+           
+                data.department_Id = $('#title').val();
+           data.employee_Id=@Model.Id;
+                var ajaxoptions = {};
+                ajaxoptions.url = '@Url.Action("Fill_Job_Title")';
+                ajaxoptions.data = data;
+                ajaxoptions.success = function (result) {
+                    cont.empty();
+                    cont.append(result);
+                };
+                ajaxoptions.error = function () {
+                    cont.empty();
+                    cont.append(error_fn);
+                };
+                $.ajax(ajaxoptions);
+            }
+    </script>
+}
+<input type="file" class="hidden" onchange="load_preview()" id="upload_img_input" />

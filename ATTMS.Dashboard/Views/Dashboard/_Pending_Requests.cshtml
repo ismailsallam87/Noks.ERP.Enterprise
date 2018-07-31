@@ -1,0 +1,69 @@
+﻿@using Models
+@model List<SP_Pending_Requests_Result>
+<table class="table table-striped">
+    <thead>
+        <tr>
+
+            <th > Employee Request</th>
+            <th>Who Posted the Request</th>
+            <th>Post request date</th>
+            <th>Request from</th>
+            <th>to</th>
+            <th>Request Status</th>
+            <th>Manager</th>
+            <th>Coach</th>
+            <th>Request Type</th> 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        { <tr>
+            <td>
+                @item.name
+                <br />
+            </td>
+              <td>
+                  <span class="">@item.username</span>
+              </td>
+            <td>
+                <span class="">@item.posted_at</span>
+            </td>
+            <td><strong>@item.req_from</strong></td>
+            <td>@item.req_to</td>
+        @if (@item.approved == true)
+        {
+            <td>
+                <i class="fa fa-check" style="font-size:48px;color:green"></i>
+            </td>
+
+        }
+        else if (@item.rejected == true)
+        {
+            <td>
+                <i class="fa fa-close" style="font-size:48px;color:red"></i>
+            </td>
+
+        }
+        else
+        {
+        <td>
+            <i class="fa fa-hourglass-1"></i>
+        </td>
+
+        }
+        <td>
+            <span class="">@item.Manaer_name</span>
+        </td>
+              <td>
+                  <span class="">@item.Coach_name</span>
+              </td>
+              <td>
+                  <span class="">@item.leave_request_title</span>
+              </td>
+</tr>
+        }
+        
+        
+        
+    </tbody>
+</table>

@@ -1,0 +1,17 @@
+﻿-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+create  PROCEDURE [dbo].[SP_Employee_Delete] 
+	-- Add the parameters for the stored procedure here
+	@Id int 
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    delete from [dbo].employee where Id = @Id;
+
+	END

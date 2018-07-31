@@ -1,0 +1,21 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Select_Document_Reference_Result>
+@{
+    int? selectedElement = ViewBag.selectedElement;
+}
+
+<select class="form-control m-b" id="Document_ref_ddl" name="Document_ref_ddl">
+    <option value="-1">@Resource.Please_Choose_Document_Reference</option>
+    @foreach (var item in Model)
+    {
+        if (selectedElement == item.Id)
+        {
+            <option selected="selected" value="@item.Id"> @item.document_type_title </option>
+        }
+        else
+        {
+            <option value="@item.Id"> @item.document_type_title </option>
+        }
+    }
+</select>

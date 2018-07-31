@@ -1,0 +1,237 @@
+﻿@using ATTMS.Dashboard.Resources
+@{
+    ViewBag.Title = @Resource.Devices_Management;
+}
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">@Resource.Dashboard</a></li>
+                    <li class="active">
+                        <span>@Resource.Devices</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>@Resource.List_of @ViewBag.Title.</small>
+            <div>
+                <p>
+                    <a href="#" data-toggle="modal" data-target="#createDeviceModal" class="btn btn-default header-btn">@Resource.Create</a>
+                    <a href="#" id="shifts_grid_btn" onclick="load_devices('grid')" class="btn btn-default right-header-btn btn-active"><i class="fa fa-th"></i></a>
+                    <a href="#" id="shifts_table_btn" onclick="load_devices('table')" class="btn btn-default right-header-btn"><i class="fa fa-table"></i></a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="page-conainer" class="content">
+
+</div>
+<input id="viewType" type="hidden" value="grid" />
+<div class="modal fade" id="createDeviceModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Create_Device</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal" id="create_frm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Device_Name</label>
+                            <div class="col-sm-10">
+                                <input id="Device_Name" type="text" class="form-control">
+                                <span class="help-block m-b-none">@Resource.Add_New_Device</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Device_No</label>
+                            <div class="col-sm-10">
+                                <input id="Device_No" type="number" class="form-control">
+                                <span class="help-block m-b-none">@Resource.Add_New_devioce_No</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Device_ID:</label>
+                            <div class="col-sm-10">
+                                <input id="Device_ID" type="number" class="form-control">
+                                <span class="help-block m-b-none">@Resource.you_can_add_a_new_device_ID</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Device_IP</label>
+                            <div class="col-sm-10">
+                                <input id="Device_IP" type="text" class="form-control" placeholder='xxx.xxx.xxx.xxx' required pattern="^([0-9]{1,3}\.){3}[0-9]{1,3}$">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Device_Port</label>
+                            <div class="col-sm-10">
+                                <input id="Device_Port" type="number" class="form-control" placeholder='xxxx'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">@Resource.Device_Password:</label>
+                            <div class="col-sm-10">
+                                <input id="Device_Password" type="number" class="form-control" placeholder='****'>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_device_creation()" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+                <button type="button" onclick="create_device()" data-dismiss="modal" class="btn btn-primary">@Resource.Save_changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="employeeShiftModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="shiftEmployees_modal" class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/clockpicker/css")
+    @Styles.Render("~/bundles/xeditable/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    @Scripts.Render("~/bundles/clockpicker/js")
+    @Scripts.Render("~/bundles/xeditable/js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            load_devices($('#viewType').val());
+            $('.clockpicker').clockpicker({ autoclose: true });
+        });
+        function load_devices(view) {
+            $('#viewType').val(view);
+            if (view == 'table') {
+                $('#devices_grid_btn').removeClass('btn-active');
+                $('#devices_table_btn').addClass('btn-active');
+            }
+            else {
+                $('#devices_grid_btn').addClass('btn-active');
+                $('#devices_table_btn').removeClass('btn-active');
+            }
+
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var error_info = 'an error occurred while trying to load the devices.';
+            var container = $('#page-conainer');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            ajaxoptions.data = { view: view };
+            ajaxoptions.url = '@Url.Action("Devices_Select")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+                if (view == 'table') {
+                    Initialize_Devices_Tbl();
+                }
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Initialize_Devices_Tbl() {
+            $('#devices_tbl').dataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    { extend: 'copy', className: 'btn-sm' },
+                    { extend: 'csv', title: '@ViewBag.Title', className: 'btn-sm' },
+                    { extend: 'pdf', title: '@ViewBag.Title', className: 'btn-sm' },
+                    { extend: 'print', className: 'btn-sm' }
+                ]
+            });
+        }
+        function cancel_device_creation() {
+            toaster('warning', 'you canceled device creation!');
+            $('#Device_Name').val('');
+            $('#Device_No').val('');
+            $('#Device_ID').val('');
+            $('#Device_IP').val('');
+            $('#Device_Port').val('');
+            $('#Device_Password').val('');
+            resetForm("#create_frm");
+        }
+        function create_device() {
+            var data = {};
+            data.Device_Name =    $('#Device_Name').val();
+            data.Device_No =      $('#Device_No').val();
+            data.Device_ID =      $('#Device_ID').val();
+            data.Device_IP =      $('#Device_IP').val();
+            data.Device_Port =    $('#Device_Port').val();
+            data.Device_Password= $('#Device_Password').val();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Device_Create")";
+            ajaxoptions.success = function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    toaster('info', result[i].user_message);
+                }
+                load_devices($('#viewType').val());
+                $('#Device_Name').val('');
+                $('#Device_No').val('');
+                $('#Device_ID').val('');
+                $('#Device_IP').val('');
+                $('#Device_Port').val('');
+                $('#Device_Password').val('');
+                resetForm("#create_frm");
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to submit a new device !.');
+            };
+            if (data.title != '') {
+                $.ajax(ajaxoptions);
+            }
+            else {
+                toaster('warning', 'please provide the device title first, its required !.');
+            }
+        }
+        function load_shift_employees_modal(Id) {
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var error_info = 'an error occurred while trying to load the shift employees.';
+            var container = $('#shiftEmployees_modal');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            ajaxoptions.url = "@Url.Action("Shift_Employees")";
+            ajaxoptions.data = { Id: Id };
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+                load_inline_mode();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+    </script>
+}  

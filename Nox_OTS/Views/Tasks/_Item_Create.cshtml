@@ -1,0 +1,93 @@
+﻿@using OTS.DAL
+@{
+    OTSEntities db = new OTSEntities();
+}
+
+<form action="#" class="form-horizontal form-row-seperated">
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-2">Item Title: </label>
+            <div class="col-md-10">
+                <input type="text" id="title" class="form-control"/>
+                @*<span class="help-block">
+                    Auto Generated (You can't modify)
+                </span>*@
+            </div>          
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">ItemSN: </label>
+            <div class="col-md-10">
+                <input type="text" id="itemSn" class="form-control" />
+                @*<span class="help-block">
+                    Auto Generated (You can't modify)
+                </span>*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Item Weight: </label>
+            <div class="col-md-10">
+                <input type="text" id="weight" class="form-control" />
+                @*<span class="help-block">
+                    Auto Generated (You can't modify)
+                </span>*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Item Desc</label>
+            <div class="col-md-10">
+                <input type="text" id="desc" class="form-control" />
+                @*<span class="help-block">
+                    Provided from the Owner of the Task
+                </span>*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Item Notes</label>
+            <div class="col-md-10">
+                <input type="text" id="notes" class="form-control" />
+                @*<span class="help-block">
+                    Provided from the Operator of the Task
+                </span>*@
+            </div>
+        </div>
+        @*<div class="form-group">
+            <label class="control-label col-md-2">Created By</label>
+            <div class="col-md-4">
+                <select id="project_list" class="form-control">
+                    <option value="-1">Please Select User</option>
+                    @foreach (var user in db.AspNetUsers.ToList())
+                    {
+                        <option value="@user.Id">@user.Email</option>
+                    }
+                </select>
+                <span class="help-block">
+                    Required *
+                </span>
+            </div>*@
+        <div class="form-group">
+            <label class="control-label col-md-2">Status</label>
+            <div class="col-md-10">
+                <select id="statusId" class="form-control">
+                    <option value="-1">Please Select a Status</option>
+                    @foreach (var status in db.Task_Generic_Status.ToList())
+                    {
+                        <option value="@status.ID">@status.Title</option>
+                    }
+                </select>
+                @*<span class="help-block">
+                    Required *
+                </span>*@
+            </div>
+        </div>
+    </div><br />
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn green modal_submit" data-dismiss="modal" onclick="create_newItem()" aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Create Item', 'The Operation of Creation New Item is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

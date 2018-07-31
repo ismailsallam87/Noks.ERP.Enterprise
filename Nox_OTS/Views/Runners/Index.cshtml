@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "Runners Management";
+}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    Dashboard <small>statistics and more</small>
+                </h3>
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="@Url.Action("Index","Home")">
+                            Dashboard
+                        </a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","Runners")">
+                            Runners Management
+                        </a>
+                    </li>
+                    <li class="pull-right">
+
+                    </li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Begin: life time stats -->
+                <div class="portlet">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-shopping-cart"></i>Runner List
+                        </div>
+                        <div class="actions">
+                            <a href="#" class="btn default yellow-stripe">
+                                <i class="fa fa-plus"></i>
+                                <span class="hidden-480">
+                                    New Runner
+                                </span>
+                            </a>
+                            <div class="btn-group">
+                                <a class="btn default yellow-stripe" href="#" data-toggle="dropdown">
+                                    <i class="fa fa-share"></i>
+                                    <span class="hidden-480">
+                                        Tools
+                                    </span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li>
+                                        <a href="#">
+                                            Export to Excel
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Export to CSV
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Export to XML
+                                        </a>
+                                    </li>
+                                    <li class="divider">
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Print List
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-container">
+                            <div class="table-actions-wrapper">
+                                <span>
+                                </span>
+                                <select class="table-group-action-input form-control input-inline input-small input-sm">
+                                    <option value="">Select...</option>
+                                    <option value="Cancel">Cancel</option>
+                                    <option value="Cancel">Hold</option>
+                                    <option value="Cancel">On Hold</option>
+                                    <option value="Close">Close</option>
+                                </select>
+                                <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> Submit</button>
+                            </div>
+                            <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
+                                <thead>
+                                    <tr role="row" class="heading">
+                                        <th width="5%">
+                                            Email
+                                        </th>
+                                        <th width="15%">
+                                            User Name
+                                        </th>
+                                        <th width="15%">
+                                            Phone Number
+                                        </th>
+                                        <th width="10%">
+                                            Active Tasks
+                                        </th>
+                                        <th width="10%">
+                                            Delivered Tasks
+                                        </th>
+                                        <th width="10%">
+                                            Undelivered Tasks
+                                        </th>
+                                        <th>
+                                            Actions
+                                        </th>
+                                    </tr>
+                                    <tr role="row" class="filter">
+                                        <td>
+                                            <input id="Email_Txt" type="text" class="form-control form-filter input-sm" placeholder="Email">
+                                        </td>
+                                        <td>
+                                            <input id="UserName_Txt" type="text" class="form-control form-filter input-sm" placeholder="User Name">
+                                        </td>
+                                        <td>
+                                            <input id="PhoneNo_Txt" type="text" class="form-control form-filter input-sm" placeholder="Phone Number">
+                                        </td>
+                                        <td>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i> </button>
+                                            |
+                                            <button class="btn btn-sm red filter-cancel"><i class="fa fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody id="Runners_Tbl_body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End: life time stats -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var data = {};
+        data.id = '';
+        data.userName = '';
+        data.PhoneNumber = '';
+        data.email = '';
+        Runner_Select('@Url.Action("Runner_Select", "Runners")', data);
+    })
+</script>

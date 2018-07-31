@@ -1,0 +1,264 @@
+﻿@using OTS.DAL
+@model List<sp_Tasks_Opened_Now_Result>
+
+
+@{
+    ViewBag.Title = " Tasks Board - Table";
+}
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-datepicker/css/datepicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-select/bootstrap-select.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2-metronic.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/jquery-multi-select/css/multi-select.css" />
+@*<link href="~/assets/plugins/data-tables/jquery.dataTables.css" rel="stylesheet"  type="text/css"  />*@
+<link href="~/assets/plugins/data-tables/DT_bootstrap.css" rel="stylesheet" />
+<link href="../../assets/plugins/custom.css" rel="stylesheet" />
+<link rel="stylesheet" href="../../scripts/jqx.base.css" type="text/css" />
+
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            @ViewBag.Title <small></small>
+        </h3>
+        @*<ul class="page-breadcrumb breadcrumb">
+                <li class="btn-group">
+
+                </li>
+                @{Html.RenderAction("Breedcrumb", "Common", new { view = "TasksManagement" });}
+            </ul>*@
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">
+                            Home
+                        </a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Dashboard
+                        </a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Task Board-Table
+                        </a>
+                    </li>
+                    <li class="btn-group">
+                        <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                            <span>
+                                Actions
+                            </span>
+                            <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li>
+                                <a href="#create_view_modal" data-toggle="modal">
+                                    Filter
+                                </a>
+                            </li>
+                             
+                        </ul>
+                    </li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+
+<div class="row">
+    <div class="col-md-12" id="tasks_tbl_cont">
+
+    </div>
+</div>
+<!-- END PAGE CONTENT-->
+@*<div id="create_view_modal" class="modal fade bs-modal-lg" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Create New Task</h4>
+                </div>
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+                    @Html.Partial("_Task_Create")
+                    <!-- END FORM-->
+                </div>
+            </div>
+        </div>
+    </div>*@
+<input type="hidden" id="view_type" value="Table" />
+<!-- END PAGE Modals-->
+@*<div class="tab-content">*@
+
+    <!-- /.tab-pane -->
+    @*<div class="tab-pane active" id="tab_2">
+        <div class="box-body">
+            <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Task Title</th>
+                        <th>Project Name</th>
+                        <th>Phone</th>
+
+                        <th>Zone Area</th>
+                        <th>Due Date</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Task Status</th>
+                        <th>Duration</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Task_Title</td>
+                            <td>
+                                @item.ProjectName
+                            </td>
+                            <td>@item.Task_Authorized_Phone</td>
+                            <td> @item.Task_Area</td>
+                            <td> @item.Due_Date</td>
+                            <td> @item.latitude</td>
+                            <td> @item.longitude</td>
+                            <td> @item.TaskStatus</td>
+                            <td>
+                                @if (item.Expected_End_Time != null && item.Expected_Start_Time != null)
+                                {
+                                    TimeSpan time = (item.Expected_End_Time - item.Expected_Start_Time);
+                                    <p> @time.Days days @time.Hours hour @time.Minutes min </p>
+                                }
+                                else
+                                {
+                                    <p> 
+                                    </p>
+                                } 
+                            </td> 
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>*@
+    <div id="newpage">
+
+    </div>
+    <!-- END PAGE CONTENT-->
+    <div id="create_view_modal" class="modal fade bs-modal-lg" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Filter By Area and Project and Status</h4>
+                </div>
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+                    @Html.Partial("_Project_Status_Area_Filter")
+                    <!-- END FORM-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE Modals-->
+</div>
+<!-- /.box-header -->
+<!-- /.box-body -->
+@section Scripts {
+
+    <script type="text/javascript" src="../../assets/plugins/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery.pulsate.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery-bootpag/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/holder.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="../../assets/plugins/select2/select2.min.js"></script>
+    <script src="../../assets/scripts/core/app.js"></script>
+    <script src="../../assets/scripts/custom/ui-general.js"></script>
+    <script type="text/javascript" src="../../assets/scripts/custom/form-samples.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/clockface/js/clockface.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="../../assets/scripts/custom/components-pickers.js"></script>
+    <!-- DataTables --> 
+    <script type="text/javascript" src="../../assets/plugins/datatables/jquery.dataTables.min.js"></script> 
+    <script type="text/javascript" src="../../assets/plugins/datatables/dataTables.bootstrap.min.js"></script> 
+    <script src="../../assets/plugins/main.js"></script>
+    <script>  
+        var AreaIds = "";
+        var ProjectIds = "";
+        var statusIds = "";
+        $(function () {
+            Tasks_Opened_Now();
+            $(".js-source-states-2").select2();
+            $('#AreaId').on('change', function () {
+                AreaIds = ($(this).val().toString() + ",");
+            });
+            $('#ProjectId').on('change', function () {
+                ProjectIds = ($(this).val().toString() + ",");
+            });
+            $('#statusId').on('change', function () {
+                statusIds = ($(this).val().toString() + ",");
+            });
+            $("#example1").DataTable();
+            //$('#example2').DataTable({
+            //    "paging": true,
+            //    "lengthChange": true,
+            //    "searching": true,
+            //    "ordering": true,
+            //    "info": true,
+            //    "autoWidth": true
+            //});
+        });
+        function Tasks_Opened_Now() {
+            var data = {};
+            data.AreaIds = AreaIds;
+            data.ProjectIds = ProjectIds;
+            data.statusIds = statusIds;
+            var ajaxoptions = {};
+            ajaxoptions.data = data; 
+            ajaxoptions.url = '@Url.Action("Area_Project_Status_Filter", "Tasks")';
+            ajaxoptions.success = function (result) {
+                 AreaIds = "";
+                 ProjectIds = "";
+                 statusIds = "";
+                $('#newpage').empty();
+                $('#newpage').append(result);
+                $("#example2").DataTable();
+             
+            };
+            ajaxoptions.error = function () {
+
+            };
+            $.ajax(ajaxoptions);
+        }
+    </script> 
+}
+
+

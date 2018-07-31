@@ -1,0 +1,64 @@
+﻿@using ATTMS.Dashboard.Resources 
+@using Models
+@model List<SP_Employee_Documents_Result>
+
+<p>
+    @Resource.Upload_Document_Message
+   
+</p>
+@if (Model != null && Model.Count > 0)
+{
+    <form method="get" class="form-horizontal">
+        <div class="form-group">
+            <div class="row">
+                <label class="col-sm-2 control-label">@Resource.Add_Document</label>
+                <div class="col-sm-2">
+                    <a href="#" data-toggle="modal" data-target="#createDocumentModal" class="btn btn-primary">+</a>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        @foreach (var document in Model)
+        {
+            <div class="col-md-3">
+                <div class="hpanel document-element">
+                    <a href="@document.copy_path" target="_blank">
+                        <div class="panel-body">
+                            <div class="stats-title pull-left">
+                                <h4>@document.document_type_title</h4>
+                            </div>
+                            <div class="stats-icon pull-right       @document.icon">
+                                @*<i class="fa fa-file-pdf-o text-info"></i>*@
+                            </div>
+                            <div class="m-t-xl">
+                                <h4 class="text-success">@document.signed_at</h4>
+                                <small>
+                                    @document.notes
+                                </small>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="btn btn-xs btn-default" href="#" data-toggle="modal" data-target="#EditDocumentModal" onclick="Get_Data_Edit_Pop_UP(@document.employee_document_Id)"> @Resource.Edit</a> 
+
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p style="color:red">@Resource.No_Documents_for_this_employee</p>
+    <form method="get" class="form-horizontal">
+        <div class="form-group">
+            <div class="row">
+                @*<label class="col-sm-2 control-label">@Resource.Add_Document</label>*@
+                <div class="col-sm-2">
+                    <a href="#" data-toggle="modal" data-target="#createDocumentModal" class="btn btn-primary">+</a>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+

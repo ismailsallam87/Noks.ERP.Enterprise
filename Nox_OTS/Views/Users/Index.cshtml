@@ -1,0 +1,182 @@
+﻿
+@{
+}
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-select/bootstrap-select.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2-metronic.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/jquery-multi-select/css/multi-select.css" />
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            User Management <small></small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li class="btn-group">
+                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                    <span>
+                        Actions
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="#user_create_modal" data-toggle="modal">
+                            Create New
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @{Html.RenderAction("Breedcrumb", "Common", new { view = "UserManagement" });}
+        </ul>
+        <div class="actions">
+            <a href="#" onclick="Load_User_View('Table')" class="btn blue pull-right">
+                <i class="fa fa-table"></i> Table
+            </a>
+            <a href="#" onclick="Load_User_View('Grid')" class="btn green pull-right">
+                <i class="fa fa-group"></i> Grid
+            </a>
+        </div>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+
+<div class="row">
+    <div class="col-md-12" id="user_tbl_cont">
+
+    </div>
+</div>
+<!-- END PAGE CONTENT-->
+<div id="user_create_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Radio Switch in Modal</h4>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @Html.Partial("_User_Create")
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="view_type" value="Table" />
+<!-- END PAGE Modals-->
+@section Scripts {
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="../../assets/plugins/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery.pulsate.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery-bootpag/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/holder.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="../../assets/plugins/select2/select2.min.js"></script>
+    <script src="../../assets/scripts/core/app.js"></script>
+    <script src="../../assets/scripts/custom/ui-general.js"></script>
+    <script type="text/javascript" src="../../assets/scripts/custom/form-samples.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            UIGeneral.init();
+            Load_User_View('Table');
+            Load_UserCreate_Roles();
+        })
+
+        function Load_UserCreate_Roles() {
+            var tags = [];
+            var ajaxoptions = {};
+            ajaxoptions.data = {};
+            ajaxoptions.url = '@Url.Action("Roles_MultiChoic_List", "Users")';
+            ajaxoptions.success = function (result) {
+                tags = result.split(",");
+                $("#user_roles_mchoice").select2({
+                    tags: tags
+                });
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function create_newUser() {
+            var data = {};
+            data.email = $('#Email_Txt').val();
+            data.userName = $('#Email_Txt').val();
+            data.roles_ID = $('#user_roles_mchoice').val();
+            data.password = $('#Password_Txt').val();
+
+            if ($('input[name="optionsRadios2"]').filter(':checked').val() == 'UnLocked') {
+                data.locked = false;
+            }
+            else {
+                data.locked = true;
+            }
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("User_Create", "Users")';
+            ajaxoptions.success = function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    push_notification('Create New User', 'Code: [' + result[i].Error_Code + ']' + result[i].Display_Message, false);
+                }
+                Load_User_View($('#view_type').val());
+                Clear_User_Create_Frm();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function UpdateLockStatus(id,lockstatus) {
+            var data = {};
+            data.userId = id;
+            data.locked = lockstatus;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("UpdateLockStatus", "Users")';
+            ajaxoptions.success = function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    push_notification('Lock User', 'Code: [' + result[i].Error_Code + ']' + result[i].Display_Message, false);
+                }
+                Load_User_View($('#view_type').val());
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Clear_User_Create_Frm() {
+            $('#Email_Txt').val('');
+            $('#Email_Txt').val('');
+            $('#user_roles_mchoice').val('');
+            $('#Password_Txt').val('');
+            $('input[name="optionsRadios2"]').val('UnLocked');
+        }
+        function Load_User_View(view) {
+            $('#view_type').val(view);
+            var data = {};
+            data.View = view;
+            var img_loading = '<p style="text-align:center"><img src="../../assets/img/loading.gif" /></p>';
+            var container = $('#user_tbl_cont');
+            //empty the container and add loading img
+            container.empty();
+            container.append(img_loading);
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("UserList_Search", "Users")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+    </script>
+}

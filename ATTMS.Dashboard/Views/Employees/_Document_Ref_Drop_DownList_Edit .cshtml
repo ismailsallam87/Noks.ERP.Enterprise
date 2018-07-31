@@ -1,0 +1,20 @@
+﻿@using ATTMS.Dashboard.Resources
+
+@using Models
+@model List<SP_Select_Document_Reference_Result>
+<form method="get" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@Resource.Document</label>
+        <div class="col-sm-10">
+            <select class="form-control m-b" id="Document_ref_ddl_Edit">
+
+                @*<select class="form-control m-b" id="Document_ref_ddl_Edit">*@
+                    <option value="-1">@Resource.Please_Choose_Document_Reference</option>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.Id"> @item.document_type_title </option>
+                    }
+                </select>
+</div>
+    </div>
+</form>

@@ -1,0 +1,27 @@
+﻿@using OTS.DAL
+@model Zone
+
+<form action="#" class="form-horizontal form-row-seperated">
+    <input type="hidden" id="Edit_zone_id" value="@Model.ID"/>
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-3">Zone Name: </label>
+            <div class="col-md-9">
+                <input type="text" placeholder="Zone Name" id="Edit_ZoneName_Txt" class="form-control" value="@Model.Title" />
+                <span class="help-block">
+                    Zone A,Zone B
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn green modal_submit" data-dismiss="modal" onclick="edit_Zone()" aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Edit Zone', 'The Operation of Edit Zone is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

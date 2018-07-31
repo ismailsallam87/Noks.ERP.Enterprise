@@ -1,0 +1,76 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Department_JobTitles_Select_Result>
+<div class="table-responsive">
+    <table id="department_job_tbl" class="display table table-bordered" width="100%">
+        <thead>
+            <tr>
+                <th>@Resource.code</th>
+                <th>@Resource.Job_Title</th>
+                <th width="10%">@Resource.Is_Manager</th>
+                <th width="10%">@Resource.Is_Mutliple</th>
+                <th width="10%">@Resource.Employees_Count</th>
+                <th width="10%">@Resource.Valid</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var job in Model)
+            {
+                <tr>
+                    <td>@(job.code == null || job.code == ""?"No Code": job.code)</td>
+                    <td>@job.title</td>
+                    <td>
+                        @if (job.is_manager)
+                        {
+                            <a href="#" class="btn btn-warning" onclick="update_jobtitle_manager('@job.Id','false')">
+                                @Resource.Is_Manager -> @Resource.Not_Manager
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" class="btn btn-default" onclick="update_jobtitle_manager('@job.Id','true')">
+                                @Resource.Not_Manager -> @Resource.Is_Manager 
+                            </a>
+                        }
+                    </td>
+                    <td width="15%">
+                        @if (job.multiple_available)
+                        {
+                            <a href="#" class="btn btn-warning" onclick="update_jobtitle_multiple('@job.Id','false')">
+                                @Resource.Multiple -> @Resource.Not_Multiple
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" class="btn btn-default" onclick="update_jobtitle_multiple('@job.Id','true')">
+                                @Resource.Not_Multiple -> @Resource.Multiple
+                                
+                            </a>
+                        }
+                    </td>
+                    <td width="15%">
+                        @job.employee_count
+                        <a href="#">
+                            <span class="fa fa-plus-square"></span>
+                            @Resource.Add_Employee
+                        </a>
+                    </td>
+                    <td width="15%">
+                        @if (job.valid)
+                        {
+                            <a href="#" class="btn btn-warning" onclick="update_jobtitle_valid('@job.Id','false')">
+                                @Resource.Valid -> @Resource.Not_Valid
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" class="btn btn-default" onclick="update_jobtitle_valid('@job.Id','true')">
+                                @Resource.Not_Valid -> @Resource.Valid
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

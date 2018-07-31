@@ -1,0 +1,180 @@
+﻿@using Nox_OTS.Models;
+@model List<PackingSlipViewModel>
+<div>
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+        Packing Slip Management <small></small>
+    </h3>
+    <ul class="page-breadcrumb breadcrumb">
+        <li class="btn-group">
+            <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                <span>
+                    Actions
+                </span>
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                    <a onclick="printDiv()">
+                        Print
+                    </a>
+                </li>
+            </ul>
+        </li>
+        @{Html.RenderAction("Breedcrumb", "Common", new { view = "TasksManagement" });}
+    </ul>
+</div>
+<div class="invoice" id="newpage">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <div class="row invoice-logo">
+                <div class="col-xs-6 invoice-logo">
+                    <img src="@Url.Content(item.BarcodeImage)" alt="" style="height:60px" />
+                </div>
+                <div class="col-xs-6">
+                    <p>
+                        @item.Task.Task_Title/
+                        @item.Task.Due_Date.Day @item.Task.Due_Date.ToString("MMM") @item.Task.Due_Date.Year
+                    </p>
+                    @*<span class="muted">
+
+                        </span>*@
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4>Client:</h4>
+                    <ul class="list-unstyled">
+                        <li>
+                            <strong>AccountName:</strong> @item.Task.Task_Account_Name
+                        </li>
+                        <li>
+                            <strong>Area:</strong> @item.Task.Area_Desc
+                        </li>
+                        <li>
+                            <strong>Address:</strong> @item.Task.Task_Shipping_Address
+                        </li>
+                        <li>
+                            <strong>Date:</strong> @item.Task.Due_Date.ToString("dd-MMMM-yyyy")
+                        </li>
+                        <li>
+                            <strong>Authorized Phone:</strong> @item.Task.Task_Authorized_Phone
+                        </li>
+                        <li>
+                            <strong>Authorized Person:</strong> @item.Task.Task_Authorized_Person
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-6">
+                    <h4>About:</h4>
+                    <ul class="list-unstyled">
+                        <li>
+                            <strong>Title:</strong> @item.Task.Task_Title
+                        </li>
+                        <li>
+                            <strong>Order:</strong> @item.Task.Task_Internal_Ref
+                        </li>
+                        <li>
+                            <strong>Contracts:</strong> @item.Task.Task_External_Ref
+                        </li>
+                        <li>
+                            <strong>Current Runner:</strong> @item.Task.Current_Runner
+                        </li>
+                        <li>
+                            <strong>Current Status:</strong> @item.Task.Current_Status
+                        </li>
+                        @*<li>
+                                <strong>Notes:</strong> @item.IsClosed
+                            </li>*@
+                    </ul>
+                </div>
+                @*<div class="col-xs-4 invoice-payment">
+                        <h4>Payment Details:</h4>
+                        <ul class="list-unstyled">
+                            <li>
+                                <strong>V.A.T Reg #:</strong> 542554(DEMO)78
+                            </li>
+                            <li>
+                                <strong>Account Name:</strong> FoodMaster Ltd
+                            </li>
+                            <li>
+                                <strong>SWIFT code:</strong> 45454DEMO545DEMO
+                            </li>
+                            <li>
+                                <strong>V.A.T Reg #:</strong> 542554(DEMO)78
+                            </li>
+                            <li>
+                                <strong>Account Name:</strong> FoodMaster Ltd
+                            </li>
+                            <li>
+                                <strong>SWIFT code:</strong> 45454DEMO545DEMO
+                            </li>
+                        </ul>
+                    </div>*@
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <strong style="float:left;font-size:large">
+                        Items
+                    </strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    SN
+                                </th>
+                                <th>
+                                    Item
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                                <th>
+                                    Weight
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var taskitem in item.TaskItems)
+                            {
+                                <tr>
+                                    <td>
+                                        @taskitem.Item_SN
+                                    </td>
+                                    <td>
+                                        @taskitem.Item_Title
+                                    </td>
+                                    <td>
+                                        @taskitem.Item_Desc
+                                    </td>
+                                    <td>
+                                        @taskitem.Item_Weight
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br /><br /><hr />
+        }
+    }
+    else
+    {
+        <p>No Tasks Found</p>
+    }
+</div>
+
+
+
+
+
+        
+

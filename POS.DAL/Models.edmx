@@ -1,0 +1,635 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Noks_POSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Parent_ID" Type="int" />
+          <Property Name="ICON" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SN" Type="nvarchar" MaxLength="50" />
+          <Property Name="POS_Session_ID" Type="bigint" Nullable="false" />
+          <Property Name="Created_At" Type="datetime" Nullable="false" />
+          <Property Name="Net_Amount" Type="money" Nullable="false" />
+          <Property Name="Services_Amount" Type="money" Nullable="false" />
+          <Property Name="Taxes_Amount" Type="money" Nullable="false" />
+          <Property Name="Total_Amount" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Invoice_Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Invoice_ID" Type="bigint" Nullable="false" />
+          <Property Name="Item_PriceList_ID" Type="bigint" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Unit_Selling_Price" Type="money" Nullable="false" />
+          <Property Name="Total_Selling_Price" Type="money" Nullable="false" />
+          <Property Name="Unit_Cost" Type="money" Nullable="false" />
+          <Property Name="Discount" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item_Measures">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Item_ID" Type="int" Nullable="false" />
+          <Property Name="Measure_Unit" Type="tinyint" Nullable="false" />
+          <Property Name="Parent_Measure_Unit" Type="tinyint" />
+          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item_PriceList">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Item_Measure_Unit_ID" Type="int" Nullable="false" />
+          <Property Name="Cost" Type="money" Nullable="false" />
+          <Property Name="Selling_Price" Type="money" Nullable="false" />
+          <Property Name="Valid_From" Type="datetime" Nullable="false" />
+          <Property Name="Valid_To" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Logo" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Created_At" Type="datetime" Nullable="false" />
+          <Property Name="Category" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Current_Stock" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="POS_Sessions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Log_At" Type="datetime" Nullable="false" />
+          <Property Name="Log_Out" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Noks_POS.dbo.Settings' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="S_Group" />
+            <PropertyRef Name="S_Title" />
+            <PropertyRef Name="S_Code" />
+            <PropertyRef Name="S_Value" />
+          </Key>
+          <Property Name="S_Group" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="S_Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="S_Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="S_Value" Type="nvarchar" MaxLength="1023" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Invoice_Items_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Invoice_Items" Type="Self.Invoice_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice_Items">
+              <PropertyRef Name="Invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Items_Item_PriceList">
+          <End Role="Item_PriceList" Type="Self.Item_PriceList" Multiplicity="1" />
+          <End Role="Invoice_Items" Type="Self.Invoice_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_PriceList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice_Items">
+              <PropertyRef Name="Item_PriceList_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_POS_Sessions">
+          <End Role="POS_Sessions" Type="Self.POS_Sessions" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POS_Sessions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="POS_Session_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Measures_Items">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="Item_Measures" Type="Self.Item_Measures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Item_Measures">
+              <PropertyRef Name="Item_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_PriceList_Item_Measures">
+          <End Role="Item_Measures" Type="Self.Item_Measures" Multiplicity="1" />
+          <End Role="Item_PriceList" Type="Self.Item_PriceList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_Measures">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Item_PriceList">
+              <PropertyRef Name="Item_Measure_Unit_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Items_by_Category" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Category_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Items_by_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Item_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="POS_Log" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="User_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="Noks_POSModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice_Items" EntityType="Self.Invoice_Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item_Measures" EntityType="Self.Item_Measures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item_PriceList" EntityType="Self.Item_PriceList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="POS_Sessions" EntityType="Self.POS_Sessions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Settings" EntityType="Self.Settings" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Settings].[S_Group] AS [S_Group], 
+    [Settings].[S_Title] AS [S_Title], 
+    [Settings].[S_Code] AS [S_Code], 
+    [Settings].[S_Value] AS [S_Value]
+    FROM [dbo].[Settings] AS [Settings]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Invoice_Items_Invoice" Association="Self.FK_Invoice_Items_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="Invoice_Items" EntitySet="Invoice_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Items_Item_PriceList" Association="Self.FK_Invoice_Items_Item_PriceList">
+            <End Role="Item_PriceList" EntitySet="Item_PriceList" />
+            <End Role="Invoice_Items" EntitySet="Invoice_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_POS_Sessions" Association="Self.FK_Invoice_POS_Sessions">
+            <End Role="POS_Sessions" EntitySet="POS_Sessions" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Measures_Items" Association="Self.FK_Item_Measures_Items">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Item_Measures" EntitySet="Item_Measures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_PriceList_Item_Measures" Association="Self.FK_Item_PriceList_Item_Measures">
+            <End Role="Item_Measures" EntitySet="Item_Measures" />
+            <End Role="Item_PriceList" EntitySet="Item_PriceList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Categories" Association="Self.FK_Items_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Noks_POSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="POS_Session_ID" Type="Int64" Nullable="false" />
+          <Property Name="Created_At" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Net_Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Services_Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Taxes_Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Invoice_Items" Relationship="Self.FK_Invoice_Items_Invoice" FromRole="Invoice" ToRole="Invoice_Items" />
+          <NavigationProperty Name="POS_Sessions" Relationship="Self.FK_Invoice_POS_Sessions" FromRole="Invoice" ToRole="POS_Sessions" />
+        </EntityType>
+        <EntityType Name="Invoice_Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Invoice_ID" Type="Int64" Nullable="false" />
+          <Property Name="Item_PriceList_ID" Type="Int64" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Unit_Selling_Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Total_Selling_Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Unit_Cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Discount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Invoice" Relationship="Self.FK_Invoice_Items_Invoice" FromRole="Invoice_Items" ToRole="Invoice" />
+          <NavigationProperty Name="Item_PriceList" Relationship="Noks_POSModel.FK_Invoice_Items_Item_PriceList" FromRole="Invoice_Items" ToRole="Item_PriceList" />
+        </EntityType>
+        <EntityType Name="POS_Sessions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Log_At" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Log_Out" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_POS_Sessions" FromRole="POS_Sessions" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="S_Group" />
+            <PropertyRef Name="S_Title" />
+            <PropertyRef Name="S_Code" />
+            <PropertyRef Name="S_Value" />
+          </Key>
+          <Property Name="S_Group" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="S_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="S_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="S_Value" Type="String" MaxLength="1023" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Invoice_Items_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Invoice_Items" Type="Self.Invoice_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice_Items">
+              <PropertyRef Name="Invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_POS_Sessions">
+          <End Role="POS_Sessions" Type="Self.POS_Sessions" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POS_Sessions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="POS_Session_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Noks_POSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="Invoice_Items" EntityType="Self.Invoice_Items" />
+          <EntitySet Name="POS_Sessions" EntityType="Self.POS_Sessions" />
+          <EntitySet Name="Settings" EntityType="Self.Setting" />
+          <AssociationSet Name="FK_Invoice_Items_Invoice" Association="Self.FK_Invoice_Items_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="Invoice_Items" EntitySet="Invoice_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_POS_Sessions" Association="Self.FK_Invoice_POS_Sessions">
+            <End Role="POS_Sessions" EntitySet="POS_Sessions" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <EntitySet Name="Categories" EntityType="Noks_POSModel.Category" />
+          <FunctionImport Name="Items_by_Category" ReturnType="Collection(Noks_POSModel.Items_by_Category_Result)">
+          <Parameter Name="Category_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Items_by_ID" ReturnType="Collection(Noks_POSModel.Items_by_ID_Result)">
+          <Parameter Name="Item_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Item_Measures" EntityType="Noks_POSModel.Item_Measures" />
+          <EntitySet Name="Item_PriceList" EntityType="Noks_POSModel.Item_PriceList" />
+          <EntitySet Name="Items" EntityType="Noks_POSModel.Item" />
+          <AssociationSet Name="FK_Items_Categories" Association="Noks_POSModel.FK_Items_Categories">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Items_Item_PriceList" Association="Noks_POSModel.FK_Invoice_Items_Item_PriceList">
+            <End Role="Item_PriceList" EntitySet="Item_PriceList" />
+            <End Role="Invoice_Items" EntitySet="Invoice_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Measures_Items" Association="Noks_POSModel.FK_Item_Measures_Items">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Item_Measures" EntitySet="Item_Measures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_PriceList_Item_Measures" Association="Noks_POSModel.FK_Item_PriceList_Item_Measures">
+            <End Role="Item_Measures" EntitySet="Item_Measures" />
+            <End Role="Item_PriceList" EntitySet="Item_PriceList" />
+          </AssociationSet>
+          <FunctionImport Name="POS_Log" ReturnType="Collection(Int64)">
+            <Parameter Name="User_Name" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parent_ID" Type="Int32" />
+          <Property Name="ICON" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="Noks_POSModel.FK_Items_Categories" FromRole="Category" ToRole="Item" />
+        </EntityType>
+        <ComplexType Name="Items_by_Category_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Created_At" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="Current_Stock" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Logo" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="250" />
+          <Property Type="Decimal" Name="Selling_Price" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="Items_by_ID_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Created_At" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="Current_Stock" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Logo" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="250" />
+          <Property Type="Decimal" Name="Selling_Price" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Cost" Nullable="false" Precision="19" />
+          <Property Type="Int64" Name="price_list_id" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Item_Measures">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Item_ID" Type="Int32" Nullable="false" />
+          <Property Name="Measure_Unit" Type="Byte" Nullable="false" />
+          <Property Name="Parent_Measure_Unit" Type="Byte" />
+          <Property Name="Rate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="Noks_POSModel.FK_Item_Measures_Items" FromRole="Item_Measures" ToRole="Item" />
+          <NavigationProperty Name="Item_PriceList" Relationship="Noks_POSModel.FK_Item_PriceList_Item_Measures" FromRole="Item_Measures" ToRole="Item_PriceList" />
+        </EntityType>
+        <EntityType Name="Item_PriceList">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Item_Measure_Unit_ID" Type="Int32" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Selling_Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Valid_From" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Valid_To" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Invoice_Items" Relationship="Noks_POSModel.FK_Invoice_Items_Item_PriceList" FromRole="Item_PriceList" ToRole="Invoice_Items" />
+          <NavigationProperty Name="Item_Measures" Relationship="Noks_POSModel.FK_Item_PriceList_Item_Measures" FromRole="Item_PriceList" ToRole="Item_Measures" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Logo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Created_At" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Current_Stock" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Category1" Relationship="Noks_POSModel.FK_Items_Categories" FromRole="Item" ToRole="Category" />
+          <NavigationProperty Name="Item_Measures" Relationship="Noks_POSModel.FK_Item_Measures_Items" FromRole="Item" ToRole="Item_Measures" />
+        </EntityType>
+        <Association Name="FK_Items_Categories">
+          <End Type="Noks_POSModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="Noks_POSModel.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Items_Item_PriceList">
+          <End Type="Noks_POSModel.Item_PriceList" Role="Item_PriceList" Multiplicity="1" />
+          <End Type="Noks_POSModel.Invoice_Items" Role="Invoice_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_PriceList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice_Items">
+              <PropertyRef Name="Item_PriceList_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Measures_Items">
+          <End Type="Noks_POSModel.Item" Role="Item" Multiplicity="1" />
+          <End Type="Noks_POSModel.Item_Measures" Role="Item_Measures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Item_Measures">
+              <PropertyRef Name="Item_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_PriceList_Item_Measures">
+          <End Type="Noks_POSModel.Item_Measures" Role="Item_Measures" Multiplicity="1" />
+          <End Type="Noks_POSModel.Item_PriceList" Role="Item_PriceList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_Measures">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Item_PriceList">
+              <PropertyRef Name="Item_Measure_Unit_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Noks_POSModelStoreContainer" CdmEntityContainer="Noks_POSEntities">
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="Noks_POSModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SN" ColumnName="SN" />
+                <ScalarProperty Name="POS_Session_ID" ColumnName="POS_Session_ID" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Net_Amount" ColumnName="Net_Amount" />
+                <ScalarProperty Name="Services_Amount" ColumnName="Services_Amount" />
+                <ScalarProperty Name="Taxes_Amount" ColumnName="Taxes_Amount" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoice_Items">
+            <EntityTypeMapping TypeName="Noks_POSModel.Invoice_Items">
+              <MappingFragment StoreEntitySet="Invoice_Items">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Invoice_ID" ColumnName="Invoice_ID" />
+                <ScalarProperty Name="Item_PriceList_ID" ColumnName="Item_PriceList_ID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Unit_Selling_Price" ColumnName="Unit_Selling_Price" />
+                <ScalarProperty Name="Total_Selling_Price" ColumnName="Total_Selling_Price" />
+                <ScalarProperty Name="Unit_Cost" ColumnName="Unit_Cost" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POS_Sessions">
+            <EntityTypeMapping TypeName="Noks_POSModel.POS_Sessions">
+              <MappingFragment StoreEntitySet="POS_Sessions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Log_At" ColumnName="Log_At" />
+                <ScalarProperty Name="Log_Out" ColumnName="Log_Out" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="Noks_POSModel.Setting">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="S_Group" ColumnName="S_Group" />
+                <ScalarProperty Name="S_Title" ColumnName="S_Title" />
+                <ScalarProperty Name="S_Code" ColumnName="S_Code" />
+                <ScalarProperty Name="S_Value" ColumnName="S_Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="Noks_POSModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ICON" ColumnName="ICON" />
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Items_by_Category" FunctionName="Noks_POSModel.Store.Items_by_Category">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_POSModel.Items_by_Category_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Current_Stock" ColumnName="Current_Stock" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Selling_Price" ColumnName="Selling_Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Items_by_ID" FunctionName="Noks_POSModel.Store.Items_by_ID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Noks_POSModel.Items_by_ID_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Current_Stock" ColumnName="Current_Stock" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Selling_Price" ColumnName="Selling_Price" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="price_list_id" ColumnName="price_list_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Item_Measures">
+            <EntityTypeMapping TypeName="Noks_POSModel.Item_Measures">
+              <MappingFragment StoreEntitySet="Item_Measures">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Parent_Measure_Unit" ColumnName="Parent_Measure_Unit" />
+                <ScalarProperty Name="Measure_Unit" ColumnName="Measure_Unit" />
+                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item_PriceList">
+            <EntityTypeMapping TypeName="Noks_POSModel.Item_PriceList">
+              <MappingFragment StoreEntitySet="Item_PriceList">
+                <ScalarProperty Name="Valid_To" ColumnName="Valid_To" />
+                <ScalarProperty Name="Valid_From" ColumnName="Valid_From" />
+                <ScalarProperty Name="Selling_Price" ColumnName="Selling_Price" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Item_Measure_Unit_ID" ColumnName="Item_Measure_Unit_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="Noks_POSModel.Item">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="Current_Stock" ColumnName="Current_Stock" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="POS_Log" FunctionName="Noks_POSModel.Store.POS_Log" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

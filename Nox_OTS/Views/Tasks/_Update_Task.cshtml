@@ -1,0 +1,147 @@
+﻿@using OTS.DAL
+@model SP_Select_Task_By_TaskID_Result
+@{
+    OTSEntities db = new OTSEntities();
+}
+
+
+<form action="#" class="form-horizontal form-row-seperated">
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-2">Task Title: </label>
+            <div class="col-md-4">
+                <input type="text" placeholder="Task Title" id="Task_Title_Txt_" class="form-control" readonly="readonly" value="@Model.Task_Title" />
+                <span class="help-block">
+                    Auto Generated (You can't modify)
+                </span>
+            </div>
+            <label class="control-label col-md-2">Due Date</label>
+            <div class="col-md-4">
+                <input class="form-control form-control-inline input-medium date-picker" id="DueDate_Txt_" size="16" type="text" value="@Model.Due_Date" />
+                <span class="help-block">
+                    Due Date of Delivering
+                </span>
+                <!-- /input-group -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">External Ref</label>
+            <div class="col-md-4">
+                <input type="text" placeholder="External Ref" id="Task_External_Ref_Txt_" value="@Model.Task_External_Ref" class="form-control" />
+                <span class="help-block">
+                    Provided from the Owner of the Task
+                </span>
+            </div>
+
+            <label class="control-label col-md-2">Internal Ref</label>
+            <div class="col-md-4">
+                <input type="text" placeholder="Internal Ref" value="@Model.Task_Internal_Ref" id="Task_Internal_Ref_Txt_" class="form-control" />
+                <span class="help-block">
+                    Provided from the Operator of the Task
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Project</label>
+            <div class="col-md-4">
+                <select id="project_list_" class="form-control">
+                    <option value="-1">Please Select a Project</option>
+                    @foreach (var project in db.Projects.Where(m => m.Deleted != true).ToList())
+                    {
+                        if (project.ID == Model.Project_ID)
+                        {
+                            <option value="@project.ID" selected="selected">@project.Project_Name</option>
+                        }
+                        else
+                        {
+                            <option value="@project.ID">@project.Project_Name</option>
+                        }
+                    }
+                </select>
+                <span class="help-block">
+                    Required *
+                </span>
+            </div>
+
+            <label class="control-label col-md-2">Area</label>
+            <div class="col-md-4">
+                <select id="area_list_" class="form-control">
+                    <option value="-1">Please Select a Area</option>
+                    @foreach (var area in db.Areas.ToList())
+                    {
+                        if (area.ID == Model.Task_Area_ID)
+                        {
+                            <option value="@area.ID" selected="selected">@area.Title</option>
+                        }
+                        else
+                        {
+                            <option value="@area.ID">@area.Title</option>
+                        }
+                    }
+                </select>
+                <span class="help-block">
+                    Required *
+                </span>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Account Name</label>
+            <div class="col-md-12">
+                <input type="text" placeholder="Account Name" id="Task_Account_Name_Txt_" value="@Model.Task_Account_Name" class="form-control" />
+                <span class="help-block">
+                    Provided from the Owner of the Task (Task Account Name)
+                </span>
+            </div>
+        </div>
+        <div class="modal-header">
+            <h4 class="modal-title">Delivery Information</h4>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Authorized Person</label>
+            <div class="col-md-12">
+                <input type="text" placeholder="Authorized Person" id="Task_Authorized_Person_Txt_" value="@Model.Task_Authorized_Person" class="form-control" />
+                <span class="help-block">
+                    Provided from the Owner of the Task (Client Name)
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Shipping Address</label>
+            <div class="col-md-12">
+                <input type="text" placeholder="Shipping Address" id="ShippingAddress_Txt_" value="@Model.Task_Shipping_Address" class="form-control" />
+                <span class="help-block">
+                    Provided from the Owner of the Task (Client Address)
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Phone</label>
+            <div class="col-md-12">
+                <input type="text" placeholder="Phone" id="Task_Authorized_Phone_Txt_" value="@Model.Task_Authorized_Phone" class="form-control" />
+                <span class="help-block">
+                    Provided from the Owner of the Task (Client Phone)
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Email</label>
+            <div class="col-md-12">
+                <input type="text" placeholder="Email" id="Task_Authorized_Email_Txt_" value="@Model.Task_Authorized_Email" class="form-control" />
+                <span class="help-block">
+                    Provided from the Owner of the Task (Client Email)
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn green modal_submit" data-dismiss="modal" onclick="confirm_update_Task(@Model.ID)" aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Update Task', 'The Operation of Update Task is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

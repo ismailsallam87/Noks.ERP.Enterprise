@@ -1,0 +1,48 @@
+﻿@using OTS.DAL
+@{
+    OTSEntities db = new OTSEntities();
+}
+
+<form action="#" class="form-horizontal form-row-seperated">
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-2">Task</label>
+            <div class="col-md-10">
+                <select id="taskId" class="form-control js-source-states-2" multiple="multiple" name="taskIds">
+                    @*<option value="-1">Please Select a task</option>*@
+                    @foreach (var task in db.Tasks.Where(t => t.Deleted != true).OrderBy(t => t.ID).ToList())
+                    {
+                        <option value="@task.ID">@task.Task_Title</option>
+                    }
+                </select>
+                <span class="help-block">
+                    @*Required **@
+                </span>
+            </div>
+
+            <label class="control-label col-md-2">Status</label>
+            <div class="col-md-10">
+                <select id="statusId" class="form-control js-source-states-2" multiple="multiple" name="statusIds"> 
+                    @*<option value="-1">Please Select a Status</option>*@
+                    @foreach (var status in db.Task_Generic_Status.OrderBy(s=> s.Logical_Order).ToList())
+                    {
+                        <option value="@status.ID">@status.Title</option>
+                    }
+                </select>
+                <span class="help-block">
+                    @*Required **@
+                </span>
+            </div>
+        </div>     
+    </div>
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" id="submit" class="btn green modal_submit" data-dismiss="modal" onclick="Packing_Slip_View()" aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Fileter Packing Slip', 'The Operation of Fileter Packing Slip is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

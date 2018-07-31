@@ -1,0 +1,86 @@
+﻿@using OTS.DAL
+@model List<Area>
+<input type="hidden" id="Area_Zone_ID" value="@ViewBag.ZoneID" />
+<!-- BEGIN SAMPLE TABLE PORTLET-->
+
+<div class="portlet-title">
+    <div class="tools">
+        <a href="javascript:;" class="collapse">
+        </a>
+        <a href="#portlet-search" data-toggle="modal" class="config">
+        </a>
+        <a href="javascript:;" class="reload" onclick="Load_area_View('@ViewBag.ZoneID')">
+        </a>
+    </div>
+</div>
+    @if (Model == null || Model.Count == 0)
+    {
+<div id="temp_no_data">
+    <div class="alert alert-block alert-info fade in">
+        <h4 class="alert-heading">No Data Found!</h4>
+        <p>
+            No Data Found, Do you want to add New User or Reset Search filter configurations
+        </p>
+        <p>
+            <a class="btn purple" href="#" onclick="Show_Add_New_Area()">
+                Add New
+            </a>
+        </p>
+    </div>
+    <br />
+    <form id="new_area_frm" action="#" class="form-horizontal form-row-seperated hidden">
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Area Name: </label>
+                <div class="col-md-9">
+                    <input type="text" placeholder="Area Name" id="Create_AreaName_Txt" class="form-control" />
+                    <span class="help-block">
+                        Area A,Area B
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn green modal_submit" onclick="create_newArea()"><i class="fa fa-pencil"></i> Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+    }
+    else
+    {
+<div class="portlet-body flip-scroll">
+    <form id="new_area_frm" action="#" class="form-horizontal form-row-seperated">
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Area Name: </label>
+                <div class="col-md-9">
+                    <input type="text" placeholder="Area Name" id="Create_AreaName_Txt" class="form-control" />
+                    <span class="help-block">
+                        Area A,Area B
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn green modal_submit" onclick="create_newArea()"><i class="fa fa-pencil"></i> Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div id="areas_tbl_cont">@Html.Partial("_Areas_Tbl", Model)</div>
+</div>
+    }
+
+

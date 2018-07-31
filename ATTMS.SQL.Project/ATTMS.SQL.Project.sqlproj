@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>ATTMS.SQL.Project</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{7de8194c-dad4-48b7-a83f-115c2eb2f978}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>ATTMS.SQL.Project</RootNamespace>
+    <AssemblyName>ATTMS.SQL.Project</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\shift_work_days.sql" />
+    <Build Include="dbo\Tables\shift_rule_type.sql" />
+    <Build Include="dbo\Tables\shift_rule.sql" />
+    <Build Include="dbo\Tables\shift.sql" />
+    <Build Include="dbo\Tables\setting.sql" />
+    <Build Include="dbo\Tables\monthly_master_ref.sql" />
+    <Build Include="dbo\Tables\leave_request_trns.sql" />
+    <Build Include="dbo\Tables\leave_request_ref.sql" />
+    <Build Include="dbo\Tables\job_title.sql" />
+    <Build Include="dbo\Tables\Finger_Print_List.sql" />
+    <Build Include="dbo\Tables\employee_shift.sql" />
+    <Build Include="dbo\Tables\employee_documents.sql" />
+    <Build Include="dbo\Tables\employee_device_log.sql" />
+    <Build Include="dbo\Tables\employee.sql" />
+    <Build Include="dbo\Tables\documents_ref.sql" />
+    <Build Include="dbo\Tables\device_logs.sql" />
+    <Build Include="dbo\Tables\device.sql" />
+    <Build Include="dbo\Tables\department_job_ref.sql" />
+    <Build Include="dbo\Tables\department_job_employee_trns.sql" />
+    <Build Include="dbo\Tables\department.sql" />
+    <Build Include="dbo\Tables\contracts.sql" />
+    <Build Include="dbo\Tables\contract_salary_structure.sql" />
+    <Build Include="dbo\Tables\attendance_sheet.sql" />
+    <Build Include="dbo\Tables\AspNetUsers.sql" />
+    <Build Include="dbo\Tables\AspNetUserRoles.sql" />
+    <Build Include="dbo\Tables\AspNetUserLogins.sql" />
+    <Build Include="dbo\Tables\AspNetUserClaims.sql" />
+    <Build Include="dbo\Tables\AspNetRoles.sql" />
+    <Build Include="dbo\Tables\allowance_ref.sql" />
+    <Build Include="dbo\Functions\fn_userName_by_Employee.sql" />
+    <Build Include="dbo\Functions\fn_time_substract.sql" />
+    <Build Include="dbo\Functions\fn_shift_workedhours_total.sql" />
+    <Build Include="dbo\Functions\fn_shift_workedhours_day_total.sql" />
+    <Build Include="dbo\Functions\fn_shift_overtime_day_total.sql" />
+    <Build Include="dbo\Functions\fn_shift_deductions_total.sql" />
+    <Build Include="dbo\Functions\fn_shift_absense_total.sql" />
+    <Build Include="dbo\Functions\fn_shfit_employees_count.sql" />
+    <Build Include="dbo\Functions\fn_is_crossed_dates.sql" />
+    <Build Include="dbo\Functions\fn_Emplyee_Fresh.sql" />
+    <Build Include="dbo\Functions\fn_employee_workedhours_total.sql" />
+    <Build Include="dbo\Functions\fn_employee_deducted_total.sql" />
+    <Build Include="dbo\Functions\fn_employee_current_job_title.sql" />
+    <Build Include="dbo\Functions\fn_employee_current_department_title.sql" />
+    <Build Include="dbo\Functions\fn_employee_approved_overtime_total.sql" />
+    <Build Include="dbo\Functions\fn_employee_absense_total.sql" />
+    <Build Include="dbo\Functions\fn_device_log_count.sql" />
+    <Build Include="dbo\Functions\fn_department_workedhours_total.sql" />
+    <Build Include="dbo\Functions\fn_department_overtime_total.sql" />
+    <Build Include="dbo\Functions\fn_department_job_employee_count.sql" />
+    <Build Include="dbo\Functions\fn_Department_Fresh.sql" />
+    <Build Include="dbo\Functions\fn_department_employee_photos.sql" />
+    <Build Include="dbo\Functions\fn_department_employee_managers.sql" />
+    <Build Include="dbo\Functions\fn_department_employee_count.sql" />
+    <Build Include="dbo\Functions\fn_department_deducted_total.sql" />
+    <Build Include="dbo\Functions\fn_department_contract_gross_salary_total.sql" />
+    <Build Include="dbo\Functions\fn_department_contract_count.sql" />
+    <Build Include="dbo\Functions\fn_department_approved_overtime_total.sql" />
+    <Build Include="dbo\Functions\fn_department_absense_total.sql" />
+    <Build Include="dbo\Functions\fn_dateRange.sql" />
+    <Build Include="dbo\Functions\DateRange.sql" />
+    <Build Include="dbo\Stored Procedures\Truncate_DB.sql" />
+    <Build Include="dbo\Stored Procedures\SP_User_List.sql" />
+    <Build Include="dbo\Stored Procedures\SP_User_Avatar.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Update_Shift.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Update_Job_Title.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Update_Document_Details.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Update_Document_Detail.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Update_Department.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Shifts_Select.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Shift_Stat_Details.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Shift_Rules.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Shift_Rule_Type_List.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Shift_Rule_Submit.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Shift_Employee_Join.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Shift_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Shift_Create.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Select_Leave_request_ref.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Select_Job_Title_By_Dept_id.sql" />
+    <Build Include="dbo\Stored Procedures\Sp_Select_Job_Title.sql" />
+    <Build Include="dbo\Stored Procedures\SP_select_Employee.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Select_Document_Reference.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Select_Devices.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Select_Departments.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Pending_Requests.sql" />
+    <Build Include="dbo\Stored Procedures\SP_monthly_master_ref_List.sql" />
+    <Build Include="dbo\Stored Procedures\SP_JobTitle_List_Select.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Job_Title_Create.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Insert_New_Log.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Insert_Leave_Details.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Insert_Document_Details.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Insert_Contract_Details.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Import_FingerList.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Get_Job_Title_By_Id.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employees_For_Shift.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employee_User_List.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employee_Select.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employee_List_Select.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employee_Leave_Requests.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employee_Edit.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employee_Documents.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employee_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employee_Create.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employee_Contracts.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employee_Attendance_Sheet_Open_Month.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Employee_Attendance_Sheet.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Edit_Employee_Document.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Edit_Employee.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Devices_Select2.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Devices_Select.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Device_Create.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Department_Select.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Department_JobTitles_Select.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Department_JobTitle_Create.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Department_Employees_Select.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Department_employee_Create.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Department_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Department_Create.sql" />
+    <Build Include="dbo\Stored Procedures\Sp_Change_Status.sql" />
+    <Build Include="dbo\Stored Procedures\SP_agent_Employee_Attendance_Update_Absence.sql" />
+    <Build Include="dbo\Stored Procedures\Setup_PreRequired_Data.sql" />
+    <Build Include="dbo\Stored Procedures\Reset_DB.sql" />
+    <Build Include="dbo\Stored Procedures\Log_Proceed_ByEmpID_And_RangeDate.sql" />
+    <Build Include="dbo\Stored Procedures\enroll_employee_device.sql" />
+    <Build Include="dbo\Stored Procedures\Employees_Logs_ByRangeDate.sql" />
+    <Build Include="dbo\Stored Procedures\Employees_Info.sql" />
+    <Build Include="dbo\Stored Procedures\Employee_Log_ByEmpID_AndRangeDate.sql" />
+    <Build Include="dbo\Stored Procedures\Emloyee_Info.sql" />
+    <Build Include="dbo\Stored Procedures\DeviceIds_EnrollNos_ByEmpId.sql" />
+    <Build Include="dbo\Stored Procedures\agent_undo_proceed_logs.sql" />
+    <Build Include="dbo\Stored Procedures\agent_SP_update_proceed_log.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Terminate_And_End_Contract.sql" />
+    <Build Include="dbo\Stored Procedures\SP_WorkDays_Select.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Select_Requests.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Free_Users_Select.sql" />
+  </ItemGroup>
+</Project>

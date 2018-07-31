@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="19dc9656f294400bbc48b89798219979" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="OTSModel.Bulk_Tasks" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OTSModel.Project" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OTSModel.Task_Fees" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OTSModel.Task_Generic_Status" Width="1.5" PointX="6" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="OTSModel.Task_Items" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OTSModel.Task_Status" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="OTSModel.FK_Bulk_Tasks_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="OTSModel.FK_Task_Status_Task_Generic_Status" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OTSModel.Area" Width="1.5" PointX="0.75" PointY="12.125" />
+        <EntityTypeShape EntityType="OTSModel.Task" Width="1.5" PointX="3" PointY="8.75" />
+        <EntityTypeShape EntityType="OTSModel.Zone" Width="1.5" PointX="0.75" PointY="15.375" />
+        <AssociationConnector Association="OTSModel.FK_Areas_Zones" />
+        <AssociationConnector Association="OTSModel.FK_Task_Areas" />
+        <AssociationConnector Association="OTSModel.FK_Task_Project" />
+        <AssociationConnector Association="OTSModel.FK_Task_Fees_Task" />
+        <AssociationConnector Association="OTSModel.FK_Task_Items_Task" />
+        <AssociationConnector Association="OTSModel.FK_Task_Status_Task" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

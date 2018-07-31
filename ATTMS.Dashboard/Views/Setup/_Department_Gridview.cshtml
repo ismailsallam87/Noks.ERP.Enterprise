@@ -1,0 +1,115 @@
+﻿@using ATTMS.Dashboard.Resources
+
+@using Models
+@model List<SP_Department_Select_Result>
+
+<div class="row projects">
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var department in Model)
+        {
+            <div class="col-lg-6 grid-view-item">
+                <div class="hpanel hgreen">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h4><a href="">@department.title</a></h4>
+                                <p>
+                                    <b>@Resource.Managers</b>
+                                    @{
+                                        List<string> managers = department.managers.Split(',').ToList();
+                                        if (managers != null && managers.Count > 0)
+                                        {
+                                            foreach (string manager in managers)
+                                            {
+                                                if (manager != "")
+                                                {
+                                                    List<string> manager_attribute = manager.Split(';').ToList();
+                                                    if (manager_attribute != null && manager_attribute.Count > 0 && manager_attribute.Count == 3)
+                                                    {
+                                                        <a href="@Url.Action("Details", "Employees", new { Id = manager_attribute[0] })">
+                                                            <b>@Resource.Name</b> @manager_attribute[1] <br />
+                                                            <b>@Resource.Job_Title</b> @manager_attribute[2]
+                                                        </a>
+                                                    }
+                                                }
+                                                else if (managers.Count == 1)
+                                                {
+                                                    <span>@Resource.No_Managers_Found</span>
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                </p>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="project-label">@Resource.Absence</div>
+                                        <small>@department.total_absence (@Resource.days)</small>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="project-label">@Resource.Deductions</div>
+                                        <small>@department.total_deductedhours (@Resource.hrs)</small>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="project-label">@Resource.Worked</div>
+                                        <small>@department.total_workedhours @Resource.hrs</small>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="project-label">@Resource.Overtime</div>
+                                        <small>@department.total_approved_overtimehours</small>/<small>@department.total_overtimehours (@Resource.hrs)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 project-info">
+                                <div class="project-action m-t-md">
+                                    <div class="btn-group">
+                                        <a href="@Url.Action("Department_Details","Setup", new {Id=department.Id})" class="btn btn-xs btn-default"> @Resource.View</a>
+                                        @*<a class="btn btn-xs btn-default"> Edit</a>*@
+                                        <a class="btn btn-xs btn-default" data-toggle="modal" href="#editJobTitleModal" onclick="Update_Department(@department.Id)"> @Resource.Edit</a>
+                                        @if (department.is_fresh.Value)
+                                        {
+                                            @*<a class="btn btn-xs btn-default"> Delete</a>*@
+                                            <a href="#deleteDepartmentModal" onclick="delete_Department(@department.Id)" data-toggle="modal" class="btn btn-xs btn-default">@Resource.Delete</a>
+
+                                        }
+                                        @*<a class="btn btn-xs btn-default"> Delete</a>*@
+                                    </div>
+                                </div>
+                                <div class="project-value">
+                                    <h2 class="text-success">
+                                        @String.Format(HMTLHelperExtensions.currency_format, department.gross_salary_total.Value.ToString())
+                                        @HMTLHelperExtensions.currency
+                                    </h2>
+                                </div>
+                                <div class="project-people">
+                                    @{
+                                        List<string> photos = department.employees_photos.Split(',').ToList();
+                                        if (photos != null && photos.Count > 0)
+                                        {
+                                            foreach (var photo in photos)
+                                            {
+                                                if (photo != "")
+                                                {
+                                                    <img alt="@photo" class="img-circle" src="@{Html.RenderAction("Load_Employee_Photo", "Employees", new { photo = photo });} ">
+                                                }
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        @Resource.Total_Employees: @department.employee_count / @Resource.Contracts: @department.contarct_count
+                    </div>
+                </div>
+            </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <p>@Resource.No_Departments_found</p>
+                                        }
+</div>

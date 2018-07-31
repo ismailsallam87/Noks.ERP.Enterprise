@@ -1,0 +1,43 @@
+﻿@using OTS.DAL
+@model List<Area>
+
+<table class="table table-bordered table-striped table-condensed flip-content">
+    <thead class="flip-content">
+        <tr>
+            <th width="10%">
+                ID
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Total Tasks
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var area in Model)
+        {
+            <tr>
+                <td class="numeric">
+                    @area.ID
+                </td>
+                <td>
+                    @area.Title
+                </td>
+                <td>
+                    @area.Tasks.Count
+                </td>
+                <td>
+                    <a href="#" onclick="DeleteArea('@area.ID')" title="Delete">
+                        <span class="fa fa-archive"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

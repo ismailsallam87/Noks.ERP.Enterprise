@@ -1,0 +1,63 @@
+﻿@using OTS.DAL
+@model List<Task_Select_Result>
+
+<div class="portlet box green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Tasks
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse">
+            </a>
+            <a href="javascript:;" class="reload" onclick="Load_Tasks_View('Grid')">
+            </a>
+        </div>
+    </div>
+    @if (Model == null || Model.Count == 0)
+    {
+        @Html.Partial("_NoDataFound");
+    }
+    else
+    {
+        <div class="portlet-body">
+            <div class="row">
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var task in Model)
+                    {
+                        <div class="col-sm-4 col-md-4"> @*onclick="OpenPackingSlip(@task.ID)"*@
+                            <div class="thumbnail">
+                                @*@{Html.RenderAction("Loadzone_Img","Tasks", new { title = task.Task_Title + "(" + task.Current_Runner + ")" });}*@
+
+                                <div class="caption">
+                                    <h5 class="username_grid">@task.Task_Title</h5>
+                                    <p>
+                                        Created At: @task.Due_Date.ToString("dd-MMM-yyyy")
+                                        <br />
+                                        Due At: @task.Due_Date
+                                        <br />
+                                        Area-Runner: @task.Area_Desc - @task.Current_Runner
+                                        <br />
+
+                                        Status: @task.Current_Status
+                                        <a onclick="Update_Task_Status('@task.ID')" href="#task_update_Status_view_modal" data-toggle="modal">
+                                            <span class="fa fa-pencil-square-o"></span>
+                                        </a>
+                                        <br />
+
+                                        Ref#: Internal (@task.Task_Internal_Ref) / external (@task.Task_External_Ref)
+
+                                    </p>
+                                    <p>
+                                        <input type="button" class="btn danger" value="Delete" onclick="Delete('@task.ID')" href="#delete_task_modal" data-toggle="modal">|
+                                        <input type="button" class="btn default" value="Edit" onclick="update_task('@task.ID')" href="#edit_zone_view_modal" data-toggle="modal">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+      }
+</div>

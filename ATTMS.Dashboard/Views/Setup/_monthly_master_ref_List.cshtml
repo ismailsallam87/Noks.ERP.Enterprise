@@ -1,0 +1,28 @@
+﻿@using ATTMS.Dashboard.Resources
+
+@using Models
+@model List<SP_monthly_master_ref_List_Result>
+
+@if (Model != null && Model.Count > 0)
+{
+    <select class="form-control m-b" name="monthly_master_ref_Id" id="monthly_master_ref_Id">
+        <option value="-1">@Resource.Select_a_Month_Master_Record</option>
+        @foreach (var master in Model)
+        {
+            if (master.is_current)
+            {
+                <option selected value="@master.Id">@master.code</option>
+            }
+            else
+            {
+                <option value="@master.Id">@master.code</option>
+            }
+
+        }
+    </select>
+}
+else
+{
+    <p>@Resource.No_months_Found</p>
+}
+

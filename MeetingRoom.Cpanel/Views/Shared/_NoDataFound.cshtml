@@ -1,0 +1,19 @@
+﻿@using MeetingRoom.Cpanel.Models
+@model CreateNew_ViewModel
+<div class="col-md-12">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div class="text-center">
+                <h2 class="m-b-xs">@Model.Title</h2>
+                <p class="font-bold text-success">@Model.EntityTitle</p>
+                <div class="m">
+                    <i class="pe-7s-plus fa-5x"></i>
+                </div>
+                <p class="small">
+                    @Model.Message
+                </p>
+                <a data-toggle="modal" href="@Model.Target" class="btn btn-success btn-sm">@Model.ButtonName</a>
+            </div>
+        </div>
+    </div>
+</div>

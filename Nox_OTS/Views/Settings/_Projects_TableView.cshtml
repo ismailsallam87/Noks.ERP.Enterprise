@@ -1,0 +1,105 @@
+﻿@using OTS.DAL
+@model List<Projects_Tbl_Select_Result>
+
+<!-- BEGIN SAMPLE TABLE PORTLET-->
+<div class="portlet box green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Zones
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse">
+            </a>
+            <a href="#portlet-search" data-toggle="modal" class="config">
+            </a>
+            <a href="javascript:;" class="reload" onclick="Load_Projects_View('Table')">
+            </a>
+        </div>
+    </div>
+    @if (Model == null || Model.Count == 0)
+    {
+        @Html.Partial("_NoDataFound");
+    }
+    else
+    {
+        <div class="portlet-body flip-scroll">
+            <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content">
+                    <tr>
+                        <th width="10%">
+                            ID
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Created-At
+                        </th>
+                        <th>
+                            Started At
+                        </th>
+                        <th>
+                            Finished At
+                        </th>
+                        <th>
+                            Bulk Tasks
+                        </th>
+                        <th>
+                            Tasks
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var proj in Model)
+                    {
+                        <tr>
+                            <td class="numeric">
+                                @proj.ID
+                            </td>
+                            <td>
+                                @proj.Project_Name
+                            </td>
+                            <td>
+                                @proj.Created_At.ToString("dd-MMM-yyyy")
+                            </td>
+                            <td>
+                                @proj.Project_Start_Date.ToString("dd-MMM-yyyy")
+                            </td>
+                            <td>
+                                @(proj.Project_End_Date != null ? proj.Project_End_Date.Value.ToString("dd-MMM-yyyy") : "Still Active")
+                            </td>
+                            <td>
+                                @proj.Bulk_Tasks
+                                <a onclick="Load_Zone_areas_View('@proj.ID')" href="#areas_zone_view_modal" data-toggle="modal">
+                                    <span class="fa fa-plus-square"></span>
+                                </a>
+                            </td>
+                            <td>
+                                @proj.Tasks
+                                <a onclick="Load_Zone_areas_View('@proj.ID')" href="#areas_zone_view_modal" data-toggle="modal">
+                                    <span class="fa fa-plus-square"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a onclick="Load_Zone_Edit_View('@proj.ID')" href="#edit_zone_view_modal" data-toggle="modal" title="Edit">
+                                    <span class="fa fa-pencil"></span>
+                                </a> |
+                                <a onclick="Load_Zone_Edit_View('@proj.ID')" href="#edit_zone_view_modal" data-toggle="modal" title="View">
+                                    <span class="fa fa-book"></span>
+                                </a> |
+                                <a href="#" onclick="DeleteZone('@proj.ID')" title="Delete">
+                                    <span class="fa fa-archive"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+</div>
+<!-- END SAMPLE TABLE PORTLET-->

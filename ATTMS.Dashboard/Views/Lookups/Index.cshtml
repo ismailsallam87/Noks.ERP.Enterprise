@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Lookups")">Index</a></li>
+                    <li class="active">
+                        <span>LookUps</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>List of @ViewBag.Title.</small>
+            <div>
+                <p>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="hpanel">
+                        <div class="tabs-left">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#tab-6">Job Title</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-7">This is second tab</a></li>
+                            </ul>
+                            <div class="tab-content ">
+                                <div id="tab-6" class="tab-pane active">
+                                    <div class="row">
+                                        <div class="panel-body">
+                                            <form method="get" class="form-horizontal" id="job_titlefrm">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Job Title</label>
+                                                    <div class="col-sm-8">
+                                                        <input id="Job_title_txt" type="text" class="form-control">
+                                                        <div class="table-responsive">
+                                                            <br />
+                                                            <div id="Job_Title_Data_cont"></div>
+                                                        </div>
+                                                    </div><input type="button" onclick="create_Job_Title()" value="+" class="btn btn-primary" />
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-7" class="tab-pane">
+                                    <div class="panel-body">
+                                        <strong>Donec quam felis</strong>
+                                        <p>
+                                            Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
+                                            and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath
+                                        </p>
+                                        <p>
+                                            I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
+                                            sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<div class="modal fade" id="editJobTitleModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" id="update_JobTitle_container">
+
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    <script type="text/javascript">
+                $(document).ready(function () {
+                    load_Job_Title_Daata_Table();
+                })
+                function Update_Job_Title(id)
+                {
+                    var data = {};
+                    data.Id = id;
+                    var container = $('#update_JobTitle_container');
+                    //empty the container and add loading img
+                    container.empty();
+                    var ajaxoptions = {};
+                    ajaxoptions.data = data;
+                    ajaxoptions.url = '@Url.Action("Update_Job_Title", "Lookups")'
+                    ajaxoptions.success = function (result) {
+                        container.empty();
+                        container.append(result);
+                    };
+                    ajaxoptions.error = function () {
+                        container.empty();
+                    };
+                    $.ajax(ajaxoptions);
+                }
+                function load_Job_Title_Daata_Table() {
+                    var job_title_cont = $('#Job_Title_Data_cont');
+                    var ajaxoptions = {};
+                    ajaxoptions.url = "@Url.Action("Job_title_Data_Table")";
+                    ajaxoptions.success = function (result) {
+                        job_title_cont.empty();
+                        job_title_cont.append(result);
+                        Initialize_Shifts_Tbl();
+                    }
+                    $.ajax(ajaxoptions);
+                }
+                function confirm_update_Job_Title(Id) {
+                    var data = {};
+                    data.Id = Id;
+                    data.Title = $('#edit_Job_Title').val();
+                    var ajaxoptions = {};
+                    ajaxoptions.data = data;
+                    ajaxoptions.url = "@Url.Action("Confirm_Update")";
+                    ajaxoptions.success = function (result) {
+                       load_Job_Title_Daata_Table();
+                       toaster('Success', result);
+                    };
+                    ajaxoptions.error = function () {
+                        toaster('error', 'a fatal error occurred while trying to Update a Job Title !.');
+                    };
+
+                    if (data.title != '') {
+                        $.ajax(ajaxoptions);
+                    }
+                    else {
+                        toaster('warning', 'please provide the meeting room Name first, its required !.');
+                    }
+                }
+                function create_Job_Title() {
+                    var data = {};
+                    data.title = $('#Job_title_txt').val();
+                    var ajaxoptions = {};
+                    ajaxoptions.data = data;
+                    ajaxoptions.url = "@Url.Action("Job_Title_Create")";
+                    ajaxoptions.success = function (result) {
+                        for (var i = 0; i < result.length; i++) {
+                            toaster('info', result[i].user_message);
+                        }
+                        load_Job_Title_Daata_Table();
+                        resetForm("#job_titlefrm");
+                    };
+                    ajaxoptions.error = function () {
+                        toaster('error', 'a fatal error occurred while trying to submit a New Job Title !.');
+                    };
+                    if (data.title != '') {
+                        $.ajax(ajaxoptions);
+                    }
+                    else {
+                        toaster('warning', 'please provide the New Job title first, its required !.');
+                    }
+                }
+               function Initialize_Shifts_Tbl() {
+                    // JSON data
+                    var chartDataUrl = '@Url.Action("tableJsonData", "Tables")';
+                    // Initialize Example 1
+                    $('#department_tbl').dataTable({
+                        "ajax": chartDataUrl,
+                        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                        buttons: [
+                            { extend: 'copy', className: 'btn-sm' },
+                            { extend: 'csv', title: 'ExampleFile', className: 'btn-sm' },
+                            { extend: 'pdf', title: 'ExampleFile', className: 'btn-sm' },
+                            { extend: 'print', className: 'btn-sm' }
+                        ]
+                    });
+                    // Initialize Example 2
+                    $('#example2').dataTable();
+                };
+    </script>
+}

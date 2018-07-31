@@ -1,0 +1,717 @@
+﻿
+@{
+    ViewBag.Title = "Meeting Room Management";
+}
+
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+                    <li class="active">
+                        <span>Meeting Rooms</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>List of @ViewBag.Title.</small>
+            <div>
+                <p>
+                    <a href="#" data-toggle="modal" data-target="#createmeetingroomModal" class="btn btn-default header-btn">Create</a>
+                    <a href="#" data-toggle="modal" data-target="#searchmeetingModal" class="btn btn-default header-btn">Search</a>
+                    <a href="#" id="meetingroom_calendar_btn" onclick="load_meetingrooms('calendar')" class="btn btn-default right-header-btn hidden"><i class="fa fa-calendar"></i></a>
+                    <a href="#" id="meetingroom_grid_btn" onclick="load_meetingrooms('grid')" class="btn btn-default right-header-btn btn-active"><i class="fa fa-th"></i></a>
+                    <a href="#" id="meetingroom_table_btn" onclick="load_meetingrooms('table')" class="btn btn-default right-header-btn"><i class="fa fa-table"></i></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="page-conainer" class="content">
+
+</div>
+
+<input id="viewType" type="hidden" value="grid" />
+
+<div class="modal fade" id="createmeetingroomModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Create Meeting Room</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Name:</label>
+                            <div class="col-sm-10">
+                                <input id="name" type="text" class="form-control">
+                                <span class="help-block m-b-none">you should add a new meeting room' name within 50 characters</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Description:</label>
+                            <div class="col-sm-10">
+                                <textarea id="description" type="text" class="form-control" rows="5" cols="10"></textarea>
+                                <span class="help-block m-b-none">you can add a new description within 500 characters</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Capacity:</label>
+                            <div class="col-sm-10">
+                                <input id="capacity" type="number" value="5" min="1" class="form-control _number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">White Board:</label>
+                            <div class="col-sm-2">
+                                <input id="white_board" type="number" value="1" min="0" class="form-control _number">
+                            </div>
+                            <label class="col-sm-2 control-label">IFP:</label>
+                            <div class="col-sm-2">
+                                <input id="ifp" type="number" value="1" min="0" class="form-control _number">
+                            </div>
+                            <label class="col-sm-2 control-label">Video Screen:</label>
+                            <div class="col-sm-2">
+                                <input id="video_screen" type="number" min="0" value="1" class="form-control _number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Computer:</label>
+                            <div class="col-sm-2">
+                                <input id="computer" type="number" value="1" min="0" class="form-control _number">
+                            </div>
+                            <label class="col-sm-2 control-label">Overhead Projector:</label>
+                            <div class="col-sm-2">
+                                <input id="overhead_projector" type="number" value="1" min="0" class="form-control _number">
+                            </div>
+                            <label class="col-sm-2 control-label">Slides Projector:</label>
+                            <div class="col-sm-2">
+                                <input id="slide_projctor" type="number" value="1" min="0" class="form-control _number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Film Projector:</label>
+                            <div class="col-sm-2">
+                                <input id="film_projctor" type="number" value="1" min="0" class="form-control _number">
+                            </div>
+                            <label class="col-sm-2 control-label">Microphones:</label>
+                            <div class="col-sm-2">
+                                <input id="microphones" type="number" value="1" min="0" class="form-control _number">
+                            </div>
+                            <label class="col-sm-2 control-label">Loud Speakers:</label>
+                            <div class="col-sm-2">
+                                <input id="loud_speakers" type="number" value="1" min="0" class="form-control _number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Photo:</label>
+                            <div class="col-sm-11">
+                                <input id="photo" type="text" class="form-control not-alone-left" disabled="disabled">
+                                <a href="#" onclick="load_upload_file()" class="btn btn-default pull-left"><i class="fa fa-image"></i> </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_meetingroom_creation()" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="create_btn" onclick="create_meetingroom()" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="searchmeetingModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Search Meeting Room</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Name:</label>
+                            <div class="col-sm-10">
+                                <input id="_name" type="text" class="form-control">
+                                <span class="help-block m-b-none" id="name_spn">you should add a meeting room' name within 50 characters</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">From:</label>
+                            <div class="col-sm-5">
+                                <input id="_from-date" type="text" class="form-control datepicker _dates" placeholder="02-16-2012">
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control _dates" id="_from-time" placeholder="09:30">
+                                    <span class="input-group-addon">
+                                        <span class="fa fa-clock-o"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">To:</label>
+                            <div class="col-sm-5">
+                                <input id="_to-date" type="text" class="form-control datepicker _dates" placeholder="02-16-2012">
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control _dates" id="_to-time" placeholder="09:30">
+                                    <span class="input-group-addon">
+                                        <span class="fa fa-clock-o"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <span class="help-block m-b-none hidden" id="_date_validation">From date must be greater than To date</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Capacity:</label>
+                            <div class="col-sm-10">
+                                <input id="_capacity" type="number" min="1" class="form-control _number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">White Board:</label>
+                            <div class="col-sm-2">
+                                <input id="_white_board" type="checkbox" class="i-checks">
+                            </div>
+
+                            <label class="col-sm-2 control-label">IFP:</label>
+                            <div class="col-sm-2">
+                                <input id="_ifp" type="checkbox" class="i-checks">
+                            </div>
+                            <label class="col-sm-2 control-label">Video Screen:</label>
+                            <div class="col-sm-2">
+                                <input id="_video_screen" type="checkbox" class="i-checks">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Computer:</label>
+                            <div class="col-sm-2">
+                                <input id="_computer" type="checkbox" class="i-checks">
+                            </div>
+                            <label class="col-sm-2 control-label">Overhead Projector:</label>
+                            <div class="col-sm-2">
+                                <input id="_overhead_projector" type="checkbox" class="i-checks">
+                            </div>
+                            <label class="col-sm-2 control-label">Slides Projector:</label>
+                            <div class="col-sm-2">
+                                <input id="_slide_projctor" type="checkbox" class="i-checks">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Film Projector:</label>
+                            <div class="col-sm-2">
+                                <input id="_film_projctor" type="checkbox" class="i-checks">
+                            </div>
+                            <label class="col-sm-2 control-label">Microphones:</label>
+                            <div class="col-sm-2">
+                                <input id="_microphones" type="checkbox" class="i-checks">
+                            </div>
+                            <label class="col-sm-2 control-label">Loud Speakers:</label>
+                            <div class="col-sm-2">
+                                <input id="_loud_speakers" type="checkbox" class="i-checks">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" onclick="cancel_meetingroom_search()" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" onclick="search_meetingroom()" id="_search_btn" data-dismiss="modal" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editmeetingroomModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" id="update_meetingroom_container">
+
+    </div>
+</div>
+<div class="modal fade" id="deletemeetingroomModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Delete Meeting Room</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+                                <p>Are you sure you want to Delete....! </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" id="delete_meetingroom_container">
+
+        </div>
+    </div>
+</div>
+
+<input type="file" class="hidden" id="upload_img_input" />
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/datepicker/css")
+    @Styles.Render("~/bundles/bootstrapCheckbox/css")
+    @Styles.Render("~/bundles/datetimepicker/css")
+    @Styles.Render("~/bundles/clockpicker/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/datepicker/js")
+    @Scripts.Render("~/bundles/datetimepicker/js")
+    @Scripts.Render("~/bundles/clockpicker/js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            load_meetingrooms($('#viewType').val());
+            $('.datepicker').datepicker();
+            $('#date_validation').prop({
+                disabled: true
+            });
+
+            $('.clockpicker').clockpicker({ autoclose: true });
+
+            //Update Validation
+            //Swap to function Update_Validation
+
+            //Search validation
+            $("._dates").change(function () {
+                var from = new Date($('#_from-date').val() + ' ' + $('#_from-time').val());
+                var to = new Date($('#_to-date').val() + ' ' + $('#_to-time').val());
+                var difference_in_milliseconds = to - from;
+                if (difference_in_milliseconds < 0) {
+                    $('#_date_validation').removeClass('hidden');
+                    $('#_search_btn').prop({
+                        disabled: true
+                    });
+                }
+                else {
+                    $('#_date_validation').addClass('hidden');
+                    $('#_search_btn').prop({
+                        disabled: false
+                    });
+                }
+            });
+
+            //Add validation
+            $('#name').change(function () {
+                if ($('#name').val() == '' || $('#name').val() == undefined ) 
+                {
+                    $('#name_spn').removeClass('hidden');
+                    $('#create_btn').prop({
+                        disabled: true
+                    });
+                }
+                else {
+                    $('#name_spn').addClass('hidden');
+                    $('#create_btn').prop({
+                        disabled: false
+                    });
+                }
+            });
+           
+            $('._number').change(function () {
+                var list_inputs = $('._number');
+                var valid = 1;
+                for (var i = 0; i < list_inputs.length; i++) {
+                    var num_ = $(list_inputs[i]).val();
+                    if (parseInt(num_) < 0 || num_ == undefined) {
+                        $('#create_btn').prop({
+                            disabled: true
+                        });
+                        valid = 0;
+                        break;
+                    }
+                    else if (valid == 1) {
+                        $('#create_btn').prop({
+                            disabled: false
+                        });
+                    }
+                }
+            });
+
+        });
+
+        function load_meetingrooms(view, data) {
+            $('#viewType').val(view);
+            var v_type = 0;
+            if (view == 'table') {
+                $('#meetingroom_grid_btn').removeClass('btn-active');
+                $('#meetingroom_calendar_btn').removeClass('btn-active');
+                $('#meetingroom_table_btn').addClass('btn-active');
+                v_type = 0;
+            }
+            else if (view == 'grid') {
+                $('#meetingroom_table_btn').removeClass('btn-active');
+                $('#meetingroom_calendar_btn').removeClass('btn-active');
+                $('#meetingroom_grid_btn').addClass('btn-active');
+                v_type = 1;
+            }
+            else if (view == 'calendar') {
+                $('#meetingroom_table_btn').removeClass('btn-active');
+                $('#meetingroom_grid_btn').removeClass('btn-active');
+                $('#meetingroom_calendar_btn').addClass('btn-active');
+                v_type = 2;
+            }
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var error_info = 'an error occurred while trying to load the meeting rooms.';
+            var container = $('#page-conainer');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};
+            if (data == undefined) {
+                ajaxoptions.data = { v_type: v_type };
+            }
+            else
+            {
+                ajaxoptions.data = data;
+                data.v_type = v_type;
+            }
+
+            ajaxoptions.url = '@Url.Action("Search_Meeting_Rooms")';
+            ajaxoptions.success = function (result) {
+                if (view == 'table') {
+                    Initialize_meetingrooms_Tbl();
+                }
+                container.empty();
+                container.append(result);            
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Initialize_meetingrooms_Tbl() {
+            $('#meetingrooms_tbl').dataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    { extend: 'copy', className: 'btn-sm' },
+                    { extend: 'csv', title: '@ViewBag.Title', className: 'btn-sm' },
+                    { extend: 'pdf', title: '@ViewBag.Title', className: 'btn-sm' },
+                    { extend: 'print', className: 'btn-sm' }
+                ]
+            });
+        }
+
+        function cancel_meetingroom_search() {
+            $('#_name').val('');
+            $('#_from-date').val('');
+            $('#_from-time').val('');
+            $('#_to-date').val('');
+            $('#_to-time').val('');
+            $('#_capacity').val('');
+            $('#_overhead_projector').val('');
+            $('#_slide_projctor').val('');
+            $('#_film_projctor').val('');
+            $('#_ifp').val('');
+            $('#_video_screen').val('');
+            $('#_white_board').val('');
+            $('#_microphones').val('');
+            $('#_computer').val('');
+            $('#_loud_speakers').val('');
+            toaster('warning', 'you canceled meeting room Search!');
+        }
+        function search_meetingroom() {
+            var data = {};
+            data.name = $('#_name').val();
+            data.from = $('#_from-date').val() + ' ' + $('#_from-time').val();
+            data.to = $('#_to-date').val() + ' ' + $('#_to-time').val();
+            data.capacity = $('#_capacity').val();
+            data.overhead_projector = $('#_overhead_projector').prop('checked');
+            data.slide_projctor = $('#_slide_projctor').prop('checked');
+            data.film_projctor = $('#_film_projctor').prop('checked');
+            data.ifp = $('#_ifp').prop('checked');
+            data.video_screen = $('#_video_screen').prop('checked');
+            data.white_board = $('#_white_board').prop('checked');
+            data.microphones = $('#_microphones').prop('checked');
+            data.computer = $('#_computer').prop('checked');
+            data.loud_speakers = $('#_loud_speakers').prop('checked');
+
+            load_meetingrooms($('#viewType').val(), data);
+
+            $('#_name').val('');
+            $('#_from-date').val('');
+            $('#_from-time').val('');
+            $('#_to-date').val('');
+            $('#_to-time').val('');
+            $('#_capacity').val('');
+            $('#_overhead_projector').val('');
+            $('#_slide_projctor').val('');
+            $('#_film_projctor').val('');
+            $('#_ifp').val('');
+            $('#_video_screen').val('');
+            $('#_white_board').val('');
+            $('#_microphones').val('');
+            $('#_computer').val('');
+            $('#_loud_speakers').val('');
+        }
+
+        function cancel_meetingroom_delete() {
+            toaster('warning', 'you canceled meeting room Search!');
+        }
+        function delete_meetingroom(Id) {
+            var data = {};
+            data.Id = Id;
+            var container = $('#delete_meetingroom_container');
+            //empty the container and add loading img
+            container.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Delete", "MeetingRooms")'
+            ajaxoptions.success = function (result) {
+                //container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function confirm_delete_meetingroom(Id) {
+            var data = {};
+            data.Id = Id;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Confirm_Delete", "MeetingRooms")';
+            ajaxoptions.success = function (result) {
+                toaster('success', result.message);
+                load_meetingrooms($('#viewType').val());
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to Delete a new meeting room !.');
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function cancel_meetingroom_update() {
+            toaster('warning', 'you canceled meeting room Update!');
+        }
+        function update_meetingroom(Id) {
+            var data = {};
+            data.Id = Id;
+            var container = $('#update_meetingroom_container');
+            //empty the container and add loading img
+            container.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Update_MeetingRoom", "MeetingRooms")'
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+                update_validation();
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+        function confirm_update_meetingroom(Id) {
+            var data = {};
+            data.Id = Id;
+            data.name = $('#name_').val();
+            data.description = $('#description_').val();
+            data.photo = $('#photo_').val();
+            data.capacity = $('#capacity_').val();
+            data.overhead_projector = $('#overhead_projector_').val();
+            data.slide_projctor = $('#slide_projctor_').val();
+            data.film_projctor = $('#film_projctor_').val();
+            data.ifp = $('#ifp_').val();
+            data.video_screen = $('#video_screen_').val();
+            data.white_board = $('#white_board_').val();
+            data.microphones = $('#microphones_').val();
+            data.computer = $('#computer_').val();
+            data.loud_speakers = $('#loud_speakers_').val();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Confirm_Update")";
+            ajaxoptions.success = function (result) {
+                toaster('success', result.message);
+                load_meetingrooms($('#viewType').val());
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to Update a new meeting room !.');
+            };
+
+            if (data.title != '') {
+                $.ajax(ajaxoptions);
+            }
+            else {
+                toaster('warning', 'please provide the meeting room Name first, its required !.');
+            }
+        }
+
+        function cancel_meetingroom_creation() {
+            $('#name').val('');
+            $('#description').val('');
+            $('#photo').val('');
+            $('#capacity').val('5');
+            $('#overhead_projector').val('1');
+            $('#slide_projctor').val('1');
+            $('#film_projctor').val('1');
+            $('#ifp').val('1');
+            $('#video_screen').val('1');
+            $('#white_board').val('1');
+            $('#microphones').val('1');
+            $('#computer').val('1');
+            $('#loud_speakers').val('1');
+            toaster('warning', 'you canceled meeting room creation!');
+        }
+        function create_meetingroom() {
+            var data = {};
+            data.name = $('#name').val();
+            data.description = $('#description').val();
+            data.photo = $('#photo').val();
+            data.capacity = $('#capacity').val();
+            data.overhead_projector = $('#overhead_projector').val();
+            data.slide_projctor = $('#slide_projctor').val();
+            data.film_projctor = $('#film_projctor').val();
+            data.ifp = $('#ifp').val();
+            data.video_screen = $('#video_screen').val();
+            data.white_board = $('#white_board').val();
+            data.microphones = $('#microphones').val();
+            data.computer = $('#computer').val();
+            data.loud_speakers = $('#loud_speakers').val();
+
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = "@Url.Action("Insert_Meeting_Room")";
+            ajaxoptions.success = function (result) {
+                toaster('success', result.message);
+                load_meetingrooms($('#viewType').val());
+                $('#name').val('');
+                $('#description').val('');
+                $('#photo').val('');
+                $('#capacity').val('5');
+                $('#overhead_projector').val('1');
+                $('#slide_projctor').val('1');
+                $('#film_projctor').val('1');
+                $('#ifp').val('1');
+                $('#video_screen').val('1');
+                $('#white_board').val('1');
+                $('#microphones').val('1');
+                $('#computer').val('1');
+                $('#loud_speakers').val('1');
+            };
+            ajaxoptions.error = function () {
+
+                toaster('error', 'a fatal error occurred while trying to submit a new meeting room !.');
+            };
+
+            if (data.title != '') {
+                $.ajax(ajaxoptions);
+            }
+            else {
+                toaster('warning', 'please provide the meeting room Name first, its required !.');
+            }
+        }
+
+        function load_upload_file() {
+            $('#upload_img_input').trigger('click');
+            $('#img_room').src
+        }
+
+        $('#upload_img_input').on('change', function (e) {
+            var files = e.target.files;
+            //var myID = 3; //uncomment this to make sure the ajax URL works
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("upload_img")',
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            $('#photo').val(result);
+                            $('#photo_').val(result);
+                            $('#Photo_').prop('src', '');
+                            var path = result.split('~');
+                            var src = '../..' + path[1].split(',');
+                            $('#img_room').prop('src', src);
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
+        function update_validation() {
+            $('.num_update').change(function () {
+                var list_inputs = $('.num_update');
+                var valid = 1;
+                for (var i = 0; i < list_inputs.length; i++) {
+                    var num_ = $(list_inputs[i]).val();
+                    if (parseInt(num_) < 0 || num_ == undefined) {
+                        $('#update_btn').prop({
+                            disabled: true
+                        });
+                        valid = 0;
+                        break;
+                    }
+                    else if(valid == 1) {
+                        $('#update_btn').prop({
+                            disabled: false
+                        });
+                    }
+                }
+                
+            });
+            $('#name_').change(function () {
+                if ($('#name_').val() == '' || $('#name_').val() == undefined) {
+                    $('#name_spn_').removeClass('hidden');
+                    $('#update_btn').prop({
+                        disabled: true
+                    });
+                }
+                else {
+                    $('#name_spn_').addClass('hidden');
+                    $('#update_btn').prop({
+                        disabled: false
+                    });
+                }
+            });
+        }
+    </script>
+
+}  

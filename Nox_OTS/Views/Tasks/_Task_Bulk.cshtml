@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = null;
+    string bulkname = DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year.ToString();
+}
+
+@*<form action="#" class="form-horizontal form-row-seperated">*@
+@using (Html.BeginForm("ImportFromExcel", "Tasks", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", id = "formid" }))
+{
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-2">Task Title: </label>
+            <div class="col-md-4">
+                <input type="text" placeholder="Bulk Name" name="bulk_name" id="BulkName_Txt" class="form-control" readonly="readonly" value="@bulkname" />
+                <span class="help-block">
+                    Auto Generated (You can't modify)
+                </span>
+            </div>
+            <label class="control-label col-md-2">Received Date</label>
+            <div class="col-md-4">
+                <input class="form-control form-control-inline input-medium date-picker" name="recieved_date" id="Bulk_Received_Date_Txt" size="16" type="text" value="" />
+                <span class="help-block">
+                    Bulk Received Date
+                </span>
+                <!-- /input-group -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Received From</label>
+            <div class="col-md-4">
+                <input type="text" placeholder="Received From" name="recieved_from" id="Bulk_Received_By_Name_Txt" class="form-control" />
+                <span class="help-block">
+                    Person Name who sent Bulk Tasks
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Received Email</label>
+            <div class="col-md-4">
+                <input type="text" placeholder="Received From" name="recieved_email" id="Bulk_Received_By_Email_Txt" class="form-control" />
+                <span class="help-block">
+                    Person Email who sent Bulk Tasks
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Import:</label>
+            <div class="col-md-12">
+                <input type="file" id="Bulk_File" name="Template" class="form-control inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple=""/>
+                <span class="help-block">
+                    Upload the Bulk Excel File
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <input type="submit" class="my-btn green" id="btnAdd"  value="Submit" />
+                    @*<button type="submit" class="btn green modal_submit" data-dismiss="modal"  aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    *@
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Bulk Task', 'The Operation of Creation New Bulk Task Import is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@*</form>    onclick="Import_BulkTask()"*@
+

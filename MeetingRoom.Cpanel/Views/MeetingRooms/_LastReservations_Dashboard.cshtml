@@ -1,0 +1,42 @@
+﻿@using MeetingRooms_DAL
+@model List<SP_Search_Reservation_Result>
+<div class="table-responsive project-list">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Meeting Room</th>
+                <th>Completed</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Confirmed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reservation in Model)
+            {
+                <tr>
+                    <td>
+                        @reservation.MeetingRoom_Name
+                        <br />
+                        <small><i class="fa fa-clock-o"></i> Code:@reservation.Code</small>
+                    </td>
+                    <td>
+                        <span class="pie">1/5</span>
+                    </td>
+                    <td>@reservation.Start_From.ToString(Settings.Activity_Time)</td>
+                    <td>@reservation.End_At</td>
+                    <td>
+                    @if (reservation.Confirmed)
+                    {
+                        <i class="fa fa-check text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-hourglass"></i>
+                    }   
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

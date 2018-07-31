@@ -1,0 +1,131 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <title>@ViewBag.Title - NOX OTS</title>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="../../assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/plugins/jquery-notific8/jquery.notific8.min.css" />
+    @Styles.Render("~/Content/css")
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    @Styles.Render("~/Content/Theme/css")
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body class="page-header-fixed">
+    <!-- BEGIN HEADER -->
+    <div class="header navbar navbar-fixed-top">
+        <!-- BEGIN TOP NAVIGATION BAR -->
+        <div class="header-inner">
+            <!-- BEGIN LOGO -->
+            <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                <img src="../../assets/img/logo.png" alt="logo" class="img-responsive" />
+            </a>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <img src="../../assets/img/menu-toggler.png" alt="" />
+            </a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                @Html.Partial("_Dropdown_UserNotifications")
+                <!-- END NOTIFICATION DROPDOWN -->
+                <!-- BEGIN INBOX DROPDOWN -->
+                @Html.Partial("_Dropdown_UserInbox")
+                <!-- END INBOX DROPDOWN -->
+                <!-- BEGIN TODO DROPDOWN -->
+                @Html.Partial("_Dropdown_UserTasks")
+                <!-- END TODO DROPDOWN -->
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                @Html.Partial("_Dropdown_User")
+                <!-- END USER LOGIN DROPDOWN -->
+            </ul>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END TOP NAVIGATION BAR -->
+    </div>
+    <!-- END HEADER -->
+    <div class="clearfix">
+    </div>
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <div id="sidebar_menu"></div>
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <!-- BEGIN STYLE CUSTOMIZER -->
+                @Html.Partial("_Theme_Toggle")
+                <!-- END STYLE CUSTOMIZER -->
+                @RenderBody()
+            </div>
+        </div>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    @Html.Partial("_Footer")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery/migrate")
+    @Scripts.Render("~/bundles/jquery-ui")
+    @Scripts.Render("~/bundles/bootstrap")
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="../../assets/plugins/jquery-notific8/jquery.notific8.min.js"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script src="../../assets/scripts/custom/ui-notific8.js"></script>
+    <script src="../../assets/scripts/core/app.js"></script>
+    <script src="~/assets/scripts/modules/menu.config.js"></script>
+    <script>
+        var theme = 'lime'; //teal,amethyst,ruby,tangerine,lemon,lime,ebony,smoke
+        var sticky = true;
+        var horizontal_pos = 'bottom';//top,bottom
+        var vertical_pos = 'right'; //right,left
+        var life = '2000'; // second = 1000
+        jQuery(document).ready(function () {
+            Intial_Menu('@User.Identity.GetUserId()');
+            
+            UINotific8.init();
+        });
+        function push_notification (header,body,sticky) {
+            var settings = {
+                theme: theme,
+                sticky: sticky,
+                horizontalEdge: horizontal_pos,
+                verticalEdge: vertical_pos
+            },
+                $button = $(this);
+
+            if ($.trim(header) != '') {
+                settings.heading = $.trim(header);
+            }
+
+            if (!settings.sticky) {
+                settings.life = life;
+            }
+
+            $.notific8('zindex', 11500);
+            $.notific8($.trim(body), settings);
+
+            $button.attr('disabled', 'disabled');
+
+            setTimeout(function() {
+                $button.removeAttr('disabled');
+            }, 1000);
+
+        }
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

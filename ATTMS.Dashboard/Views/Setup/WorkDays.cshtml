@@ -1,0 +1,103 @@
+﻿@using ATTMS.Dashboard.Resources
+@{
+    ViewBag.Title = @Resource.Work_Days;
+}
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">@Resource.Dashboard</a></li>
+                    <li class="active">
+                        <span>@Resource.Work_Days</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>List of @ViewBag.Title.</small>
+            <div>
+                <p>
+                    <a href="#" onclick="is_workday()" class="btn btn-primary header-btn">@Resource.Save</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="page-conainer" class="content">
+
+</div>
+
+<input id="viewType" type="hidden" value="grid" />
+
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            load_days();
+        });
+
+        function load_days() {           
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var error_info = '@Resource.an_error_occurred_employees';
+            var container = $('#page-conainer');
+            container.empty();
+            container.append(loading_img);
+            var ajaxoptions = {};                   
+            ajaxoptions.url = '@Url.Action("WorkDays_Select")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+       
+        function is_workday()
+        {
+            var data = {};
+            var ajaxoptions = {};
+            data.chkids = $('.days_:checkbox:checked').map(function () { return this.value; }).get().join(',');
+            data.ids = $('.days_:checkbox:not(:checked)').map(function () { return this.value; }).get().join(',');           
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Is_Work_Day", "Setup")';
+            ajaxoptions.success = function (result) {
+                toaster('info', result);
+                load_days();
+            };
+            ajaxoptions.error = function () {
+                toaster('error', '@Resource.Fatal_Error_Occured_Update_Request');
+            };
+            $.ajax(ajaxoptions);
+        }
+        function checkAll(e) {
+            var checkboxes = $('.days_');
+ 
+            if (e.checked) {
+                for (var i = 0; i < checkboxes.length; i++) { 
+                    checkboxes[i].checked = true;
+                }
+            } else {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = false;
+                }
+            }
+        }
+    </script>
+}  

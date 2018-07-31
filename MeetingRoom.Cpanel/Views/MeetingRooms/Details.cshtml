@@ -1,0 +1,491 @@
+﻿@model int?
+@{
+    ViewBag.Title = "Meeting Room Reservations";
+    var room_meeting_Id = Model;
+}
+
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+                    <li>
+                        <a href="@Url.Action("Index")"><span>Meeting Rooms</span></a>
+                    </li>
+                    <li class="active">
+                        <span>Reservations</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>List of @ViewBag.Title.</small>
+            <div>
+                <p>
+                    <a href="#" data-toggle="modal" data-target="#createreservationModal" class="btn btn-default header-btn">Create</a>
+
+                    <a href="#" id="meetingroom_reservations_timeline_btn" onclick="Load_Timeline_Meeting_Rooms_Reservations(@Model)" class="btn btn-default right-header-btn btn-active"><i class="fa fa-th"></i></a>
+                    <a href="#" id="meetingroom_reservations_calendar_btn" onclick="load_calendar()" class="btn btn-default right-header-btn"><i class="fa fa-calendar"></i></a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="page-conainer" class="content">
+
+</div>
+
+<div id="cal_dv" class="content" hidden="hidden">
+    @Html.Partial("_MeetingRoom_Reservations_Calender")
+</div>
+
+<input id="viewType" type="hidden" value="timeline" />
+<input id="meetingroom_id" type="hidden" value="@Model" />
+<div class="modal fade" id="createreservationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Create New Reservation</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Host:</label>
+                            <div class="col-sm-10">
+                                @{
+                                   Html.RenderAction("Hosts_DropDown", "MeetingRooms");
+                                }
+                                <span class="help-block m-b-none host">Please Select Host</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Subject:</label>
+                            <div class="col-sm-10">
+                                <input id="subject" type="text" class="form-control">
+                                <span class="help-block m-b-none subject">required subject, max number of letters is 150.</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Description:</label>
+                            <div class="col-sm-10">
+                                <textarea id="description" type="text" class="form-control" rows="5" cols="10"></textarea>
+                                <span class="help-block m-b-none description">you can add a new description within 500 characters</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">From:</label>
+                            <div class="col-sm-5">
+                                <input id="from-date_" type="text" class="form-control datepicker dates" placeholder="02-16-2012">
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control dates" id="from-time_" placeholder="09:30">
+                                    <span class="input-group-addon">
+                                        <span class="fa fa-clock-o"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">To:</label>
+                            <div class="col-sm-5">
+                                <input id="to-date_" type="text" class="form-control datepicker dates" placeholder="02-16-2012">
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control dates" id="to-time_" placeholder="09:30">
+                                    <span class="input-group-addon">
+                                        <span class="fa fa-clock-o"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <span class="help-block m-b-none hidden" id="date_validation_">From date must be greater than To date</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_reservation_creation()" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="create_reservation()" id="reservation_btn" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancelreservationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Cancel Reservation</h4>
+            </div>
+            <div class="modal-body modal_dialog">
+                <div class="panel-body">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+                                <p>Are you sure you want to Cancel This Reservation...! </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" id="cancel_reservation_container">
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/bundles/fullCalendar/css")
+    @Styles.Render("~/bundles/datepicker/css")
+    @Styles.Render("~/bundles/bootstrapCheckbox/css")
+    @Styles.Render("~/bundles/datetimepicker/css")
+    @Styles.Render("~/bundles/clockpicker/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/jqueryui/js")
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/fullCalendar/js")
+    @Scripts.Render("~/bundles/datepicker/js")
+    @Scripts.Render("~/bundles/datetimepicker/js")
+    @Scripts.Render("~/bundles/clockpicker/js")
+
+    <script type="text/javascript">
+        var index = 0;
+        var ID = @Html.Raw(Json.Encode(@Model));
+        $(document).ready(function () {
+            Load_Timeline_Meeting_Rooms_Reservations(ID);
+            if($('#viewType').val() == 'timeline'){
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                        Fetch_Meeting_Rooms_Reservations();
+                    }
+                });
+            }
+            $('#subject').change(function(){
+                if($('#subject').val() == undefined || $('#subject').val() == '')
+                {
+                    $('.subject').removeClass('hidden');
+                    $('#reservation_btn').prop({
+                        disabled: true
+                    });
+                }
+                else
+                {
+                    $('.subject').addClass('hidden');
+                    $('#reservation_btn').prop({
+                        disabled: false
+                    });
+                }
+            });
+            $('#description').change(function(){
+                if($('#description').val() == undefined || $('#description').val()=='')
+                {
+                    $('.description').removeClass('hidden');
+                    $('#reservation_btn').prop({
+                        disabled: true
+                    });
+                }
+                else
+                {
+                    $('.description').addClass('hidden');
+                    $('#reservation_btn').prop({
+                        disabled: false
+                    });
+                }
+            });
+
+            $('.host-select').change(function(){
+                if($('.host-select :selected').text() =='Select Host')
+                {
+                    $('.host').removeClass('hidden');
+                    $('#reservation_btn').prop({
+                        disabled: true
+                    });
+                }
+                else
+                {
+                    $('.host').addClass('hidden');
+                    $('#reservation_btn').prop({
+                        disabled: false
+                    });
+                }
+            });
+
+            $('.datepicker').datepicker();
+            $('#date_validation').addClass('hidden');
+
+            $('.clockpicker').clockpicker({ autoclose: true });
+
+            $(".dates").change(function () {
+                var from = new Date($('#from-date_').val() + ' ' + $('#from-time_').val());
+                var to = new Date($('#to-date_').val() + ' ' + $('#to-time_').val());
+                var today = $.now();
+                var difference_in_milliseconds = to - from;
+                if(from < today || to < today)
+                {
+                    $('#date_validation_').removeClass('hidden');
+                    $('#date_validation_').val(' ');
+                    $('#date_validation_').text('Today bigger than this date');
+                    $('#reservation_btn').prop({
+                        disabled: true
+                    });
+                }              
+                else if (from > to) {
+                    $('#date_validation_').removeClass('hidden');
+                    $('#reservation_btn').prop({
+                        disabled: true
+                    });
+                }
+                else {
+                    $('#date_validation_').addClass('hidden');
+                    $('#reservation_btn').prop({
+                        disabled: false
+                    });
+                }
+            });
+        });
+
+        function cancel_canecllation_reservation() {
+            toaster('warning', 'you canceled Reservation Cancellation!');
+        }
+        function cancel_reservation(Id) {
+            var data = {};
+            data.Id = Id;
+            var container = $('#cancel_reservation_container');
+            //empty the container and add loading img
+            container.empty();
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Canecl_Reservation", "MeetingRooms")';
+            ajaxoptions.success = function (result) {
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function confirm_cancel_resevation(Id) {
+            var data = {};
+            data.Id = Id;
+            var ajaxoptions = {};
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Confirm_Canecl_Reservation", "MeetingRooms")'
+            ajaxoptions.success = function (result) {
+                toaster('success',result.message);
+                Load_Timeline_Meeting_Rooms_Reservations(ID)
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to Cancel Reservation!.');
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function Load_Timeline_Meeting_Rooms_Reservations(room_meeting_Id) {
+            $('#viewType').val("timeline");
+            $('#meetingroom_reservations_calendar_btn').removeClass('btn-active');
+            $('#meetingroom_reservations_timeline_btn').addClass('btn-active');
+            v_type = 3;
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var error_info = 'an error occurred while trying to load the meeting rooms reservations.';
+            var container = $('#page-conainer');
+            $('#page-conainer').prop("hidden","");
+            $('#cal_dv').prop("hidden","hidden");
+
+            container.empty();
+            container.append(loading_img);
+            var data = {};
+            var ajaxoptions = {};
+            data.v_type = v_type;
+            data.index = index;
+            data.room_meeting_Id = room_meeting_Id;
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Load_Timeline_Meeting_Rooms_Reservations")';
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function Fetch_Meeting_Rooms_Reservations() {
+            var error_info = 'an error occurred while trying to load the meeting rooms reservations.';
+            var container = $('#scroll_div');
+            index ++;
+            var data = {};
+            var ajaxoptions = {};
+            data.room_meeting_Id = ID;
+            data.index = index;
+            ajaxoptions.datatype = JSON;
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("Fetch_Meeting_Rooms_Reservations")';
+            ajaxoptions.success = function (data) {
+                $.each(data, function (i, item) {
+                    var date = new Date(parseInt(item.Start_From.substr(6)));
+                    var day= date.toString().substring(0,15);
+                    var time = date.toString().substring(16,24);
+
+                    var icon = '';
+                    if (item.Checked_In != null)
+                        icon='<i class="fa fa-check"></i>';
+                    if (item.Canceled_At != null)
+                        icon='<i class="fa fa-times"></i>';
+                    if (item.Checked_In == null && item.Canceled_At == null)
+                        icon ='<i class="fa fa-hourglass-o"></i>';
+
+                    var new_timeline_dv= "<div class='vertical-timeline-block'><div class='vertical-timeline-icon navy-bg'>"+icon+"</div>" +
+                               "<div class='vertical-timeline-content'><div class='p-sm'><span class='vertical-date pull-right'> " +
+                               "" + day + "<br /> <small>" + time + "</small> </span>" +
+                               "<h2>" + item.Subject + "</h2><p>" + item.Description + "</p></div><div class='panel-footer'>" +
+                                "" + item.Code + ', ' + item.HostName + "</div></div></div>";
+                    container.append(new_timeline_dv);
+                });
+            };
+            ajaxoptions.error = function () {
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+
+        function load_calendar(){
+            $('#viewType').val('calendar');
+            $('#meetingroom_reservations_calendar_btn').addClass('btn-active');
+            $('#meetingroom_reservations_timeline_btn').removeClass('btn-active');
+
+            $('#page-conainer').prop("hidden","hidden");
+            $('#page-conainer').empty();
+            $('#cal_dv').prop("hidden","");
+
+            /* initialize the external events
+             -----------------------------------------------------------------*/
+            $('#external-events div.external-event').each(function () {
+                // store data so the calendar knows to render an event upon drop
+                $(this).data('event', {
+                    title: $.trim($(this).text()), // use the element's text as the event title
+                    stick: true // maintain when user navigates (see docs on the renderEvent method)
+                });
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 1111999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+            });
+            var events = [];
+            /* initialize the calendar
+             -----------------------------------------------------------------*/
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'Events on Meeting Room',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                editable: false,
+                droppable: false, // this allows things to be dropped onto the calendar
+                drop: false,
+                events: function (start, end, timezone, callback)
+                {
+                    var data = {};
+                    var ajaxoptions = {};
+                    var room_meeting_Id = @Html.Raw(Json.Encode(@Model));
+                    ajaxoptions.datatype = JSON;
+                    data.room_meeting_Id = room_meeting_Id;
+                    ajaxoptions.data = data;
+                    ajaxoptions.url = '@Url.Action("Search_Meeting_Rooms_Reservation_Calendar")';
+                    ajaxoptions.success = function (data) {
+                        events = [];
+                        $.each(data, function (i, item)
+                        {
+                            events.push(
+                           {
+                               title: item.Subject,
+                               description: item.Description,
+                               start: moment(item.Start_From).format('YYYY-MM-DD'),
+                               end: moment(item.End_At).format('YYYY-MM-DD'),
+                               allDay: false
+                           });
+                        });
+                        // console.log(events);
+                    }
+                    $.ajax(ajaxoptions);
+
+                    callback(events);
+                }
+            });
+        }
+        function cancel_reservation_creation(){
+            $('#subject').val('');
+            $('#description').text('');
+            $('#from-date_').val('') ;
+            $('#from-time_').val('');
+            $('#to-date_').val('');
+            $('#to-time_').val('');
+            toaster('warning', 'you canceled  reservation create!');
+        }
+        function create_reservation(){
+            var data = {};
+            var ajaxoptions = {};
+            data.subject = $('#subject').val();
+            data.description = $('#description').text;
+            data.from = $('#from-date_').val() +' '+ $('#from-time_').val();
+            data.to = $('#to-date_').val() +' '+  $('#to-time_').val();
+            data.created_by = $('.host-select :selected').text();
+            data.meetingroom_Id = ID;
+            ajaxoptions.data = data;
+            ajaxoptions.url = '@Url.Action("New_Reservation", "MeetingRooms")';
+            ajaxoptions.success = function(result)
+            {
+                toaster('success',result.message);
+                var viewType = $('#viewType').val();
+                if(viewType === 'timeline'){
+                    Load_Timeline_Meeting_Rooms_Reservations(ID);
+                }else{
+                    load_calendar();
+                }
+
+                $('#subject').val('');
+                $('#description').text('');
+                $('#from-date_').val('') ;
+                $('#from-time_').val('');
+                $('#to-date_').val('');
+                $('#to-time_').val('');
+            };
+            ajaxoptions.error = function () {
+                toaster('error', 'a fatal error occurred while trying to Create Reservation!.');
+            };
+            $.ajax(ajaxoptions);
+        }
+    </script>
+} 

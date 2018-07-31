@@ -1,0 +1,47 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Devices_Select_Result>
+
+<div class="row projects">
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var device in Model)
+        {
+            <div class="col-md-3">
+                <div class="hpanel">
+                    <div class="panel-body">
+                        <div class="stats-title pull-left">
+                            <h4>@device.Device_Last_Sync <span class="pe-7s-date"></span></h4>
+                        </div>
+                        <div class="stats-icon pull-right">
+                            <h3 class="text-info">@device.Device_Name</h3>
+                        </div>
+                        <div class="m-t-xl">
+                            <h1 class="text-warning"></h1>
+                            <small>
+                                <b>ID:</b> @device.Device_ID <br />
+                                <b>No:</b> @device.Device_No <br />
+                                <b>IP / Port:</b> @device.Device_IP / @device.Device_Port
+                            </small>
+                        </div>
+                        <div class="btn-group grid-f-right">
+                            <a href="#" class="btn btn-xs btn-default"> @Resource.View</a>
+                            <a class="btn btn-xs btn-default"> @Resource.Edit</a>
+                            <a class="btn btn-xs btn-default"> @Resource.Delete</a>
+                            <a class="btn btn-xs btn-default" onclick="load_device_logs_modal('@device.ID')" href="#" data-target="#employeeShiftModal" data-toggle="modal">@Resource.Logs</a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 border-right"> <div class="contact-stat"><span>@Resource.Processed_Logs </span> <strong>@device.Processed_log_count</strong></div> </div>
+                            <div class="col-md-4 border-right"> <div class="contact-stat"><span>@Resource.Raw_Logs </span> <strong>@device.Raw_log_count</strong></div> </div>
+                            <div class="col-md-4 border-right"> <div class="contact-stat"><span>@Resource.Total_Logs </span> <strong>@(device.Raw_log_count + device.Processed_log_count)</strong></div> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>@Resource.No_Devices_found </p>
+    }
+</div>

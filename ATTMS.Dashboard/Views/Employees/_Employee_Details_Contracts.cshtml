@@ -1,0 +1,108 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Employee_Contracts_Result>
+
+<p>
+    @Resource._Employee_Detail_Contract_Message
+</p>
+<div class="table-responsive">
+    @if (Model != null && Model.Count > 0)
+    {
+        <form method="get" class="form-horizontal">
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-sm-2 control-label" style="visibility:@ViewBag.Visible">@Resource.Add_Contract</label>
+                    <div class="col-sm-2">
+                        <a href="#" data-toggle="modal" data-target="#createContractModal" class="btn btn-primary" style="visibility:@ViewBag.Visible">+</a> 
+                    </div>  
+                </div> 
+            </div> 
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Resource.Name</th>
+                    <th>@Resource.Job_Title_Department</th>
+                    <th>@Resource.Gross_Salary</th>
+                    <th>@Resource.Net_Salary</th>
+                    <th>@Resource.Created_At</th>
+                    <th>@Resource.Created_By</th>
+                    <th>@Resource.Expected_Start_At</th>
+                    <th>@Resource.Expected_End_At</th>
+                    <th>@Resource.Trial_Duration</th>
+                    <th>@Resource.End_At</th>
+                    <th>@Resource.Rewnewable</th>
+                    <th>@Resource.Terminated</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contract in Model)
+                {
+                    <tr>
+                        <th>@contract.contract_employee_first_name @contract.contract_employee_last_name @contract.contract_employee_mid_name</th>
+                        <th>@contract.job_title/@contract.department_title</th>
+                        <th>@contract.contract_gross_salary.ToString(HMTLHelperExtensions.currency_format) @HMTLHelperExtensions.currency</th>
+                        <th>@contract.contract_net_salary.ToString(HMTLHelperExtensions.currency_format) @HMTLHelperExtensions.currency</th>
+                        <th>@contract.created_at.ToString(HMTLHelperExtensions.date_format)</th>
+                        <th>@contract.CreatedBy_UserName</th>
+                        <th>@(contract.exp_start_at != null ? contract.exp_start_at.Value.ToString(HMTLHelperExtensions.date_format) : "")/@(contract.start_at != null ? contract.start_at.Value.ToString(HMTLHelperExtensions.date_format) : "")</th>
+                        <th>@(contract.exp_end_at != null ? contract.exp_end_at.Value.ToString(HMTLHelperExtensions.date_format) : "")/@(contract.end_at != null ? contract.end_at.Value.ToString(HMTLHelperExtensions.date_format) : "")</th>
+                        <th>@(contract.trial_period_duration_start != null ? contract.trial_period_duration_start.Value.ToString(HMTLHelperExtensions.date_format) : "") To @(contract.trial_period_duration_end != null ? contract.trial_period_duration_end.Value.ToString(HMTLHelperExtensions.date_format) : "")</th>
+                        <th>
+                            @if (contract.end_at != null)
+                            {
+                                @contract.end_at.Value.ToString(HMTLHelperExtensions.date_format)
+                            }
+                            else
+                            {
+                                <a href="#" onclick="terminate_and_end_contract(@contract.contracts_Id)" data-toggle="modal" data-target="#contract_terminated_and_endatModal" class="btn btn-default header-btn">@Resource.EndNow</a>
+                                @*<a href="#" title="Running"><i class="fa fa-close text-danger"></i></a>*@
+                            }
+                        </th>
+                        <th>
+                            @if (contract.renewable)
+                            {
+                                <a href="#" title="renewable"><i class="fa fa-check text-success"></i></a>
+                            }
+                            else
+                            {
+                                <a href="#" title="not-renewable"><i class="fa fa-close text-danger"></i></a>
+                            }
+                        </th>
+                        <th>
+                            @if (contract.terminated)
+                            {
+                                <a href="#" title="Terminated"><i class="fa fa-check text-success"></i></a>
+                            }
+                            else
+                            {
+                               <a href="#" onclick="terminate_and_end_contract(@contract.contracts_Id)" data-toggle="modal" data-target="#contract_terminated_and_endatModal" class="btn btn-default header-btn">@Resource.Terminated</a>
+                                @*<a href="#" title="Running"><i class="fa fa-close text-danger"></i></a>*@
+                            }
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p style="color:red">@Resource.No_Contracts_are_Found</p>
+
+        <form method="get" class="form-horizontal">
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-sm-2 control-label">@Resource.Add_Contract</label>
+                    <div class="col-sm-2">
+                        <a href="#" data-toggle="modal" data-target="#createContractModal" class="btn btn-primary">+</a>
+
+                    </div>
+
+
+                </div>
+          
+            </div>
+
+        </form>  
+    }
+</div>

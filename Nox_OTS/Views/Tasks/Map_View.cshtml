@@ -1,0 +1,330 @@
+﻿
+@{
+    ViewBag.Title = "Map_View";
+}
+
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-datepicker/css/datepicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/bootstrap-select/bootstrap-select.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/select2/select2-metronic.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/plugins/jquery-multi-select/css/multi-select.css" />
+@*<link href="~/assets/plugins/data-tables/jquery.dataTables.css" rel="stylesheet"  type="text/css"  />*@
+<link href="~/assets/plugins/data-tables/DT_bootstrap.css" rel="stylesheet" />
+<link href="../../assets/plugins/custom.css" rel="stylesheet" />
+<link rel="stylesheet" href="../../scripts/jqx.base.css" type="text/css" />
+
+<style>
+    /* Set the size of the div element that contains the map */
+    #map {
+        height: 400px; /* The height is 400 pixels */
+        width: 100%; /* The width is the width of the web page */
+    }
+</style>
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            @ViewBag.Title <small></small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            @*<li class="btn-group">
+            
+            </li>*@
+            <li class="btn-group">
+                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                    <span>
+                        Actions
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="#create_view_modal" data-toggle="modal">
+                            Filter
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            @{Html.RenderAction("Breedcrumb", "Common", new { view = "TasksManagement" });}
+        </ul>
+      
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+
+<div class="row">
+    <div class="col-md-12" id="tasks_tbl_cont">
+
+    </div>
+</div>
+<div id="create_view_modal" class="modal fade bs-modal-lg" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Filter By Area and Project and Status</h4>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @Html.Partial("_Project_Status_Area_Filter")
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE CONTENT-->
+@*<div id="create_view_modal" class="modal fade bs-modal-lg" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Create New Task</h4>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @Html.Partial("_Task_Create")
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>*@
+<input type="hidden" id="view_type" value="Table" />
+<!-- END PAGE Modals-->
+@*<div class="tab-content">*@
+    @*<div class="tab-pane active" id="tab_1">
+        <b>Column View </b>*@
+        <div id="map"></div>
+    @*</div>*@
+    <!-- /.tab-pane -->
+    
+   
+@*</div>*@
+<!-- /.box-header -->
+<!-- /.box-body -->
+@section Scripts {
+    @*signalr*@
+
+<script>
+    var AreaIds = "";
+    var ProjectIds = "";
+    var statusIds = "";
+    $(function () {
+
+        $(".js-source-states-2").select2();
+        $('#AreaId').on('change', function () {
+            AreaIds = ($(this).val().toString() + ",");
+        });
+        $('#ProjectId').on('change', function () {
+            ProjectIds = ($(this).val().toString() + ",");
+        });
+        $('#statusId').on('change', function () {
+            statusIds = ($(this).val().toString() + ",");
+        });
+          // Reference the hub.
+          var hubNotif = $.connection.taskStatusHub;
+          // Start the connection.
+          $.connection.hub.start().done(function () {
+              initMap();
+          });
+          // Notify while anyChanges.
+          hubNotif.client.TasksThisDay = function () {
+              initMap();
+          };
+      });
+</script>
+
+
+    @*end signalr*@
+
+    <script type="text/javascript" src="../../assets/plugins/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery.pulsate.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/jquery-bootpag/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/holder.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="../../assets/plugins/select2/select2.min.js"></script>
+    <script src="../../assets/scripts/core/app.js"></script>
+    <script src="../../assets/scripts/custom/ui-general.js"></script>
+    <script type="text/javascript" src="../../assets/scripts/custom/form-samples.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/clockface/js/clockface.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="../../assets/scripts/custom/components-pickers.js"></script>
+    <!-- DataTables -->
+    @*<script src="../../assets/plugins/datatables/jquery.dataTables.min.js"></script>*@
+    <script type="text/javascript" src="../../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    @*<script src="../../assets/plugins/datatables/dataTables.bootstrap.min.js"></script>*@
+    <script type="text/javascript" src="../../assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    @*<script type="text/javascript"
+        src="http://maps.google.com/maps/api/js?key=AIzaSyAv5F0QBCh1v6UzUa6YfJZAhhAIhThq0pk&sensor=false"></script>*@
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv5F0QBCh1v6UzUa6YfJZAhhAIhThq0pk&callback=initMap"
+        async defer></script>*@
+    <script src="../../assets/plugins/main.js"></script>
+    @*<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+    </script>*@
+    <script>
+        function Tasks_Opened_Now()
+        {
+            initMap();
+        }
+// Initialize and add the map
+function initMap() {
+  // The location of Uluru
+  //  var uluru = { lat: 30.1232726, lng: 31.5827073 };
+
+  //// The map, centered at Uluru
+  //var map = new google.maps.Map(
+  //    document.getElementById('map'), {zoom: 6, center: uluru});
+  // The marker, positioned at Uluru
+    // var marker = new google.maps.Marker({position: l, map: map});
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: { lat: -33.9, lng: 151.2 }
+    });
+    var data = {}; debugger;
+    
+    data.AreaIds = AreaIds;
+   
+    data.ProjectIds = ProjectIds;
+    data.statusIds = statusIds;
+    
+    var ajaxoptions = {};
+    ajaxoptions.data = data;
+    ajaxoptions.url = "@Url.Action("Get_Areas_For_Map_Marker", "Tasks")";
+    ajaxoptions.type = 'GET';
+    ajaxoptions.success = function (result) {
+        for (var i = 0; i < result.length; i++) {
+            var marker = new google.maps.Marker({
+                position: { lat: parseInt(result[i].latitude), lng: parseInt(result[i].longitude) },
+                map: map,
+                title: "fgd",//result[i].Task_Area,
+                zIndex: i+1
+            });
+        }       
+    }
+    $.ajax(ajaxoptions);
+
+}
+
+// Data for the markers consisting of a name, a LatLng and a zIndex for the
+// order in which these markers should display on top of each other.
+//var beaches = [
+//  ['Bondi Beach', -33.890542, 151.274856, 4],
+//  ['Coogee Beach', -33.923036, 151.259052, 5],
+//  ['Cronulla Beach', -34.028249, 151.157507, 3],
+//  ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+//  ['Maroubra Beach', -33.950198, 151.259302, 1]
+//];
+function setMarkers(map) { 
+
+    //for (var i = 0; i < beaches.length; i++) {
+    //    var beach = beaches[i];
+    //    var marker = new google.maps.Marker({
+    //        position: { lat: beach[1], lng: beach[2] },
+    //        map: map,
+    //      //  icon: image,
+    //        //shape: shape,
+    //        title: beach[0],
+    //        zIndex: beach[3]
+    //    });
+    //}
+}
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv5F0QBCh1v6UzUa6YfJZAhhAIhThq0pk&callback=initMap">
+    </script>
+
+     
+    @*<script type="text/javascript" src="~/scripts/jquery-1.11.1.min.js"></script>*@
+    <script type="text/javascript" src="~/scripts/jqxcore.js"></script>
+    <script type="text/javascript" src="~/scripts/jqxsortable.js"></script>
+    <script type="text/javascript" src="~/scripts/jqxkanban.js"></script>
+    <script type="text/javascript" src="~/scripts/jqxdata.js"></script>
+    <script type="text/javascript">
+    $(document).ready(
+        function () {
+            var fields = [
+                     { name: "id", type: "string" },
+                     { name: "status", map: "state", type: "string" },
+                     { name: "text", map: "label", type: "string" },
+                     { name: "tags", type: "string" },
+                     { name: "color", map: "hex", type: "string" },
+                     { name: "resourceId", type: "number" }
+            ];
+            var source =
+             {
+                 localData: [
+                          { id: "1161", state: "new", label: "Combine Orders", tags: "orders, combine", hex: "#5dc3f0", resourceId: 3 },
+                          { id: "1645", state: "work", label: "Change Billing Address", tags: "billing", hex: "#f19b60", resourceId: 1 },
+                          { id: "9213", state: "new", label: "One item added to the cart", tags: "cart", hex: "#5dc3f0", resourceId: 3 },
+                          { id: "6546", state: "done", label: "Edit Item Price", tags: "price, edit", hex: "#5dc3f0", resourceId: 4 },
+                          { id: "9034", state: "new", label: "Login 404 issue", tags: "issue, login", hex: "#6bbd49" }
+                 ],
+                 dataType: "array",
+                 dataFields: fields
+             };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            var resourcesAdapterFunc = function () {
+                var resourcesSource =
+                {//
+                    localData: [
+                          { id: 0, name: "No name", image: "styles/images/common.png", common: true },
+                          { id: 1, name: "Andrew Fuller", image: "images/andrew.png" },
+                          { id: 2, name: "Janet Leverling", image: "images/janet.png" },
+                          { id: 3, name: "Steven Buchanan", image: "images/steven.png" },
+                          { id: 4, name: "Nancy Davolio", image: "images/nancy.png" },
+                          { id: 5, name: "Michael Buchanan", image: "images/Michael.png" },
+                          { id: 6, name: "Margaret Buchanan", image: "images/margaret.png" },
+                          { id: 7, name: "Robert Buchanan", image: "images/robert.png" },
+                          { id: 8, name: "Laura Buchanan", image: "images/Laura.png" },
+                          { id: 9, name: "Laura Buchanan", image: "images/Anne.png" }
+                    ],
+                    dataType: "array",
+                    dataFields: [
+                         { name: "id", type: "number" },
+                         { name: "name", type: "string" },
+                         { name: "image", type: "string" },
+                         { name: "common", type: "boolean" }
+                    ]
+                };
+                var resourcesDataAdapter = new $.jqx.dataAdapter(resourcesSource);
+                return resourcesDataAdapter;
+            }
+            $('#kanban').jqxKanban({
+                resources: resourcesAdapterFunc(),
+                source: dataAdapter,
+                columns: [
+                    { text: "Backlog", dataField: "new" },
+                    { text: "In Progress", dataField: "work" },
+                    { text: "Done", dataField: "done" }
+                ]
+            });
+        });
+    </script>
+
+}

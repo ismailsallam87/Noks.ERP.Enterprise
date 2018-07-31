@@ -1,0 +1,102 @@
+﻿@using OTS.DAL
+@model Task_Items
+@{
+    OTSEntities db = new OTSEntities();
+}
+
+<form action="#" class="form-horizontal form-row-seperated">
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-2">Item Title: </label>
+            <div class="col-md-10">
+                <input type="text" placeholder="Task Title" id="title_" class="form-control" value="@Model.Item_Title"/>
+                @*<span class="help-block">
+                        Auto Generated (You can't modify)
+                    </span>*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">ItemSN: </label>
+            <div class="col-md-10">
+                <input type="text" placeholder="Task Title" id="itemSn_" class="form-control" value="@Model.Item_SN"/>
+                @*<span class="help-block">
+                        Auto Generated (You can't modify)
+                    </span>*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Weight: </label>
+            <div class="col-md-10">
+                <input type="text" id="weight_" class="form-control" value="@Model.Item_Weight"/>
+                @*<span class="help-block">
+                        Auto Generated (You can't modify)
+                    </span>*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Description</label>
+            <div class="col-md-10">
+                <input type="text" id="desc_" class="form-control" value="@Model.Item_Desc"/>
+                @*<span class="help-block">
+                        Provided from the Owner of the Task
+                    </span>*@
+            </div>
+        </div>
+        <div class="form-group">
+                <label class="control-label col-md-2">Notes</label>
+                <div class="col-md-10">
+                    <input type="text" id="notes_" class="form-control" value="@Model.Item_Notes" />
+                    @*<span class="help-block">
+                    Provided from the Operator of the Task
+                </span>*@
+                </div>
+            </div>
+    </div>
+        @*<div class="form-group">
+            <label class="control-label col-md-2">Created By</label>
+            <div class="col-md-4">
+                <select id="project_list" class="form-control">
+                    <option value="-1">Please Select User</option>
+                    @foreach (var user in db.AspNetUsers.ToList())
+                    {
+                        <option value="@user.Id">@user.Email</option>
+                    }
+                </select>
+                <span class="help-block">
+                    Required *
+                </span>
+            </div>*@
+    <div class="form-group">
+        <label class="control-label col-md-2">Status</label>
+        <div class="col-md-10">
+            <select id="statusId_" class="form-control">
+                <option value="-1">Please Select a Status</option>
+                @foreach (var status in db.Task_Generic_Status.ToList())
+                {
+                    if (Model.Item_Delivery_Status == status.ID)
+                    {
+                        <option value="@status.ID" selected="selected">@status.Title</option>
+                    }
+                    else
+                    {
+                        <option value="@status.ID">@status.Title</option>
+                    }
+                }
+            </select>
+            </div>
+            @*<span class="help-block">
+                    Required *
+                </span>*@
+        </div>
+    </div><br />
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn green modal_submit" data-dismiss="modal" onclick="confirm_update_Task(@Model.ID)" aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Update Item', 'The Operation of Update New Item is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,55 @@
+@using ATTMS.Dashboard.Resources
+
+@model ATTMS.Dashboard.Models.EditUserViewModel
+
+@{
+    ViewBag.Title = @Resource.Edit_User;
+}
+<div class="page-header"><h1>@Resource.Edit_User_Profile<small>
+    <i class="icon-double-angle-right"></i>
+  @Model.DisplayName
+</small></h1></div>
+<div class="row">
+    <div class="col-xs-6">
+        @using (Html.BeginForm("Edit", "Users", new{role="form"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+        <h3 class="header smaller lighter blue">@Resource.Roles <br/><small>@Resource.Check_Roles_assigned_to</small></h3>
+        <div class="row">
+            <div class="col-xs-12 col-sm-5">
+                <div class="control-group">
+                    @foreach (var item in Model.RolesList)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected" class="ace" />
+                                <span class="lbl"> @item.Value</span>
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <a class="btn btn-danger btn-sm" href="@Url.Action("Index", "Users")"><i class="ace-icon fa fa-arrow-left"></i> Go back</a> <button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-check bigger-110"></i> @Resource.Save</button>
+        </div>
+    </div>
+}
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

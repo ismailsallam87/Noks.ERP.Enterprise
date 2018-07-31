@@ -1,0 +1,90 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Department_Select_Result>
+<div class="row">
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="department_tbl" class="display table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>@Resource.Name</th>
+                                    <th>@Resource.Manager</th>
+                                    <th>@Resource.Employees_Contract</th>
+                                    <th>@Resource.Gross_Salary</th>
+                                    <th width="15%">@Resource.Absence_Days</th>
+                                    <th width="15%">@Resource.Deduction_Hours</th>
+                                    <th width="15%">@Resource.Worked_Hours</th>
+                                    <th width="15%">@Resource.Approved_Overtime (@Resource.hrs)</th>
+                                    <th width="15%">@Resource.Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var department in Model)
+                                {
+                                    <tr>
+                                        <td>@department.title</td>
+                                        <td>
+                                            @{
+                                            List<string> managers = department.managers.Split(',').ToList();
+                                            if (managers != null && managers.Count > 0)
+                                            {
+                                                foreach (string manager in managers)
+                                                {
+                                                    if (manager != "")
+                                                    {
+                                                        List<string> manager_attribute = manager.Split(';').ToList();
+                                                        if (manager_attribute != null && manager_attribute.Count > 0 && manager_attribute.Count == 3)
+                                                        {
+                                                            <a href="@Url.Action("Details", "Employee", new { Id = manager_attribute[0] })">
+                                                                <b>@Resource.Name:</b> @manager_attribute[1] <br />
+                                                                <b>@Resource.Job_Title:</b> @manager_attribute[2]
+                                                            </a>
+                                                        }
+                                                    }
+                                                    else if (managers.Count == 1)
+                                                    {
+                                                        <span>@Resource.No_Managers_Found</span>
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                    <td>@department.employee_count/@department.contarct_count</td>
+                                    <td>
+                                        @String.Format(HMTLHelperExtensions.currency_format, department.gross_salary_total.Value.ToString())
+                                    @HMTLHelperExtensions.currency
+                                </td>
+                                <td width="15%">@department.total_absence @Resource.days</td>
+                                <td width="15%">@department.total_deductedhours @Resource.Hours</td>
+                                <td width="15%">@department.total_workedhours @Resource.Hours</td>
+                                <td width="15%">@department.total_approved_overtimehours/@department.total_overtimehours (@Resource.hrs)</td>
+                                <td width="15%">
+                                    <a href="@Url.Action("Department_Details","Setup", new {Id=department.Id})" class="btn btn-xs btn-default"> @Resource.View</a>
+                                    <a class="btn btn-xs btn-default"  data-toggle="modal" href="#editJobTitleModal" onclick="Update_Department(@department.Id)" > @Resource.Edit</a>
+                                    @if (department.is_fresh.Value)
+                                    {
+                                        @*<a class="btn btn-xs btn-default"> Delete</a>*@
+                                        <a href="#deleteDepartmentModal" onclick="delete_Department(@department.Id)" data-toggle="modal" class="btn btn-xs btn-default">@Resource.Delete</a>
+
+                                    }
+                                </td>
+                            </tr>
+                                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                            }
+                                            else
+                                            {
+                                                <p>@Resource.No_Departments_found</p>
+                                            }
+
+</div>

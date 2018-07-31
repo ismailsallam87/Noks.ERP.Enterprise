@@ -1,0 +1,65 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Select_Employee_Transfered_Result>
+
+ 
+<div class="table-responsive">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="row">
+                @*<label class="col-sm-2 control-label" style="visibility:@ViewBag.Visible">  Add a Department </label>*@
+                <div class="col-sm-2">
+                    <a href="#" data-toggle="modal" data-target="#create_department_Modal" class="btn btn-primary" style="visibility:@ViewBag.Visible">+</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (Model != null && Model.Count > 0)
+    {
+        <table class="table table-striped">
+            <thead> 
+                <tr>
+                    <th>Name</th>
+                    <th>Job Title</th>
+                    <th>Dept Title</th>
+                    <th>Join At</th>
+                    <th>Left At</th>
+                    <th>Coach Name</th>
+                    <th>Notes</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.name</td>
+                        <td>@item.job_title</td>
+                        <td>@item.dept_Title</td>
+                        <td>@item.joined_at</td>
+                        <td>@item.left_at</td>
+                        <td>@item.coach_name</td>
+                        <td>@item.notes</td> 
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p> No_Requests_found_for_this_employee</p>
+        <form method="get" class="form-horizontal">
+            @*<div class="form-group">
+                <div class="row">
+                    <label class="col-sm-2 control-label"> Add_A_leave </label>
+                    <div class="col-sm-2">
+                        <a href="#" data-toggle="modal" data-target="#createLeaveModal" class="btn btn-primary">+</a>
+                    </div>
+                </div>
+            </div>*@
+            else
+        </form>
+    }
+
+</div>
+

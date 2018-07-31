@@ -1,0 +1,20 @@
+﻿@model int
+<form action="#" class="form-horizontal form-row-seperated">
+    <div class="form-body">
+        <div class="modal-header">
+            <h4 class="modal-title">Are you sure you want to delete task?</h4>
+        </div>       
+    </div>
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn green modal_submit" data-dismiss="modal" onclick="confirm_delete_task(@Model)" aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Delete Task', 'The Operation of deletion New Task is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+

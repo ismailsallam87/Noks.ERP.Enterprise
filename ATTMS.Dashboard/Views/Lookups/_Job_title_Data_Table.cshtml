@@ -1,0 +1,21 @@
+﻿@using Models
+@model List<Sp_Select_Job_Title_Result>
+<table id="example2" class="table table-striped table-bordered table-hover col-sm-4 ">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th> Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var JobTitle in Model)
+        {
+            <tr>
+                <td>@JobTitle.title</td>
+                <th>
+                    <a class="btn btn-xs btn-default" data-toggle="modal" href="#editJobTitleModal" onclick="Update_Job_Title(@JobTitle.Id)"> Edit</a>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>

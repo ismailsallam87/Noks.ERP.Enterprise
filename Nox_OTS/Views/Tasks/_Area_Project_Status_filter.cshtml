@@ -1,0 +1,57 @@
+﻿@using OTS.DAL
+@model List<sp_Tasks_Opened_Now_Result>
+<div class="tab-content">
+    <div class="tab-pane active" id="tab_2">
+        <div class="box-body">
+            <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Task Title</th>
+                        <th>Project Name</th>
+                        <th>Phone</th>
+
+                        <th>Zone Area</th>
+                        <th>Due Date</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Task Status</th>
+                        <th>Duration</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Task_Title</td>
+                            <td>
+                                @item.ProjectName
+                            </td>
+                            <td>@item.Task_Authorized_Phone</td>
+                            <td> @item.Task_Area</td>
+                            <td> @item.Due_Date.ToString("dd MMMM, yyyy")</td>
+                            <td> @item.latitude</td>
+                            <td> @item.longitude</td>
+                            <td> @item.TaskStatus</td>
+                            <td>
+                                @if (item.Expected_End_Time != null && item.Expected_Start_Time != null)
+                                {
+                                    TimeSpan time = (item.Expected_End_Time - item.Expected_Start_Time);
+                                    <p> @time.Days days @time.Hours hour @time.Minutes min </p>
+                                }
+                                else
+                                {
+                                    <p>
+                                    </p>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    </div>

@@ -1,0 +1,29 @@
+﻿@using ATTMS.Dashboard.Resources 
+@using Models
+@model List<SP_Employee_List_Select_Result>
+@{ 
+    int? selectedEelement= ViewBag.selectedEelement;
+}
+@if (Model != null && Model.Count > 0)
+{
+    <select class="form-control m-b" name="employee_Id" id="employee_Id">
+        <option value="-1">@Resource.Select_an_employee</option>
+        @foreach (var employee in Model)
+        {
+            if (selectedEelement == employee.Id)
+            {
+                <option selected value="@employee.Id">@employee.name (@employee.code)</option>
+            }
+            else
+            {
+                <option value="@employee.Id">@employee.name (@employee.code)</option>
+            }
+        }
+    </select>
+}
+else
+{
+    <p>@Resource.No_Employees_found</p>
+}
+
+

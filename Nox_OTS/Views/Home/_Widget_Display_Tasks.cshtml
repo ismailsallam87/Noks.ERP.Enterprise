@@ -1,0 +1,55 @@
+﻿@using OTS.DAL;
+@model List<SP_Widget_Display_Tasks_Result>
+<div class="col-md-6 col-sm-6">
+    <div class="portlet box blue">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-bell-o"></i>Recent Activities
+            </div>
+
+        </div>
+        <div class="portlet-body">
+            <div class="scroller" style="height: 300px;" data-always-visible="1" data-rail-visible="0">
+                <ul class="feeds">
+                   @foreach (var item in Model)
+                   {
+                    <li>
+                        <div class="col1">
+                            <div class="cont">
+                                <div class="cont-col1">
+                                    <div class="label label-sm label-info">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                </div>
+                                <div class="cont-col2">
+                                    <div class="desc">@item.Area_Title<span class="label label-sm label-warning ">
+                                            @*Take  action <i class="fa fa-share"></i>*@
+                                        @item.Region_Title
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            @*<div class="date">*@
+                                @item.task_status
+                            @*</div>*@
+                        </div>
+                    </li>
+                   }
+                    
+                    
+                </ul>
+            </div>
+            <div class="scroller-footer">
+                <div class="pull-right">
+                    <a href="@Url.Action("Index","Tasks")">
+                        See All Records <i class="m-icon-swapright m-icon-gray"></i>
+                    </a>
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

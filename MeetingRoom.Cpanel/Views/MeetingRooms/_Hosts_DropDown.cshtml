@@ -1,0 +1,9 @@
+﻿@using MeetingRooms_DAL
+@model List<SP_Get_Hosts_Result>
+<select class="form-control host-select">
+    <option>Select Host</option>
+    @foreach (var host in Model)
+    {
+        <option value="@host.Id">@host.host_Nam</option>
+    }
+</select>

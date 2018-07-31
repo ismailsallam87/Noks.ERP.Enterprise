@@ -1,0 +1,57 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Models
+@model List<SP_Select_Requests_Result>
+
+<div class="row projects">
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var request in Model)
+        {
+            <div class="col-lg-6 grid-view-item">
+                <div class="hpanel hgreen">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h4><a href="">@request.EmployeeName</a></h4>                            
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="project-label">@Resource.Reason</div>
+                                        <small>@request.Reason</small>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="project-label">@Resource.Manager_Name</div>
+                                        <small>@request.ManagerName</small>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="project-label">@Resource.Coach_Name</div>
+                                        <small>@request.CoachName</small>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="project-label">@Resource.From_To</div>
+                                        <small>@request.req_from</small>/<small>@request.req_to</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 project-info">
+                                <div class="project-action m-t-md">
+                                    <div class="btn-group">
+                                        <a href="#" onclick="approve_request(@request.Id,true)" data-toggle="modal" class="btn btn-xs btn-default">@Resource.Approve</a>
+                                        <a href="#" onclick="approve_request(@request.Id,false)" data-toggle="modal" class="btn btn-xs btn-default">@Resource.Reject</a>
+                                    </div>
+                                </div>                                                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        
+                    </div>
+                </div>                
+        }
+
+    }
+    else
+    {
+        <p>@Resource.No_Requests_found</p>
+    }
+</div>

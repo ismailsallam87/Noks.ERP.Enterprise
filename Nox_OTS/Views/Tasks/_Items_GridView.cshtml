@@ -1,0 +1,58 @@
+﻿@using Nox_OTS.Models
+@model TaskItems
+
+<div class="portlet box green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Tasks
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse">
+            </a>
+            <a href="javascript:;" class="reload" onclick="Load_Items_View('Grid',@Model.TaskId)">
+            </a>
+        </div>
+    </div>
+    @if (Model.Items == null || Model.Items.Count == 0)
+    {
+        @Html.Partial("_NoDataFound");
+    }
+    else
+    {
+        <div class="portlet-body">
+            <div class="row">
+                @if (Model.Items != null && Model.Items.Count > 0)
+                {
+                    foreach (var item in Model.Items)
+                    {
+                        <div class="col-sm-4 col-md-4">
+                            <div class="thumbnail">
+                               <div class="caption">
+                                    <h4>@item.Item_Title</h4>
+                                    <p>
+                                        Created At: @item.Created_At.ToString("dd-MMM-yyyy")
+                                        <br />
+                                        Created By: @item.Created_By_UserName
+                                        <br />
+                                        Item_SN: @item.Item_SN
+                                        <br />
+                                        Weight: @item.Item_Weight
+                                        <br />
+                                        Notes: @item.Item_Notes
+                                        <br />                                      
+                                    </p>
+                                    <p>
+                                        <input type="button" class="btn danger" value="Delete" onclick="Delete('@item.ID')" href="#delete_task_modal" data-toggle="modal">|
+                                        <input type="button" class="btn default" value="Edit" onclick="update_item('@item.ID')" href="#edit_zone_view_modal" data-toggle="modal">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
+
+

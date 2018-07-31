@@ -1,0 +1,23 @@
+﻿<form action="#" class="form-horizontal form-row-seperated">
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-3">Zone Name: </label>
+            <div class="col-md-9">
+                <input type="text" placeholder="Zone Name" id="Create_ZoneName_Txt" class="form-control" />
+                <span class="help-block">
+                    Zone A,Zone B
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn green modal_submit" data-dismiss="modal" onclick="create_newZone()" aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Create Zone', 'The Operation of Creation New Zone is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

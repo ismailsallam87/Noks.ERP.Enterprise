@@ -1,0 +1,63 @@
+﻿@using OTS.DAL
+@{
+    OTSEntities db = new OTSEntities();
+}
+
+<form action="#" class="form-horizontal form-row-seperated">
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-2">Area</label>
+            <div class="col-md-10">
+                <select id="AreaId" class="form-control js-source-states-2" multiple="multiple" name="taskIds">
+                    @*<option value="-1">Please Select a task</option>*@
+                    @foreach (var Area in db.Areas.OrderBy(t => t.ID).ToList())
+                    {
+                        <option value="@Area.ID">@Area.Title</option>
+                    }
+                </select>
+                <span class="help-block">
+                    @*Required **@
+                </span>
+            </div>
+
+            <label class="control-label col-md-2">Project</label>
+            <div class="col-md-10">
+                <select id="ProjectId" class="form-control js-source-states-2" multiple="multiple" name="taskIds">
+                    @*<option value="-1">Please Select a task</option>*@
+                    @foreach (var Proj in db.Projects.OrderBy(t => t.ID).ToList())
+                    {
+                        <option value="@Proj.ID">@Proj.Project_Name</option>
+                    }
+                </select>
+                <span class="help-block">
+                    @*Required **@
+                </span>
+            </div>
+
+
+            <label class="control-label col-md-2">Status</label>
+            <div class="col-md-10">
+                <select id="statusId" class="form-control js-source-states-2" multiple="multiple" name="statusIds">
+                    @*<option value="-1">Please Select a Status</option>*@
+                    @foreach (var status in db.Task_Generic_Status.OrderBy(s => s.Logical_Order).ToList())
+                    {
+                        <option value="@status.ID">@status.Title</option>
+                    }
+                </select>
+                <span class="help-block">
+                    @*Required **@
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" id="submit" class="btn green modal_submit" data-dismiss="modal" onclick="Tasks_Opened_Now()" aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Fileter Tasks_Opened_Now', 'The Operation of Fileter Tasks_Opened_Now is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

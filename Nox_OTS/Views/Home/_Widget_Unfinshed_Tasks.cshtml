@@ -1,0 +1,20 @@
+﻿@using OTS.DAL;
+@model int
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="dashboard-stat yellow">
+        <div class="visual">
+            <i class="fa fa-sitemap"></i>
+        </div>
+        <div class="details">
+            <div class="number">
+                @Model
+            </div>
+            <div class="desc">
+                Unfinished Tasks
+            </div>
+        </div>
+        <a class="more" href="@Url.Action("Unfinished","Tasks")">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+        </a>
+    </div>
+</div>

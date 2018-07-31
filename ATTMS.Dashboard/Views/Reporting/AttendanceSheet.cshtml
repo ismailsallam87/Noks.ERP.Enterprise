@@ -1,0 +1,185 @@
+﻿@using ATTMS.Dashboard.Resources
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = Resource.Attendance_Sheet_Reporting;
+}
+
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">@Resource.Dashboard</a></li>
+                    <li class="active">
+                        <span>@Resource.Attendance_Sheet_Reporting</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @ViewBag.Title
+            </h2>
+            <small>@Resource.Monitor_your_Resources_by @ViewBag.Title.</small>
+            <div>
+                <p>
+                    <a href="#" data-toggle="modal" data-target="#searchEmployeeModal" class="btn btn-default header-btn">@Resource.Search</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="page-conainer" class="content">
+</div>
+
+<input id="viewType" type="hidden" value="grid" />
+<input id="UserId" type="hidden" vale="@User.Identity.GetUserId()" />
+
+<div class="modal fade" id="searchEmployeeModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">@Resource.Filter_Attendance_Sheet</h4>
+                <small class="font-bold">@Resource.By_easy_filteration_method</small>
+            </div>
+            <div class="modal-body">
+                <form method="get" class="form-horizontal" id="attendencesheet_frm">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Employee:</label>
+                        <div class="col-sm-10">
+                            @{Html.RenderAction("Employee_List_Select", "Employees"); }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.Month_master_record</label>
+                        <div class="col-sm-10">
+                            @{Html.RenderAction("monthly_master_ref_List", "Setup"); }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.From:</label>
+                        <div class="col-sm-10">
+                            <input id="from" type="text" value="@DateTime.Now.ToString(HMTLHelperExtensions.datepicker_format)" class="form-control">
+                            <span class="help-block m-b-none">@Resource.you_can_a_new_employee_code</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@Resource.To:</label>
+                        <div class="col-sm-10">
+                            <input id="to" type="text" value="@DateTime.Now.ToString(HMTLHelperExtensions.datepicker_format)" class="form-control">
+                            <span class="help-block m-b-none">@Resource.you_can_a_new_employee_code</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cancel_department_creation()" class="btn btn-default" data-dismiss="modal">@Resource.Close</button>
+                <button type="button" onclick="load_attendance_sheet()" class="btn btn-primary" data-dismiss="modal">@Resource.Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/datepicker/css")
+    @Styles.Render("~/bundles/datetimepicker/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/datepicker/js")
+    @Scripts.Render("~/bundles/datetimepicker/js")
+attendance-sheet-tbl
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#monthly_master_ref_Id').change(function () {
+                Load_Current_Month();
+            });
+            Load_Current_Month();
+        });
+        function load_attendance_sheet() {
+            
+            var loading_img = '<p style="text-align:center"><img width="2%" src="../../Vendor/blueimp-gallery/img/loading.gif" /><p/>';
+            var error_info = 'an error occurred while trying to load the Attendance Sheet.';
+            var container = $('#page-conainer');
+            container.empty();
+            container.append(loading_img);
+
+            var data = {};
+            data.Id = $('#employee_Id').val();
+            data.from = $('#from').val();
+            data.to = $('#to').val();
+            if ($('#monthly_master_ref_Id').val() < 0) {
+                data.monthly_master_ref_Id = null;
+            }
+            else {
+                data.monthly_master_ref_Id = $('#monthly_master_ref_Id').val();
+            }
+            data.UserId = $('#UserId').val();
+            data.Is_Current = null;
+            console.log(data);
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Employee_Details_Attendance_Sheet","Employees")';
+            ajaxoptions.data = data;
+            ajaxoptions.success = function (result) {
+                container.empty();
+                container.append(result);
+                Initialize_attendance_Tbl();
+                toaster('info', 'you applied a new search configuration !');
+                resetForm("#attendencesheet_frm");
+            };
+            ajaxoptions.error = function () {
+                container.empty();
+                container.append(error_info);
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Load_Current_Month() {
+            var ajaxoptions = {};
+            ajaxoptions.url = '@Url.Action("Range_Of_master_record","Setup")';
+            ajaxoptions.data = { monthly_master_ref_Id: $('#monthly_master_ref_Id').val()};
+            ajaxoptions.success = function (result) {
+                $('#from').val(result.from);
+                $('#to').val(result.to);
+                $('#from').datepicker();
+                $('#to').datepicker();
+                load_attendance_sheet();
+            };
+            ajaxoptions.error = function () {
+
+            };
+            $.ajax(ajaxoptions);
+        }
+        function Initialize_attendance_Tbl() {
+            $('#attendance-sheet-tbl').dataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    { extend: 'copy', className: 'btn-sm' },
+                    { extend: 'csv', title: '@ViewBag.Title', className: 'btn-sm' },
+                    { extend: 'pdf', title: '@ViewBag.Title', className: 'btn-sm', pageSize: 'LEGAL',Orientation:'Landscape' },
+                    { extend: 'print', className: 'btn-sm', pageSize: 'LEGAL', Orientation: 'Landscape' }
+                ]
+            });
+        }
+        function cancel_department_creation() {
+            toaster('warning', 'you canceled search, all previous configurations cleared!');
+            $('#employee_Id').val(-1);
+            $('#monthly_master_ref_Id').val(-1);
+            Load_Current_Month();
+            resetForm("#attendencesheet_frm");
+        }
+    </script>
+}  

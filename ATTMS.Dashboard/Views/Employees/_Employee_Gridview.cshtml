@@ -1,0 +1,34 @@
+﻿@using ATTMS.Dashboard.Resources  
+@using Models
+@model List<SP_Employee_Select_Result>
+
+
+<div class="row">
+    @foreach (var employee in Model)
+    {
+        <div class="col-lg-3">
+            <div class="hpanel hgreen contact-panel">
+                <div class="panel-body employee-element">
+                    <img alt="@employee.photo" class="img-circle m-b" src="@{Html.RenderAction("Load_Employee_Photo", "Employees", new { photo = employee.photo });}">
+                    <h3><a href="@Url.Action("Details", new {Id=employee.Id})"> @employee.name</a></h3>
+                    <div class="text-muted font-bold m-b-xs">@employee.job_title, @employee.department_title</div>
+                    <p>
+                        @if (employee.code != null && employee.code != "") {<b>@Resource.code:</b>@employee.code}
+                        @if (employee.ssn != null && employee.ssn != "") {<b>@Resource.SSN:</b>@employee.ssn}
+                        @if (employee.mobile != null && employee.mobile != "") {<b>@Resource.Mobile:</b>@employee.mobile}
+                        @if (employee.social_insurance_code != null && employee.social_insurance_code != "") {<b>@Resource.Social_Insurance_Code:</b>@employee.social_insurance_code}
+                        @if (employee.user_name != null && employee.user_name != "") {<b>@Resource.User_Name</b>@employee.user_name}
+                    </p>
+                </div>
+                <div class="panel-footer contact-footer">
+                    <div class="row">
+                        <div class="col-md-4 border-right"> <div class="contact-stat"><span>@Resource.Total_Worked_Hours </span> <strong>@employee.worked_hours</strong></div> </div>
+                        <div class="col-md-4 border-right"> <div class="contact-stat"><span>@Resource.Absence_Days </span> <strong>@employee.absence_total</strong></div> </div>
+                        <div class="col-md-4"> <div class="contact-stat"><span>@Resource.Deduction_Hours </span> <strong>@employee.total_deductions</strong></div> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    
+</div>

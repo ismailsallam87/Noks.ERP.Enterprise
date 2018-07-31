@@ -1,0 +1,72 @@
+﻿@using OTS.DAL
+@{
+    OTSEntities db = new OTSEntities();
+}
+<form action="#" class="form-horizontal">
+    <div class="form-body">
+        <div class="form-group">          
+            <label class="control-label col-md-2">From</label>
+            <div class="col-md-10">
+                <input class="form-control date-picker" id="from" type="text"/>               
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">To</label>
+            <div class="col-md-10">
+                <input class="form-control date-picker" id="to" type="text"/>              
+            </div>
+        </div>       
+        <div class="form-group">
+            <label class="control-label col-md-2">Project</label>
+            <div class="col-md-10">
+                <select id="project" class="form-control">
+                    <option value="-1">Please Select a Project</option>
+                    @foreach (var project in db.Projects.Where(m => m.Deleted != true).ToList())
+                    {
+                        <option value="@project.ID">@project.Project_Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Area</label>
+            <div class="col-md-10">
+                <select id="area" class="form-control">
+                    <option value="-1">Please Select a Area</option>
+                    @foreach (var area in db.Areas.ToList())
+                    {
+                        <option value="@area.ID">@area.Title</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Status</label>
+            <div class="col-md-10">
+                <select id="status" class="form-control">
+                    <option value="-1">Please Select a Status</option>
+                    @foreach (var status in db.Task_Generic_Status.ToList())
+                    {
+                        <option value="@status.ID">@status.Title</option>
+                    }
+                </select>               
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Account Name</label>
+            <div class="col-md-10">
+                <input type="text" placeholder="Account Name" id="Account_Name" class="form-control" />                
+            </div>
+        </div>       
+    </div>
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn green modal_submit" data-dismiss="modal" onclick="filter_Tasks()" aria-hidden="true"><i class="fa fa-pencil"></i> Submit</button>
+                    <button type="button" class="btn default modal_cancel" data-dismiss="modal" onclick="push_notification('Filter Task', 'The Operation of Filteration Tasks is canceled !', false)" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
